@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/08 16:59:50 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:42:19 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char **scan(char *input);
 t_tok *lexer(char **lexemes);
 
 e_type typify(e_label label);
-e_label label(char lexeme);
+e_label label(char *lexeme);
 bool is_not_space(char symbol);
 
 

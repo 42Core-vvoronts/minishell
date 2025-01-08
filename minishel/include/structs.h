@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:53 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/08 18:53:04 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:36:28 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 
 // Bastein's structs
-/* typedef enum e_token_type
+/* typedef enum e_type
 {
-	TOKEN_WORD = 1,
-	TOKEN_PIPE,
-	TOKEN_REDIRECT_IN,
-	TOKEN_REDIRECT_OUT,
-	TOKEN_REDIRECT_APPEND,
-}							t_token_type; */
+	WORD = 1,
+	PIPE,
+	REDIRECT_IN,
+	REDIRECT_OUT,
+	REDIRECT_APPEND,
+}							t_type; */
 
 
 
@@ -32,20 +32,24 @@ typedef enum e_type
 	OPERATOR
 } e_type;
 
-typedef enum e_label
-{
-	LETTER,
-	DIGIT, // 0-9
-
-	
-	SPACE, // whitespace
-	MATH,
-	COMMAND, // cat, ls 
-	LITERAL, // string
-	ARGUMENT, // ??
-	PIPE, // |
-	REDIRECTION // < >
+typedef enum e_label {
+    PIPE,          // '|'
+    INPUT,         // '<'
+    OUTPUT,        // '>'
+    APPEND,        // '>>'
+    HEREDOC,       // '<<'
+    LITERAL,       // General word (letters, digits, '_')
+    ENV_VAR,       // '$<word>'
+    STATUS_VAR,    // '$?'
+    QUOTE_SINGLE,  // '\''
+    QUOTE_DOUBLE,  // '"'
+    BUILTIN,       // Builtins like "echo", "cd", etc.
+    ASSIGNMENT,    // '<word>=<word>'
+    PATH,          // Absolute or relative path
+    ERROR,         // Invalid characters
+    END            // End of input
 } e_label;
+
 
 
 typedef struct s_tok
