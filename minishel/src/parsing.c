@@ -6,25 +6,33 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:06:02 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/08 16:59:00 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:37:55 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishel.h"
 
-const char *get_label_name(e_label label) {
+const char *get_label_name(e_label label) 
+{
     switch (label) {
-        case SPACE: return "SPACE";
-        case MATH: return "MATH";
-        case COMMAND: return "COMMAND";
-        case LITERAL: return "LITERAL";
-        case ARGUMENT: return "ARGUMENT";
         case PIPE: return "PIPE";
-        case REDIRECTION: return "REDIRECTION";
+        case INPUT: return "INPUT";
+        case OUTPUT: return "OUTPUT";
+        case APPEND: return "APPEND";
+        case HEREDOC: return "HEREDOC";
+        case LITERAL: return "LITERAL";
+        case ENV_VAR: return "ENV_VAR";
+        case STATUS_VAR: return "STATUS_VAR";
+        case QUOTE_SINGLE: return "QUOTE_SINGLE";
+        case QUOTE_DOUBLE: return "QUOTE_DOUBLE";
+        case BUILTIN: return "BUILTIN";
+        case ASSIGNMENT: return "ASSIGNMENT";
+        case PATH: return "PATH";
+        case ERROR: return "ERROR";
+        case END: return "END";
         default: return "UNKNOWN";
     }
 }
-
 
 int parsing(char *input)
 {
