@@ -1,13 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/08 13:05:47 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/08 13:05:50 by vvoronts         ###   ########.fr       */
+/*   Created: 2024/09/02 19:45:20 by vvoronts          #+#    #+#             */
+/*   Updated: 2024/09/04 17:22:12 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishel.h"
+#include "libft.h"
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char	*d;
+	unsigned char	*s;
+
+	if (!dest && !src)
+		return ((void *)0);
+	d = dest;
+	s = (unsigned char *)src;
+	while (n--)
+		*d++ = *s++;
+	return (dest);
+}

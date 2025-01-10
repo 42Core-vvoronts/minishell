@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:53 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/08 19:36:28 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:46:14 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,15 @@
 	REDIRECT_IN,
 	REDIRECT_OUT,
 	REDIRECT_APPEND,
-}							t_type; */
+}							t_type; 
+typedef enum e_token_type
+{
+	TOKEN_WORD = 1,
+	TOKEN_PIPE,
+	TOKEN_REDIRECT_IN,
+	TOKEN_REDIRECT_OUT,
+	TOKEN_REDIRECT_APPEND,
+}*/
 
 
 
@@ -45,7 +53,7 @@ typedef enum e_label {
     QUOTE_DOUBLE,  // '"'
     BUILTIN,       // Builtins like "echo", "cd", etc.
     ASSIGNMENT,    // '<word>=<word>'
-    PATH,          // Absolute or relative path
+    PATH,          // Absol ute or relative path
     ERROR,         // Invalid characters
     END            // End of input
 } e_label;
