@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/01/10 17:17:21 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/01/10 17:28:05 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRCS 				=	minishel.c \
 						parsing.c \
 						scanner.c \
 						lexer.c \
-						expander.c \
 						syntaxer.c \
 						
 
