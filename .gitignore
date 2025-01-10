@@ -1,0 +1,21 @@
+# IDE
+.vscode
+
+# program
+minishell
+
+# objects and dependancies
+**/dep/*
+**/obj/*
+*.d
+*.o
+
+# Tests
+tests
+
+# trashy
+.DS_store
+*.txt
+*.py
+*.md
+*.lldb
