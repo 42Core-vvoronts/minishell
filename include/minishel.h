@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/08 19:42:19 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:35:32 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 
 # include "structs.h"
 # include "libft.h"
+# include "ft_printf.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 # include <ctype.h>
+# include <string.h>
 # include <stdbool.h>
+# include <string.h>    // strlen
+# include <stdlib.h>    // exit
+# include <unistd.h>    // syscalls
+# include <readline/readline.h>
+# include <readline/history.h>
 
 int parsing(char *input);
 void print_tokens(t_tok *tokens);

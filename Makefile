@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/01/10 17:28:05 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/01/12 14:48:24 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC					=	cc
 CFLAGS				=	-Wall -Wextra -Werror -g -MMD -MF
 RM					=	rm -rf
-NAME				=	minishel
+NAME				=	minishell
 
 
 INCLUDE_DIRS		=	./include \
@@ -26,7 +26,7 @@ VPATH				=	./src \
 INCLUDE				=	$(addprefix -I, $(INCLUDE_DIRS))
 
 
-SRCS 				=	minishel.c \
+SRCS 				=	minishell.c \
 						parsing.c \
 						scanner.c \
 						lexer.c \
@@ -34,6 +34,8 @@ SRCS 				=	minishel.c \
 						
 
 LIBS 				=	./lib/libft/libft.a \
+						./lib/ft_printf/ft_printf.a \
+						-lreadline
 
 
 OBJ				=	$(SRCS:%.c=obj/$(NAME)/%.o)
@@ -82,5 +84,5 @@ re: fclean all
 .PHONY: all clean fclean re libs
 .DEFAULT_GOAL := all
 
-# Include the DEPendency files
+# Include the dependency files
 -include $(DEP)
