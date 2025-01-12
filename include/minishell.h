@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.h                                         :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/12 14:35:32 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/12 15:00:21 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHEL_H
-# define MINISHEL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include "structs.h"
 # include "libft.h"

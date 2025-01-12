@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.c                                         :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:05:34 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/12 14:32:21 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:59:41 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishel.h"
+#include "minishell.h"
 
 int main(int argc, char **argv) {
     char *cmdline;
-    char prompt[] = "minishel$ ";
+    char prompt[] = "minishell$ ";
 
     if (argc == 2) 
 	{
@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
             exit(0);
         }
         if (*cmdline) {
-            // add_history(cmdline);
+            // history(cmdline);
             parsing(cmdline);
             // execution();
         }

@@ -6,21 +6,29 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:05:42 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/08 19:47:24 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:59:05 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishel.h"
+#include "minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+char	**scan(char *input)
 {
-	while (*s1 && *s2 && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return ((unsigned char)*s1 - (unsigned char)*s2);
+	char **lexemes;
+	lexemes = ft_split(input, ' ');
+
+	return lexemes;
 }
+
+// int	ft_strcmp(const char *s1, const char *s2)
+// {
+// 	while (*s1 && *s2 && *s1 == *s2)
+// 	{
+// 		s1++;
+// 		s2++;
+// 	}
+// 	return ((unsigned char)*s1 - (unsigned char)*s2);
+// }
 
 e_label label(char *lexeme) 
 {

@@ -6,11 +6,11 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/08 19:27:07 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/12 14:58:25 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishel.h"
+#include "minishell.h"
 
 t_ast *addnode(char operator, e_label label)
 {

@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/01/12 14:48:24 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/01/12 14:58:14 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS 				=	minishell.c \
 						scanner.c \
 						lexer.c \
 						syntaxer.c \
+						printer.c \
 						
 
 LIBS 				=	./lib/libft/libft.a \
