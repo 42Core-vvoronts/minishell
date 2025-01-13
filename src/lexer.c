@@ -6,33 +6,17 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:05:42 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/12 14:59:05 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:56:46 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**scan(char *input)
-{
-	char **lexemes;
-	lexemes = ft_split(input, ' ');
-
-	return lexemes;
-}
-
-// int	ft_strcmp(const char *s1, const char *s2)
-// {
-// 	while (*s1 && *s2 && *s1 == *s2)
-// 	{
-// 		s1++;
-// 		s2++;
-// 	}
-// 	return ((unsigned char)*s1 - (unsigned char)*s2);
-// }
-
 e_label label(char *lexeme) 
 {
-    if (ft_strcmp(lexeme, "|") == 0) return PIPE;
+	if (ft_strlen(lexeme) == 1 && ft_strcmp(lexeme, "|") == 0) return PIPETOK;
+	else return LITERAL;
+	
     if (ft_strcmp(lexeme, "<") == 0) return INPUT;
     if (ft_strcmp(lexeme, ">") == 0) return OUTPUT;
     if (ft_strcmp(lexeme, ">>") == 0) return APPEND;
@@ -48,19 +32,21 @@ e_label label(char *lexeme)
     return LITERAL;
 }
 
-e_type typify(e_label label)
+e_cmd typify(e_label token)
 {
-	if (label == LITERAL)
-		return WORD;
-	return OPERATOR;
+	if (token == PIPETOK)
+		return PIPE;
+	return EXEC;
 }
 
-t_tok *lexer(char **lexemes)
+t_tok *lexer(char *cmdline)
 {
     t_tok *tokens = NULL;
     t_tok *curtok = NULL;
     t_tok *newtok = NULL;
-
+	char **lexemes;
+	
+	lexemes = ft_split(cmdline, ' ');
     // Process each lexeme in the array
     while (*lexemes)
     {
