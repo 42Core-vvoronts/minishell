@@ -6,14 +6,14 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/12 15:00:21 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:43:53 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "structs.h"
+# include "constants.h"
 # include "libft.h"
 # include "ft_printf.h"
 
@@ -27,17 +27,21 @@
 # include <readline/history.h>
 
 int parsing(char *input);
-void print_tokens(t_tok *tokens);
-void print_ast(t_ast *ast, int depth);
-t_ast *parse(t_tok *tok);
-t_ast *create_tree(t_tok **tok, int precedence);
 
-char **scan(char *input);
-t_tok *lexer(char **lexemes);
-
-e_type typify(e_label label);
+// Lexer
+t_tok *lexer(char *cmdline);
+e_cmd typify(e_label label);
 e_label label(char *lexeme);
 bool is_not_space(char symbol);
+// Syntaxer
+t_ast *syntax(t_tok *tok);
+t_ast *create_tree(t_tok **tok, int precedence);
+t_ast *addnode(t_tok *tok);
 
+
+
+// Supply, to delete later
+void print_tokens(t_tok *tokens);
+void print_ast(t_ast *ast, int depth);
 
 #endif

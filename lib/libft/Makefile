@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/02 16:48:06 by ipetrov           #+#    #+#              #
-#    Updated: 2025/01/12 15:05:06 by vvoronts         ###   ########.fr        #
+#    Created: 2025/01/13 16:30:45 by vvoronts          #+#    #+#              #
+#    Updated: 2025/01/13 16:33:46 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ OBJS := $(SRCS:.c=.o)
 BOBJS := $(BSRCS:.c=.o)
 DEPS := libft.h
 
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror 
+#-g -MMD -MF
 
 a: all bonus
 	@echo "Building $(NAME) ..."
@@ -57,3 +58,5 @@ re:	fclean all
 
 .PHONY: all clean fclean re bonus
 .DEFAULT_GOAL := a
+
+# -include $(OBJS:.o=.d)

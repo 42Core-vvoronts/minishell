@@ -6,12 +6,12 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/01/12 14:58:14 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/01/13 18:35:33 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Variables
-CC					=	cc
+CC					=	gcc
 CFLAGS				=	-Wall -Wextra -Werror -g -MMD -MF
 RM					=	rm -rf
 NAME				=	minishell
@@ -28,7 +28,6 @@ INCLUDE				=	$(addprefix -I, $(INCLUDE_DIRS))
 
 SRCS 				=	minishell.c \
 						parsing.c \
-						scanner.c \
 						lexer.c \
 						syntaxer.c \
 						printer.c \

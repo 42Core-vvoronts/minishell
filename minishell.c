@@ -6,38 +6,40 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:05:34 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/12 14:59:41 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:31:36 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv) 
+{
     char *cmdline;
     char prompt[] = "minishell$ ";
 
     if (argc == 2) 
-	{
+    {
         parsing(argv[1]);
         // execution();
         return 0;
     }
 
     while (true) 
-	{
+    {
         cmdline = readline(prompt);
-        if (!cmdline) {
+        if (!cmdline) 
+        {
             ft_printf("\n");
-            exit(0);
-        }
-        if (*cmdline) {
-            // history(cmdline);
-            parsing(cmdline);
-            // execution();
-        }
+            exit(1); 
+		}
+        
+        // history(cmdline);   
+        parsing(cmdline);
+        // execution();
         free(cmdline);
     }
 }
+
 
 // int main(int argc, char **argv)
 // {

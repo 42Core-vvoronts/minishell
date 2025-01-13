@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:53 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/10 16:46:14 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/13 18:14:29 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTS_H
-# define STRUCTS_H
+#ifndef CONSTANTS_H
+# define CONSTANTS_H
 
+// char WHITESPACE[] = " \t\n\r\v\f";
 
 // Bastein's structs
 /* typedef enum e_type
@@ -32,37 +33,38 @@ typedef enum e_token_type
 	TOKEN_REDIRECT_APPEND,
 }*/
 
-
-
-typedef enum e_type
+typedef enum e_cmd
 {
-	WORD,
-	OPERATOR
-} e_type;
+	EXEC,
+	REDIRECTION,
+	PIPE,
+// LIST, for ;
+// BACK
+}	e_cmd;
 
-typedef enum e_label {
-    PIPE,          // '|'
+typedef enum e_label
+{
+    PIPETOK,       // '|'
+    LITERAL,       // General word (letters, digits, '_')
+	
     INPUT,         // '<'
     OUTPUT,        // '>'
     APPEND,        // '>>'
     HEREDOC,       // '<<'
-    LITERAL,       // General word (letters, digits, '_')
     ENV_VAR,       // '$<word>'
     STATUS_VAR,    // '$?'
     QUOTE_SINGLE,  // '\''
     QUOTE_DOUBLE,  // '"'
     BUILTIN,       // Builtins like "echo", "cd", etc.
     ASSIGNMENT,    // '<word>=<word>'
-    PATH,          // Absol ute or relative path
+    PATH,          // Absolute or relative path
     ERROR,         // Invalid characters
     END            // End of input
 } e_label;
 
-
-
 typedef struct s_tok
 {
-	e_type			type;
+	e_cmd			type;
 	e_label			label;
 	char			*lexeme;
 	struct s_tok	*next;
@@ -70,10 +72,14 @@ typedef struct s_tok
 
 typedef struct s_ast
 {
-	e_label			label;
-	char 			operator;
-	struct s_ast	*left;
-	struct s_ast	*right;
+	e_cmd 		type;
+	t_tok		*tok;
+	char		*cmd;
+	char		*args;
+	struct s_ast		*left;
+	struct s_ast		*right;
 } t_ast;
+
+
 
 #endif
