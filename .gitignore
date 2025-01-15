@@ -9,6 +9,7 @@ minishell
 **/obj/*
 *.d
 *.o
+*.a
 
 # Tests
 tests
