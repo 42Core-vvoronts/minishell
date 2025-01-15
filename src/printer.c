@@ -1,35 +1,45 @@
 #include "minishell.h"
 
-const char *get_label_name(e_label label) 
-{
-    switch (label) {
-        case PIPETOK: return "PIPE";
-        case LITERAL: return "LITERAL";
-        default: return "UNKNOWN";
-    }
-}
 
-const char *get_cmd_name(e_cmd cmd) 
+const char *get_name(e_type cmd) 
 {
-	switch (cmd) {
-		case EXEC: return "EXEC";
-		case REDIRECTION: return "REDIRECTION";
-		case PIPE: return "PIPE";
-		default: return "UNKNOWN";
+	switch (cmd) 
+	{
+		case GROUP:
+			return "GROUP";
+		case AND:
+			return "AND";
+		case OR:
+			return "OR";
+		case PIPE:
+			return "PIPE";
+		case INPUT:
+			return "INPUT";
+		case OUTPUT:
+			return "OUTPUT";
+		case APPEND:
+			return "APPEND";
+		case HEREDOC:
+			return "HEREDOC";
+		case EXEC:
+			return "EXEC";
+		case WORD:
+			return "WORD";
 	}
+	return "UNDEFINED";
 }
 
-void print_tokens(t_tok *tokens)
+void print_tokens(t_tok *token)
 {
-	while (tokens)
+	while (token)
 	{
 		// if (tokens->type == WORD)
 		// 	printf("Word: %s\n", tokens->lexeme);
 		// else if (tokens->type == OPERATOR)
 		// 	printf("Operator: %s\n", tokens->lexeme);
-		printf("%s: %s\n", get_label_name(tokens->label), tokens->lexeme);
+		printf("%s: %s\n", get_name(token->type), token->lexeme);
 
-		tokens = tokens->next;
+		token = token->next;
 	}
 }
 
@@ -45,7 +55,7 @@ void print_ast(t_ast *ast, int depth)
 
     if (ast->tok) 
     {
-        printf("Node %d - Type: %s, Cmd: %s, args: %s\n", depth, get_cmd_name(ast->type), ast->cmd, ast->args);
+        printf("Node %d - Type: %s, Cmd: %s, args: %s\n", depth, get_name(ast->type), ast->cmd, ast->args);
     } 
     else 
     {

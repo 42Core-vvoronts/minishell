@@ -6,38 +6,47 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:05:42 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/13 18:56:46 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/15 18:16:37 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-e_label label(char *lexeme) 
+static int is_builtin(const char *lexeme) 
 {
-	if (ft_strlen(lexeme) == 1 && ft_strcmp(lexeme, "|") == 0) return PIPETOK;
-	else return LITERAL;
-	
+    const char *builtins[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+    size_t i = 0;
+
+    while (i < sizeof(builtins) / sizeof(builtins[0])) 
+	{
+        if (strcmp(lexeme, builtins[i]) == 0) {
+            return 1; 
+        }
+        i++;
+    }
+    return 0;
+}
+e_type label(char *lexeme) 
+{
+	if (ft_strcmp(lexeme, "(") == 0 || ft_strcmp(lexeme, ")") == 0) return GROUP;
+	if (ft_strcmp(lexeme, "&&") == 0) return AND;
+	if (ft_strcmp(lexeme, "||") == 0) return OR;
+	if (ft_strcmp(lexeme, "|") == 0) return PIPE;
     if (ft_strcmp(lexeme, "<") == 0) return INPUT;
     if (ft_strcmp(lexeme, ">") == 0) return OUTPUT;
     if (ft_strcmp(lexeme, ">>") == 0) return APPEND;
     if (ft_strcmp(lexeme, "<<") == 0) return HEREDOC;
-    if (ft_strcmp(lexeme, "$?") == 0) return STATUS_VAR;
-    if (lexeme[0] == '$' && ft_isalpha(lexeme[1])) return ENV_VAR;
-    if (lexeme[0] == '\'') return QUOTE_SINGLE;
-    if (lexeme[0] == '"') return QUOTE_DOUBLE;
-    if (ft_isalpha(lexeme[0])) return BUILTIN;
-    if (strchr(lexeme, '=') != NULL) return ASSIGNMENT;
-    if (strchr(lexeme, '/') != NULL) return PATH;
-    if (strlen(lexeme) == 0 || !isprint(lexeme[0])) return ERROR;
-    return LITERAL;
+	if ((is_builtin(lexeme)))
+		return EXEC;	
+	else return WORD;
 }
 
-e_cmd typify(e_label token)
-{
-	if (token == PIPETOK)
-		return PIPE;
-	return EXEC;
-}
+// e_cmd typify(e_label token)
+// {
+// 	if (token == PIPETOK)
+// 		return PIPE;
+// 	return EXEC;
+// }
 
 t_tok *lexer(char *cmdline)
 {
@@ -53,8 +62,8 @@ t_tok *lexer(char *cmdline)
         // Process current lexeme
         newtok = malloc(sizeof(t_tok));
         newtok->lexeme = *lexemes; 
-		newtok->label = label((*lexemes)); 
-        newtok->type = typify(newtok->label); 
+		newtok->type = label((*lexemes)); 
+        // newtok->type = typify(newtok->type); 
         newtok->next = NULL;
 
         if (tokens == NULL)

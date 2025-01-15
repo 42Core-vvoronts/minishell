@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/13 19:43:53 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/15 18:04:22 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int parsing(char *input);
 
 // Lexer
 t_tok *lexer(char *cmdline);
-e_cmd typify(e_label label);
-e_label label(char *lexeme);
+// e_cmd typify(e_label label);
+e_type label(char *lexeme);
 bool is_not_space(char symbol);
 // Syntaxer
 t_ast *syntax(t_tok *tok);
