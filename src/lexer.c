@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:05:42 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/15 18:16:37 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/19 14:29:30 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int is_builtin(const char *lexeme) 
 {
-    const char *builtins[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+    const char *builtins[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit", "cat"};
     size_t i = 0;
 
     while (i < sizeof(builtins) / sizeof(builtins[0])) 
@@ -32,21 +32,17 @@ e_type label(char *lexeme)
 	if (ft_strcmp(lexeme, "&&") == 0) return AND;
 	if (ft_strcmp(lexeme, "||") == 0) return OR;
 	if (ft_strcmp(lexeme, "|") == 0) return PIPE;
-    if (ft_strcmp(lexeme, "<") == 0) return INPUT;
-    if (ft_strcmp(lexeme, ">") == 0) return OUTPUT;
-    if (ft_strcmp(lexeme, ">>") == 0) return APPEND;
+    if ((ft_strcmp(lexeme, "<") == 0) || (ft_strcmp(lexeme, ">") == 0) || (ft_strcmp(lexeme, ">>") == 0))
+		return REDIR;
     if (ft_strcmp(lexeme, "<<") == 0) return HEREDOC;
+	if (ft_strcmp(lexeme, "\"") == 0) return DOUBLE_QUOTE;
+	if (ft_strcmp(lexeme, "'") == 0) return SINGLE_QUOTE;
+	if (lexeme[0] == '$' && lexeme[1] != '\0')
+		return VARIABLE;
 	if ((is_builtin(lexeme)))
-		return EXEC;	
-	else return WORD;
+		return COMMAND;	
+	else return ARGUMENT;
 }
-
-// e_cmd typify(e_label token)
-// {
-// 	if (token == PIPETOK)
-// 		return PIPE;
-// 	return EXEC;
-// }
 
 t_tok *lexer(char *cmdline)
 {
@@ -78,4 +74,3 @@ t_tok *lexer(char *cmdline)
 
     return tokens;
 }
-
