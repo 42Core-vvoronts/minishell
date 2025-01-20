@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/20 14:21:27 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/01/20 17:10:33 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define MINISHELL_H
 
 # include "constants.h"
-# include "libft.h"
-# include "ft_printf.h"
+# include "../lib/elibft/include/elibft.h"
 
 # include <ctype.h>
+# include <fcntl.h>
 # include <string.h>
 # include <stdbool.h>
 # include <string.h>    // strlen
@@ -53,7 +53,16 @@ t_ast *addnode(t_tok *tok);
 // -- ERROR --
 
 
+//execution
+int run_cmd(t_ctx *ctx, char **argv);
+char *get_validpath(t_ctx *ctx, char **argv);
+char *get_varvalue(t_ctx *ctx, char *varname);
 
+//redirection
+int	redir_in(char *pathname);
+
+//error
+void error(t_ctx *ctx, t_error error);
 
 // DELETE
 void print_tokens(t_tok *tokens);
