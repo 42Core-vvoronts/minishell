@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/02 16:48:06 by ipetrov           #+#    #+#              #
-#    Updated: 2025/01/10 17:17:54 by vvoronts         ###   ########.fr        #
+#    Created: 2025/01/13 16:30:45 by vvoronts          #+#    #+#              #
+#    Updated: 2025/01/13 16:33:46 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS := ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 	ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c \
 	ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
 	ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
-	ft_putendl_fd.c ft_putnbr_fd.c 
+	ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c
 
 
 BSRCS := ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c \
@@ -31,7 +31,8 @@ OBJS := $(SRCS:.c=.o)
 BOBJS := $(BSRCS:.c=.o)
 DEPS := libft.h
 
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror 
+#-g -MMD -MF
 
 a: all bonus
 	@echo "Building $(NAME) ..."
@@ -57,3 +58,5 @@ re:	fclean all
 
 .PHONY: all clean fclean re bonus
 .DEFAULT_GOAL := a
+
+# -include $(OBJS:.o=.d)
