@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:19:41 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/01/20 18:30:12 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/01/20 19:24:44 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ int	main(int argc, char **argv, char **envp)
 	}
 
 	// tree = parsing("/bin/cat f1.txt | /bin/cat");
-	tree = parsing("/bin/ls / | /bin/cat | /bin/cat");
+	tree = parsing("/bin/ls .. | > f1.txt /bin/cat > f2.txt | /bin/cat");
 	traverse_ast(tree, ctx);
 	// run_pipeline(ctx, NULL);
 	// run_cmd(ctx, cmd);
 
-	wait(NULL);
+	wait(NULL); //add loop to wait all of them an colletc pid
+
+	//here tests to conirm that stdina dn out restored
 	printf("\ntest STDOUT\n");
 	char test[50];
 	scanf("stdin: %s\n", test);

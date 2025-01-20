@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/20 17:10:33 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/01/20 19:21:29 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@
 # include <unistd.h>    // syscalls
 # include <readline/readline.h>
 # include <readline/history.h>
+
+
+typedef struct s_ctx
+{
+	char **envp;
+	char *ttyname;
+	char **argv;
+	pid_t last_child;
+} t_ctx;
 
 // -- INIT --
 

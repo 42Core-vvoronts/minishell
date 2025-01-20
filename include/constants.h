@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:53 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/20 17:09:54 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/01/20 19:21:28 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,7 @@ typedef struct s_pipe
 	int write;
 } t_pipe;
 
-typedef struct s_ctx
-{
-	char **envp;
-	char *ttyname;
-	char **argv;
-} t_ctx;
+
 
 // -- CONTEXT/META --
 // typedef struct s_meta

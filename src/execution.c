@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:01:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/01/20 18:27:55 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/01/20 19:21:26 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ char **add_arg(char **old, char *word)
 	new[i] = NULL;
 	return (new);
 }
-
 
 void open_pipe(t_pipe *p)
 {
@@ -67,6 +66,30 @@ void	process_before_left(t_ast *node, t_ctx *ctx, void **param)
 	{
 		ctx->argv = add_arg(ctx->argv, node->token);
 	}
+	else if (node->type == REDIR_OUT)
+	{
+		int fd;
+		fd = open(node->right->token, O_WRONLY | O_CREAT, 0777); //check by access here?? before open
+		//expand here as well
+		dup2(fd, STDOUT_FILENO);
+		node->right = node->right->right;
+	}
+	else if (node->type == REDIR_IN)
+	{
+		int fd;
+		fd = open(node->right->token, O_RDONLY);
+		//expand here as well
+		dup2(fd, STDIN_FILENO);
+		node->right = node->right->right;
+	}
+	else if (node->type == REDIR_APPEND)
+	{
+		int fd;
+		fd = open(node->right->token, O_WRONLY | O_APPEND | O_CREAT, 0777);
+		//expand here as well
+		dup2(fd, STDOUT_FILENO);
+		node->right = node->right->right;
+	}
 }
 
 
@@ -87,10 +110,8 @@ void	process_before_right(t_ast *node, t_ctx *ctx, void **param)
 		//chenge stdin
 		dup2(p->read, STDIN_FILENO);
 	}
-	else if (node->type == WORD)
+	else if (node->right == NULL) //before here was WORD not NULL
 	{
-		if (node->right == NULL)
-		{
 			pid_t pid;
 			pid = fork();
 
@@ -103,8 +124,8 @@ void	process_before_right(t_ast *node, t_ctx *ctx, void **param)
 			}
 			ft_parrclean(0, free, ctx->argv, NULL);
 			ctx->argv = NULL;
+			ctx->last_child = pid;
 			// execv or eval (builtin) ctx->argv
-		}
 	}
 	return ;
 }
@@ -123,6 +144,30 @@ void	process_on_way_back(t_ast *node, t_ctx *ctx, void **param)
 		dup2(fd, STDIN_FILENO);
 		close(fd);
 		close_pipe(p);
+	}
+	else if (node->type == REDIR_OUT)
+	{
+		int fd;
+		//restore stdin
+		fd = open(ctx->ttyname, O_RDWR);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+	}
+	else if (node->type == REDIR_IN)
+	{
+		int fd;
+		//restore stdin
+		fd = open(ctx->ttyname, O_RDWR);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
+	else if (node->type == REDIR_APPEND)
+	{
+		int fd;
+		//restore stdin
+		fd = open(ctx->ttyname, O_RDWR);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
 	}
 	return ;
 }
