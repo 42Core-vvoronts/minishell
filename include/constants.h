@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:53 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/20 10:46:08 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:09:54 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
+
 
 // -- TOKEN --
 typedef enum e_quotes_type
@@ -35,9 +36,22 @@ typedef enum t_type
 	REDIR_HEREDOC
 }	t_type;
 
+typedef enum e_error
+{
+	MALLOC,
+	CMD_NOT_FOUND,
+	ERRNO,
+	FORK,
+	OPEN,
+	DUP2,
+	GNL,
+	FILE_NOT_FOUND,
+
+}	t_error;
+
 // typedef enum t_type
 // {
-// 	AND, 
+// 	AND,
 // 	OR,
 // 	GROUP_OPEN,
 // 	GROUP_CLOSE,
@@ -46,8 +60,8 @@ typedef enum t_type
 //     HEREDOC,
 // 	COMMAND,
 //     ARGUMENT,
-// 	DOUBLE_QUOTE, 
-// 	SINGLE_QUOTE, 
+// 	DOUBLE_QUOTE,
+// 	SINGLE_QUOTE,
 // 	VARIABLE
 // } t_type;
 
@@ -81,6 +95,18 @@ typedef struct s_ast
 	struct s_ast	*right;
 } t_ast;
 
+typedef struct s_pipe
+{
+	int read;
+	int write;
+} t_pipe;
+
+typedef struct s_ctx
+{
+	char **envp;
+	char *ttyname;
+	char **argv;
+} t_ctx;
 
 // -- CONTEXT/META --
 // typedef struct s_meta
