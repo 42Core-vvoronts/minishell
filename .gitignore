@@ -12,7 +12,7 @@ minishell
 *.a
 
 # Tests
-tests
+# tests
 
 # trashy
 .DS_store
