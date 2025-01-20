@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/01/19 11:06:44 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/01/19 16:44:34 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,9 @@ LIB 				=	\
 # Source files
 SRC 				=	\
 						minishell.c \
-						parsing.c \
+						parser.c \
 						lexer.c \
+						validator.c \
 						syntaxer.c \
 						printer.c \
 						

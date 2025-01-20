@@ -21,11 +21,23 @@ make
 
 ## Usage
 
-Run the shell:
+Compile the shell:
+```sh
+make
+```
 
+Run the shell:
 ```sh
 ./minishel
 ```
+
+Run cmdline:
+```sh
+<< EOF cat | ls $VAR1 / >> file2.txt | echo $ENV2 | cat | cat
+```
+
+Result:
+![alt text](image.png)
 
 ## License
 

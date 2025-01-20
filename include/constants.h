@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:53 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/19 14:34:51 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/20 10:46:08 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,73 @@
 # define CONSTANTS_H
 
 // -- TOKEN --
-typedef enum e_type
+typedef enum e_quotes_type
 {
-	AND, 
+	BARE,
+	SINGLE,
+	DOUBLE
+} t_quotes_type;
+
+typedef enum t_type
+{
+	AND,
 	OR,
-	GROUP,
-    PIPE,
-    REDIR,
-    HEREDOC,
-	COMMAND,
-    ARGUMENT,
-	DOUBLE_QUOTE, 
-	SINGLE_QUOTE, 
-	VARIABLE
-} e_type;
+	LPAR,
+	RPAR,
+	PIPE,
+	WORD,
+	REDIR_IN,
+	REDIR_OUT,
+	REDIR_APPEND,
+	REDIR_HEREDOC
+}	t_type;
+
+// typedef enum t_type
+// {
+// 	AND, 
+// 	OR,
+// 	GROUP_OPEN,
+// 	GROUP_CLOSE,
+//     PIPE,
+//     REDIR,
+//     HEREDOC,
+// 	COMMAND,
+//     ARGUMENT,
+// 	DOUBLE_QUOTE, 
+// 	SINGLE_QUOTE, 
+// 	VARIABLE
+// } t_type;
 
 typedef struct s_tok
 {
-	e_type			type;
+	t_type			type;
 	char			*lexeme;
 	struct s_tok	*next;
 } t_tok;
 // typedef struct s_tok
 // {
-// 	e_type			type;
+// 	t_type			type;
 // 	char			*start;
 // 	char			*end;
 // 	struct s_tok	*next;
 // } t_tok;
 
 // -- AST --
+typedef struct s_args
+{
+	char			*arg;
+	struct s_args	*next;
+}	t_args;
+
 typedef struct s_ast
 {
-	e_type		type;
-	t_tok		*tok;
-	char		*cmd;
-	char		*args;
-	struct s_ast		*left;
-	struct s_ast		*right;
+	t_type			type;
+	char			*token;
+	t_args			*args;
+	struct s_ast	*left;
+	struct s_ast	*right;
 } t_ast;
+
 
 // -- CONTEXT/META --
 // typedef struct s_meta
@@ -61,6 +89,7 @@ typedef struct s_ast
 // 	ast;
 // 	stdin??
 // 	stdout??
+// 	stderr??
 // 	error
 // 	child??
 // } t_meta;

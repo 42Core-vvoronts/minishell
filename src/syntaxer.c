@@ -6,16 +6,11 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/13 19:34:25 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/20 13:08:32 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "minishell.h"
-#include <stdio.h>  // For debugging
-
-#include "minishell.h"
-#include <stdio.h>
 
 t_ast *addnode(t_tok *tok)
 {
@@ -25,123 +20,236 @@ t_ast *addnode(t_tok *tok)
     t_ast *node = malloc(sizeof(t_ast));
 
     node->type = tok->type;
-    node->tok = tok;
-    node->cmd = tok->lexeme;  // Command/Token lexeme ("cat", "|", etc.)
-    node->args = NULL;        // Not used in this case
+    node->token = tok->lexeme;
+    node->args = NULL;
     node->left = NULL;
     node->right = NULL;
     return node;
 }
 
-int get_precedence(char op)
-{
-    if (op == '|') 
-        return 1;
-    return 0;  // No precedence for non-pipe operators in this example
-}
+// int get_precedence(e_type type)
+// {
+// 	if (type == AND || type == OR)
+// 		return 0;
+// 	if (type == GROUP_OPEN || type == GROUP_CLOSE)
+// 		return 1;
+// 	if (type == PIPE) 
+// 		return 1;
+// 	if (type == REDIR || type == HEREDOC)
+// 		return 2;
+// 	if (type == COMMAND)
+// 		return 3;
+// 	if (type == ARGUMENT)
+// 		return 4;
+// 	return 6;
+// }
 
-t_ast *create_tree(t_tok **tok, int precedence)
+t_ast *create_tree(t_tok **tok)
 {
-    if (!tok || !*tok) 
-	{
+    if (!tok || !*tok)
         return NULL;
-    }
-    // Create the first node (could be LITERAL or PIPE)
-    t_ast *left = addnode(*tok);
-    *tok = (*tok)->next;
 
-    // Handle the operators and respect precedence
-    while (*tok && get_precedence((*tok)->lexeme[0]) >= precedence) 
-	{
-        char op = (*tok)->lexeme[0];  // Get the operator
+    t_tok *current = *tok;
+    t_tok *first_pipe = NULL;
+    t_tok *prev = NULL;
 
-        // Create an operator node
-        t_ast *op_node = addnode(*tok);
-        *tok = (*tok)->next;
-
-        // Process the right-hand side (recursive call to handle precedence)
-        t_ast *right = create_tree(tok, get_precedence(op) + 1);
-        if (!right) return NULL;
-
-        // Link the operator node with the left and right children
-        op_node->left = left;
-        op_node->right = right;
-        left = op_node; 
+    // Find the first PIPE in the list
+    while (current)
+    {
+        if (current->type == PIPE)
+        {
+            first_pipe = current;
+            break;
+        }
+        prev = current;
+        current = current->next;
     }
 
-    return left;
+    // Base case: no PIPE found, build a subtree for a single command and its arguments
+    if (!first_pipe)
+    {
+        t_ast *cmd_node = NULL;
+        t_ast *arg_node = NULL;
+
+        // First token is the command
+        cmd_node = malloc(sizeof(t_ast));
+        if (!cmd_node)
+            return NULL; // Allocation failed
+        cmd_node->type = (*tok)->type;
+        cmd_node->token = strdup((*tok)->lexeme);
+        cmd_node->left = NULL;
+        cmd_node->right = NULL;
+
+        *tok = (*tok)->next; // Advance to arguments
+
+        // Attach arguments as a right chain
+        t_ast *current_arg = cmd_node;
+        while (*tok && ((*tok)->type == WORD || (*tok)->type == REDIR_IN || (*tok)->type == REDIR_OUT || (*tok)->type == REDIR_APPEND || (*tok)->type == REDIR_HEREDOC))
+        {
+            arg_node = malloc(sizeof(t_ast));
+            if (!arg_node)
+                return NULL; // Allocation failed
+            arg_node->type = (*tok)->type;
+            arg_node->token = strdup((*tok)->lexeme);
+            arg_node->left = NULL;
+            arg_node->right = NULL;
+
+            current_arg->right = arg_node;
+            current_arg = arg_node;
+            *tok = (*tok)->next; // Advance token list
+        }
+
+        return cmd_node;
+    }
+
+    // Create the root node for the current PIPE
+    t_ast *root = malloc(sizeof(t_ast));
+    if (!root)
+        return NULL; // Allocation failed
+    root->type = first_pipe->type;
+    root->token = strdup(first_pipe->lexeme);
+    root->left = NULL;
+    root->right = NULL;
+
+    // Split the token list at the first PIPE
+    current = *tok;
+    while (current != first_pipe)
+    {
+        prev = current;
+        current = current->next;
+    }
+    if (prev)
+        prev->next = NULL; // Break the list
+
+    // Recursively build left and right subtrees
+    root->left = create_tree(tok);
+    root->right = create_tree(&(first_pipe->next));
+
+    return root;
 }
 
-
-t_ast *syntax(t_tok *tok)
-{
-    return create_tree(&tok, 0);
-}
-
-
-// t_ast *addnode(t_tok *tok)
+// backwards tree
+// t_ast *create_tree(t_tok **tok)
 // {
-//     if (!tok) {
-//         printf("Error: Null token passed to addnode\n");
+//     if (!tok || !*tok)
 //         return NULL;
+
+//     t_tok *current = *tok;
+//     t_tok *last_pipe = NULL;
+//     t_tok *prev = NULL;
+
+//     // Find the last PIPE in the list
+//     while (current)
+//     {
+//         if (current->type == PIPE)
+//             last_pipe = current;
+//         prev = current;
+//         current = current->next;
 //     }
 
-//     t_ast *node = malloc(sizeof(t_ast));
-//     if (!node) {
-//         printf("Error: Memory allocation failed\n");
-//         return NULL;
+//     // Base case: no PIPE found, build a subtree for a single command and its arguments
+//     if (!last_pipe)
+//     {
+//         t_ast *cmd_node = NULL;
+//         t_ast *arg_node = NULL;
+
+//         // First token is the command
+//         cmd_node = malloc(sizeof(t_ast));
+//         if (!cmd_node)
+//             return NULL; // Allocation failed
+//         cmd_node->type = (*tok)->type;
+//         cmd_node->token = strdup((*tok)->lexeme);
+//         cmd_node->left = NULL;
+//         cmd_node->right = NULL;
+
+//         *tok = (*tok)->next; // Advance to arguments
+
+//         // Attach arguments as a right chain
+//         t_ast *current_arg = cmd_node;
+//         while (*tok && (*tok)->type == WORD)
+//         {
+//             arg_node = malloc(sizeof(t_ast));
+//             if (!arg_node)
+//                 return NULL; // Allocation failed
+//             arg_node->type = (*tok)->type;
+//             arg_node->token = strdup((*tok)->lexeme);
+//             arg_node->left = NULL;
+//             arg_node->right = NULL;
+
+//             current_arg->right = arg_node;
+//             current_arg = arg_node;
+//             *tok = (*tok)->next; // Advance token list
+//         }
+
+//         return cmd_node;
 //     }
 
-//     node->type = tok->type;
-//     node->tok = tok;
-//     node->cmd = tok->lexeme;
-//     node->args = NULL;
-//     node->left = NULL;
-//     node->right = NULL;
-//     return node;
+//     // Create the root node for the current PIPE
+//     t_ast *root = malloc(sizeof(t_ast));
+//     if (!root)
+//         return NULL; // Allocation failed
+//     root->type = last_pipe->type;
+//     root->token = strdup(last_pipe->lexeme);
+//     root->left = NULL;
+//     root->right = NULL;
+
+//     // Split the token list at the last PIPE
+//     current = *tok;
+//     while (current != last_pipe)
+//     {
+//         prev = current;
+//         current = current->next;
+//     }
+//     if (prev)
+//         prev->next = NULL; // Break the list
+
+//     // Recursively build left and right subtrees
+//     root->left = create_tree(tok);
+//     root->right = create_tree(&(last_pipe->next));
+
+//     return root;
 // }
 
-// int get_precedence(char op)
-// {
-//     if (op == '|') 
-//         return 1;
-//     return 0;
+	//search last pipe
+	// everything after last pipe goes to the right 
+		// prev | <- left | right -> cmd4
+		// NULL <- left cmd4 right -> arg4
+		// NULL <- left arg4 right -> NULL
+	// everything before last pipe goes to the left
+	// coninue for all pipes backwards
 // }
+
 
 // t_ast *create_tree(t_tok **tok, int precedence)
 // {
-//     if (!tok || !*tok) {
-//         printf("Error: Null token pointer\n");
-//         return NULL;
-//     }
+//     if (!tok || !*tok) return NULL;
 
 //     t_ast *left = addnode(*tok);
-//     if (!left) return NULL;
-
 //     *tok = (*tok)->next;
 
-//     while (*tok && get_precedence((*tok)->lexeme[0]) >= precedence)
+//     while (*tok && get_precedence((*tok)->type) >= precedence) 
 //     {
-//         char op = (*tok)->lexeme[0];
-//         printf("Processing operator: %c\n", op);
-        
+//         t_type op_type = (*tok)->type;  // Get the operator type
 //         t_ast *op_node = addnode(*tok);
 //         *tok = (*tok)->next;
 
-//         t_ast *right = create_tree(tok, get_precedence(op) + 1);
-//         if (!right) return NULL;  // Avoid segmentation if right is null
+//         // Recursively process the right-hand side to respect precedence
+//         t_ast *right = create_tree(tok, get_precedence(op_type) + 1);
+//         if (!right) return NULL;
 
+//         // Link the operator node with left and right children
 //         op_node->left = left;
 //         op_node->right = right;
-//         left = op_node;
+//         left = op_node; 
 //     }
 
 //     return left;
 // }
 
-// t_ast *syntax(t_tok *tok)
-// {
-//     return create_tree(&tok, 0);
-// }
+t_ast *syntax(t_tok *tok)
+{
+	// check_syntax();
+    return create_tree(&tok);
+}
 
 

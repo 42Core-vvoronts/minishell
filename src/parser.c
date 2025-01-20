@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:06:02 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/13 19:43:35 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:58:03 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ int parsing(char *cmdline)
 
 	tokens = lexer(cmdline);
 	ast = syntax(tokens);
-	
-	printf("\nTokens:\n");
-	print_tokens(tokens);
+
 	printf("\nAbstract Syntax Tree:\n");
 	print_ast(ast, 0);
 	
