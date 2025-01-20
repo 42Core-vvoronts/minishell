@@ -14,7 +14,7 @@ Minishel is a minimalistic shell implementation for Unix-based systems.
 Clone the repository and compile the source code:
 
 ```sh
-git clone https://github.com/vicxptrv/42Core/minishel.git
+git clone git@github.com:42Core-vvoronts/minishel.git
 cd minishel
 make
 ```
