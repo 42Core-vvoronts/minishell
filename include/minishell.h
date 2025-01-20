@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/15 18:04:22 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:08:17 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,36 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-int parsing(char *input);
+// -- INIT --
 
+// -- PROMPT --
+
+// -- PARSING --
+int parsing(char *input);
 // Lexer
 t_tok *lexer(char *cmdline);
 // e_cmd typify(e_label label);
-e_type label(char *lexeme);
+t_type label(char *lexeme);
 bool is_not_space(char symbol);
 // Syntaxer
 t_ast *syntax(t_tok *tok);
-t_ast *create_tree(t_tok **tok, int precedence);
+t_ast *create_tree(t_tok **tok);
 t_ast *addnode(t_tok *tok);
 
+// -- EXPANSION --
+
+// -- ENVAR --
+
+// -- EXECUTION --
+
+// -- SIGNALS --
+
+// -- ERROR --
 
 
-// Supply, to delete later
+
+
+// DELETE
 void print_tokens(t_tok *tokens);
 void print_ast(t_ast *ast, int depth);
 
