@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/20 11:08:17 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:21:27 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 // -- PROMPT --
 
 // -- PARSING --
-int parsing(char *input);
+t_ast	*parsing(char *input);
 // Lexer
 t_tok *lexer(char *cmdline);
 // e_cmd typify(e_label label);
