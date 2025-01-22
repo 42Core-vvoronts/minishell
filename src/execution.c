@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:01:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/01/20 19:21:26 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/01/22 11:30:37 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,25 @@ void	process_before_left(t_ast *node, t_ctx *ctx, void **param)
 
 void	process_before_right(t_ast *node, t_ctx *ctx, void **param)
 {
-	if (node->type == PIPE)
+	if (node->right == NULL) //before here was WORD not NULL
+	{
+			pid_t pid;
+			pid = fork();
+
+			if (pid == 0)
+			{
+				// char *pathname;
+				// pathname = get_validpath(ctx, ctx->argv);
+				execve(*(ctx->argv), ctx->argv, ctx->envp);
+				exit(-1);
+
+			}
+			ft_parrclean(0, free, ctx->argv, NULL);
+			ctx->argv = NULL;
+			ctx->last_child = pid;
+			// execv or eval (builtin) ctx->argv
+	}
+	else if (node->type == PIPE)
 	{
 		t_pipe *p;
 		int fd;
@@ -107,25 +125,10 @@ void	process_before_right(t_ast *node, t_ctx *ctx, void **param)
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 
+		close(p->write);
+
 		//chenge stdin
 		dup2(p->read, STDIN_FILENO);
-	}
-	else if (node->right == NULL) //before here was WORD not NULL
-	{
-			pid_t pid;
-			pid = fork();
-
-			if (pid == 0)
-			{
-				// char *pathname;
-				// pathname = get_validpath(ctx, ctx->argv);
-				execve(*(ctx->argv), ctx->argv, ctx->envp);
-
-			}
-			ft_parrclean(0, free, ctx->argv, NULL);
-			ctx->argv = NULL;
-			ctx->last_child = pid;
-			// execv or eval (builtin) ctx->argv
 	}
 	return ;
 }
@@ -172,6 +175,8 @@ void	process_on_way_back(t_ast *node, t_ctx *ctx, void **param)
 	return ;
 }
 
+
+
 void traverse_ast(t_ast *node, t_ctx *ctx)
 {
 	void *param;
@@ -197,3 +202,4 @@ void traverse_ast(t_ast *node, t_ctx *ctx)
 	// Intorcer: Could be beforeRight, midNode, etc.
 	// Postorder: Could be onExit, endNode, etc.
 }
+

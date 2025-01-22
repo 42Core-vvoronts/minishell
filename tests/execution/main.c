@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:19:41 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/01/20 19:24:44 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/01/22 11:30:35 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,29 @@ int init(t_ctx **ctx, char **envp)
 	return (SUCCESS);
 }
 
+//make waitpid handler separate
+int get_exitcode(pid_t pid)
+{
+	int		status;
+	pid_t	child;
+	int		exitcode;
+
+	child = 0;
+	exitcode = -1;
+	while (child != -1)
+	{
+		child = wait(&status);
+		if (child == pid)
+		{
+			if (WIFEXITED(status))
+			{
+				exitcode = WEXITSTATUS(status);
+			}
+		}
+	}
+	return (exitcode);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_ctx *ctx;
@@ -71,12 +94,15 @@ int	main(int argc, char **argv, char **envp)
 	}
 
 	// tree = parsing("/bin/cat f1.txt | /bin/cat");
-	tree = parsing("/bin/ls .. | > f1.txt /bin/cat > f2.txt | /bin/cat");
+	tree = parsing("/bin/ls / | /bin/cat");
 	traverse_ast(tree, ctx);
 	// run_pipeline(ctx, NULL);
 	// run_cmd(ctx, cmd);
 
-	wait(NULL); //add loop to wait all of them an colletc pid
+	printf("exit code: %d\n", get_exitcode(ctx->last_child));
+	// wait(NULL); //add loop to wait all of them an colletc pid
+	// wait(NULL); //add loop to wait all of them an colletc pid
+	// wait(NULL); //add loop to wait all of them an colletc pid
 
 	//here tests to conirm that stdina dn out restored
 	printf("\ntest STDOUT\n");
