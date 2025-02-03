@@ -6,107 +6,108 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:19:41 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/01/22 11:30:35 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/03 07:50:13 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-void traverse_ast(t_ast *node, t_ctx *ctx);
 
-int init_ctx(t_ctx **ctx)
-{
-	*ctx = ft_calloc(1, sizeof(t_ctx));
-	if (!*ctx)
-		return (FAIL);
-	(*ctx)->ttyname = ttyname(STDIN_FILENO);
-	return (SUCCESS);
-}
+// void traverse_ast(t_ast *node, t_ctx *ctx);
 
-int init_envp(t_ctx *ctx, char **envp)
-{
-	size_t	len;
-	int		i;
+// int init_ctx(t_ctx **ctx)
+// {
+// 	*ctx = ft_calloc(1, sizeof(t_ctx));
+// 	if (!*ctx)
+// 		return (FAIL);
+// 	(*ctx)->ttyname = ttyname(STDIN_FILENO);
+// 	return (SUCCESS);
+// }
 
-	len = ft_parrlen(envp);
-	ctx->envp = ft_calloc(len + 1, sizeof(char *));
-	if (!ctx->envp)
-		return (FAIL);
-	i = 0;
-	if (envp[i] == NULL)
-	{
-		ctx->envp[i] = NULL;
-		return (SUCCESS);
-	}
-	while (i < len)
-	{
-		ctx->envp[i] = ft_strdup(envp[i]);
-		if (!ctx->envp[i])
-		{
-			ft_parrclean(0, free, ctx->envp, NULL);
-			return (FAIL);
-		}
-		i++;
-	}
-	ctx->envp[i] = NULL;
-	return (SUCCESS);
-}
+// int init_envp(t_ctx *ctx, char **envp)
+// {
+// 	size_t	len;
+// 	int		i;
 
-int init(t_ctx **ctx, char **envp)
-{
-	if (init_ctx(ctx) == FAIL)
-		return (FAIL);
-	if (init_envp(*ctx, envp) == FAIL)
-		return (FAIL);
-	return (SUCCESS);
-}
+// 	len = ft_parrlen(envp);
+// 	ctx->envp = ft_calloc(len + 1, sizeof(char *));
+// 	if (!ctx->envp)
+// 		return (FAIL);
+// 	i = 0;
+// 	if (envp[i] == NULL)
+// 	{
+// 		ctx->envp[i] = NULL;
+// 		return (SUCCESS);
+// 	}
+// 	while (i < len)
+// 	{
+// 		ctx->envp[i] = ft_strdup(envp[i]);
+// 		if (!ctx->envp[i])
+// 		{
+// 			ft_parrclean(0, free, ctx->envp, NULL);
+// 			return (FAIL);
+// 		}
+// 		i++;
+// 	}
+// 	ctx->envp[i] = NULL;
+// 	return (SUCCESS);
+// }
 
-//make waitpid handler separate
-int get_exitcode(pid_t pid)
-{
-	int		status;
-	pid_t	child;
-	int		exitcode;
+// int init(t_ctx **ctx, char **envp)
+// {
+// 	if (init_ctx(ctx) == FAIL)
+// 		return (FAIL);
+// 	if (init_envp(*ctx, envp) == FAIL)
+// 		return (FAIL);
+// 	return (SUCCESS);
+// }
 
-	child = 0;
-	exitcode = -1;
-	while (child != -1)
-	{
-		child = wait(&status);
-		if (child == pid)
-		{
-			if (WIFEXITED(status))
-			{
-				exitcode = WEXITSTATUS(status);
-			}
-		}
-	}
-	return (exitcode);
-}
+// //make waitpid handler separate
+// int get_exitcode(pid_t pid)
+// {
+// 	int		status;
+// 	pid_t	child;
+// 	int		exitcode;
+
+// 	child = 0;
+// 	exitcode = -1;
+// 	while (child != -1)
+// 	{
+// 		child = wait(&status);
+// 		if (child == pid)
+// 		{
+// 			if (WIFEXITED(status))
+// 			{
+// 				exitcode = WEXITSTATUS(status);
+// 			}
+// 		}
+// 	}
+// 	return (exitcode);
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_ctx *ctx;
 	t_ast *tree;
 
-	if (init(&ctx, envp) == FAIL)
-	{
-		return (EXIT_FAILURE);
-	}
+	// if (init(&ctx, envp) == FAIL)
+	// {
+	// 	return (EXIT_FAILURE);
+	// }
 
-	// tree = parsing("/bin/cat f1.txt | /bin/cat");
-	tree = parsing("/bin/ls / | /bin/cat");
-	traverse_ast(tree, ctx);
-	// run_pipeline(ctx, NULL);
-	// run_cmd(ctx, cmd);
+	// // tree = parsing("/bin/cat f1.txt | /bin/cat");
+	// // tree = parsing("/bin/ls / | /bin/cat");
+	// traverse_ast(tree, ctx);
+	// // run_pipeline(ctx, NULL);
+	// // run_cmd(ctx, cmd);
 
-	printf("exit code: %d\n", get_exitcode(ctx->last_child));
-	// wait(NULL); //add loop to wait all of them an colletc pid
-	// wait(NULL); //add loop to wait all of them an colletc pid
-	// wait(NULL); //add loop to wait all of them an colletc pid
+	// printf("exit code: %d\n", get_exitcode(ctx->last_child));
+	// // wait(NULL); //add loop to wait all of them an colletc pid
+	// // wait(NULL); //add loop to wait all of them an colletc pid
+	// // wait(NULL); //add loop to wait all of them an colletc pid
 
-	//here tests to conirm that stdina dn out restored
-	printf("\ntest STDOUT\n");
-	char test[50];
-	scanf("stdin: %s\n", test);
+	// //here tests to conirm that stdina dn out restored
+	// printf("\ntest STDOUT\n");
+	// char test[50];
+	// scanf("stdin: %s\n", test);
 	return (EXIT_SUCCESS);
 }

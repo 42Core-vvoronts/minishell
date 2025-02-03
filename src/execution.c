@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:01:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/01/22 11:30:37 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/03 07:15:46 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 char **add_arg(char **old, char *word)
 {
@@ -49,22 +49,38 @@ void close_pipe(t_pipe *p)
 	close(p->write);
 }
 
-void	process_before_left(t_ast *node, t_ctx *ctx, void **param)
+int	process_before_left(t_ast *node, t_ctx *ctx, void **param)
 {
 	if (node->type == PIPE) // handle_pipe_before_left();/pre,in,post
 	{
 		t_pipe *p;
+		pid_t pid;
 
 		*param = malloc(sizeof(t_pipe));
 		p = *param;
 		open_pipe(p);
 
-		//change stdout
-		dup2(p->write, STDOUT_FILENO);
+		pid = fork();
+
+		if (pid == 0)
+		{
+			close(p->read);
+			//change stdout
+			dup2(p->write, STDOUT_FILENO);
+			return (CONTINUE);
+		}
+		else if (pid > 0)
+		{
+			ctx->last_child = pid;
+			close(p->write);
+			return (STOP);
+		}
+		return (CONTINUE);
 	}
 	else if (node->type == WORD)
 	{
 		ctx->argv = add_arg(ctx->argv, node->token);
+		return (CONTINUE);
 	}
 	else if (node->type == REDIR_OUT)
 	{
@@ -73,6 +89,7 @@ void	process_before_left(t_ast *node, t_ctx *ctx, void **param)
 		//expand here as well
 		dup2(fd, STDOUT_FILENO);
 		node->right = node->right->right;
+		return (CONTINUE);
 	}
 	else if (node->type == REDIR_IN)
 	{
@@ -81,6 +98,7 @@ void	process_before_left(t_ast *node, t_ctx *ctx, void **param)
 		//expand here as well
 		dup2(fd, STDIN_FILENO);
 		node->right = node->right->right;
+		return (CONTINUE);
 	}
 	else if (node->type == REDIR_APPEND)
 	{
@@ -89,11 +107,12 @@ void	process_before_left(t_ast *node, t_ctx *ctx, void **param)
 		//expand here as well
 		dup2(fd, STDOUT_FILENO);
 		node->right = node->right->right;
+		return (CONTINUE);
 	}
 }
 
 
-void	process_before_right(t_ast *node, t_ctx *ctx, void **param)
+int	process_before_right(t_ast *node, t_ctx *ctx, void **param)
 {
 	if (node->right == NULL) //before here was WORD not NULL
 	{
@@ -108,10 +127,16 @@ void	process_before_right(t_ast *node, t_ctx *ctx, void **param)
 				exit(-1);
 
 			}
-			ft_parrclean(0, free, ctx->argv, NULL);
-			ctx->argv = NULL;
-			ctx->last_child = pid;
+			else if (pid > 0)
+			{
+				ft_parrclean(0, free, ctx->argv, NULL);
+				ctx->argv = NULL;
+				ctx->last_child = pid;
+				//get exitcode here and pass up
+
+			}
 			// execv or eval (builtin) ctx->argv
+			return (CONTINUE);
 	}
 	else if (node->type == PIPE)
 	{
@@ -120,20 +145,21 @@ void	process_before_right(t_ast *node, t_ctx *ctx, void **param)
 
 		p = *param;
 
-		//restore stdout
-		fd = open(ctx->ttyname, O_RDWR);
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
+		// //restore stdout dont need all changes were in fork of left
+		// fd = open(ctx->ttyname, O_RDWR);
+		// dup2(fd, STDOUT_FILENO);
+		// close(fd);
 
-		close(p->write);
+		// close(p->write);
 
 		//chenge stdin
 		dup2(p->read, STDIN_FILENO);
+		return (CONTINUE);
 	}
-	return ;
+	return (CONTINUE);
 }
 
-void	process_on_way_back(t_ast *node, t_ctx *ctx, void **param)
+int	process_on_way_back(t_ast *node, t_ctx *ctx, void **param)
 {
 	if (node->type == PIPE)
 	{
@@ -146,7 +172,8 @@ void	process_on_way_back(t_ast *node, t_ctx *ctx, void **param)
 		fd = open(ctx->ttyname, O_RDWR);
 		dup2(fd, STDIN_FILENO);
 		close(fd);
-		close_pipe(p);
+		close(p->read);
+		return (CONTINUE);
 	}
 	else if (node->type == REDIR_OUT)
 	{
@@ -155,6 +182,7 @@ void	process_on_way_back(t_ast *node, t_ctx *ctx, void **param)
 		fd = open(ctx->ttyname, O_RDWR);
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
+		return (CONTINUE);
 	}
 	else if (node->type == REDIR_IN)
 	{
@@ -163,6 +191,7 @@ void	process_on_way_back(t_ast *node, t_ctx *ctx, void **param)
 		fd = open(ctx->ttyname, O_RDWR);
 		dup2(fd, STDIN_FILENO);
 		close(fd);
+		return (CONTINUE);
 	}
 	else if (node->type == REDIR_APPEND)
 	{
@@ -171,8 +200,9 @@ void	process_on_way_back(t_ast *node, t_ctx *ctx, void **param)
 		fd = open(ctx->ttyname, O_RDWR);
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
+		return (CONTINUE);
 	}
-	return ;
+	return (CONTINUE);
 }
 
 
@@ -180,6 +210,7 @@ void	process_on_way_back(t_ast *node, t_ctx *ctx, void **param)
 void traverse_ast(t_ast *node, t_ctx *ctx)
 {
 	void *param;
+	int status;
 
     if (node == NULL) //base case
 	{
@@ -188,8 +219,9 @@ void traverse_ast(t_ast *node, t_ctx *ctx)
 	else //recursicve case
 	{
 		param = NULL;
-        process_before_left(node, ctx, &param); // Apply the function to the node when step into, before left node
-        traverse_ast(node->left, ctx); // Traverse left subtree
+        status = process_before_left(node, ctx, &param); // Apply the function to the node when step into, before left node
+        if (status == CONTINUE)
+			traverse_ast(node->left, ctx); // Traverse left subtree
 
 		process_before_right(node, ctx, &param); // Apply the function to the node when left leaf visited
        	traverse_ast(node->right, ctx);  // Traverse right subtree

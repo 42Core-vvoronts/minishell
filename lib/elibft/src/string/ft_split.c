@@ -6,127 +6,98 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 09:52:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/01/12 17:32:18 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/01/26 17:09:28 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "elibft.h"
 
-/**
- * Frees a 2D array of strings.
- *
- * @param array The 2D array to free.
- * @return NULL.
- */
-static void	*free2d(char **array)
+static char	**ft_free2(char **result, int len)
 {
-	char	**marray;
+	char	**head;
 
-	marray = array;
-	while (*array)
-		free(*array++);
-	free(marray);
+	head = result;
+	while (len)
+	{
+		free(*result);
+		result++;
+		len--;
+	}
+	free(head);
 	return (NULL);
 }
 
-/**
- * Creates a new result array with an additional string chunk.
- *
- * @param start The start of the string chunk.
- * @param end The end of the string chunk.
- * @param old The old result array.
- * @param i The index to start copying from.
- * @return The new result array.
- */
-static char	**create_new_result(char *start, char *end, char **old, size_t i)
+static int	count_parts(char const *s, char c)
 {
-	char	**new;
-	char	**mold;
+	int	parts;
 
-	mold = old;
-	while (*old)
-		old++;
-	new = (char **)malloc((old - mold + 2) * sizeof(char *));
-	old = mold;
-	if (!new)
-		return (free2d(old));
-	while (*old)
-		*new++ = *old++;
-	*(new + 1) = *old;
-	free(mold);
-	*new = (char *)malloc((end - start + 1) * sizeof(char));
-	if (!*new)
-		return (free2d(new - (old - mold)));
-	while (start < end)
-		(*new)[i++] = *start++;
-	(*new)[i] = '\0';
-	return (new - (old - mold));
+	parts = 0;
+	while (*s)
+	{
+		if (*s == c)
+			s++;
+		else
+		{
+			parts++;
+			while (*s && *s != c)
+				s++;
+		}
+	}
+	return (parts);
 }
 
-/**
- * Adds a chunk of the string to the result array.
- *
- * @param end The current position in the string.
- * @param c The delimiter character.
- * @param old The old result array.
- * @return The updated result array.
- */
-static char	**add_chunk(char *end, char c, char **old)
+static char	*copy_part(char const **s, char c, char *part)
 {
-	char	*start;
-	char	**new;
+	int			len;
+	char const	*head;
 
-	while (*end == c && *end)
-		end++;
-	if (!*end || !old)
-		return (old);
-	start = end;
-	while (*end != c && *end)
-		end++;
-	new = create_new_result(start, end, old, 0);
-	return (add_chunk(end, c, new));
+	len = 0;
+	while (**s)
+	{
+		if (**s == c)
+			(*s)++;
+		else
+		{
+			head = *s;
+			while (**s && **s != c)
+			{
+				len++;
+				(*s)++;
+			}
+			break ;
+		}
+	}
+	part = (char *)malloc(sizeof(char) * (len + 1));
+	if (!part)
+		return (NULL);
+	ft_memcpy(part, head, len);
+	part[len] = '\0';
+	return (part);
 }
 
-// char	**ft_split_old(char const *s, char c)
-/**
- * Splits a string into an array of strings using a delimiter character.
- *
- * @param s The string to split.
- * @param c The delimiter character.
- * @return The array of split strings.
- */
 char	**ft_split(char const *s, char c)
 {
+	int		parts;
+	int		counter;
 	char	**result;
+	char	**head;
 
-	result = (char **)malloc(sizeof(char *));
+	if (!s)
+		return (NULL);
+	parts = count_parts(s, c);
+	result = (char **)malloc(sizeof(char *) * (parts + 1));
 	if (!result)
 		return (NULL);
+	head = result;
+	counter = parts;
+	while (counter)
+	{
+		*result = copy_part(&s, c, *result);
+		if (!*result)
+			return (ft_free2(head, (parts - counter)));
+		result++;
+		counter--;
+	}
 	*result = NULL;
-	return (add_chunk((char *)s, c, result));
+	return (head);
 }
-
-// int	ft_split(t_lst **result, char const *s, char c)
-// {
-// 	char	**arr;
-// 	char	**item;
-
-// 	if (!result || !s)
-// 		return (NULL);
-// 	*result = NULL;
-// 	arr = ft_split_old(s, c);
-// 	if (!arr)
-// 		return (NULL);
-// 	item = arr;
-// 	while (*item)
-// 	{
-// 		if (!lst_add_after(result, lst_get(result, -1), *item))
-// 		{
-// 			lst_clean(result, NULL);
-// 			return ((void *)ft_parrclean(0, free, arr, NULL));
-// 		}
-// 		item++;
-// 	}
-// 	free(arr);
-// 	return (*result);
-// }

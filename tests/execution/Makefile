@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/01/20 17:05:55 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/03 07:47:01 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,6 @@ LIB 				=	\
 # Source files
 SRC 				=	\
 						main.c \
-						parser.c \
-						lexer.c \
-						validator.c \
-						syntaxer.c \
-						printer.c \
-						execution.c \
 
 
 

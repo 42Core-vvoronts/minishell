@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 10:16:52 by ipetrov           #+#    #+#             */
-/*   Updated: 2024/12/07 12:44:39 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/01/26 19:26:27 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char	*add_chunk(t_file *f, t_file *fl)
  * @return Pointer to the next line, or NULL on failure or end of file.
  *
  */
-int	get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line, t_file **fl_link)
 {
 	static t_file	*fl;
 	t_file			*f;
@@ -133,6 +133,7 @@ int	get_next_line(int fd, char **line)
 	f = ((t_file *)get_context(&fl, fd));
 	if (!f || fd < 0 || BUFFER_SIZE <= 0)
 		return (pop(&fl, fd), FAIL);
+	*fl_link = fl;
 	while (1)
 	{
 		if (f->i == f->b)
