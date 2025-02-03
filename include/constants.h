@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:15:53 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/01/20 19:21:28 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/03 08:30:16 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,14 @@
 
 
 // -- TOKEN --
-typedef enum e_quotes_type
-{
-	BARE,
-	SINGLE,
-	DOUBLE
-} t_quotes_type;
+// typedef enum e_quotes_type
+// {
+// 	BARE,
+// 	SINGLE,
+// 	DOUBLE
+// } t_quotes_type;
 
-typedef enum t_type
-{
-	AND,
-	OR,
-	LPAR,
-	RPAR,
-	PIPE,
-	WORD,
-	REDIR_IN,
-	REDIR_OUT,
-	REDIR_APPEND,
-	REDIR_HEREDOC
-}	t_type;
+
 
 typedef enum e_error
 {
@@ -65,12 +53,7 @@ typedef enum e_error
 // 	VARIABLE
 // } t_type;
 
-typedef struct s_tok
-{
-	t_type			type;
-	char			*lexeme;
-	struct s_tok	*next;
-} t_tok;
+
 // typedef struct s_tok
 // {
 // 	t_type			type;
@@ -80,26 +63,11 @@ typedef struct s_tok
 // } t_tok;
 
 // -- AST --
-typedef struct s_args
-{
-	char			*arg;
-	struct s_args	*next;
-}	t_args;
 
-typedef struct s_ast
-{
-	t_type			type;
-	char			*token;
-	t_args			*args;
-	struct s_ast	*left;
-	struct s_ast	*right;
-} t_ast;
 
-typedef struct s_pipe
-{
-	int read;
-	int write;
-} t_pipe;
+
+
+
 
 
 
