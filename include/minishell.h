@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/03 08:30:36 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/03 09:53:33 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ typedef struct s_ctx
 	char *ttyname;
 	char **args;
 	int	*opened_fd;
-
 	pid_t last_child;
 } t_ctx;
 
 typedef struct s_node
 {
+	t_ctx			*ctx;
 	t_type			type;
 	char			*token;
 	struct s_node	*left;
