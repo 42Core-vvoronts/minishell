@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:04:12 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/01/26 19:45:54 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/04 12:25:06 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void		ft_putnbr_fd(int n, int fd);
 void		ft_putstr_fd(char *s, int fd);
 
 //parr
-long long	ft_parrclean(int code, void (*del)(void *), void *arr1, void *arr2);
+void		ft_parrclean(void *arr);
 void		*ft_parrjoin(void *arr1, void *arr2);
 size_t		ft_parrlen(void *arr);
 

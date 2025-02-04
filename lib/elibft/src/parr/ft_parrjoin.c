@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 17:04:05 by ipetrov           #+#    #+#             */
-/*   Updated: 2024/11/20 15:26:39 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/04 12:23:07 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,7 @@ void	*ft_parrjoin(void *arr1, void *arr2)
 	while (arr2 && *a2)
 		*result++ = *a2++;
 	*result = NULL;
+	free(arr1);
+	free(arr2);
 	return ((void *)mem);
 }

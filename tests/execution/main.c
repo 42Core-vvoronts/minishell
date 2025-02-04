@@ -6,11 +6,12 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:19:41 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/04 08:45:36 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/04 12:43:26 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <signal.h>
 void	evaluate_node(t_node *node);
 
 int	open_pipe(t_pipe *p)
@@ -62,7 +63,7 @@ t_node *init_testcase_forward(void)
 	(node->left)->right = malloc(sizeof(t_node));
 	(node->left->right)->ctx = ctx;
 	(node->left->right)->type = WORD_ZERO_QUOTES;
-	(node->left->right)->token = "/gin/ls";
+	(node->left->right)->token = "/bin/ls";
 	(node->left->right)->left = NULL;
 
 	(node->left->right)->right =  malloc(sizeof(t_node));
@@ -263,18 +264,18 @@ char **get_argv(char * **args)
 {
 	size_t 	i;
 	char **result;
-	char *tmp;
+	char **tmp;
 
-	tmp = "";
+	tmp = NULL;
+	result = NULL;
 	i = 0;
 	while ((*args)[i])
 	{
-		tmp = ft_strjoin(tmp, (*args)[i]);
+		tmp = ft_split((*args)[i], ' ');
+		result = ft_parrjoin(result, tmp);
 		i++;
 	}
-	result = ft_split(tmp, ' ');
-	free(*args);
-	*args = NULL;
+	ft_parrclean(args);
 	return (result);
 }
 static int	get_exitcode(pid_t pid)
@@ -320,7 +321,8 @@ void	process_pipe(t_node *node)
 	pid = fork(); //check for fail
 	if (pid == 0)
 	{
-		// dup2(p.write, STDOUT_FILENO);
+		// kill(getpid(), SIGSTOP);
+		dup2(p.write, STDOUT_FILENO);
 		close_pipe(&p);
 		evaluate_node(node->left);
 		run_cmd(node); // execve() here all what i have in a stash
@@ -332,6 +334,7 @@ void	process_pipe(t_node *node)
 		pid = fork();
 		if (pid == 0)
 		{
+			// kill(getpid(), SIGSTOP);
 			evaluate_node(node->right);
 			run_cmd(node);
 			// execeve() here and in init fork of not NULL;
@@ -394,18 +397,21 @@ void	process_word_zero_quotes(t_node *node)
 {
 	//expand $var and expand *
 	add_arg(ft_strdup(node->token), &(node->ctx->stash));
+	evaluate_node(node->right);
 }
 
 void	process_word_single_quotes(t_node *node)
 {
 	//expand $var and expand *
 	add_arg(ft_strdup(node->token), &(node->ctx->stash));
+	evaluate_node(node->right);
 }
 
 void	process_word_double_quotes(t_node *node)
 {
 	//expand $var and expand *
 	add_arg(ft_strdup(node->token), &(node->ctx->stash));
+	evaluate_node(node->right);
 }
 
 void	process_group(t_node *node)
@@ -516,6 +522,8 @@ void	evaluate_node(t_node *node)
 		return ;
 	}
 }
+
+
 
 int	main(int argc, char **argv, char **envp)
 {
