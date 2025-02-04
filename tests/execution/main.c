@@ -6,91 +6,100 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:19:41 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/03 13:45:20 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/04 08:45:36 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+void	evaluate_node(t_node *node);
 
-// void traverse_ast(t_ast *node, t_ctx *ctx);
+int	open_pipe(t_pipe *p)
+{
+	int	fd[2];
 
-// int init_ctx(t_ctx **ctx)
-// {
-// 	*ctx = ft_calloc(1, sizeof(t_ctx));
-// 	if (!*ctx)
-// 		return (FAIL);
-// 	(*ctx)->ttyname = ttyname(STDIN_FILENO);
-// 	return (SUCCESS);
-// }
+	if (pipe(fd) == ERROR)
+	{
+		return (1);
+		// return (error(PIPE, NULL));
+	}
+	p->read = fd[0];
+	p->write = fd[1];
+	return (SUCCESS);
+}
 
-// int init_envp(t_ctx *ctx, char **envp)
-// {
-// 	size_t	len;
-// 	int		i;
+int	close_pipe(t_pipe *p)
+{
+	close(p->read);
+	close(p->write);
+	return (SUCCESS);
+}
 
-// 	len = ft_parrlen(envp);
-// 	ctx->envp = ft_calloc(len + 1, sizeof(char *));
-// 	if (!ctx->envp)
-// 		return (FAIL);
-// 	i = 0;
-// 	if (envp[i] == NULL)
-// 	{
-// 		ctx->envp[i] = NULL;
-// 		return (SUCCESS);
-// 	}
-// 	while (i < len)
-// 	{
-// 		ctx->envp[i] = ft_strdup(envp[i]);
-// 		if (!ctx->envp[i])
-// 		{
-// 			ft_parrclean(0, free, ctx->envp, NULL);
-// 			return (FAIL);
-// 		}
-// 		i++;
-// 	}
-// 	ctx->envp[i] = NULL;
-// 	return (SUCCESS);
-// }
-
-// int init(t_ctx **ctx, char **envp)
-// {
-// 	if (init_ctx(ctx) == FAIL)
-// 		return (FAIL);
-// 	if (init_envp(*ctx, envp) == FAIL)
-// 		return (FAIL);
-// 	return (SUCCESS);
-// }
-
-// //make waitpid handler separate
-// int get_exitcode(pid_t pid)
-// {
-// 	int		status;
-// 	pid_t	child;
-// 	int		exitcode;
-
-// 	child = 0;
-// 	exitcode = -1;
-// 	while (child != -1)
-// 	{
-// 		child = wait(&status);
-// 		if (child == pid)
-// 		{
-// 			if (WIFEXITED(status))
-// 			{
-// 				exitcode = WEXITSTATUS(status);
-// 			}
-// 		}
-// 	}
-// 	return (exitcode);
-// }
-
-t_node *init_testcase(void)
+t_node *init_testcase_forward(void)
 {
 	t_ctx *ctx;
 	t_node *node;
 
 	ctx = malloc(sizeof(t_ctx));
-	ctx->args = malloc(sizeof(char *) * 2);
+	ctx->stash = malloc(sizeof(char *));
+	*(ctx->stash) = NULL;
+	// ls / < f1 | cat | grep a
+	(node) = malloc(sizeof(t_node));
+	(node->ctx) = ctx;
+	(node->type) = PIPE;
+	(node->token) = "|";
+
+	(node->left) = malloc(sizeof(t_node));
+	(node->left)->ctx = ctx;
+	(node->left)->type = REDIR_IN;
+	(node->left)->token = "<";
+
+	(node->left)->left = malloc(sizeof(t_node));
+	(node->left->left)->ctx = ctx;
+	(node->left->left)->type = WORD_ZERO_QUOTES;
+	(node->left->left)->token = "f1";
+	(node->left->left)->left = malloc(sizeof(t_node));
+
+	(node->left)->right = malloc(sizeof(t_node));
+	(node->left->right)->ctx = ctx;
+	(node->left->right)->type = WORD_ZERO_QUOTES;
+	(node->left->right)->token = "/gin/ls";
+	(node->left->right)->left = NULL;
+
+	(node->left->right)->right =  malloc(sizeof(t_node));
+	(node->left->right->right)->ctx = ctx;
+	(node->left->right->right)->type = WORD_ZERO_QUOTES;
+	(node->left->right->right)->token = "/";
+
+	(node->right) = malloc(sizeof(t_node));
+	(node->right)->ctx = ctx;
+	(node->right)->type = PIPE;
+	(node->right)->token = "|";
+
+	(node->right)->left = malloc(sizeof(t_node));
+	(node->right->left)->ctx = ctx;
+	(node->right->left)->type = WORD_ZERO_QUOTES;
+	(node->right->left)->token = "/bin/cat";
+
+	(node->right)->right = malloc(sizeof(t_node));
+	(node->right->right)->ctx = ctx;
+	(node->right->right)->type = WORD_ZERO_QUOTES;
+	(node->right->right)->token = "/bin/grep";
+
+	(node->right->right)->right = malloc(sizeof(t_node));
+	(node->right->right->right)->ctx = ctx;
+	(node->right->right->right)->type = WORD_ZERO_QUOTES;
+	(node->right->right->right)->token = "a";
+
+	return (node);
+}
+
+t_node *init_testcase_reverse(void)
+{
+	t_ctx *ctx;
+	t_node *node;
+
+	ctx = malloc(sizeof(t_ctx));
+	ctx->stash = malloc(sizeof(char *) * 2);
 	// ls / < f1 | cat | grep a
 	(node) = malloc(sizeof(t_node));
 	(node->ctx) = ctx;
@@ -118,7 +127,7 @@ t_node *init_testcase(void)
 
 	(node->left->left->right)->ctx = ctx;
 	(node->left->left->right)->type = WORD_ZERO_QUOTES;
-	(node->left->left->right)->token = "ls";
+	(node->left->left->right)->token = "/bin/ls";
 	(node->left->left->right)->left = NULL;
 	(node->left->left->right)->right = malloc(sizeof(t_node));
 
@@ -132,14 +141,14 @@ t_node *init_testcase(void)
 
 	(node->left->right)->ctx = ctx;
 	(node->left->right)->type = WORD_ZERO_QUOTES;
-	(node->left->right)->token = "cat";
+	(node->left->right)->token = "/bin/cat";
 	(node->left->right)->left = NULL;
 	(node->left->right)->right = NULL;
 
 	(node->right) = malloc(sizeof(t_node));
 	(node->right)->ctx = ctx;
 	(node->right)->type = WORD_ZERO_QUOTES;
-	(node->right)->token = "grep";
+	(node->right)->token = "/bin/grep";
 	(node->right)->left = NULL;
 	(node->right)->right = malloc(sizeof(t_node));
 
@@ -151,7 +160,6 @@ t_node *init_testcase(void)
 
 	return (node);
 }
-
 
 void print_graphviz(t_node *node, FILE *stream)
 {
@@ -189,6 +197,8 @@ void save_tree(t_node *node)
     printf("    node [shape=box, style=rounded, fontname=\"Helvetica\"];\n");
     print_graphviz(node, stdout);
     printf("}\n");
+	fflush(stdout);
+
 
 	pid = fork();
 	if (pid == 0)
@@ -202,7 +212,9 @@ void save_tree(t_node *node)
 	{
 		wait(NULL);
 		unlink("temp.dot");
-		exit(0);
+		fd = open(ttyname(STDIN_FILENO), O_RDWR, 777);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
 	}
 }
 
@@ -241,10 +253,62 @@ char	*pop_arg(char * **stash)
 		i++;
 	}
 	result[i] = NULL;
-	arg = stash[i];
+	arg = (*stash)[i];
 	free(*stash);
 	*stash = result;
 	return (arg);
+}
+
+char **get_argv(char * **args)
+{
+	size_t 	i;
+	char **result;
+	char *tmp;
+
+	tmp = "";
+	i = 0;
+	while ((*args)[i])
+	{
+		tmp = ft_strjoin(tmp, (*args)[i]);
+		i++;
+	}
+	result = ft_split(tmp, ' ');
+	free(*args);
+	*args = NULL;
+	return (result);
+}
+static int	get_exitcode(pid_t pid)
+{
+	int		status;
+	pid_t	child;
+	int		exitcode;
+
+	child = 0;
+	exitcode = 1;
+	while (child != -1)
+	{
+		child = wait(&status);
+		if (child == pid)
+		{
+			if (WIFEXITED(status))
+			{
+				exitcode = WEXITSTATUS(status);
+			}
+		}
+	}
+	return (exitcode);
+}
+
+
+void run_cmd(t_node *node)
+{
+	char	*pathname;
+	char	**argv;
+
+	argv = get_argv(&(node->ctx->stash));
+	execve(argv[0], argv, node->ctx->envp);
+	// and clean collected fd
+	exit(1);
 }
 
 void	process_pipe(t_node *node)
@@ -254,15 +318,12 @@ void	process_pipe(t_node *node)
 
 	open_pipe(&p);
 	pid = fork(); //check for fail
-	if (pid > 0)
+	if (pid == 0)
 	{
-		dup2(p.write, STDOUT_FILENO);
+		// dup2(p.write, STDOUT_FILENO);
 		close_pipe(&p);
 		evaluate_node(node->left);
-		// run_cmd(node);
-		// execve() here all what i have in a stash
-		// and clean collected fd
-		return ;
+		run_cmd(node); // execve() here all what i have in a stash
 	}
 	dup2(p.read, STDIN_FILENO);
 	close_pipe(&p);
@@ -272,14 +333,14 @@ void	process_pipe(t_node *node)
 		if (pid == 0)
 		{
 			evaluate_node(node->right);
-			// run_cmd(node);
+			run_cmd(node);
 			// execeve() here and in init fork of not NULL;
 			// or fork() and then exit(wait())
-			return ;
 		}
 		else if (pid > 0)
 		{
-			exit(wait(NULL)); //waitpid()?? skips all other pids?
+			// fork();??
+			node->ctx->exitcode = get_exitcode(pid); //waitpid()?? skips all other pids?
 			//collect all other children exitcode here as well
 		}
 		return ;
@@ -288,13 +349,30 @@ void	process_pipe(t_node *node)
 	return ;
 }
 
+// void	process_pipe_reverse(t_node *node)
+// {
+// 	t_pipe	p;
+// 	pid_t	pid;
+
+// 	open_pipe(&p);
+// 	if (node->left->type == PIPE)
+// 	{
+// 		dup2(p.write, STDOUT_FILENO);
+// 		evaluate_node(node->left);
+// 	}
+// 	else
+// 	{
+
+// 	}
+// }
+
 void	process_redir_in(t_node *node)
 {
 	int	fd;
 	char	*pathname;
 
 	evaluate_node(node->left);
-	pathname = pop_arg(node->ctx->args);
+	pathname = pop_arg(&(node->ctx->stash));
 	//ft_split result of pop arg
 	fd = open(pathname, O_RDONLY); //change to get last arg from args
 	if (fd == ERROR)
@@ -304,16 +382,30 @@ void	process_redir_in(t_node *node)
 		//init prompt always fork()
 		//cleanfd()
 		//clean whole ctx and args
-		exit(1); //make REDIR_FAIL = 1 macro
+		node->ctx->exitcode = REDIR_FAIL; //make REDIR_FAIL = 1 macro
 		return ;
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
+	evaluate_node(node->right);
 }
+
 void	process_word_zero_quotes(t_node *node)
 {
 	//expand $var and expand *
-	add_arg(ft_strdup(node->token), &(node->ctx->args));
+	add_arg(ft_strdup(node->token), &(node->ctx->stash));
+}
+
+void	process_word_single_quotes(t_node *node)
+{
+	//expand $var and expand *
+	add_arg(ft_strdup(node->token), &(node->ctx->stash));
+}
+
+void	process_word_double_quotes(t_node *node)
+{
+	//expand $var and expand *
+	add_arg(ft_strdup(node->token), &(node->ctx->stash));
 }
 
 void	process_group(t_node *node)
@@ -324,10 +416,12 @@ void	process_group(t_node *node)
 	if (pid == 0)
 	{
 		evaluate_node(node->right);
+		return ;
 	}
 	else if (pid > 0)
 	{
-		wait(NULL); //last_child
+		node->ctx->exitcode = get_exitcode(pid); //last_child
+		return ;
 	}
 }
 
@@ -335,24 +429,37 @@ void	process_and(t_node	*node)
 {
 	int	exitcode;
 
-	if (node->left->type != AND || node->left->type != OR)
+	if (node->left->type == AND || node->left->type == OR)
 	{
 		evaluate_node(node->left);
 	}
-	exitcode = wait(NULL);
-	//we will get here by wait() result of artificial fork()
-	if (exitcode == EXIT_SUCCESS)
+	evaluate_node(node->left);
+
+	if (node->ctx->exitcode == EXIT_SUCCESS)
+	{
+		evaluate_node(node->right);
+	}
+}
+
+void	process_or(t_node	*node)
+{
+	int	exitcode;
+
+	if (node->left->type == AND || node->left->type == OR)
 	{
 		evaluate_node(node->left);
 	}
+	evaluate_node(node->left);
 
-
-
+	if (node->ctx->exitcode != EXIT_SUCCESS)
+	{
+		evaluate_node(node->right);
+	}
 }
 
 void	evaluate_node(t_node *node)
 {
-	if (node == NULL)
+	if (node == NULL || node->ctx->exitcode != EXIT_SUCCESS)
 	{
 		return ;
 	}
@@ -364,9 +471,33 @@ void	evaluate_node(t_node *node)
 	{
 		process_redir_in(node);
 	}
+	else if (node->type == REDIR_OUT)
+	{
+
+	}
+	else if (node->type == REDIR_APPEND)
+	{
+
+	}
+	else if (node->type == REDIR_HEREDOC_NOQUOTES)
+	{
+
+	}
+	else if (node->type == REDIR_HEREDOC_QUOTES)
+	{
+
+	}
 	else if (node->type == WORD_ZERO_QUOTES)
 	{
 		process_word_zero_quotes(node);
+	}
+	else if (node->type == WORD_SINGLE_QUOTES)
+	{
+		process_word_single_quotes(node);
+	}
+	else if (node->type == WORD_DOUBLE_QUOTES)
+	{
+		process_word_double_quotes(node);
 	}
 	else if (node->type == GROUP)
 	{
@@ -374,38 +505,33 @@ void	evaluate_node(t_node *node)
 	}
 	else if (node->type == AND)
 	{
-		// process_and(node);
+		process_and(node);
 	}
 	else if (node->type == OR)
 	{
-		// process_or(node);
+		process_or(node);
 	}
 	else
 	{
 		return ;
 	}
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_node *node;
 	pid_t	pid;
 
-	node = init_testcase();
+	node = init_testcase_forward();
 	save_tree(node);
+	evaluate_node(node);
 
 	//start from process_group? group = init prompt
 	// while (1)
 	// {
 	// 	//get_prompt() / get_tree() //readline here
-		pid = fork();
-		if (pid == 0)
-		{
-			evaluate_node(node);
-		}
-		else if (pid > 0)
-		{
-			wait(NULL); //last_child
-		}
+
+		printf("exitcode: %d\n", node->ctx->exitcode);
 	// }
 
 	return (EXIT_SUCCESS);

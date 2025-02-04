@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/03 09:53:33 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/04 07:35:40 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <unistd.h>    // syscalls
 # include <readline/readline.h>
 # include <readline/history.h>
+
+# define REDIR_FAIL 1
 
 typedef enum t_type
 {
@@ -46,9 +48,9 @@ typedef struct s_ctx
 {
 	char **envp;
 	char *ttyname;
-	char **args;
+	char **stash;
 	int	*opened_fd;
-	pid_t last_child;
+	pid_t exitcode;
 } t_ctx;
 
 typedef struct s_node
