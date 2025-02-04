@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 14:19:41 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/04 12:43:26 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/04 13:03:12 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,28 @@ t_node *init_testcase_forward(void)
 {
 	t_ctx *ctx;
 	t_node *node;
+	t_node *node_m1;
 
 	ctx = malloc(sizeof(t_ctx));
 	ctx->stash = malloc(sizeof(char *));
 	*(ctx->stash) = NULL;
+
+	(node_m1) = malloc(sizeof(t_node));
+	(node_m1)->ctx = ctx;
+	(node_m1)->type = AND;
+	(node_m1)->token = "&&";
+
+	(node_m1)->right = malloc(sizeof(t_node));
+	(node_m1->right)->ctx = ctx;
+	(node_m1->right)->type = WORD_ZERO_QUOTES;
+	(node_m1->right)->token = "/bin/ls";
+	(node_m1->right)->right = NULL;
+	(node_m1->right)->left = NULL;
+
+
 	// ls / < f1 | cat | grep a
 	(node) = malloc(sizeof(t_node));
+	(node_m1)->left = node;
 	(node->ctx) = ctx;
 	(node->type) = PIPE;
 	(node->token) = "|";
@@ -63,13 +79,17 @@ t_node *init_testcase_forward(void)
 	(node->left)->right = malloc(sizeof(t_node));
 	(node->left->right)->ctx = ctx;
 	(node->left->right)->type = WORD_ZERO_QUOTES;
-	(node->left->right)->token = "/bin/ls";
+	(node->left->right)->token = "/bin/cat";
 	(node->left->right)->left = NULL;
 
 	(node->left->right)->right =  malloc(sizeof(t_node));
 	(node->left->right->right)->ctx = ctx;
 	(node->left->right->right)->type = WORD_ZERO_QUOTES;
 	(node->left->right->right)->token = "/";
+
+
+	(node->left->right)->right = NULL;
+
 
 	(node->right) = malloc(sizeof(t_node));
 	(node->right)->ctx = ctx;
@@ -90,8 +110,9 @@ t_node *init_testcase_forward(void)
 	(node->right->right->right)->ctx = ctx;
 	(node->right->right->right)->type = WORD_ZERO_QUOTES;
 	(node->right->right->right)->token = "a";
+	(node->right->right->right)->right = NULL;
 
-	return (node);
+	return (node_m1);
 }
 
 t_node *init_testcase_reverse(void)
@@ -309,7 +330,7 @@ void run_cmd(t_node *node)
 	argv = get_argv(&(node->ctx->stash));
 	execve(argv[0], argv, node->ctx->envp);
 	// and clean collected fd
-	exit(1);
+	exit(127);
 }
 
 void	process_pipe(t_node *node)
@@ -435,16 +456,17 @@ void	process_and(t_node	*node)
 {
 	int	exitcode;
 
-	if (node->left->type == AND || node->left->type == OR)
-	{
-		evaluate_node(node->left);
-	}
+	// if (node->left->type == AND || node->left->type == OR)
+	// {
+	// 	evaluate_node(node->left);
+	// }
 	evaluate_node(node->left);
-
 	if (node->ctx->exitcode == EXIT_SUCCESS)
 	{
 		evaluate_node(node->right);
+		run_cmd(node);
 	}
+	return ;
 }
 
 void	process_or(t_node	*node)
