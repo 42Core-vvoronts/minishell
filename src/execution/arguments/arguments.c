@@ -6,54 +6,55 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:19:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 01:20:06 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 04:14:20 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-void	add_arg(char *arg, char * **stash)
+void	add_arg(char *arg, t_node *node)
 {
 	size_t	i;
 	char **result;
 
-	i = ft_parrlen(*stash);
-	result = malloc(sizeof(char *) * (i + 1));
+	i = ft_parrlen(node->ctx->stash);
+	result = ft_calloc(i + 2, sizeof(char *));
+	if (!result)
+		error(node, STRUCT_NODE, MALLOC);
 	i = 0;
-	while ((*stash)[i])
+	while (node->ctx->stash && (node->ctx->stash)[i])
 	{
-		result[i] = (*stash)[i];
+		result[i] = (node->ctx->stash)[i];
 		i++;
 	}
 	result[i] = arg;
-	i++;
-	result[i] = NULL;
-	free(*stash);
-	*stash = result;
+	free(node->ctx->stash);
+	node->ctx->stash = result;
 }
 
-char	*pop_arg(char * **stash)
+char	*pop_arg(t_node *node)
 {
 	size_t	i;
 	char **result;
 	char *arg;
 
-	i = ft_parrlen(*stash);
-	result = malloc(sizeof(char *) * i);
+	i = ft_parrlen(node->ctx->stash);
+	result = ft_calloc(i, sizeof(char *));
+	if (!result)
+		error(node, STRUCT_NODE, MALLOC);
 	i = 0;
-	while ((*stash)[i + 1])
+	while (node->ctx->stash && (node->ctx->stash)[i + 1])
 	{
-		result[i] = (*stash)[i];
+		result[i] = (node->ctx->stash)[i];
 		i++;
 	}
-	result[i] = NULL;
-	arg = (*stash)[i];
-	free(*stash);
-	*stash = result;
+	arg = (node->ctx->stash)[i];
+	free(node->ctx->stash);
+	node->ctx->stash = result;
 	return (arg);
 }
 
-char **get_argv(char * **args)
+char **get_argv(t_node *node)
 {
 	size_t 	i;
 	char **result;
@@ -62,12 +63,17 @@ char **get_argv(char * **args)
 	tmp = NULL;
 	result = NULL;
 	i = 0;
-	while ((*args)[i])
+	while (node->ctx->stash && (node->ctx->stash)[i])
 	{
-		tmp = ft_split((*args)[i], ' ');
+		tmp = ft_split((node->ctx->stash)[i], ' ');
+		if (!tmp)
+		{
+			ft_parrclean(result);
+			error(node, STRUCT_NODE, MALLOC);
+		}
 		result = ft_parrjoin(result, tmp);
 		i++;
 	}
-	ft_parrclean(args);
+	ft_parrclean(&(node->ctx->stash));
 	return (result);
 }

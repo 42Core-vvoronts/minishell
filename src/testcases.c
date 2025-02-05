@@ -6,21 +6,21 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:04:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 02:17:15 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 03:56:55 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_node *init_testcase_forward(void)
+t_node *init_testcase_forward(t_ctx *ctx)
 {
-	t_ctx *ctx;
+	// t_ctx *ctx;
 	t_node *node;
 	t_node *node_m1;
 
-	ctx = malloc(sizeof(t_ctx));
-	ctx->stash = malloc(sizeof(char *));
-	*(ctx->stash) = NULL;
+	// ctx = malloc(sizeof(t_ctx));
+	// ctx->stash = malloc(sizeof(char *));
+	// *(ctx->stash) = NULL;
 
 	(node_m1) = malloc(sizeof(t_node));
 	(node_m1)->ctx = ctx;

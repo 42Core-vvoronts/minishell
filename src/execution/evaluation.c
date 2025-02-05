@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:11:28 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 01:11:46 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 02:55:22 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,7 @@ void	evaluate_node(t_node *node)
 	{
 
 	}
-	else if (node->type == REDIR_HEREDOC_NOQUOTES)
-	{
-
-	}
-	else if (node->type == REDIR_HEREDOC_QUOTES)
+	else if (node->type == REDIR_HEREDOC)
 	{
 
 	}

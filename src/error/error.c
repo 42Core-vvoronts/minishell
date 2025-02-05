@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/01/15 13:43:26 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 03:44:09 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static char *get_error_msg(t_error error)
 		return ("bash: No such file or directory");
 	return ("");
 }
-void error(t_cntx *cntx, t_error error)
+void error(void *data, t_datatype datatype, t_error error)
 {
 	if (error == CMD_NOT_FOUND)
 		ft_putendl_fd(get_error_msg(CMD_NOT_FOUND), STDERR_FILENO);
-	if (error == ERRNO)
+	if (error == GENERIC)
 		perror("");
 }

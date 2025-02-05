@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 01:48:53 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 04:16:25 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,29 @@ typedef enum t_type
 	REDIR_IN,
 	REDIR_OUT,
 	REDIR_APPEND,
-	REDIR_HEREDOC_QUOTES,
-	REDIR_HEREDOC_NOQUOTES
+	REDIR_HEREDOC
 }	t_type;
+
+typedef enum e_error
+{
+	GENERIC,
+	MALLOC,
+	CMD_NOT_FOUND,
+	FORK,
+	OPEN,
+	PIPECALL,
+	FILE_NOT_FOUND,
+	INPUT,
+	HEREDOC_INPUT,
+	EXECVE
+}	t_error;
+
+typedef enum e_datatype
+{
+	NONE,
+	STRUCT_CTX,
+	STRUCT_NODE,
+}	t_datatype;
 
 typedef struct s_ctx
 {
@@ -51,6 +71,7 @@ typedef struct s_ctx
 	char **stash;
 	int	*opened_fd;
 	pid_t exitcode;
+	struct s_node	*head;
 } t_ctx;
 
 typedef struct s_node
@@ -75,12 +96,14 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
+void	error(void *data, t_datatype datatype, t_error error);
+
 void	process_and(t_node	*node);
 void	process_or(t_node	*node);
 
-void	add_arg(char *arg, char * **stash);
-char	*pop_arg(char * **stash);
-char 	**get_argv(char * **args);
+void	add_arg(char *arg, t_node *node);
+char	*pop_arg(t_node *node);
+char 	**get_argv(t_node *node);
 
 void 	run_cmd(t_node *node);
 
