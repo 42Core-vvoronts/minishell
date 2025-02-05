@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   executils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 06:26:27 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 08:33:21 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,9 @@ bool is_executable(char *pathname)
 bool is_pathname(char *cmd)
 {
 	return (ft_strchr(cmd, '/'));
+}
+
+char	*get_cmdname(void *node)
+{
+	return (((t_node *)node)->ctx->stash[0]);
 }

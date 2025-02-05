@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 07:45:57 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 08:33:13 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ typedef enum e_error
 	PIPECALL,
 	INPUT,
 	HEREDOC_INPUT,
-	EXECVE_FAIL
+	EXECVE_FAIL,
+	FORK_FAIL
 }	t_error;
 
 typedef enum e_datatype
@@ -98,6 +99,9 @@ typedef struct s_tok
 } t_tok;
 
 void	error(void *data, t_datatype datatype, t_error error);
+pid_t	efork(t_node *node);
+void	eexecve(char *pathname, t_node *node);
+char	*get_cmdname(void *node);
 
 void	process_and(t_node	*node);
 void	process_or(t_node	*node);

@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:06:41 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 01:06:57 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 08:15:14 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	process_pipe(t_node *node)
 	pid_t	pid;
 
 	open_pipe(&p);
-	pid = fork(); //check for fail
+	pid = efork(node);
 	if (pid == 0)
 	{
 		// kill(getpid(), SIGSTOP);
@@ -26,6 +26,7 @@ void	process_pipe(t_node *node)
 		close_pipe(&p);
 		evaluate_node(node->left);
 		run_cmd(node); // execve() here all what i have in a stash
+		exit(node->ctx->exitcode);
 	}
 	dup2(p.read, STDIN_FILENO);
 	close_pipe(&p);
@@ -37,8 +38,7 @@ void	process_pipe(t_node *node)
 			// kill(getpid(), SIGSTOP);
 			evaluate_node(node->right);
 			run_cmd(node);
-			// execeve() here and in init fork of not NULL;
-			// or fork() and then exit(wait())
+			exit(node->ctx->exitcode);
 		}
 		else if (pid > 0)
 		{
