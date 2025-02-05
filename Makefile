@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/05 02:13:51 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/05 07:39:12 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,8 @@ SRC 				=	\
 						printer.c \
 						\
 						evaluation.c \
+						executils.c \
+						\
 						word.c \
 						\
 						redir_append.c \
@@ -70,16 +72,19 @@ SRC 				=	\
 						\
 						group.c \
 						\
-						path.c \
-						\
 						exitcode.c \
+						envvar.c \
 						\
 						command.c \
+						path.c \
 						\
 						arguments.c \
 						\
 						and.c \
 						or.c \
+						\
+						error.c \
+						\
 
 # Object and Dependency files
 OBJ					=	$(SRC:%.c=obj/%.o)

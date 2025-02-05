@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:04:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 03:56:55 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 07:50:24 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_node *init_testcase_forward(t_ctx *ctx)
 	(node_m1)->right = malloc(sizeof(t_node));
 	(node_m1->right)->ctx = ctx;
 	(node_m1->right)->type = WORD_ZERO_QUOTES;
-	(node_m1->right)->token = "/bin/ls";
+	(node_m1->right)->token = "ls";
 	(node_m1->right)->right = NULL;
 	(node_m1->right)->left = NULL;
 

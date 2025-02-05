@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 04:16:25 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 07:45:57 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 # define REDIR_FAIL 1
 
-typedef enum t_type
+typedef enum e_type
 {
 	AND,
 	OR,
@@ -48,13 +48,14 @@ typedef enum e_error
 	GENERIC,
 	MALLOC,
 	CMD_NOT_FOUND,
+	FILE_NOT_FOUND,
+	PERMISSION_DENIED,
 	FORK,
 	OPEN,
 	PIPECALL,
-	FILE_NOT_FOUND,
 	INPUT,
 	HEREDOC_INPUT,
-	EXECVE
+	EXECVE_FAIL
 }	t_error;
 
 typedef enum e_datatype
@@ -66,11 +67,11 @@ typedef enum e_datatype
 
 typedef struct s_ctx
 {
-	char **envp;
-	char *ttyname;
-	char **stash;
-	int	*opened_fd;
-	pid_t exitcode;
+	char	**envp;
+	char	*ttyname;
+	char	**stash;
+	int		*fds;
+	pid_t	exitcode;
 	struct s_node	*head;
 } t_ctx;
 
@@ -101,14 +102,19 @@ void	error(void *data, t_datatype datatype, t_error error);
 void	process_and(t_node	*node);
 void	process_or(t_node	*node);
 
+char *get_varvalue(t_ctx *ctx, char *varname);
+
 void	add_arg(char *arg, t_node *node);
 char	*pop_arg(t_node *node);
-char 	**get_argv(t_node *node);
+void prepare_argv(t_node *node);
 
 void 	run_cmd(t_node *node);
+char *get_pathname(t_node *node);
 
 int		get_exitcode(pid_t pid);
-
+bool is_exist(char *pathname);
+bool is_executable(char *pathname);
+bool is_pathname(char *cmd);
 
 void	process_group(t_node *node);
 

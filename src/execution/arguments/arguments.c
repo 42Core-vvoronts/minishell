@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:19:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 04:14:20 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 04:53:33 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*pop_arg(t_node *node)
 	return (arg);
 }
 
-char **get_argv(t_node *node)
+void prepare_argv(t_node *node)
 {
 	size_t 	i;
 	char **result;
@@ -75,5 +75,5 @@ char **get_argv(t_node *node)
 		i++;
 	}
 	ft_parrclean(&(node->ctx->stash));
-	return (result);
+	node->ctx->stash = result;
 }
