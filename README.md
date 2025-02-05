@@ -1,6 +1,6 @@
-# Minishel
+# Minishell
 
-Minishel is a minimalistic shell implementation for Unix-based systems.
+Minishell is a minimalistic shell implementation for Unix-based systems.
 
 ## Features
 
@@ -14,8 +14,8 @@ Minishel is a minimalistic shell implementation for Unix-based systems.
 Clone the repository and compile the source code:
 
 ```sh
-git clone https://github.com/vicxptrv/42Core/minishel.git
-cd minishel
+git clone https://github.com/vicxptrv/42Core/Minishell.git
+cd Minishell
 make
 ```
 
@@ -28,7 +28,7 @@ make
 
 Run the shell:
 ```sh
-./minishel
+./Minishell
 ```
 
 Run cmdline:
@@ -37,7 +37,7 @@ Run cmdline:
 ```
 
 Result:
-![alt text](image.png)
+![alt text](wiki/target_tree_v1.png)
 
 ## License
 
