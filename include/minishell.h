@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 11:50:24 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:54:31 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,32 +117,32 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
-void error(void *data, t_datatype datatype, int error, bool terminate);
+void	error(void *data, t_datatype datatype, int error, bool terminate);
 pid_t	efork(t_node *node);
 void	eexecve(char *pathname, t_node *node);
 char	*get_cmdname(void *node);
-void set_exitcode(void *node, int code);
-int	eopen(char *pathname, int flags, int mode, t_node *node);
+void	set_exitcode(void *node, int code);
+int		eopen(char *pathname, int flags, int mode, t_node *node);
 void	edup2(int oldfd, int newfd, t_node *node);
 
 void	process_and(t_node	*node);
 void	process_or(t_node	*node);
 
-int	allclean(t_node *node);
+int		allclean(t_node *node);
 
-char *get_varvalue(t_ctx *ctx, char *varname);
+char	*get_varvalue(t_ctx *ctx, char *varname);
 
 void	add_arg(char *arg, t_node *node);
 char	*pop_arg(t_node *node);
-void prepare_argv(t_node *node);
+void	prepare_argv(t_node *node);
 
 void 	run_cmd(t_node *node);
-char *get_pathname(t_node *node);
+char	*get_pathname(t_node *node);
 
 int		get_exitcode(pid_t pid);
-bool is_exist(char *pathname);
-bool is_executable(char *pathname);
-bool is_pathname(char *cmd);
+bool	is_exist(char *pathname);
+bool	is_executable(char *pathname);
+bool	is_pathname(char *cmd);
 bool	is_ambiguous(char *pathname);
 bool	is_readable(char *pathname);
 bool	is_writable(char *pathname);

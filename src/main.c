@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 11:41:47 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 12:26:06 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,20 @@ int	init_ctx(t_ctx **ctx, char **envp)
 	return (SUCCESS);
 }
 
+void	restore_std(t_node *node)
+{
+	int	fd;
+
+	fd = eopen(node->ctx->ttyname, O_RDWR, 0777, node);
+	edup2(fd, STDIN_FILENO, node);
+	edup2(fd, STDOUT_FILENO, node);
+	close(fd);
+}
+
+void	parse(char *input)
+{
+	(void)input;
+}
 int	main(int argc, char **argv, char **envp)
 {
 	t_node	*node;
@@ -63,19 +77,33 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	(void)ctx;
+	(void)node;
 
-	init_ctx(&ctx, envp);
-	node = init_testcase_forward(ctx);
-	save_tree(node);
-	evaluate_node(node);
+	char *input;
 
-	//start from process_group? group = init prompt
-	// while (1)
-	// {
-	// 	//get_prompt() / get_tree() //readline here
-
+	while (1)
+	{
+		input = readline("prompt: ");
+		add_history(input);
+		rl_on_new_line(); //?????
+		parse(input);
+		init_ctx(&ctx, envp);
+		node = init_testcase_forward(ctx);
+		evaluate_node(node);
+		restore_std(node);
 		printf("exitcode: %d\n", node->ctx->exitcode);
-	// }
-	allclean(node);
+	}
+		allclean(node);
+	// save_tree(node);
+
+	(void)input;
+
+	// //start from process_group? group = init prompt
+	// // while (1)
+	// // {
+	// // 	//get_prompt() / get_tree() //readline here
+
+	// // }
 	return (EXIT_SUCCESS);
 }

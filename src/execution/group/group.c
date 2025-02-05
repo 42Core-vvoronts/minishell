@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:08:52 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 09:14:16 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:55:51 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	process_group(t_node *node)
 	if (pid == 0)
 	{
 		evaluate_node(node->right);
+		exit(allclean(node));
 		return ;
 	}
 	else if (pid > 0)
