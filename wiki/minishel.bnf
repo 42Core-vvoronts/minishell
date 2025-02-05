@@ -1,18 +1,65 @@
 
----------------------------------------------------------
-<list> ::= <pipeline> {('&&' | '||') <pipeline>}*
+----------------------- GRAMMAR -------------------------------
 
-<pipeline> ::= <exec> { '|' <exec> }
+<statement> 		::= <list> '\n' 
 
-<exec> ::= <group> 
-			| <word> <word>* <redirection>*
+<list>				::= <pipeline> {('&&' | '||') <pipeline>}*
 
-<group> ::= '(' <list> ')'
+<group> 			::= '(' <list> ')'
 
-<redirection> ::=  '>' <word>
-                |  '<' <word>
-                |  '>>' <word>
-                |  '<<' <word>
+<pipeline> 			::= <exec> { '|' <exec> }*
 
-<word> ::= 'a-z' + other symbols
-----------------------------------------------------------
+<expression> 		::= <group> 
+					  | <word>* <redirection>*
+
+<redirection>		::=  '>' <word>
+               		  |  '<' <word>
+               		  |  '>>' <word>
+               		  |  '<<' <word>
+
+<word> 				::= 'a-z' 
+
+-----------------------CASES-----------------------------------
+
+-- list --
+
+$ 
+
+-- group --
+
+$ (ls | cat)
+$ (echo "abiba" > f3)
+
+-- pipeline --
+
+$ cat | ls #cat waits for input and ctrl-c
+
+-- expression --
+
+$ (echo "abiba" > f1)
+$ echo "hello"
+
+-- redirection (expression)--
+
+$ > f1 echo "hello"
+$ ls > f1
+$ > f1 #empty file
+$ > f4 > f5 > f6 #all empty files, it deletes the content of the file
+$ echo "aboba" > f1 > f2 > f3
+$ < f7 #bash: f7: No such file or directory, does not create the file
+$ < f1 echo "hello" 
+$ < f1 cat
+$ < f1 f2 cat  #f2: command not found
+$ << EOF #bash ignores
+$ << EOF > file #bash ignores
+$ cat << EOF > file
+
+-- word (expression)--
+
+$ ls
+$ ls -la
+
+-----------------------------------------------------------------
+max args
+$ getconf ARG_MAX
+2097152
