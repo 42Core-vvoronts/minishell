@@ -6,17 +6,17 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/04 07:35:40 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 01:48:53 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "constants.h"
 # include "../lib/elibft/include/elibft.h"
 
 # include <ctype.h>
+# include <signal.h>
 # include <fcntl.h>
 # include <string.h>
 # include <stdbool.h>
@@ -75,47 +75,34 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
+void	process_and(t_node	*node);
+void	process_or(t_node	*node);
 
-// -- INIT --
+void	add_arg(char *arg, char * **stash);
+char	*pop_arg(char * **stash);
+char 	**get_argv(char * **args);
 
-// -- PROMPT --
+void 	run_cmd(t_node *node);
 
-// -- PARSING --
-// t_ast	*parsing(char *input);
-// // Lexer
-// t_tok *lexer(char *cmdline);
-// // e_cmd typify(e_label label);
-// t_type label(char *lexeme);
-// bool is_not_space(char symbol);
-// // Syntaxer
-// t_ast *syntax(t_tok *tok);
-// t_ast *create_tree(t_tok **tok);
-// t_ast *addnode(t_tok *tok);
-
-// // -- EXPANSION --
-
-// // -- ENVAR --
-
-// // -- EXECUTION --
-
-// // -- SIGNALS --
-
-// // -- ERROR --
+int		get_exitcode(pid_t pid);
 
 
-// //execution
-// int run_cmd(t_ctx *ctx, char **argv);
-// char *get_validpath(t_ctx *ctx, char **argv);
-// char *get_varvalue(t_ctx *ctx, char *varname);
+void	process_group(t_node *node);
 
-// //redirection
-// int	redir_in(char *pathname);
 
-// //error
-// void error(t_ctx *ctx, t_error error);
+void	process_pipe(t_node *node);
+int		open_pipe(t_pipe *p);
+int		close_pipe(t_pipe *p);
 
-// // DELETE
-// void print_tokens(t_tok *tokens);
-// void print_ast(t_ast *ast, int depth);
+void	process_redir_append(t_node *node);
+void	process_redir_heredoc(t_node *node);
+void	process_redir_in(t_node *node);
+void	process_redir_out(t_node *node);
+
+void	process_word_zero_quotes(t_node *node);
+void	process_word_single_quotes(t_node *node);
+void	process_word_double_quotes(t_node *node);
+
+void	evaluate_node(t_node *node);
 
 #endif

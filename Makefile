@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
+#    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/01/19 16:44:34 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/05 02:13:51 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler and flags
 CC					=	cc
-CFLAGS				=	-Wall -Wextra -Werror -g -MMD -MF
+CFLAGS				=	-Wall -Wextra -Werror -Wunreachable-code -g -MMD -MF
 RM					=	rm -rf
 
 # Name of the output library
@@ -21,32 +21,65 @@ NAME				=	minishell
 # Include directories
 INCLUDE_DIRS		=	\
 						./include \
-						./lib/libft \
-						./lib/ft_printf \
+						./lib/elibft \
+
 
 # Source directories
 VPATH				=	\
-						./src \
+						./src/:\
+						./src/error/:\
+						./src/execution/:\
+						./src/execution/andor/:\
+						./src/execution/arguments/:\
+						./src/execution/command/:\
+						./src/execution/exitcode/:\
+						./src/execution/expansion/:\
+						./src/execution/group/:\
+						./src/execution/pipe/:\
+						./src/execution/redirection/:\
+						./src/execution/signal/:\
+						./src/execution/word/:\
+						./src/parsing/printer/:\
+						./src/prompt/:\
+
 
 # Include flags
 INCLUDE				=	$(addprefix -I, $(INCLUDE_DIRS))
 
 # Libraries
 LIB 				=	\
-						./lib/libft/libft.a \
-						./lib/ft_printf/ft_printf.a \
+						./lib/elibft/elibft.a \
 						-lreadline \
-						
+
 # Source files
 SRC 				=	\
-						minishell.c \
-						parser.c \
-						lexer.c \
-						validator.c \
-						syntaxer.c \
+						main.c \
+						testcases.c \
 						printer.c \
-						
-
+						\
+						evaluation.c \
+						word.c \
+						\
+						redir_append.c \
+						redir_heredoc.c \
+						redir_in.c \
+						redir_out.c \
+						\
+						pipe.c \
+						pipewrapper.c \
+						\
+						group.c \
+						\
+						path.c \
+						\
+						exitcode.c \
+						\
+						command.c \
+						\
+						arguments.c \
+						\
+						and.c \
+						or.c \
 
 # Object and Dependency files
 OBJ					=	$(SRC:%.c=obj/%.o)
@@ -67,8 +100,7 @@ $(NAME): $(OBJ)
 
 # Build libraries
 lib:
-	@make $(MFLAGS) ./lib/libft
-	@make $(MFLAGS) ./lib/ft_printf
+	@make $(MFLAGS) ./lib/elibft
 
 # Compile mandatory object files
 obj/%.o: %.c | obj_dir dep_dir
@@ -86,15 +118,13 @@ dep_dir:
 clean:
 	@$(RM) obj
 	@$(RM) dep
-	@make clean $(MFLAGS) ./lib/libft
+	@make clean $(MFLAGS) ./lib/elibft
 	@echo "$(NAME) has been cleaned"
-	@make clean $(MFLAGS) ./lib/ft_printf
 	@echo "$(NAME) has been cleaned"
 
 # Clean build files and executables
 fclean: clean
-	@make fclean $(MFLAGS) ./lib/libft
-	@make fclean $(MFLAGS) ./lib/ft_printf
+	@make fclean $(MFLAGS) ./lib/elibft
 	@$(RM) $(NAME)
 
 # Rebuild everything
