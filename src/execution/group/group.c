@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:08:52 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 01:09:05 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 09:14:16 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	process_group(t_node *node)
 	else if (pid > 0)
 	{
 		node->ctx->exitcode = get_exitcode(pid); //last_child
+		//set $? using node->ctx->exitcode use export builtin for that
 		return ;
 	}
 }

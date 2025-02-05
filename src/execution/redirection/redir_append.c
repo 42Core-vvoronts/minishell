@@ -6,7 +6,40 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:44:20 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 01:44:26 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:12:40 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/minishell.h"
+
+static	bool	is_valid(char *pathname, t_node *node)
+{
+	if (is_ambiguous(pathname))
+	{
+		error(node, STRUCT_NODE, AMBIGUOUS_REDIR, false);
+		return (false);
+	}
+	else if (!is_writable(pathname))
+	{
+		error(node, STRUCT_NODE, PERMISSION_DENIED, false);
+		return (false);
+	}
+	return (true);
+}
+
+void	process_redir_append(t_node *node)
+{
+	int		fd;
+	char	*pathname;
+
+	evaluate_node(node->left);
+	pathname = pop_arg(node);
+	if (is_valid(pathname, node))
+	{
+		fd = eopen(pathname, O_WRONLY | O_APPEND | O_CREAT, 0666, node);
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
+		evaluate_node(node->right);
+	}
+	free(pathname);
+}

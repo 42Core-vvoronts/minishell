@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:04:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 09:00:14 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:52:27 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_node *init_testcase_forward(t_ctx *ctx)
 	(node_m1)->ctx = ctx;
 	(node_m1)->type = AND;
 	(node_m1)->token = "&&";
+
+	ctx->head = node_m1;
 
 	(node_m1)->right = malloc(sizeof(t_node));
 	(node_m1->right)->ctx = ctx;
@@ -50,13 +52,13 @@ t_node *init_testcase_forward(t_ctx *ctx)
 	(node->left)->left = malloc(sizeof(t_node));
 	(node->left->left)->ctx = ctx;
 	(node->left->left)->type = WORD_ZERO_QUOTES;
-	(node->left->left)->token = "./tests/f1";
+	(node->left->left)->token = "/home/ivan/outfiles/outordinary";
 	(node->left->left)->left = malloc(sizeof(t_node));
 
 	(node->left)->right = malloc(sizeof(t_node));
 	(node->left->right)->ctx = ctx;
 	(node->left->right)->type = WORD_ZERO_QUOTES;
-	(node->left->right)->token = "/bin/cat";
+	(node->left->right)->token = "/bin/ls";
 	(node->left->right)->left = NULL;
 
 	(node->left->right)->right =  malloc(sizeof(t_node));

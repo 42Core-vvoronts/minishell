@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 04:15:31 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:41:47 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static	int	init_envp(t_ctx *ctx, char **envp)
 	len = ft_parrlen(envp);
 	ctx->envp = ft_calloc(len + 1, sizeof(char *));
 	if (!ctx->envp)
-		error(ctx, STRUCT_CTX, MALLOC);
+		error(ctx, STRUCT_CTX, MALLOC_FAIL, true);
 	i = 0;
 	if (envp[i] == NULL)
 	{
@@ -34,7 +34,7 @@ static	int	init_envp(t_ctx *ctx, char **envp)
 	{
 		ctx->envp[i] = ft_strdup(envp[i]);
 		if (!ctx->envp[i])
-			error(ctx, STRUCT_CTX, MALLOC);
+			error(ctx, STRUCT_CTX, MALLOC_FAIL, true);
 		i++;
 	}
 	ctx->envp[i] = NULL;
@@ -45,10 +45,10 @@ int	init_ctx(t_ctx **ctx, char **envp)
 {
 	*ctx = ft_calloc(1, sizeof(t_ctx));
 	if (!*ctx)
-		error(NULL, NONE, MALLOC);
+		error(NULL, NONE, MALLOC_FAIL, true);
 	(*ctx)->ttyname = ttyname(STDIN_FILENO);
 	if (!(*ctx)->ttyname)
-		error(ctx, STRUCT_CTX, MALLOC);
+		error(ctx, STRUCT_CTX, MALLOC_FAIL, true);
 	init_envp(*ctx, envp);
 	return (SUCCESS);
 }
@@ -76,6 +76,6 @@ int	main(int argc, char **argv, char **envp)
 
 		printf("exitcode: %d\n", node->ctx->exitcode);
 	// }
-
+	allclean(node);
 	return (EXIT_SUCCESS);
 }

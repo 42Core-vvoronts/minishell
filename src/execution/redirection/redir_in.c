@@ -6,32 +6,45 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:23:16 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 08:33:24 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:03:18 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+static	bool	is_valid(char *pathname, t_node *node)
+{
+	if (is_ambiguous(pathname))
+	{
+		error(node, STRUCT_NODE, AMBIGUOUS_REDIR, false);
+		return (false);
+	}
+	else if (!is_exist(pathname))
+	{
+		error(node, STRUCT_NODE, FILE_NOT_FOUND, false);
+		return (false);
+	}
+	else if (!is_readable(pathname))
+	{
+		error(node, STRUCT_NODE, PERMISSION_DENIED, false);
+		return (false);
+	}
+	return (true);
+}
+
 void	process_redir_in(t_node *node)
 {
-	int	fd;
+	int		fd;
 	char	*pathname;
 
 	evaluate_node(node->left);
 	pathname = pop_arg(node);
-	//ft_split result of pop arg
-	fd = open(pathname, O_RDONLY);
-	if (fd == ERROR)
+	if (is_valid(pathname, node))
 	{
-		free(pathname);
-		//clean all previos opened fd, exitcode (1)
-		//init prompt always fork()
-		//cleanfd()
-		//clean whole ctx and args
-		node->ctx->exitcode = REDIR_FAIL; //make REDIR_FAIL = 1 macro
-		return ;
+		fd = eopen(pathname, O_RDONLY, 0777, node);
+		edup2(fd, STDIN_FILENO, node);
+		close(fd);
+		evaluate_node(node->right);
 	}
-	dup2(fd, STDIN_FILENO);
-	close(fd);
-	evaluate_node(node->right);
+	free(pathname);
 }

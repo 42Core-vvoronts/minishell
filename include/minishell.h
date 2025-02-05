@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 08:56:28 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 11:50:24 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,40 @@ typedef enum e_type
 	REDIR_HEREDOC
 }	t_type;
 
+// # define	GENERIC -1
+// # define	MALLOC
+// # define	OPEN_FAIL
+// # define	EXECVE_FAIL
+// # define	FORK_FAIL
+// # define	PIPECALL
+// # define	NOT_EXECUTABLE 126
+// # define	CMD_NOT_FOUND 127
+// # define	FILE_NOT_FOUND 1
+// # define	PERMISSION_DENIED 1
+// # define	INPUT 1
+// # define	HEREDOC_INPUT 1
+// # define	SYNTAX_ERROR 2
+// # define	BUILTIN_MISUSE 2
+
 typedef enum e_error
 {
 	GENERIC,
-	MALLOC,
+	MALLOC_FAIL,
+	OPEN_FAIL,
+	EXECVE_FAIL,
+	FORK_FAIL,
+	PIPE_FAIL,
+	DUP_FAIL,
+	NOT_EXECUTABLE,
+	NOT_READABLE,
+	NOT_WRITABLE,
+	AMBIGUOUS_REDIR,
 	CMD_NOT_FOUND,
 	FILE_NOT_FOUND,
 	PERMISSION_DENIED,
-	FORK,
-	OPEN,
-	PIPECALL,
-	INPUT,
-	HEREDOC_INPUT,
-	EXECVE_FAIL,
-	FORK_FAIL
-}	t_error;
+	BUILTIN_MISUSE,
+	SYNTAX_ERROR
+} t_error;
 
 typedef enum e_datatype
 {
@@ -98,13 +117,18 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
-void	error(void *data, t_datatype datatype, t_error error);
+void error(void *data, t_datatype datatype, int error, bool terminate);
 pid_t	efork(t_node *node);
 void	eexecve(char *pathname, t_node *node);
 char	*get_cmdname(void *node);
+void set_exitcode(void *node, int code);
+int	eopen(char *pathname, int flags, int mode, t_node *node);
+void	edup2(int oldfd, int newfd, t_node *node);
 
 void	process_and(t_node	*node);
 void	process_or(t_node	*node);
+
+int	allclean(t_node *node);
 
 char *get_varvalue(t_ctx *ctx, char *varname);
 
@@ -119,6 +143,9 @@ int		get_exitcode(pid_t pid);
 bool is_exist(char *pathname);
 bool is_executable(char *pathname);
 bool is_pathname(char *cmd);
+bool	is_ambiguous(char *pathname);
+bool	is_readable(char *pathname);
+bool	is_writable(char *pathname);
 
 void	process_group(t_node *node);
 
@@ -131,7 +158,7 @@ void	run_env(t_node *node);
 void	run_exit(t_node *node);
 
 void	process_pipe(t_node *node);
-int		open_pipe(t_pipe *p);
+int		open_pipe(t_pipe *p, t_node *node);
 int		close_pipe(t_pipe *p);
 
 void	process_redir_append(t_node *node);
