@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:07:37 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 08:35:13 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 08:56:25 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,22 @@ void	run_bin(char *pathname, t_node *node)
 bool	run_builtin(t_node *node)
 {
 	if (is_eqlstr("echo", get_cmdname(node)))
-		return(printf("echo run\n"));
+		run_echo(node);
 	else if (is_eqlstr("cd", get_cmdname(node)))
-		return(printf("cd run\n"));
+		run_cd(node);
 	else if (is_eqlstr("pwd", get_cmdname(node)))
-		return(printf("pwd run\n"));
+		run_pwd(node);
 	else if (is_eqlstr("export", get_cmdname(node)))
-		return(printf("export run\n"));
+		run_export(node);
 	else if (is_eqlstr("unset", get_cmdname(node)))
-		return(printf("unset run\n"));
+		run_unset(node);
 	else if (is_eqlstr("env", get_cmdname(node)))
-		return(printf("env run\n"));
+		run_env(node);
 	else if (is_eqlstr("exit", get_cmdname(node)))
-		return(printf("exit run\n"));
-	node->ctx->exitcode = EXIT_SUCCESS;
-	return (FAIL);
+		run_exit(node);
+	else
+		return (false);
+	return (true);
 }
 
 void	run_cmd(t_node *node)

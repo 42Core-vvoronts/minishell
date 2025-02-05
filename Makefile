@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/05 08:33:13 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/05 08:59:48 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ VPATH				=	\
 						./src/execution/andor/:\
 						./src/execution/arguments/:\
 						./src/execution/command/:\
+						./src/execution/command/builtin:\
 						./src/execution/exitcode/:\
 						./src/execution/expansion/:\
 						./src/execution/group/:\
@@ -84,6 +85,14 @@ SRC 				=	\
 						or.c \
 						\
 						error.c \
+						\
+						cd.c \
+						echo.c \
+						env.c \
+						exit.c \
+						export.c \
+						pwd.c \
+						unset.c \
 						\
 
 # Object and Dependency files

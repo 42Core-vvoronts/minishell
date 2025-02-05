@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 08:33:13 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/05 08:56:28 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,13 @@ bool is_pathname(char *cmd);
 
 void	process_group(t_node *node);
 
+void	run_echo(t_node *node);
+void	run_cd(t_node *node);
+void	run_pwd(t_node *node);
+void	run_export(t_node *node);
+void	run_unset(t_node *node);
+void	run_env(t_node *node);
+void	run_exit(t_node *node);
 
 void	process_pipe(t_node *node);
 int		open_pipe(t_pipe *p);
