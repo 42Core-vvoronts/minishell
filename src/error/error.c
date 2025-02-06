@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 11:44:31 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:50:16 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,14 @@ void error(void *data, t_datatype datatype, int error, bool terminate)
 	{
 		// puterr(": ");
 		puterr("ambiguous redirect\n");
+		set_exitcode(data, 1);
+	}
+	else if (error == NOT_VALID_IDENTIFIER)
+	{
+		puterr("export: ");
+		puterr(((t_node *)data)->ctx->hint);
+		puterr(": ");
+		puterr("not a valid identifier\n");
 		set_exitcode(data, 1);
 	}
 	else if (error == SYNTAX_ERROR)

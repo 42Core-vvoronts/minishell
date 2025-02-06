@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/06 09:11:20 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/06 12:13:30 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,16 @@ void	run_unset(t_node *node)
 	size_t	i;
 	size_t	len;
 	char	**var;
+	char	**stash;
 
+	stash = node->ctx->stash;
 	if (!node->ctx->envp || !node->ctx->stash)
 		return ;
 	i = 1;
 	len = ft_parrlen(node->ctx->envp);
 	while ((node->ctx->stash)[i])
 	{
-		var = get_var(node->ctx, (node->ctx->stash)[i]);
+		var = get_var(node->ctx, stash[i]);
 		if (var)
 		{
 			free(*var);

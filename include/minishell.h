@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/06 01:18:09 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/06 12:13:30 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ typedef enum e_error
 	FILE_NOT_FOUND,
 	PERMISSION_DENIED,
 	BUILTIN_MISUSE,
-	SYNTAX_ERROR
+	SYNTAX_ERROR,
+	NOT_VALID_IDENTIFIER
 } t_error;
 
 typedef enum e_datatype
@@ -91,6 +92,7 @@ typedef struct s_ctx
 	char	*ttyname;
 	char	**stash;
 	int		*fds;
+	char	*hint;
 	pid_t	exitcode;
 	struct s_node	*head;
 } t_ctx;
@@ -132,8 +134,6 @@ void	process_and(t_node	*node);
 void	process_or(t_node	*node);
 
 int		allclean(t_node *node);
-
-char	*get_varvalue(t_ctx *ctx, char *varname);
 
 void	add_arg(char *arg, t_node *node);
 char	*pop_arg(t_node *node);
