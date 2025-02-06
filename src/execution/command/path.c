@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:09:00 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 10:23:09 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/06 00:56:43 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char *get_pathname(t_node *node)
 	}
 	else
 	{
-		pathval = get_varvalue(node->ctx, "PATH");
+		pathval = get_val(node->ctx, "PATH");
 		if (!pathval)
 			error(node, STRUCT_NODE, FILE_NOT_FOUND, true);
 		pathname = retrieve_pathname(pathval, node);

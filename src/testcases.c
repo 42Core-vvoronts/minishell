@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:04:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 12:49:07 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/06 08:23:36 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,15 @@ t_node *init_testcase_forward(t_ctx *ctx)
 	(node_m1)->right = malloc(sizeof(t_node));
 	(node_m1->right)->ctx = ctx;
 	(node_m1->right)->type = WORD_ZERO_QUOTES;
-	(node_m1->right)->token = "env";
-	(node_m1->right)->right = NULL;
+	(node_m1->right)->token = "unset";
 	(node_m1->right)->left = NULL;
+	(node_m1->right)->right = malloc(sizeof(t_node));
+
+	(node_m1->right->right)->ctx = ctx;
+	(node_m1->right->right)->type = WORD_ZERO_QUOTES;
+	(node_m1->right->right)->token = "VAR1";
+	(node_m1->right->right)->right = NULL;
+	(node_m1->right->right)->left = NULL;
 
 
 	// ls / < f1 | cat | grep a

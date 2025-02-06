@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 12:26:06 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/06 09:03:00 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	parse(char *input)
 {
 	(void)input;
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_node	*node;
@@ -80,24 +81,39 @@ int	main(int argc, char **argv, char **envp)
 	(void)ctx;
 	(void)node;
 
-	char *input;
+	init_ctx(&ctx, envp);
+	node = init_testcase_forward(ctx);
 
-	while (1)
-	{
-		input = readline("prompt: ");
-		add_history(input);
-		rl_on_new_line(); //?????
-		parse(input);
-		init_ctx(&ctx, envp);
-		node = init_testcase_forward(ctx);
-		evaluate_node(node);
-		restore_std(node);
-		printf("exitcode: %d\n", node->ctx->exitcode);
-	}
-		allclean(node);
+	node->ctx->stash = malloc(sizeof(char *) * 3);
+	node->ctx->stash[0] = "unset";
+	node->ctx->stash[1] = "VAR1";
+	node->ctx->stash[2] = NULL;
+
+	run_unset(node);
+
+	// save_tree(node);
+	// evaluate_node(node);
+	// printf("Result VAR: %s\n", get_var(ctx, "PATH"));
+	// printf("Result VAL: %s\n", get_val(ctx, "HOME"));
+
+	// char *input;
+
+	// while (1)
+	// {
+	// 	input = readline("prompt: ");
+	// 	add_history(input);
+	// 	rl_on_new_line(); //?????
+	// 	parse(input);
+	// 	init_ctx(&ctx, envp);
+	// 	node = init_testcase_forward(ctx);
+		// evaluate_node(node);
+	// 	restore_std(node);
+	// 	printf("exitcode: %d\n", node->ctx->exitcode);
+	// }
+	// 	allclean(node);
 	// save_tree(node);
 
-	(void)input;
+	// (void)input;
 
 	// //start from process_group? group = init prompt
 	// // while (1)

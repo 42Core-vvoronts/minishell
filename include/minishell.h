@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 11:54:31 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/06 01:18:09 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,9 @@ char	*get_cmdname(void *node);
 void	set_exitcode(void *node, int code);
 int		eopen(char *pathname, int flags, int mode, t_node *node);
 void	edup2(int oldfd, int newfd, t_node *node);
+
+char	**get_var(t_ctx *ctx, char *varname);
+char	*get_val(t_ctx *ctx, char *varname);
 
 void	process_and(t_node	*node);
 void	process_or(t_node	*node);
