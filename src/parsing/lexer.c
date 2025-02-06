@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:05:42 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 17:53:03 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:07:44 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_type label(char *lexeme)
 	return WORD_ZERO_QUOTES;
 }
 
-t_tok *lexer(char *cmdline)
+t_tok *lex(char *cmdline)
 {
     t_tok *tokens = NULL;
     t_tok *curtok = NULL;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   group.c                                            :+:      :+:    :+:   */
+/*   groups.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 18:10:32 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:02:15 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_node *parse_group(t_tok **tok)
     }
     *tok = (*tok)->next;  // consume "("
 
-    t_node *node = parse_andor(tok);
+    t_node *node = parse_list(tok);
 
     if (!*tok || strcmp((*tok)->lexeme, ")") != 0)
     {

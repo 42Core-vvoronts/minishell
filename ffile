@@ -1,0 +1,14 @@
+Makefile
+README.md
+dep
+ffile
+include
+lib
+minishell
+minishell.c
+obj
+result_tree.png
+src
+tests
+tree.png
+wiki

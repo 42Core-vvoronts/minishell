@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/05 18:20:49 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/06 17:01:22 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,11 +63,11 @@ SRC 				=	\
 						parser.c \
 						lexer.c \
 						syntaxer.c \
-						andors.c \
+						list.c \
 						groups.c \
 						pipelines.c \
 						redirections.c \
-						words.c \
+						expression.c \
 						\
 						evaluation.c \
 						word.c \

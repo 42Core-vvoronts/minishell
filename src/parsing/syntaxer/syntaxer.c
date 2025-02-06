@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 18:43:41 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:50:06 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,21 @@ t_node *parse_primary(t_tok **tok)
     if ((*tok)->lexeme && strcmp((*tok)->lexeme, "(") == 0)
         return parse_group(tok);
     else
-        return parse_word(tok);
+        return parse_expression(tok);
 }
 
 t_node *syntax(t_tok *tok)
 {
-	return (parse_andor(&tok));
+	t_node *ast;
+	
+	ast = parse_list(&tok);
+
+    // if (!tok || tok->lexeme != "\n")
+    // {
+    //     fprintf(stderr, "Syntax error: expected newline at end of statement.\n");
+    //     exit(EXIT_FAILURE);
+    // }
+	
+
+	return (ast);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   words.c                                            :+:      :+:    :+:   */
+/*   expression.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 18:22:24 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:01:54 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int is_word(t_tok *tok)
  * @return New left node
  * 
  */
-t_node *parse_word(t_tok **tok)
+t_node *parse_expression(t_tok **tok)
 {
     if (!*tok)
         return NULL;
@@ -46,7 +46,7 @@ t_node *parse_word(t_tok **tok)
     t_node *node = NULL;
 
     /* Check for group: if the lexeme is "(" then parse a group */
-    if ((*tok)->lexeme && strcmp((*tok)->lexeme, "(") == 0)
+    if ((*tok)->lexeme && strcmp((*tok)->lexeme, "(") == 0) //is_eqlstr()
     {
         node = parse_group(tok);
     }

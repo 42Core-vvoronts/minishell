@@ -31,9 +31,13 @@ Run the shell:
 ./Minishell
 ```
 
-Run cmdline:
+Run statement:
 ```sh
 << EOF cat | ls $VAR1 / >> file2.txt | echo $ENV2 | cat | cat
+```
+Run statement:
+```sh
+( ls / | cat | grep a && ls ) > f1
 ```
 
 Result:

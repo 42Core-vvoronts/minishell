@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 18:15:54 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:07:51 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ void	evaluate_node(t_node *node);
 
 t_node *create_tree(t_tok **tok, int precedence);
 t_node *parse_primary(t_tok **tok);
-t_node *parse_andor(t_tok **tok);
+t_node *parse_list(t_tok **tok);
 t_node *parse_pipe(t_tok **tok);
-t_node *parse_word(t_tok **tok);
+t_node *parse_expression(t_tok **tok);
 t_node *parse_group(t_tok **tok);
 t_node *parse_redir(t_tok **tok);
 t_node *new_node(t_type type, const char *token, t_node *left, t_node *right);
@@ -119,7 +119,7 @@ int minishell(int argc, char **argv, char **envp);
 // -- PARSING --
 int parsing(char *input);
 // Lexer
-t_tok *lexer(char *cmdline);
+t_tok *lex(char *cmdline);
 // e_cmd typify(e_label label);
 t_type label(char *lexeme);
 bool is_not_space(char symbol);
