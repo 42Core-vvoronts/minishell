@@ -7,7 +7,7 @@
 
 <pipeline> 			::= <expression> { '|' <expression> }*
 
-<expression> 		::= <redirection>* <word>* <redirection>* 
+<expression> 		::= {<word> | <redirection>}* 
 					  | <group> <redirection>*
 
 <group> 			::= '(' <list> ')'
@@ -29,6 +29,7 @@ $
 
 $ (ls | cat)
 $ (echo "abiba" > f3)
+$ ls && ls | cat # treated as ls && (ls | cat)
 
 -- pipeline --
 
@@ -41,18 +42,33 @@ $ echo "hello"
 
 -- redirection (expression)--
 
+# <word> <redir> <word> 
+$ ls > f1 -la #works as ordinary ls -la > f1
+# <redir> <word> <word> 
 $ > f1 echo "hello"
+# <word> <redir> <word> 
 $ ls > f1
+# <redir> 
 $ > f1 #empty file
+# <redir> <redir> <redir> 
 $ > f4 > f5 > f6 #all empty files, it deletes the content of the file
+# <word> <word> <redir> <redir> <redir> 
 $ echo "aboba" > f1 > f2 > f3
+# <redir> 
 $ < f7 #bash: f7: No such file or directory, does not create the file
+# <redir> <word> <word>
 $ < f1 echo "hello" 
+# <redir> <word>
 $ < f1 cat
+# <redir> <word> <word>
 $ < f1 f2 cat  #f2: command not found
 $ << EOF #bash ignores
 $ << EOF > file #bash ignores
 $ cat << EOF > file
+
+$ (sleep 1 | ls) > f f2 #bash: syntax error near unexpected token `f2'
+$ echo "aboba" > f1 > f2 > f3 ls -la
+
 
 -- word (expression)--
 

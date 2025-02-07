@@ -37,7 +37,7 @@ Run statement:
 ```
 Run statement:
 ```sh
-( ls / | cat | grep a && ls ) > f1
+( < f2 ls / | cat | grep a && ls ) > f1
 ```
 
 Result:

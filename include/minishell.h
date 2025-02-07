@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/06 18:07:51 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:42:23 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,12 @@ t_type label(char *lexeme);
 bool is_not_space(char symbol);
 // Syntaxer
 t_node *syntax(t_tok *tok);
+int is_group_open(t_tok *tok);
+int is_group_close(t_tok *tok);
+int is_redir(t_tok *tok);
+
+
+
 // t_node *create_tree(t_tok **tok);
 t_node *create_tree(t_tok **tok, int precedence);
 int get_precedence(t_type type);

@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection.c                                      :+:      :+:    :+:   */
+/*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/05 18:10:49 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:42:08 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int is_redir(t_tok *tok)
+{
+	return (tok->type == REDIR_APPEND ||
+			tok->type == REDIR_HEREDOC ||
+			tok->type == REDIR_IN ||
+			tok->type == REDIR_OUT);
+}
 
 /**
  * @brief Handle the redirection operators

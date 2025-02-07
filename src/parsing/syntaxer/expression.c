@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/06 17:01:54 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:41:42 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,32 @@ int is_word(t_tok *tok)
 }
 
 /**
- * @brief 
+ * @brief  Grammar rule: <expression>::= { <word> | <redirection>}* 
+ * 									   | <group> <redirection>*
  * 
- * <exec> ::= <group>
- *          | <word> { <word> }* { <redirection> }*
+ * If the token is a redirection operator, parse first subrule. 
+ * If the token is a group, parse second subrule.
  * 
- * If the token is a left parenthesis (represented by lexeme "("), then
- * we parse a grouped command. Otherwise we expect one or more WORD tokens.
+ * Example: echo "arg" > f1 > f2
+ * 
+ *	       	 >       <- redir #1
+ *		    / \
+ *		   f1  >      <- redir #2
+ *			   / \
+ *		     f2   echo
+ *					|
+ *				  "arg"
+ *
+ * Example: (ls | cat) > f1
+ * 
+ * 		 >       <- redir
+ * 		/ \
+ * 	f1     ()       <- group
+ * 		   /
+ *        |        <- pipe
+ * 		 / \
+ * 	   ls  cat
+ *
  * 
  * @param tok The token list.
  * @return New left node
@@ -43,57 +62,75 @@ t_node *parse_expression(t_tok **tok)
     if (!*tok)
         return NULL;
 
-    t_node *node = NULL;
-
-    /* Check for group: if the lexeme is "(" then parse a group */
-    if ((*tok)->lexeme && strcmp((*tok)->lexeme, "(") == 0) //is_eqlstr()
+    /* Case 1: Group – parse group then its trailing redirections */
+	if (is_group_open(*tok))
+    // if ((*tok)->lexeme && ft_strcmp((*tok)->lexeme, "(") == 0)
     {
-        node = parse_group(tok);
-    }
-    else
-    {
-        if (!is_word(*tok))
+        t_node *node = parse_group(tok);
+        t_node *redir_stack[256];
+        int count = 0;
+        while (*tok && get_precedence((*tok)->type) == 2)
+            redir_stack[count++] = parse_redir(tok);
+        while (count > 0)
         {
-            fprintf(stderr, "Error: expected command word, got '%s'\n",
-                    (*tok)->lexeme ? (*tok)->lexeme : "NULL");
-            return NULL;
+            t_node *redir = redir_stack[--count];
+            redir->right = node;
+            node = redir;
         }
+        return node;
+    }
 
-        /* Create an execution node with the first command word */
-        node = new_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
+    /* Case 2: Non-group – allow redirections before and after the command */
+    t_node *redir_stack[256];
+    int count = 0;
+
+    /* Parse any leading redirections (e.g., "< f2") */
+    while (*tok && get_precedence((*tok)->type) == 2)
+        redir_stack[count++] = parse_redir(tok);
+
+    /* Now expect a command word */
+    if (!*tok || !is_word(*tok))
+    {
+        fprintf(stderr, "Error: expected command, got '%s'\n",
+                (*tok)->lexeme ? (*tok)->lexeme : "NULL");
+        return NULL;
+    }
+    t_node *cmd = new_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
+    *tok = (*tok)->next;
+
+    /* Collect additional command arguments */
+    t_node *args = NULL, *args_tail = NULL;
+    while (*tok && is_word(*tok))
+    {
+        t_node *arg = new_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
         *tok = (*tok)->next;
-
-        /* Collect additional WORD tokens as arguments (attached to right) */
-        while (*tok && is_word(*tok))
+        if (!args)
         {
-            t_node *arg = new_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
-            if (!node->left)
-                node->left = arg;
-            else
-            {
-                t_node *temp = node->left;
-                while (temp->right)
-                    temp = temp->right;
-                temp->right = arg;
-            }
-            *tok = (*tok)->next;
+            args = arg;
+            args_tail = arg;
         }
-    }
-
-    /* Process any redirections following the command or group */
-    while (*tok && ((*tok)->type == REDIR_IN || (*tok)->type == REDIR_OUT ||
-                    (*tok)->type == REDIR_APPEND || (*tok)->type == REDIR_HEREDOC))
-    {
-        t_node *redir = parse_redir(tok);
-        if (!node->right)
-            node->right = redir;
         else
         {
-            t_node *temp = node->right;
-            while (temp->right)
-                temp = temp->right;
-            temp->right = redir;
+            args_tail->right = arg;
+            args_tail = arg;
         }
+    }
+    cmd->left = args;
+
+    /* Parse any redirections following the command */
+    while (*tok && get_precedence((*tok)->type) == 2)
+        redir_stack[count++] = parse_redir(tok);
+
+    /* Fold all redirections from right to left.
+       This makes the first redirection the top node with its right child
+       being the next redirection (or the command if none remain). */
+    t_node *node = cmd;
+    while (count > 0)
+    {
+        t_node *redir = redir_stack[--count];
+        redir->right = node;
+        node = redir;
     }
     return node;
 }
+
