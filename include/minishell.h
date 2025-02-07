@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 03:18:11 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/07 07:35:20 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ typedef enum e_error
 	NOT_VALID_IDENTIFIER,
 	NON_NUMERIC_EXIT,
 	TOO_MANY_ARG_EXIT,
+	TOO_MANY_ARG_CD,
+	ERRNO_CD,
+	OLDPWD_NOT_SET_CD,
+	HOME_NOT_SET_CD,
 } t_error;
 
 typedef enum e_datatype
@@ -131,6 +135,7 @@ void	edup2(int oldfd, int newfd, t_node *node);
 
 char	**get_var(t_ctx *ctx, char *varname);
 char	*get_val(t_ctx *ctx, char *varname);
+void	add_var(t_node *node, char *str);
 
 void	process_and(t_node	*node);
 void	process_or(t_node	*node);

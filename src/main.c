@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/07 04:20:11 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/07 09:48:43 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,14 @@ int	main(int argc, char **argv, char **envp)
 	node = init_testcase_forward(ctx);
 
 	node->ctx->stash = malloc(sizeof(char *) * 10);
-	node->ctx->stash[0] = "echo";
-	node->ctx->stash[1] = ft_strdup("-n");
-	node->ctx->stash[2] = ft_strdup("TEST2");
+	node->ctx->stash[0] = "cd";
+	node->ctx->stash[1] = ft_strdup("../");
+	node->ctx->stash[2] = NULL;
 	node->ctx->stash[3] = ft_strdup("TEST3");
 	node->ctx->stash[4] = NULL;
 
 	// run_export(node);
-	run_echo(node);
+	run_cd(node);
 
 	// save_tree(node);
 	// evaluate_node(node);

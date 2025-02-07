@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/07 03:33:13 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/07 07:49:29 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,32 @@ void error(void *data, t_datatype datatype, int error, bool terminate)
 		puterr("exit: ");
 		puterr("too many arguments\n");
 		// allclean(node);
+		set_exitcode(data, 1);
+	}
+	else if (error == TOO_MANY_ARG_CD)
+	{
+		puterr("cd: ");
+		puterr("too many arguments\n");
+		// allclean(node);
+		set_exitcode(data, 1);
+	}
+	else if (error == ERRNO_CD)
+	{
+		puterr("cd: ");
+		//print hint here
+		perror("");
+		set_exitcode(data, 1);
+	}
+	else if (error == OLDPWD_NOT_SET_CD)
+	{
+		puterr("cd: ");
+		puterr("OLDPWD not set\n");
+		set_exitcode(data, 1);
+	}
+	else if (error == HOME_NOT_SET_CD)
+	{
+		puterr("cd: ");
+		puterr("HOME not set\n");
 		set_exitcode(data, 1);
 	}
 	else
