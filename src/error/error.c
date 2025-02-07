@@ -6,16 +6,12 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/06 11:50:16 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/07 03:33:13 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	puterr(char *error)
-{
-	ft_putstr_fd(error, STDERR_FILENO);
-}
 
 // static char *get_msg(t_error error)
 // {
@@ -72,6 +68,7 @@ static	void	clean_tree(t_node *node)
 	clean_tree(node->right);
 	free(node);
 }
+
 int	allclean(t_node *node)
 {
 	t_ctx	*ctx;
@@ -158,6 +155,22 @@ void error(void *data, t_datatype datatype, int error, bool terminate)
 		// bash: cd: -f: invalid option
 		// cd: usage: cd [-L|[-P [-e]] [-@]] [dir]
 		set_exitcode(data, 2);
+	}
+	else if (error == NON_NUMERIC_EXIT)
+	{
+		puterr("exit: ");
+		puterr(((t_node *)data)->ctx->hint);
+		puterr(": ");
+		puterr("numeric argument required\n");
+		// allclean(node);
+		exit(1);
+	}
+	else if (error == TOO_MANY_ARG_EXIT)
+	{
+		puterr("exit: ");
+		puterr("too many arguments\n");
+		// allclean(node);
+		set_exitcode(data, 1);
 	}
 	else
 	{

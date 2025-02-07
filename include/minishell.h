@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/06 12:13:30 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/07 03:18:11 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ typedef enum e_error
 	PERMISSION_DENIED,
 	BUILTIN_MISUSE,
 	SYNTAX_ERROR,
-	NOT_VALID_IDENTIFIER
+	NOT_VALID_IDENTIFIER,
+	NON_NUMERIC_EXIT,
+	TOO_MANY_ARG_EXIT,
 } t_error;
 
 typedef enum e_datatype

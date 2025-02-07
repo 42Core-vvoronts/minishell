@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 16:48:06 by ipetrov           #+#    #+#              #
-#    Updated: 2025/02/04 12:24:44 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/07 02:25:01 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ SRC					= 	arr_add.c \
 						ft_putendl_fd.c \
 						ft_putnbr_fd.c \
 						ft_putstr_fd.c \
+						puterr.c \
 						\
 						ft_parrclean.c \
 						ft_parrjoin.c \
