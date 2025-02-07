@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/06 12:22:04 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/07 02:00:33 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static	void	add_var(t_node *node, char *str)
 	dupedstr = ft_strdup(str);
 	if (!dupedstr)
 		error(node, STRUCT_NODE, MALLOC_FAIL, true);
-	*ft_strchr(str, '=') = '\0';
 	var = get_var(node->ctx, str);
 	if (var)
 	{
@@ -91,8 +90,7 @@ void	run_export(t_node *node)
 		if (!is_required_to_add((node->ctx->stash)[i]))
 			continue ;
 		add_var(node, (node->ctx->stash)[i]);
+		node->ctx->exitcode = EXIT_SUCCESS;
 	}
-
-	run_env(node);
-	node->ctx->exitcode = EXIT_SUCCESS;
+	// run_env(node);
 }

@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/06 12:46:23 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/07 02:00:34 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ int	main(int argc, char **argv, char **envp)
 
 	node->ctx->stash = malloc(sizeof(char *) * 3);
 	node->ctx->stash[0] = "export";
-	node->ctx->stash[1] = ft_strdup("VAR2=VAR232");
-	node->ctx->stash[2] = NULL;
+	node->ctx->stash[1] = ft_strdup("=test");
+	node->ctx->stash[2] = ft_strdup("VAR.4=232");
+	node->ctx->stash[3] = NULL;
 
 	run_export(node);
 
@@ -108,7 +109,7 @@ int	main(int argc, char **argv, char **envp)
 	// 	node = init_testcase_forward(ctx);
 		// evaluate_node(node);
 	// 	restore_std(node);
-	// 	printf("exitcode: %d\n", node->ctx->exitcode);
+	printf("exitcode: %d\n", node->ctx->exitcode);
 	// }
 	// 	allclean(node);
 	// save_tree(node);
