@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 10:42:08 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:51:11 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int is_redir(t_tok *tok)
 {
+	if (!tok)
+		return (0);
 	return (tok->type == REDIR_APPEND ||
 			tok->type == REDIR_HEREDOC ||
 			tok->type == REDIR_IN ||

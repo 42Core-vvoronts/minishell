@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 10:41:42 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:57:55 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,109 @@
  */
 int is_word(t_tok *tok)
 {
+	if (!tok)
+		return (0);
     return (tok->type == WORD_ZERO_QUOTES ||
             tok->type == WORD_SINGLE_QUOTES ||
             tok->type == WORD_DOUBLE_QUOTES);
 }
 
+t_node	**stack_redirs(t_tok **tok, t_node **stack, int *elem)
+{
+	while (is_redir(*tok))
+		stack[(*elem)++] = parse_redir(tok);
+	return (stack);
+}
+
+t_node	*unfold_redirs(t_node **stack, int *elem, t_node *node)
+{
+	t_node	*redir;
+	
+	while ((*elem) > 0)
+	{
+		redir = stack[--(*elem)];
+		redir->right = node;
+		node = redir;
+	}
+	return node;
+}
+
+void collect_args(t_tok **tok, t_node *word)
+{
+    t_node	*arg;
+    t_node	*args;
+	t_node	*tail;
+
+	tail = NULL;
+	args = NULL;
+    while (*tok && is_word(*tok))
+    {
+        arg = new_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
+        *tok = (*tok)->next;
+        if (!args)
+        {
+            args = arg;
+            tail = arg;
+        }
+        else
+        {
+            tail->left = arg;
+            tail = arg;
+        }
+    }
+    word->left = args;
+}
+
+t_node *create_word_node(t_tok **tok)
+{
+	if (!is_word(*tok))
+	{
+		fprintf(stderr, "Error: expected command, got '%s'\n",
+				(*tok)->lexeme ? (*tok)->lexeme : "NULL");
+		return NULL;
+	}
+	t_node *word = new_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
+	*tok = (*tok)->next;
+	return word;
+}
+
+/**
+ * @brief  Grammar rule: <expression>::= <group> <redirection>*
+ * Parse group then its trailing redirections
+ * 
+ * @param tok The token list.
+ * @return New left node
+ * 
+ * Example: (ls | cat) > f1
+ * 
+ * 		 >       <- redir
+ * 		/ \
+ * 	f1     ()       <- group
+ * 		   /
+ *        |        <- pipe
+ * 		 / \
+ * 	   ls  cat
+ */
+t_node *expression_with_group(t_tok **tok)
+{
+	t_node	*stack[STACK_SIZE];
+	t_node	*node;
+	t_node	*result;
+	int		elem;
+
+	elem = 0;
+	node = parse_group(tok);
+	stack_redirs(tok, stack, &elem);
+	result = unfold_redirs(stack, &elem, node);
+	return (result);
+}
+
 /**
  * @brief  Grammar rule: <expression>::= { <word> | <redirection>}* 
- * 									   | <group> <redirection>*
+ * Parse any combination of words and redirections.
  * 
- * If the token is a redirection operator, parse first subrule. 
- * If the token is a group, parse second subrule.
+ * @param tok The token list.
+ * @return New left node
  * 
  * Example: echo "arg" > f1 > f2
  * 
@@ -41,96 +133,40 @@ int is_word(t_tok *tok)
  *		     f2   echo
  *					|
  *				  "arg"
- *
- * Example: (ls | cat) > f1
- * 
- * 		 >       <- redir
- * 		/ \
- * 	f1     ()       <- group
- * 		   /
- *        |        <- pipe
- * 		 / \
- * 	   ls  cat
- *
- * 
- * @param tok The token list.
- * @return New left node
- * 
  */
-t_node *parse_expression(t_tok **tok)
+t_node *expression_no_group(t_tok **tok)
 {
-    if (!*tok)
-        return NULL;
-
-    /* Case 1: Group – parse group then its trailing redirections */
-	if (is_group_open(*tok))
-    // if ((*tok)->lexeme && ft_strcmp((*tok)->lexeme, "(") == 0)
-    {
-        t_node *node = parse_group(tok);
-        t_node *redir_stack[256];
-        int count = 0;
-        while (*tok && get_precedence((*tok)->type) == 2)
-            redir_stack[count++] = parse_redir(tok);
-        while (count > 0)
-        {
-            t_node *redir = redir_stack[--count];
-            redir->right = node;
-            node = redir;
-        }
-        return node;
-    }
-
-    /* Case 2: Non-group – allow redirections before and after the command */
-    t_node *redir_stack[256];
-    int count = 0;
-
-    /* Parse any leading redirections (e.g., "< f2") */
-    while (*tok && get_precedence((*tok)->type) == 2)
-        redir_stack[count++] = parse_redir(tok);
-
-    /* Now expect a command word */
-    if (!*tok || !is_word(*tok))
-    {
-        fprintf(stderr, "Error: expected command, got '%s'\n",
-                (*tok)->lexeme ? (*tok)->lexeme : "NULL");
-        return NULL;
-    }
-    t_node *cmd = new_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
-    *tok = (*tok)->next;
-
-    /* Collect additional command arguments */
-    t_node *args = NULL, *args_tail = NULL;
-    while (*tok && is_word(*tok))
-    {
-        t_node *arg = new_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
-        *tok = (*tok)->next;
-        if (!args)
-        {
-            args = arg;
-            args_tail = arg;
-        }
-        else
-        {
-            args_tail->right = arg;
-            args_tail = arg;
-        }
-    }
-    cmd->left = args;
-
-    /* Parse any redirections following the command */
-    while (*tok && get_precedence((*tok)->type) == 2)
-        redir_stack[count++] = parse_redir(tok);
-
-    /* Fold all redirections from right to left.
-       This makes the first redirection the top node with its right child
-       being the next redirection (or the command if none remain). */
-    t_node *node = cmd;
-    while (count > 0)
-    {
-        t_node *redir = redir_stack[--count];
-        redir->right = node;
-        node = redir;
-    }
-    return node;
+	t_node	*stack[STACK_SIZE];
+	t_node	*node;
+	t_node	*result;
+	t_node	*word;
+	int		elem;
+	
+	elem = 0;
+	stack_redirs(tok, stack, &elem);
+	word = create_word_node(tok);
+	collect_args(tok, word);
+	stack_redirs(tok, stack, &elem);
+    node = word;
+	result = unfold_redirs(stack, &elem, node);
+    return result;
 }
 
+/**
+ * @brief  Grammar rule: <expression>::= { <word> | <redirection>}* 
+ * 									   | <group> <redirection>*
+ * If the token is a redirection operator, parse first subrule. 
+ * If the token is a group, parse second subrule.
+ *
+ * @param tok The token list.
+ * @return t_node*
+ */
+t_node	*parse_expression(t_tok **tok)
+{
+	if (!*tok)
+		return NULL;
+	if (is_group_open(*tok))
+		return (expression_with_group(tok));
+	else
+		return (expression_no_group(tok));
+}

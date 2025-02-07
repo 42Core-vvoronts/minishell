@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 10:42:23 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:49:39 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <readline/history.h>
 
 # define REDIR_FAIL 1
+# define STACK_SIZE 256
 
 typedef enum e_type
 {

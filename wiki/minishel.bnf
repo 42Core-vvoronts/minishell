@@ -45,7 +45,7 @@ $ echo "hello"
 # <word> <redir> <word> 
 $ ls > f1 -la #works as ordinary ls -la > f1
 # <redir> <word> <word> 
-$ > f1 echo "hello"
+$ > f1 echo hello
 # <word> <redir> <word> 
 $ ls > f1
 # <redir> 
