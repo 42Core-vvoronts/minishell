@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 10:37:55 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:29:37 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,11 @@ int get_precedence(t_type type)
  * @return t_node* 
  * 
  */
-t_node *new_node(t_type type, const char *token, t_node *left, t_node *right)
+t_node *init_node(t_type type, const char *token, t_node *left, t_node *right)
 {
     t_node *node = malloc(sizeof(t_node));
     if (!node)
-    {
-        perror("malloc");
-        exit(EXIT_FAILURE);
-    }
+		error_exit("malloc");
     node->ctx = NULL;  // You can assign a context if needed
     node->type = type;
     node->token = token ? strdup(token) : NULL;
@@ -72,21 +69,25 @@ t_node *new_node(t_type type, const char *token, t_node *left, t_node *right)
  * @return pointer to the root node of the tree
  * 
  */
-t_node *create_tree(t_tok **tok, int precedence)
+t_node	*create_tree(t_tok **tok, int precedence)
 {
-    t_node *left = parse_primary(tok);
+    t_node	*left;
+	t_node	*right;
+	t_type	operator;
+	t_tok	*token;
 
+	left = group_or_expression(tok);
     while (*tok && get_precedence((*tok)->type) >= precedence)
     {
-        t_type op = (*tok)->type;
-        int op_prec = get_precedence(op);
+        operator = (*tok)->type;
+        precedence = get_precedence(operator);
 
-        /* For left associativity, parse the right-hand side with op_prec+1 */
-        t_tok *op_tok = *tok;
+        /* For left associativity, parse the right-hand side with precedence+1 */
+		token = *tok;
         *tok = (*tok)->next;  // consume the operator
 
-        t_node *right = create_tree(tok, op_prec + 1);
-        left = new_node(op, op_tok->lexeme, left, right);
+		right = create_tree(tok, precedence + 1);
+        left = init_node(operator, token->lexeme, left, right);
     }
     return left;
 }
@@ -99,28 +100,23 @@ t_node *create_tree(t_tok **tok, int precedence)
  * @param tok The token list
  * @return pointer to the root node of the tree
  */
-t_node *parse_primary(t_tok **tok)
+t_node	*group_or_expression(t_tok **tok)
 {
-    if (!*tok)
+    if (!*tok || (*tok)->lexeme)
         return NULL;
-    if ((*tok)->lexeme && ft_strcmp((*tok)->lexeme, "(") == 0)
+    if (is_group_open(*tok))
         return parse_group(tok);
     else
         return parse_expression(tok);
 }
 
-t_node *syntax(t_tok *tok)
+t_node *syntaxify(t_tok *tok)
 {
 	t_node *ast;
 	
 	ast = parse_list(&tok);
 
-    // if (!tok || tok->lexeme != "\n")
-    // {
-    //     fprintf(stderr, "Syntax error: expected newline at end of statement.\n");
-    //     exit(EXIT_FAILURE);
-    // }
-	
-
+    // if (!tok || !is_eqlstr(tok->lexeme, "\n"))
+	// 	error("Syntax error: expected newline at end of statement.\n");
 	return (ast);
 }

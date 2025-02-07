@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 11:57:55 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:29:37 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,14 @@ int is_word(t_tok *tok)
 
 t_node	**stack_redirs(t_tok **tok, t_node **stack, int *elem)
 {
-	while (is_redir(*tok))
-		stack[(*elem)++] = parse_redir(tok);
+	t_node	*redir;
+	
+	while ((*tok) && is_redir(*tok))
+	{
+		redir = parse_redir(tok);
+		if (redir)
+			stack[(*elem)++] = redir;
+	}
 	return (stack);
 }
 
@@ -50,18 +56,20 @@ t_node	*unfold_redirs(t_node **stack, int *elem, t_node *node)
 void collect_args(t_tok **tok, t_node *word)
 {
     t_node	*arg;
-    t_node	*args;
+    t_node	*head;
 	t_node	*tail;
 
 	tail = NULL;
-	args = NULL;
+	head = NULL;
+	if (!word)
+		return ;
     while (*tok && is_word(*tok))
     {
-        arg = new_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
-        *tok = (*tok)->next;
-        if (!args)
+        arg = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
+		step_forward(tok);
+        if (!head)
         {
-            args = arg;
+            head = arg;
             tail = arg;
         }
         else
@@ -70,20 +78,28 @@ void collect_args(t_tok **tok, t_node *word)
             tail = arg;
         }
     }
-    word->left = args;
+    word->left = head;
 }
 
-t_node *create_word_node(t_tok **tok)
+t_node	*create_word_node(t_tok **tok)
 {
-	if (!is_word(*tok))
+	t_node	*word;
+
+	word = NULL;
+	if ((*tok) && is_word(*tok))
 	{
-		fprintf(stderr, "Error: expected command, got '%s'\n",
-				(*tok)->lexeme ? (*tok)->lexeme : "NULL");
+		word = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
+		step_forward(tok);
+		return word;
+	}
+	else
+	{
+		if (*tok && (*tok)->lexeme)
+			fprintf(stderr, "Error: expected command\n");
+		else
+			fprintf(stderr, "Error: expected command\n");
 		return NULL;
 	}
-	t_node *word = new_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
-	*tok = (*tok)->next;
-	return word;
 }
 
 /**

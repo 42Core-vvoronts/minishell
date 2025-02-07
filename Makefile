@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/06 17:01:22 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/07 14:35:29 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ VPATH				=	\
 						./src/execution/signal/:\
 						./src/execution/word/:\
 						./src/parsing/:\
+						./src/parsing/errors:\
 						./src/parsing/lexer:\
 						./src/parsing/printer/:\
 						./src/parsing/syntaxer/:\
@@ -60,6 +61,7 @@ SRC 				=	\
 						testcases.c \
 						\
 						printer.c \
+						errors.c \
 						parser.c \
 						lexer.c \
 						syntaxer.c \
