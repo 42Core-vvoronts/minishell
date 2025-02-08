@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 00:59:51 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/08 12:06:07 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/08 13:05:35 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ void save_tree(t_node *node)
 	close(fd);
 
     printf("digraph G {\n");
-	printf("    graph [bgcolor=\"#0d1117\"];\n");
-	printf("    node [shape=box, style=rounded, fontname=\"Helvetica\", color=\"#c1c1c1\", \
-				fillcolor=\"#2f2f2f\", fontcolor=\"#c1c1c1\", style=filled];\n");
-	printf("    edge [color=\"#c1c1c1\"];\n"); 
+	printf("    graph [bgcolor=\"#212830\"];\n");
+	printf("    node [shape=box, style=rounded, fontname=\"Helvetica\", color=\"#d1d7e0\", \
+				fillcolor=\"#262c36\", fontcolor=\"#d1d7e0\", style=filled];\n");
+	printf("    edge [color=\"#d1d7e0\"];\n"); 
     print_graphviz(node, stdout);
     printf("}\n");
 	fflush(stdout);

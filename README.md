@@ -60,7 +60,8 @@ For the statement:
 ( < f2 ls / | cat | grep a && ls ) > f1
 ```
 
-The resulting tree, created using Graphviz, looks like this:
+The resulting tree is created during runtime using Graphviz
+looks like this:
 ![Result Tree](wiki/result_tree_v1.png)
 
 ### Grammar Representation
