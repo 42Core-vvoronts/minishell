@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:05:42 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 17:21:31 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/08 12:09:28 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 //     return 0;
 // }
 
-t_type label(char *lexeme) 
+t_type typify(char *lexeme) 
 {
 	if (ft_strcmp(lexeme, "&&") == 0) 
 		return AND;
@@ -65,7 +65,7 @@ t_type label(char *lexeme)
 	return WORD_ZERO_QUOTES;
 }
 
-t_tok *lexify(char *cmdline)
+t_tok *lexer(char *cmdline)
 {
     t_tok *tokens = NULL;
     t_tok *curtok = NULL;
@@ -78,7 +78,7 @@ t_tok *lexify(char *cmdline)
         // Process current lexeme
         newtok = malloc(sizeof(t_tok));
         newtok->lexeme = *lexemes; 
-		newtok->type = label((*lexemes)); 
+		newtok->type = typify((*lexemes)); 
         // newtok->type = typify(newtok->type); 
         newtok->next = NULL;
 

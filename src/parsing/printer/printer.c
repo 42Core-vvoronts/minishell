@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 00:59:51 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/08 12:03:30 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/08 12:06:07 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void save_tree(t_node *node)
 	printf("    node [shape=box, style=rounded, fontname=\"Helvetica\", color=\"#c1c1c1\", \
 				fillcolor=\"#2f2f2f\", fontcolor=\"#c1c1c1\", style=filled];\n");
 	printf("    edge [color=\"#c1c1c1\"];\n"); 
-    // printf("    node [shape=box, style=rounded, fontname=\"Helvetica\"];\n");
     print_graphviz(node, stdout);
     printf("}\n");
 	fflush(stdout);

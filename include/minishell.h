@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 15:30:35 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/08 12:09:01 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,12 @@ void	evaluate_node(t_node *node);
 int		parsing(char *input);
 
 // -- LEXER --
-t_tok	*lexify(char *cmdline);
-t_type	label(char *lexeme);
+t_tok	*lexer(char *cmdline);
+t_type	typify(char *lexeme);
 bool	is_not_space(char symbol);
 
 // -- SYNTAXER --
-t_node	*syntaxify(t_tok *tok);
+t_node	*syntaxer(t_tok *tok);
 t_node	*group_or_expression(t_tok **tok);
 // syntax tree
 t_node	*create_tree(t_tok **tok, int precedence);

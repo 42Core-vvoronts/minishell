@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 15:29:37 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/08 12:10:24 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_node	*group_or_expression(t_tok **tok)
         return parse_expression(tok);
 }
 
-t_node *syntaxify(t_tok *tok)
+t_node *syntaxer(t_tok *tok)
 {
 	t_node *ast;
 	
