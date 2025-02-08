@@ -1,68 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/08 13:05:42 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/08 12:09:28 by vvoronts         ###   ########.fr       */
+/*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
+/*   Updated: 2025/02/08 12:31:28 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-// static int is_executable(const char *lexeme)
-// {
-// 	const char *executables[] = {"cat", "ls", "grep"};
-// 	size_t i = 0;
-	
-// 	while (i < sizeof(executables) / sizeof(executables[0]))
-// 	{
-// 		if (strcmp(lexeme, executables[i]) == 0)
-// 		{
-// 			return 1;
-// 		}
-// 		i++;
-// 	}
-// 	return 0;
-// }
-
-// static int is_builtin(const char *lexeme) 
-// {
-//     const char *builtins[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
-//     size_t i = 0;
-
-//     while (i < sizeof(builtins) / sizeof(builtins[0])) 
-// 	{
-//         if (strcmp(lexeme, builtins[i]) == 0) {
-//             return 1; 
-//         }
-//         i++;
-//     }
-//     return 0;
-// }
+t_type	typify_quotes(char *lexeme)
+{
+	if (lexeme[0] == '"' && lexeme[ft_strlen(lexeme) - 1] == '"')
+		return WORD_DOUBLE_QUOTES;
+	if (lexeme[0] == '\'' && lexeme[ft_strlen(lexeme) - 1] == '\'')
+		return WORD_SINGLE_QUOTES;
+	return WORD_ZERO_QUOTES;
+}
 
 t_type typify(char *lexeme) 
 {
-	if (ft_strcmp(lexeme, "&&") == 0) 
+	if (is_eqlstr(lexeme, "&&")) 
 		return AND;
-	if (ft_strcmp(lexeme, "||") == 0) 
+	if (is_eqlstr(lexeme, "||")) 
 		return OR;
-	if (ft_strcmp(lexeme, "(") == 0 || ft_strcmp(lexeme, ")") == 0)
+	if (is_eqlstr(lexeme, "(") || is_eqlstr(lexeme, ")"))
 		return GROUP;
-	if (ft_strcmp(lexeme, "|") == 0) 
+	if (is_eqlstr(lexeme, "|")) 
 		return PIPE;
-    if (ft_strcmp(lexeme, "<") == 0)
+    if (is_eqlstr(lexeme, "<"))
 		return REDIR_IN;
-	if (ft_strcmp(lexeme, ">") == 0)
+	if (is_eqlstr(lexeme, ">"))
 		return REDIR_OUT;
-	if (ft_strcmp(lexeme, ">>") == 0)
+	if (is_eqlstr(lexeme, ">>"))
 		return REDIR_APPEND;
-	if (ft_strcmp(lexeme, "<<") == 0)
+	if (is_eqlstr(lexeme, "<<"))
 		return REDIR_HEREDOC;
-	return WORD_ZERO_QUOTES;
+	return typify_quotes(lexeme);
 }
 
 t_tok *lexer(char *cmdline)

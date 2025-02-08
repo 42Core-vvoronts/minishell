@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/07 14:35:29 by vvoronts         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 # Compiler and flags
 CC					=	cc
 CFLAGS				=	-Wall -Wextra -Werror -Wunreachable-code -g -MMD -MF
@@ -40,11 +28,10 @@ VPATH				=	\
 						./src/execution/signal/:\
 						./src/execution/word/:\
 						./src/parsing/:\
-						./src/parsing/errors:\
-						./src/parsing/lexer:\
-						./src/parsing/printer/:\
 						./src/parsing/syntaxer/:\
-						./src/prompt/:\
+						./src/parsing/errors:\
+						./src/parsing/printer:\
+						./src/parsing/lexer:\
 
 
 # Include flags
@@ -60,16 +47,16 @@ SRC 				=	\
 						main.c \
 						testcases.c \
 						\
-						printer.c \
-						errors.c \
 						parser.c \
-						lexer.c \
+						lexing.c \
 						syntaxer.c \
 						list.c \
 						groups.c \
 						pipelines.c \
 						redirections.c \
 						expression.c \
+						errors.c \
+						printer.c \
 						\
 						evaluation.c \
 						word.c \
