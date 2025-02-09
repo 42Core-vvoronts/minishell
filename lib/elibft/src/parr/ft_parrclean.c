@@ -1,0 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parrclean.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/20 18:03:12 by ipetrov           #+#    #+#             */
+/*   Updated: 2025/02/04 12:34:32 by ipetrov          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "elibft.h"
+
+//use &arr
+void	ft_parrclean(void *arr)
+{
+	void	**a;
+
+	a = (void **)*(void **)arr;
+	while (*(void **)arr && *a)
+		free(*a++);
+	free(*(void **)arr);
+	*(void **)arr = NULL;
+}
