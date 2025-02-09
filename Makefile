@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/09 10:23:24 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/09 12:39:17 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ SRC 				=	\
 						printer.c \
 						\
 						evaluation.c \
-						word.c \
+						arguments.c \
 						content.c \
 						\
 						redir_append.c \

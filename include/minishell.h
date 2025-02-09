@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 10:22:56 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 12:40:12 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef enum e_type
 	REDIR_OUT,
 	REDIR_APPEND,
 	REDIR_HEREDOC,
-	WORD,
+	ARGUMENT,
+	FILENAME,
 	CONTENT
 }	t_type;
 
@@ -180,7 +181,7 @@ void	process_redir_heredoc(t_node *node);
 void	process_redir_in(t_node *node);
 void	process_redir_out(t_node *node);
 
-void	process_word(t_node *node);
+void	process_argument(t_node *node);
 void	process_content(t_node *node);
 
 void	evaluate(t_node *node);

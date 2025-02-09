@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 16:51:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:40:42 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@
 // 	return WORD_ZERO_QUOTES;
 // }
 
-t_type typify(char *lexeme) 
+t_type typify(char *lexeme)
 {
-	if (is_eqlstr(lexeme, "&&")) 
+	if (is_eqlstr(lexeme, "&&"))
 		return AND;
-	if (is_eqlstr(lexeme, "||")) 
+	if (is_eqlstr(lexeme, "||"))
 		return OR;
 	if (is_eqlstr(lexeme, "(") || is_eqlstr(lexeme, ")"))
 		return GROUP;
-	if (is_eqlstr(lexeme, "|")) 
+	if (is_eqlstr(lexeme, "|"))
 		return PIPE;
     if (is_eqlstr(lexeme, "<"))
 		return REDIR_IN;
@@ -39,7 +39,7 @@ t_type typify(char *lexeme)
 		return REDIR_APPEND;
 	if (is_eqlstr(lexeme, "<<"))
 		return REDIR_HEREDOC;
-	return WORD;
+	return ARGUMENT;
 }
 
 t_tok *lexer(char *cmdline)
@@ -48,25 +48,25 @@ t_tok *lexer(char *cmdline)
     t_tok *curtok = NULL;
     t_tok *newtok = NULL;
 	char **lexemes;
-	
+
 	lexemes = ft_split(cmdline, ' ');
     while (*lexemes)
     {
         // Process current lexeme
         newtok = malloc(sizeof(t_tok));
-        newtok->lexeme = *lexemes; 
-		newtok->type = typify((*lexemes)); 
-        // newtok->type = typify(newtok->type); 
+        newtok->lexeme = *lexemes;
+		newtok->type = typify((*lexemes));
+        // newtok->type = typify(newtok->type);
         newtok->next = NULL;
 
         if (tokens == NULL)
-            tokens = newtok; 
+            tokens = newtok;
         else
             curtok->next = newtok;
 
-        curtok = newtok; 
+        curtok = newtok;
 
-        lexemes++; 
+        lexemes++;
     }
 	// printf("\nTokens:\n");
 	// print_tokens(tokens);

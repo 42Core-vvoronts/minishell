@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:11:28 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 10:08:38 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 12:40:09 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	evaluate(t_node *node)
 		process_redir_append(node);
 	else if (node->type == REDIR_HEREDOC)
 		process_redir_heredoc(node);
-	else if (node->type == WORD)
-		process_word(node);
+	else if (node->type == ARGUMENT)
+		process_argument(node);
 	else if (node->type == CONTENT)
 		process_content(node);
 	else if (node->type == GROUP)

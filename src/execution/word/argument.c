@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   word.c                                             :+:      :+:    :+:   */
+/*   argument.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:10:13 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 11:00:22 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 12:31:07 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	process_word(t_node *node)
+void	process_argument(t_node *node)
 {
 	char *arg;
 
@@ -21,5 +21,8 @@ void	process_word(t_node *node)
 	if (!arg)
 		error(node, STRUCT_NODE, MALLOC_FAIL, true);
 	add_arg(arg, node);
-	evaluate(node->left);
+	if (node->left)
+		evaluate(node->left);
+	else
+		run_cmd(node);
 }
