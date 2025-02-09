@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:10:13 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 10:09:52 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 10:36:10 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 void	process_word(t_node *node)
 {
+	char *arg;
+
 	//expand $var and expand *
-	add_arg(ft_strdup(node->token), node);
+	arg = ft_strdup(node->token);
+	if (!arg)
+		error(node, STRUCT_NODE, MALLOC_FAIL, true);
+	add_arg(arg, node);
 	evaluate(node->right);
 }
