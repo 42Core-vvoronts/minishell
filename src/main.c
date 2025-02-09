@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 16:50:22 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:07:08 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int minishell(int argc, char **argv, char **envp)
 		}
         // history(statement);   
         ast = parse(statement);
-		if (ast)
-			exit(0);
+		if (!ast)
+			continue ;
         	// execute(ast);
         free(statement);
     }

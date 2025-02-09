@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:11:28 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 11:36:36 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:05:23 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ void	evaluate_node(t_node *node)
 	{
 
 	}
-	else if (node->type == WORD_ZERO_QUOTES)
-	{
-		process_word_zero_quotes(node);
-	}
-	else if (node->type == WORD_SINGLE_QUOTES)
-	{
-		process_word_single_quotes(node);
-	}
-	else if (node->type == WORD_DOUBLE_QUOTES)
-	{
-		process_word_double_quotes(node);
-	}
+	// else if (node->type == WORD_ZERO_QUOTES)
+	// {
+	// 	process_word_zero_quotes(node);
+	// }
+	// else if (node->type == WORD_SINGLE_QUOTES)
+	// {
+	// 	process_word_single_quotes(node);
+	// }
+	// else if (node->type == WORD_DOUBLE_QUOTES)
+	// {
+	// 	process_word_double_quotes(node);
+	// }
 	else if (node->type == GROUP)
 	{
 		process_group(node);
