@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 11:14:35 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 13:04:27 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int minishell(int argc, char **argv, char **envp)
             exit(1);
 		}
 		add_history(statement);
-        ast = parse(statement);
+        ast = parse(statement, ctx);
 		// if (ast)
 		// 	exit(0);
 		// evaluate(ast);

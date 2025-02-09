@@ -6,16 +6,12 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 16:38:46 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:10:08 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void step_forward(t_tok **tok)
-{
-    *tok = (*tok)->next;
-}
 
 int is_group_open(t_tok *tok)
 {
@@ -41,19 +37,19 @@ int is_group_close(t_tok *tok)
  * @param tok The token list
  * @return new node
  */
-t_node *parse_group(t_tok **tok)
+t_node *parse_group(t_tok **tok, t_ctx *ctx)
 {
 	t_node	*node;
 
     if (*tok && is_group_open(*tok))
 	{
 		step_forward(tok);
-		node = parse_list(tok);
+		node = parse_list(tok, ctx);
 		
 		if (*tok && is_group_close(*tok))
 		{
 			step_forward(tok);
-			return init_node(GROUP, "()", node, NULL);
+			return init_node(GROUP, "()", node, NULL, ctx);
 		}
 		else
 			error_exit("expected ')' at the end of group");

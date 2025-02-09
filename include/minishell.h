@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 12:40:12 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 13:02:57 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ typedef enum e_type
 	REDIR_OUT,
 	REDIR_APPEND,
 	REDIR_HEREDOC,
-	ARGUMENT,
 	FILENAME,
-	CONTENT
+	CONTENT,
+	ARGUMENT,
 }	t_type;
 
 // # define	GENERIC -1
@@ -188,33 +188,33 @@ void	evaluate(t_node *node);
 int minishell(int argc, char **argv, char **envp);
 
 // -- PARSING --
-t_node	*parse(char *input);
+t_node	*parse(char *statement, t_ctx *ctx);
 
 // -- LEXER --
-t_tok	*lexer(char *cmdline);
+t_tok	*lexer(char *statement);
 t_type	typify(char *lexeme);
 bool	is_not_space(char symbol);
 
 // -- SYNTAXER --
-t_node	*syntaxer(t_tok *tok);
-t_node	*group_or_expression(t_tok **tok);
+t_node	*syntaxer(t_tok *tok, t_ctx *ctx);
+t_node	*group_or_expression(t_tok **tok, t_ctx *ctx);
 // syntax tree
-t_node	*create_tree(t_tok **tok, int precedence);
-t_node	*init_node(t_type type, const char *token, t_node *left, t_node *right);
+t_node	*create_tree(t_tok **tok, int precedence, t_ctx *ctx);
+t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
 int		get_precedence(t_type type);
 // list
-t_node	*parse_list(t_tok **tok);
+t_node	*parse_list(t_tok **tok, t_ctx *ctx);
 // pipe
-t_node	*parse_pipeline(t_tok **tok);
+t_node	*parse_pipeline(t_tok **tok, t_ctx *ctx);
 // expression
-t_node	*parse_expression(t_tok **tok);
+t_node	*parse_expression(t_tok **tok, t_ctx *ctx);
 int		is_word(t_tok *tok);
 // group
-t_node	*parse_group(t_tok **tok);
+t_node	*parse_group(t_tok **tok, t_ctx *ctx);
 int		is_group_close(t_tok *tok);
 int		is_group_open(t_tok *tok);
 // redirecion
-t_node	*parse_redir(t_tok **tok);
+t_node	*parse_redir(t_tok **tok, t_ctx *ctx);
 int		is_redir(t_tok *tok);
 // utils
 void	step_forward(t_tok **tok);
