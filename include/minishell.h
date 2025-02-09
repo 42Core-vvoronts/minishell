@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 19:23:55 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:31:40 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ typedef enum e_type
 	REDIR_OUT,
 	REDIR_APPEND,
 	REDIR_HEREDOC,
-	WORD,
-	CONTENT
+	FILENAME,
+	CONTENT,
+	ARGUMENT,
 }	t_type;
 
 typedef struct s_ctx

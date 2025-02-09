@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 19:25:08 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:41:25 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_node *parse_redir(t_tok **tok, t_ctx *ctx)
 {
 	t_tok	*operator;
 	t_tok	*word_tok;
+	t_node	*word;
 	t_type	op;
 	
 	if (!*tok)
@@ -51,7 +52,11 @@ t_node *parse_redir(t_tok **tok, t_ctx *ctx)
     }
 	word_tok = *tok;
 	step_forward(tok);
+	if (op == REDIR_HEREDOC)
+		word = init_node(CONTENT, word_tok->lexeme, NULL, NULL, ctx);
+	else
+		word = init_node(FILENAME, word_tok->lexeme, NULL, NULL, ctx);
 
     // Create a redirection node where the file is the left child
-    return init_node(op, operator->lexeme, init_node(word_tok->type, word_tok->lexeme, NULL, NULL, ctx), NULL, ctx);
+    return init_node(op, operator->lexeme, word, NULL, ctx);
 }

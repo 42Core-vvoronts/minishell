@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 19:20:16 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:32:08 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ t_type typify(char *lexeme)
 		return REDIR_APPEND;
 	if (is_eqlstr(lexeme, "<<"))
 		return REDIR_HEREDOC;
-	return WORD;
+	return ARGUMENT;
 }
 
 t_tok *lexer(char *cmdline)
