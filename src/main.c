@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 07:22:11 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 08:36:04 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,34 @@ void	collect_heredoc(char *delim)
 	print_pipe_content(p);
 }
 
+int minishell(int argc, char **argv, char **envp)
+{
+    char *cmdline;
+    // char prompt[] = "minishell$ ";
+	char prompt[] = "\033[1;32mminishell$ \033[0m";
+
+    if (argc == 2 || !envp)
+    {
+        parsing(argv[1]);
+        // execution();
+        return 0;
+    }
+
+    while (true)
+    {
+        cmdline = readline(prompt);
+        if (!cmdline)
+        {
+            ft_printf("\n");
+            exit(1);
+		}
+		add_history(cmdline);
+        parsing(cmdline);
+        // execution();
+        free(cmdline);
+    }
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_node	*node;
@@ -67,8 +95,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)ctx;
 	(void)node;
 
-	add_history("test");
-	collect_heredoc("EOF");
+	minishell(argc, argv, envp);
+	// add_history("test");
+	// collect_heredoc("EOF");
 
 	// t_pipe p;
 	// open_pipe(&p, NULL);
