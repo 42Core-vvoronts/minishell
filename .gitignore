@@ -1,3 +1,4 @@
+*.png
 # IDE
 .vscode
 
@@ -17,7 +18,6 @@ minishell
 # trashy
 .DS_store
 *.txt
-*.png
 *.py
 *.md
 *.lldb
