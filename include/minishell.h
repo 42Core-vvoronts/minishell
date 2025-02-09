@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 10:38:53 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 07:24:26 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 # define MINISHELL_H
 
 # include "../lib/elibft/include/elibft.h"
+# include "../lib/elibft/include/elibft.h"
 
 # include <ctype.h>
+# include <signal.h>
+# include <fcntl.h>
 # include <signal.h>
 # include <fcntl.h>
 # include <string.h>
@@ -27,6 +30,7 @@
 # include <readline/history.h>
 
 # define REDIR_FAIL 1
+# define STACK_SIZE 256
 
 typedef enum e_type
 {
@@ -34,13 +38,13 @@ typedef enum e_type
 	OR,
 	GROUP,
 	PIPE,
-	WORD_ZERO_QUOTES,
-	WORD_SINGLE_QUOTES,
-	WORD_DOUBLE_QUOTES,
 	REDIR_IN,
 	REDIR_OUT,
 	REDIR_APPEND,
-	REDIR_HEREDOC
+	REDIR_HEREDOC,
+	WORD_ZERO_QUOTES,
+	WORD_SINGLE_QUOTES,
+	WORD_DOUBLE_QUOTES,
 }	t_type;
 
 // # define	GENERIC -1
@@ -182,5 +186,48 @@ void	process_word_single_quotes(t_node *node);
 void	process_word_double_quotes(t_node *node);
 
 void	evaluate_node(t_node *node);
+
+// -- PARSING --
+int		parsing(char *input);
+
+// -- LEXER --
+t_tok	*lexer(char *cmdline);
+t_type	typify(char *lexeme);
+bool	is_not_space(char symbol);
+
+// -- SYNTAXER --
+t_node	*syntaxer(t_tok *tok);
+t_node	*group_or_expression(t_tok **tok);
+// syntax tree
+t_node	*create_tree(t_tok **tok, int precedence);
+t_node	*init_node(t_type type, const char *token, t_node *left, t_node *right);
+int		get_precedence(t_type type);
+// list
+t_node	*parse_list(t_tok **tok);
+// pipe
+t_node	*parse_pipeline(t_tok **tok);
+// expression
+t_node	*parse_expression(t_tok **tok);
+int		is_word(t_tok *tok);
+// group
+t_node	*parse_group(t_tok **tok);
+int		is_group_close(t_tok *tok);
+int		is_group_open(t_tok *tok);
+// redirecion
+t_node	*parse_redir(t_tok **tok);
+int		is_redir(t_tok *tok);
+// utils
+void	step_forward(t_tok **tok);
+// errors
+void	*error_exit(char *msg);
+
+
+
+
+// -- PRINTER --
+int minishell(int argc, char **argv, char **envp);
+void print_tokens(t_tok *tokens);
+void print_node(t_node *ast, int depth);
+void save_tree(t_node *node);
 
 #endif

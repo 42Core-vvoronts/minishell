@@ -3,34 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 00:59:51 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 01:40:22 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/08 13:05:35 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
+char *get_name(t_type cmd) 
+{
+	switch (cmd) 
+	{
+		case AND:
+			return "AND";
+		case OR:
+			return "OR";
+		case GROUP:
+			return "GROUP";
+		case PIPE:
+			return "PIPE";
+		case REDIR_IN:
+			return "REDIR_IN";
+		case REDIR_OUT:
+			return "REDIR_OUT";
+		case REDIR_APPEND:
+			return "REDIR_APPEND";
+		case REDIR_HEREDOC:
+			return "REDIR_HEREDOC";
+		case WORD_ZERO_QUOTES:
+			return "WORD_ZERO_QUOTES";
+		case WORD_SINGLE_QUOTES:
+			return "WORD_SINGLE_QUOTES";
+		case WORD_DOUBLE_QUOTES:
+			return "WORD_DOUBLE_QUOTES";
+	}
+	return "UNDEFINED";
+}
+
+static char *escape_special_chars(const char *str)
+{
+    size_t len = strlen(str);
+    char *escaped = malloc(len * 2 + 1);  // Allocate space for escaped string
+    if (!escaped) return NULL;
+
+    size_t j = 0;
+    for (size_t i = 0; i < len; i++) {
+        if (str[i] == '"' || str[i] == '\\' || str[i] == '\n') {
+            escaped[j++] = '\\';  // Escape special characters
+        }
+        escaped[j++] = str[i];
+    }
+    escaped[j] = '\0';  // Null-terminate
+    return escaped;
+}
+
 static void print_graphviz(t_node *node, FILE *stream)
 {
     if (node == NULL) return;
+	char *escaped_token = escape_special_chars(node->token);
+	char *type_name = get_name(node->type);
 
-    // Print current node
-    fprintf(stream, "    n%p [label=\"%s\"];\n",
-           (void*)node, node->token);
+	fprintf(stream, "    n%p [label=\"%s \n%s\"];\n", (void*)node, type_name, escaped_token);
 
-    // Process left child
+    // Free the escaped token string
+    free(escaped_token);
+
+    // Process left and right children
     if (node->left) {
-        fprintf(stream, "    n%p -> n%p;\n",
-               (void*)node, (void*)node->left);
+        fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)node->left);
         print_graphviz(node->left, stream);
     }
-
-    // Process right child
     if (node->right) {
-        fprintf(stream, "    n%p -> n%p;\n",
-               (void*)node, (void*)node->right);
+        fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)node->right);
         print_graphviz(node->right, stream);
     }
 }
@@ -45,7 +91,10 @@ void save_tree(t_node *node)
 	close(fd);
 
     printf("digraph G {\n");
-    printf("    node [shape=box, style=rounded, fontname=\"Helvetica\"];\n");
+	printf("    graph [bgcolor=\"#212830\"];\n");
+	printf("    node [shape=box, style=rounded, fontname=\"Helvetica\", color=\"#d1d7e0\", \
+				fillcolor=\"#262c36\", fontcolor=\"#d1d7e0\", style=filled];\n");
+	printf("    edge [color=\"#d1d7e0\"];\n"); 
     print_graphviz(node, stdout);
     printf("}\n");
 	fflush(stdout);
@@ -54,7 +103,7 @@ void save_tree(t_node *node)
 	pid = fork();
 	if (pid == 0)
 	{
-		char *args[] = {"dot", "-Tpng", "temp.dot", "-o", "tree.png", NULL};
+		char *args[] = {"dot", "-Tpng", "temp.dot", "-o", "result_tree.png", NULL};
 		if (execvp(args[0], args) == -1)
 			perror("execvp failed");
 		exit(0);
@@ -66,5 +115,17 @@ void save_tree(t_node *node)
 		fd = open(ttyname(STDIN_FILENO), O_RDWR, 777);
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
+	}
+}
+
+
+
+
+void print_tokens(t_tok *token)
+{
+	while (token)
+	{
+		printf("%s: %s\n", get_name(token->type), token->lexeme);
+		token = token->next;
 	}
 }

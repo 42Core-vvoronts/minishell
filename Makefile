@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/07 10:30:41 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/09 07:30:00 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ VPATH				=	\
 						./src/execution/andor/:\
 						./src/execution/arguments/:\
 						./src/execution/command/:\
-						./src/execution/command/builtin:\
 						./src/execution/exitcode/:\
 						./src/execution/expansion/:\
 						./src/execution/group/:\
@@ -40,7 +39,12 @@ VPATH				=	\
 						./src/execution/redirection/:\
 						./src/execution/signal/:\
 						./src/execution/word/:\
+						./src/execution/command/builtin:\
+						./src/parsing/:\
+						./src/parsing/syntaxer/:\
+						./src/parsing/errors/:\
 						./src/parsing/printer/:\
+						./src/parsing/lexer/:\
 						./src/prompt/:\
 
 
@@ -56,12 +60,23 @@ LIB 				=	\
 SRC 				=	\
 						main.c \
 						init.c \
+						\
+						executils.c \
+						\
 						testcases.c \
+						\
+						parser.c \
+						lexing.c \
+						syntaxer.c \
+						list.c \
+						groups.c \
+						pipelines.c \
+						redirections.c \
+						expression.c \
+						errors.c \
 						printer.c \
 						\
 						evaluation.c \
-						executils.c \
-						\
 						word.c \
 						\
 						redir_append.c \

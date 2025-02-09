@@ -1,56 +1,31 @@
 
+----------------------- GRAMMAR -------------------------------
 
+<statement> 		::= <list> '\n' 
 
-<cmdline> ::= <andor>
-			| <group>
-			| <pipeline>
-			| <sequence>
-			| <command>
+<list>				::= <pipeline> {('&&' | '||') <pipeline>}*
 
-<andor> ::= <cmdline> "&&" <cmdline> 
-		|   <cmdline> "||" <cmdline>
-<group> ::= '(' <cmdline> ')'
-<pipeline> ::= <cmdline> '|' <cmdline>
-<sequence> ::= <cmdline> ';' <cmdline>
-<command> ::= <builtin> <args>
-			| <executable> <args>
+<pipeline> 			::= <expression> { '|' <expression> }*
 
-<args> ::= <arg> 
-		|  <arg> <args>
+<expression> 		::= {<word> | <redirection>}* 
+					  | <group> <redirection>*
 
-<arg> ::= <string>
-        | '"' <string> '"'
-        | '\'' <string> '\''
-<executable> ::= <path>
-<builtin> ::= "echo" | "cd" 
+<group> 			::= '(' <list> ')'
 
-<redirection> ::=  '>' <word>
-                |  '<' <word>
-                |  <number> '>' <word>
-                |  <number> '<' <word>
-                |  '>>' <word>
-                |  <number> '>>' <word>
-                |  '<<' <word>
-                |  <number> '<<' <word>
-                |  '<&' <number>
-                |  <number> '<&' <number>
-                |  '>&' <number>
-                |  <number> '>&' <number>
-                |  '<&' <word>
-                |  <number> '<&' <word>
-                |  '>&' <word>
-                |  <number> '>&' <word>
-                |  '<<-' <word>
-                |  <number> '<<-' <word>
-                |  '>&' '-'
-                |  <number> '>&' '-'
-                |  '<&' '-'
-                |  <number> '<&' '-'
-                |  '&>' <word>
-                |  <number> '<>' <word>
-                |  '<>' <word>
-                |  '>|' <word>
-                |  <number> '>|' <word>
+<redirection>		::=  '>' <word>
+               		  |  '<' <word>
+               		  |  '>>' <word>
+               		  |  '<<' <word>
 
+<word> 				::= 'characters'
 
-------------------------------------------------------------
+------------------------------CASES----------------------------
+
+max args
+$ getconf ARG_MAX
+2097152
+
+-- quotes --
+$ ls "/"'h''o''m'"'e'"
+ls: cannot access "/hom'e'": No such file or directory
+
