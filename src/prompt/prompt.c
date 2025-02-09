@@ -6,12 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 10:23:45 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 10:50:02 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 int minishell(int argc, char **argv, char **envp)
 {
     char	*statement;
@@ -41,3 +40,8 @@ int minishell(int argc, char **argv, char **envp)
         free(statement);
     }
 }
+/* Testcases
+
+( < infile ls / | cat | grep a && ls ) > "outfile"
+
+*/

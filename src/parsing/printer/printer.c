@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 00:59:51 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 10:44:55 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 10:57:27 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 char *get_name(t_type cmd)
 {
@@ -76,8 +76,8 @@ static void print_graphviz(t_node *node, FILE *stream)
     }
 	else
 	{
-		fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)(node + 1));
-		fprintf(stream, "    n%p [label=\"%s\"];\n", (void*)(node + 1), "(null)");
+		fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)(node->token));
+		fprintf(stream, "    n%p [label=\"%s\"];\n", (void*)(node->token), "(null)");
 	}
     if (node->right) {
         fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)node->right);
@@ -85,8 +85,8 @@ static void print_graphviz(t_node *node, FILE *stream)
     }
 	else
 	{
-		fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)(node + 2));
-		fprintf(stream, "    n%p [label=\"%s\"];\n", (void*)(node + 2), "(null)");
+		fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)(node->token + 1));
+		fprintf(stream, "    n%p [label=\"%s\"];\n", (void*)(node->token + 1), "(null)");
 	}
 }
 
