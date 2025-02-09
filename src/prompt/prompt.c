@@ -1,30 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 10:23:47 by ipetrov          ###   ########.fr       */
+/*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
+/*   Updated: 2025/02/09 10:23:45 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int minishell(int argc, char **argv, char **envp)
 {
-	t_node	*node;
+    char	*statement;
+	t_node	*ast;
 	t_ctx	*ctx;
-	pid_t	pid;
-
-	(void)pid;
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	(void)ctx;
-	(void)node;
+	(void)ast;
 
-	minishell(argc, argv, envp);
-	return (EXIT_SUCCESS);
+	ast = NULL;
+	init_ctx(&ctx, envp);
+	char prompt[] = "\033[1;32mminishell$ \033[0m";
+    while (true)
+    {
+        statement = readline(prompt);
+        if (!statement)
+        {
+            ft_printf("\n");
+            exit(1);
+		}
+		add_history(statement);
+        ast = parse(statement);
+		// if (ast)
+		// 	exit(0);
+		// evaluate(ast);
+        free(statement);
+    }
 }

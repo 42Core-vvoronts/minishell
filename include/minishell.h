@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 16:56:47 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 10:22:56 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,11 +180,11 @@ void	process_redir_heredoc(t_node *node);
 void	process_redir_in(t_node *node);
 void	process_redir_out(t_node *node);
 
-void	process_word_zero_quotes(t_node *node);
-void	process_word_single_quotes(t_node *node);
-void	process_word_double_quotes(t_node *node);
+void	process_word(t_node *node);
+void	process_content(t_node *node);
 
-void	evaluate_node(t_node *node);
+void	evaluate(t_node *node);
+int minishell(int argc, char **argv, char **envp);
 
 // -- PARSING --
 t_node	*parse(char *input);

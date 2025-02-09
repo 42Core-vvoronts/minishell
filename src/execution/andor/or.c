@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:09:28 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 09:12:39 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 10:07:13 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	process_or(t_node	*node)
 {
-	evaluate_node(node->left);
+	evaluate(node->left);
 	if (node->ctx->exitcode != EXIT_SUCCESS)
 	{
-		evaluate_node(node->right);
+		evaluate(node->right);
 		run_cmd(node);
 		//set $? using node->ctx->exitcode use export builtin for that
 	}

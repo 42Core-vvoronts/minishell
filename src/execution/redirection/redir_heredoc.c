@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:44:23 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/08 08:15:40 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 10:07:13 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	process_redir_heredoc(t_node *node)
 	t_pipe	p;
 	t_file	*fl;
 
-	evaluate_node(node->left);
+	evaluate(node->left);
 	delim = pop_arg(node); //getfd here
 	open_pipe(&p, node);
 	while (1)

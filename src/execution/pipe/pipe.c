@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:06:41 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/07 09:33:38 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 10:07:13 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static	void	process_left_child(t_pipe p, pid_t pid, t_node *node)
 		// kill(getpid(), SIGSTOP);
 		edup2(p.write, STDOUT_FILENO, node);
 		close_pipe(&p);
-		evaluate_node(node->left);
+		evaluate(node->left);
 		run_cmd(node);
 		exit(allclean(node));
 	}
@@ -33,7 +33,7 @@ static	void	process_right_child(pid_t pid, t_node *node)
 	if (pid == 0)
 	{
 		// kill(getpid(), SIGSTOP);
-		evaluate_node(node->right);
+		evaluate(node->right);
 		run_cmd(node);
 		exit(allclean(node));
 	}
@@ -56,6 +56,6 @@ void	process_pipe(t_node *node)
 		process_right_child(pid, node);
 		return ;
 	}
-	evaluate_node(node->right);
+	evaluate(node->right);
 	return ;
 }

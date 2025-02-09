@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/09 08:33:41 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/09 10:23:24 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ LIB 				=	\
 SRC 				=	\
 						main.c \
 						init.c \
+						prompt.c \
 						\
 						executils.c \
 						\
@@ -76,6 +77,7 @@ SRC 				=	\
 						\
 						evaluation.c \
 						word.c \
+						content.c \
 						\
 						redir_append.c \
 						redir_heredoc.c \
