@@ -6,14 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/08 07:28:47 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 09:28:27 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-t_node *init_testcase_forward(t_ctx *ctx);
-void save_tree(t_node *node);
 
 static	int	init_envp(t_ctx *ctx, char **envp)
 {
@@ -61,9 +58,4 @@ void	restore_std(t_node *node)
 	edup2(fd, STDIN_FILENO, node);
 	edup2(fd, STDOUT_FILENO, node);
 	close(fd);
-}
-
-void	parse(char *input)
-{
-	(void)input;
 }
