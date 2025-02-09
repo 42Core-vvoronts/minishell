@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:09 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 15:30:35 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:24:13 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@ int is_andor(t_tok *tok)
 *  ls    cat
 * 
 */
-t_node	*parse_list(t_tok **tok)
+t_node	*parse_list(t_tok **tok, t_ctx *ctx)
 {
 	t_node	*left;
 	t_node	*right;
 	t_tok	*operator;
 	t_type	type;
 	
-	left = parse_pipeline(tok);
+	left = parse_pipeline(tok, ctx);
 	while (*tok && is_andor(*tok))
 	{
 		type = (*tok)->type;
 		operator = *tok;
 		*tok = (*tok)->next;
-		right = parse_pipeline(tok);
-		left = init_node(type, operator->lexeme, left, right);
+		right = parse_pipeline(tok, ctx);
+		left = init_node(type, operator->lexeme, left, right, ctx);
 	}
 	return left;
 }

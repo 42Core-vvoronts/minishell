@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 15:29:37 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:25:08 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,28 @@ int is_redir(t_tok *tok)
  * @param tok The token list
  * @return new node
  */
-t_node *parse_redir(t_tok **tok)
+t_node *parse_redir(t_tok **tok, t_ctx *ctx)
 {
-    if (!*tok)
-        return NULL;
+	t_tok	*operator;
+	t_tok	*word_tok;
+	t_type	op;
+	
+	if (!*tok)
+		return NULL;
 
-    t_tok *op_tok = *tok;
-    t_type op = op_tok->type;
-    *tok = (*tok)->next;  // consume the redirection operator
-
+	operator = *tok;
+	op = operator->type;
+	step_forward(tok);
+	
     if (!*tok || !is_word(*tok))
     {
-        fprintf(stderr, "Error: expected a word after redirection operator '%s'\n",
-                op_tok->lexeme);
-        return NULL;
+		fprintf(stderr, "Error: expected a word after redirection operator '%s'\n",
+			operator->lexeme);
+		return NULL;
     }
-    t_tok *word_tok = *tok;
-    *tok = (*tok)->next;  // consume the word
+	word_tok = *tok;
+	step_forward(tok);
 
-    /* Create a redirection node where the file operand is attached as the left child */
-    return init_node(op, op_tok->lexeme, init_node(word_tok->type, word_tok->lexeme, NULL, NULL), NULL);
+    // Create a redirection node where the file is the left child
+    return init_node(op, operator->lexeme, init_node(word_tok->type, word_tok->lexeme, NULL, NULL, ctx), NULL, ctx);
 }
