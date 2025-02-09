@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/05 08:59:48 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/07 10:30:41 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ LIB 				=	\
 # Source files
 SRC 				=	\
 						main.c \
+						init.c \
 						testcases.c \
 						printer.c \
 						\

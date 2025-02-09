@@ -1,0 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
+/*   Updated: 2025/02/08 07:28:47 by ipetrov          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
+
+t_node *init_testcase_forward(t_ctx *ctx);
+void save_tree(t_node *node);
+
+static	int	init_envp(t_ctx *ctx, char **envp)
+{
+	size_t	len;
+	size_t	i;
+
+	len = ft_parrlen(envp);
+	ctx->envp = ft_calloc(len + 1, sizeof(char *));
+	if (!ctx->envp)
+		error(ctx, STRUCT_CTX, MALLOC_FAIL, true);
+	i = 0;
+	if (envp[i] == NULL)
+	{
+		ctx->envp[i] = NULL;
+		return (SUCCESS);
+	}
+	while (i < len)
+	{
+		ctx->envp[i] = ft_strdup(envp[i]);
+		if (!ctx->envp[i])
+			error(ctx, STRUCT_CTX, MALLOC_FAIL, true);
+		i++;
+	}
+	ctx->envp[i] = NULL;
+	return (SUCCESS);
+}
+
+int	init_ctx(t_ctx **ctx, char **envp)
+{
+	*ctx = ft_calloc(1, sizeof(t_ctx));
+	if (!*ctx)
+		error(NULL, NONE, MALLOC_FAIL, true);
+	(*ctx)->ttyname = ttyname(STDIN_FILENO);
+	if (!(*ctx)->ttyname)
+		error(ctx, STRUCT_CTX, MALLOC_FAIL, true);
+	init_envp(*ctx, envp);
+	return (SUCCESS);
+}
+
+void	restore_std(t_node *node)
+{
+	int	fd;
+
+	fd = eopen(node->ctx->ttyname, O_RDWR, 0777, node);
+	edup2(fd, STDIN_FILENO, node);
+	edup2(fd, STDOUT_FILENO, node);
+	close(fd);
+}
+
+void	parse(char *input)
+{
+	(void)input;
+}

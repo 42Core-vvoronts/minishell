@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/07 09:48:53 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/07 10:06:49 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,8 @@ static	void	handle_dash_arg(t_node *node)
 		printf("%s\n", path);
 		free(node->ctx->stash[1]);
 		node->ctx->stash[1] = ft_strdup(path);
-		// path = ft_strjoin("OLDPWD=", pwd);
 		if (!node->ctx->stash[1] || !*var || !*path)
 			error(node, STRUCT_NODE, MALLOC_FAIL, true);
-		// free(*var);
-		// *var = path;
 	}
 }
 

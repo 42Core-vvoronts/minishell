@@ -6,11 +6,23 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:44:23 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 11:51:07 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/08 08:15:40 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+// static	char *prepare_delim(char *orig)
+// {
+// 	size_t	len;
+
+// 	len = 0;
+// 	if (orig[0] == '"' || orig[0] == '\'')
+// 		orig++;
+
+// }
+
+
 
 void	process_redir_heredoc(t_node *node)
 {

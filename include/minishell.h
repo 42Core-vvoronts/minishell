@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 07:35:20 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/07 10:38:53 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	edup2(int oldfd, int newfd, t_node *node);
 char	**get_var(t_ctx *ctx, char *varname);
 char	*get_val(t_ctx *ctx, char *varname);
 void	add_var(t_node *node, char *str);
+int		init_ctx(t_ctx **ctx, char **envp);
 
 void	process_and(t_node	*node);
 void	process_or(t_node	*node);

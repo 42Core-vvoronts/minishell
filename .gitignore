@@ -4,7 +4,7 @@
 # program
 minishell
 
-# objects and dependancies
+# objects and dependencies
 **/dep/*
 **/obj/*
 *.d
