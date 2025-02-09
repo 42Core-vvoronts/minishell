@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 07:24:26 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 16:56:47 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ typedef enum e_type
 	REDIR_OUT,
 	REDIR_APPEND,
 	REDIR_HEREDOC,
-	WORD_ZERO_QUOTES,
-	WORD_SINGLE_QUOTES,
-	WORD_DOUBLE_QUOTES,
+	WORD,
+	CONTENT
 }	t_type;
 
 // # define	GENERIC -1
@@ -188,7 +187,7 @@ void	process_word_double_quotes(t_node *node);
 void	evaluate_node(t_node *node);
 
 // -- PARSING --
-int		parsing(char *input);
+t_node	*parse(char *input);
 
 // -- LEXER --
 t_tok	*lexer(char *cmdline);

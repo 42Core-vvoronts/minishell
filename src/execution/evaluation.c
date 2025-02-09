@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   evaluation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:11:28 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 10:53:16 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 17:01:23 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,16 @@ void	evaluate_node(t_node *node)
 		process_redir_append(node);
 	else if (node->type == REDIR_HEREDOC)
 		process_redir_heredoc(node);
-	else if (node->type == WORD_ZERO_QUOTES)
+	else if (node->type == WORD)
 		process_word_zero_quotes(node);
-	else if (node->type == WORD_SINGLE_QUOTES)
-		process_word_single_quotes(node);
-	else if (node->type == WORD_DOUBLE_QUOTES)
-		process_word_double_quotes(node);
+	else if (node->type == CONTENT)
+		process_word_zero_quotes(node);
+	// else if (node->type == WORD_ZERO_QUOTES)
+	// 	process_word_zero_quotes(node);
+	// else if (node->type == WORD_SINGLE_QUOTES)
+	// 	process_word_single_quotes(node);
+	// else if (node->type == WORD_DOUBLE_QUOTES)
+	// 	process_word_double_quotes(node);
 	else if (node->type == GROUP)
 		process_group(node);
 	else if (node->type == AND)

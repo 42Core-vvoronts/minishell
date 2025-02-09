@@ -3,42 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 09:28:29 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 16:57:53 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-
-
 int minishell(int argc, char **argv, char **envp)
 {
-    char *cmdline;
-    // char prompt[] = "minishell$ ";
-	char prompt[] = "\033[1;32mminishell$ \033[0m";
+    char	*statement;
+	t_node	*ast;
+	
+	ast = NULL;
+	char prompt[] = "\033[1;32mminishell$ \033[0m"; 
 
     if (argc == 2 || !envp)
     {
-        parsing(argv[1]);
+        parse(argv[1]);
         // execution();
         return 0;
     }
 
     while (true)
     {
-        cmdline = readline(prompt);
-        if (!cmdline)
+        statement = readline(prompt);
+        if (!statement) 
         {
             ft_printf("\n");
             exit(1);
 		}
-		add_history(cmdline);
-        parsing(cmdline);
-        // execution();
-        free(cmdline);
+        // history(statement);   
+        ast = parse(statement);
+		if (ast)
+			exit(0);
+        	// execute(ast);
+        free(statement);
     }
 }
 

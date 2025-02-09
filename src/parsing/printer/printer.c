@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 00:59:51 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/08 13:05:35 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:53:01 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ char *get_name(t_type cmd)
 			return "REDIR_APPEND";
 		case REDIR_HEREDOC:
 			return "REDIR_HEREDOC";
-		case WORD_ZERO_QUOTES:
-			return "WORD_ZERO_QUOTES";
-		case WORD_SINGLE_QUOTES:
-			return "WORD_SINGLE_QUOTES";
-		case WORD_DOUBLE_QUOTES:
-			return "WORD_DOUBLE_QUOTES";
+		case WORD:
+			return "WORD";
+		case CONTENT:
+			return "CONTENT";
 	}
 	return "UNDEFINED";
 }

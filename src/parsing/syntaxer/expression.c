@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 15:29:37 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:52:18 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ int is_word(t_tok *tok)
 {
 	if (!tok)
 		return (0);
-    return (tok->type == WORD_ZERO_QUOTES ||
-            tok->type == WORD_SINGLE_QUOTES ||
-            tok->type == WORD_DOUBLE_QUOTES);
+    return (tok->type == WORD ||
+            tok->type == CONTENT);
 }
 
 t_node	**stack_redirs(t_tok **tok, t_node **stack, int *elem)
