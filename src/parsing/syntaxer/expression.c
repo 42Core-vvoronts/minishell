@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 16:52:18 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:33:55 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@ int is_word(t_tok *tok)
 {
 	if (!tok)
 		return (0);
-    return (tok->type == WORD ||
-            tok->type == CONTENT);
+    return (tok->type == ARGUMENT ||
+            tok->type == CONTENT ||
+			tok->type == FILENAME);
 }
 
-t_node	**stack_redirs(t_tok **tok, t_node **stack, int *elem)
+t_node	**stack_redirs(t_tok **tok, t_node **stack, int *elem, t_ctx *ctx)
 {
 	t_node	*redir;
 	
 	while ((*tok) && is_redir(*tok))
 	{
-		redir = parse_redir(tok);
+		redir = parse_redir(tok, ctx);
 		if (redir)
 			stack[(*elem)++] = redir;
 	}
@@ -52,7 +53,7 @@ t_node	*unfold_redirs(t_node **stack, int *elem, t_node *node)
 	return node;
 }
 
-void collect_args(t_tok **tok, t_node *word)
+void collect_args(t_tok **tok, t_node *word, t_ctx *ctx)
 {
     t_node	*arg;
     t_node	*head;
@@ -64,7 +65,7 @@ void collect_args(t_tok **tok, t_node *word)
 		return ;
     while (*tok && is_word(*tok))
     {
-        arg = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
+        arg = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL, ctx);
 		step_forward(tok);
         if (!head)
         {
@@ -80,14 +81,14 @@ void collect_args(t_tok **tok, t_node *word)
     word->left = head;
 }
 
-t_node	*create_word_node(t_tok **tok)
+t_node	*create_word_node(t_tok **tok, t_ctx *ctx)
 {
 	t_node	*word;
 
 	word = NULL;
 	if ((*tok) && is_word(*tok))
 	{
-		word = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL);
+		word = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL, ctx);
 		step_forward(tok);
 		return word;
 	}
@@ -118,7 +119,7 @@ t_node	*create_word_node(t_tok **tok)
  * 		 / \
  * 	   ls  cat
  */
-t_node *expression_with_group(t_tok **tok)
+t_node *expression_with_group(t_tok **tok, t_ctx *ctx)
 {
 	t_node	*stack[STACK_SIZE];
 	t_node	*node;
@@ -126,8 +127,8 @@ t_node *expression_with_group(t_tok **tok)
 	int		elem;
 
 	elem = 0;
-	node = parse_group(tok);
-	stack_redirs(tok, stack, &elem);
+	node = parse_group(tok, ctx);
+	stack_redirs(tok, stack, &elem, ctx);
 	result = unfold_redirs(stack, &elem, node);
 	return (result);
 }
@@ -149,7 +150,7 @@ t_node *expression_with_group(t_tok **tok)
  *					|
  *				  "arg"
  */
-t_node *expression_no_group(t_tok **tok)
+t_node *expression_no_group(t_tok **tok, t_ctx *ctx)
 {
 	t_node	*stack[STACK_SIZE];
 	t_node	*node;
@@ -158,10 +159,10 @@ t_node *expression_no_group(t_tok **tok)
 	int		elem;
 	
 	elem = 0;
-	stack_redirs(tok, stack, &elem);
-	word = create_word_node(tok);
-	collect_args(tok, word);
-	stack_redirs(tok, stack, &elem);
+	stack_redirs(tok, stack, &elem, ctx);
+	word = create_word_node(tok, ctx);
+	collect_args(tok, word, ctx);
+	stack_redirs(tok, stack, &elem, ctx);
     node = word;
 	result = unfold_redirs(stack, &elem, node);
     return result;
@@ -176,12 +177,12 @@ t_node *expression_no_group(t_tok **tok)
  * @param tok The token list.
  * @return t_node*
  */
-t_node	*parse_expression(t_tok **tok)
+t_node	*parse_expression(t_tok **tok, t_ctx *ctx)
 {
 	if (!*tok)
 		return NULL;
 	if (is_group_open(*tok))
-		return (expression_with_group(tok));
+		return (expression_with_group(tok, ctx));
 	else
-		return (expression_no_group(tok));
+		return (expression_no_group(tok, ctx));
 }
