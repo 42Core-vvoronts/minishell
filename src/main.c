@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 11:38:16 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:50:22 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_node *init_testcase_forward(void);
 void save_tree(t_node *node);
 
-// void handle_heredoc(char *delimiter, char **cmdline) {
+// void handle_heredoc(char *delimiter, char **statement) {
 //     char *line;
 //     char *content = malloc(1);
 //     content[0] = '\0';
@@ -34,37 +34,39 @@ void save_tree(t_node *node);
 //     }
 
 //     // Replace <<delimiter>> with the heredoc content
-//     *cmdline = content;  // Replace cmdline with heredoc content
+//     *statement = content;  // Replace statement with heredoc content
 // }
 
 
 int minishell(int argc, char **argv, char **envp)
 {
-    char *cmdline;
-    // char prompt[] = "minishell$ ";
+    char	*statement;
+	t_node	*ast;
+	
+	ast = NULL;
 	char prompt[] = "\033[1;32mminishell$ \033[0m"; 
 
     if (argc == 2 || !envp) 
     {
-        parsing(argv[1]);
+        parse(argv[1]);
         // execution();
         return 0;
     }
 
     while (true) 
     {
-        cmdline = readline(prompt);
-        if (!cmdline) 
+        statement = readline(prompt);
+        if (!statement) 
         {
             ft_printf("\n");
             exit(1); 
 		}
-		// printf("cmdline: %s\n", cmdline);
-        
-        // history(cmdline);   
-        parsing(cmdline);
-        // execution();
-        free(cmdline);
+        // history(statement);   
+        ast = parse(statement);
+		if (ast)
+			exit(0);
+        	// execute(ast);
+        free(statement);
     }
 }
 

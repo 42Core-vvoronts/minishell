@@ -6,20 +6,20 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/08 12:31:28 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:51:34 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_type	typify_quotes(char *lexeme)
-{
-	if (lexeme[0] == '"' && lexeme[ft_strlen(lexeme) - 1] == '"')
-		return WORD_DOUBLE_QUOTES;
-	if (lexeme[0] == '\'' && lexeme[ft_strlen(lexeme) - 1] == '\'')
-		return WORD_SINGLE_QUOTES;
-	return WORD_ZERO_QUOTES;
-}
+// t_type	typify_quotes(char *lexeme)
+// {
+// 	if (lexeme[0] == '"' && lexeme[ft_strlen(lexeme) - 1] == '"')
+// 		return WORD_DOUBLE_QUOTES;
+// 	if (lexeme[0] == '\'' && lexeme[ft_strlen(lexeme) - 1] == '\'')
+// 		return WORD_SINGLE_QUOTES;
+// 	return WORD_ZERO_QUOTES;
+// }
 
 t_type typify(char *lexeme) 
 {
@@ -39,7 +39,7 @@ t_type typify(char *lexeme)
 		return REDIR_APPEND;
 	if (is_eqlstr(lexeme, "<<"))
 		return REDIR_HEREDOC;
-	return typify_quotes(lexeme);
+	return WORD;
 }
 
 t_tok *lexer(char *cmdline)
