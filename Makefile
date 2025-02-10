@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/10 01:28:23 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/10 01:33:49 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ VPATH				=	\
 						./src/error/:\
 						./src/execution/:\
 						./src/execution/andor/:\
-						./src/execution/arguments/:\
+						./src/execution/stash/:\
 						./src/execution/command/:\
 						./src/execution/exitcode/:\
 						./src/execution/expansion/:\
@@ -75,7 +75,7 @@ SRC 				=	\
 						\
 						evaluation.c \
 						argument.c \
-						arguments.c \
+						stash.c \
 						content.c \
 						\
 						redir_append.c \

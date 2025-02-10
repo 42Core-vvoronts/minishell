@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 09:28:24 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 01:32:59 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	collect_heredoc(char *delim)
 	char	eot;
 
 	// evaluate_node(node->left);
-	// delim = pop_arg(node); //getfd here
+	// delim = pop_stash(node); //getfd here
 	//delim remove quotes
 	open_pipe(&p, NULL);
 	eot = 4;

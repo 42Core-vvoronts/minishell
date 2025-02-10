@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:23:38 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 12:36:29 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 01:32:59 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	process_redir_out(t_node *node)
 	char	*pathname;
 
 	evaluate(node->left);
-	pathname = pop_arg(node);
+	pathname = pop_stash(node);
 	if (is_valid(pathname, node))
 	{
 		fd = eopen(pathname, O_WRONLY | O_CREAT | O_TRUNC, 0666, node);

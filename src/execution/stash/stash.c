@@ -6,13 +6,13 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:19:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 13:11:22 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 01:32:59 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_arg(char *arg, t_node *node)
+void	add_stash(char *arg, t_node *node)
 {
 	size_t	i;
 	char **result;
@@ -32,7 +32,7 @@ void	add_arg(char *arg, t_node *node)
 	node->ctx->stash = result;
 }
 
-char	*pop_arg(t_node *node)
+char	*pop_stash(t_node *node)
 {
 	size_t	i;
 	char **result;

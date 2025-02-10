@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:11:28 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 13:01:52 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 02:42:23 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	evaluate(t_node *node)
 {
-	if (node == NULL || node->ctx->exitcode != EXIT_SUCCESS)
+	if (node == NULL)
 		return ;
 	else if (node->type == PIPE)
 		process_pipe(node);
@@ -34,6 +34,6 @@ void	evaluate(t_node *node)
 		process_group(node);
 	else if (node->type == AND)
 		process_and(node);
-	else
+	else if (node->type == OR)
 		process_or(node);
 }

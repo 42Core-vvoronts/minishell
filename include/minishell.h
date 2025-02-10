@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 01:27:09 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 01:32:59 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,8 @@ void	process_or(t_node	*node);
 
 int		allclean(t_node *node);
 
-void	add_arg(char *arg, t_node *node);
-char	*pop_arg(t_node *node);
+void	add_stash(char *arg, t_node *node);
+char	*pop_stash(t_node *node);
 void	prepare_argv(t_node *node);
 
 void 	run_cmd(t_node *node);
