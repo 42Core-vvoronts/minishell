@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 11:15:07 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:29:25 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ void	add_msg(char *arg, t_node *node);
 void	process_filename(t_node *node);
 void	error(int exitcode, t_ctx *ctx, t_m msg);
 pid_t	efork(t_node *node);
-void	eexecve(char *pathname, char **argv, char **envp);
+void	eexecve(char *pathname, t_node *node);
 char	*get_cmdname(void *node);
 void	set_exitcode(void *node, int code);
 int		eopen(char *pathname, int flags, int mode, t_node *node);

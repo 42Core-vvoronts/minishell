@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:09:00 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 10:50:35 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:26:15 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static	char	**split(char *pathval, t_node *node)
 {
@@ -72,32 +72,47 @@ static char	*retrieve_pathname(char *pathval, t_node *node)
 	}
 	return (NULL);
 }
+char *search_filesystem(t_node *node)
+{
+	char	*pathname;
 
+	pathname = ft_strdup(node->ctx->stash[0]);
+	if (!pathname)
+		error(-1, node->ctx, (t_m){strerror(errno)});
+	if (!is_exist(pathname))
+		error(127, node->ctx, (t_m){pathname, strerror(errno)}); //exit(127); bash: ./test/lds: No such file or directory
+	else
+	{
+		free(pathname);
+		return (NULL);
+	}
+	return (pathname);
+}
 char *get_pathname(t_node *node)
 {
 	char	*pathname;
 	char	*pathval;
 
+	pathname = NULL;
 	if (is_pathname(node->ctx->stash[0]))
-	{
-		pathname = ft_strdup(node->ctx->stash[0]);
-		if (!pathname)
-			error(-1, node->ctx, (t_m){strerror(errno)});
-		if (!is_exist(pathname))
-			error(127, node->ctx, (t_m){pathname, strerror(errno)}); //exit(127); bash: ./test/lds: No such file or directory
-	}
+		pathname = search_filesystem(node);
 	else
 	{
 		pathval = get_val(node->ctx, "PATH");
 		if (!pathval)
-			error(127, node->ctx, (t_m){FILE_NOT_FOUND});
+		{
+			error(127, node->ctx, (t_m){node->ctx->stash[0], FILE_NOT_FOUND});
+			return (NULL);
+		}
 		pathname = retrieve_pathname(pathval, node);
 		if (!pathname)
-			error(127, node->ctx, (t_m){CMD_NOT_FOUND}); //exit(127); inside of error // bash: dfdf: command not found
+			error(127, node->ctx, (t_m){node->ctx->stash[0], CMD_NOT_FOUND}); //exit(127); inside of error // bash: dfdf: command not found
 	}
+	if (!pathname)
+		return (NULL);
 	if (is_executable(pathname))
 		return (pathname);
 	free(pathname);
-	error(126, node->ctx, (t_m){strerror(errno)}); //exit(126); bash: ./test/ls: Permission denied
+	error(126, node->ctx, (t_m){node->ctx->stash[0], strerror(errno)}); //exit(126); bash: ./test/ls: Permission denied
 	return (NULL);
 }

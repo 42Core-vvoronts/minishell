@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 11:57:01 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:29:03 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,24 @@ int	eopen(char *pathname, int flags, int mode, t_node *node)
 	return (fd);
 }
 
-void	eexecve(char *pathname, char **argv, char **envp)
+void	eexecve(char *pathname, t_node *node)
 {
-	if (execve(pathname, argv, envp) == ERROR)
-	{
-		free(pathname);
-		ft_parrclean(&argv);
-		ft_parrclean(&envp);
+	int		exitcode;
+	char	**argv;
+	char	**envp;
+
+	argv = node->ctx->stash;
+	envp = node->ctx->envp;
+	exitcode = node->ctx->exitcode;
+	allclean(node, 0);
+	if (!pathname)
+		;
+	else if (execve(pathname, argv, envp) == ERROR)
 		error(-1, NULL, (t_m){strerror(errno)});
-		exit(1);
-	}
+	free(pathname);
+	ft_parrclean(&argv);
+	ft_parrclean(&envp);
+	exit(exitcode);
 }
 
 static	void	clean_tree(t_node *node)
