@@ -58,6 +58,7 @@ The syntaxer takes the list of valid tokens and creates an Abstract Syntax Tree 
 For the statement:
 ```sh
 ( < f2 ls / | cat | grep a && ls ) > f1
+(<f2 ls / | cat|grep a &&ls)>f1
 ```
 
 The resulting tree is created during runtime using Graphviz

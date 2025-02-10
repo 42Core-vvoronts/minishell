@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:09:27 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 18:25:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:51:35 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,24 @@ bool	is_operator(char *lexeme)
 	return false;
 }
 
-void	skip_spaces(char **statement)
+void	skip_spaces(char **lexeme)
 {
-	while (is_space(*statement))
-		(*statement)++;
+	while (is_space(*lexeme))
+		(*lexeme)++;
 }
 
-void	handle_quotes(char **statement, t_tok **tokens, t_tok **current)
+void	handle_quotes(char **lexeme, t_tok **tokens, t_tok **current)
 {
 	char	*start;
 	char	*end;
 	t_tok	*new;
 
-	if (!*statement)
+	if (!*lexeme)
 		error_exit("end of statement");
-	if (!is_double_quote(*statement) && !is_single_quote(*statement))
+	if (!is_double_quote(*lexeme) && !is_single_quote(*lexeme))
 		return ;
-	start = *statement;
-	end = *statement + 1;
+	start = *lexeme;
+	end = *lexeme + 1;
 	if (*end == '\0')
 		error_exit("end of statement");
 	while (*end && !is_double_quote(end) && !is_single_quote(end))
@@ -46,94 +46,150 @@ void	handle_quotes(char **statement, t_tok **tokens, t_tok **current)
 		error_exit("Unclosed quote");
 	new = init_token(start, end - start + 1);
 	add_token(new, tokens, current);
-	*statement = end + 1;
+	*lexeme = end + 1;
 }
 
-void	handle_words(char **statement, t_tok **tokens, t_tok **current)
+void	handle_words(char **lexeme, t_tok **tokens, t_tok **current)
 {
 	char	*start;
 	char	*end;
 	t_tok	*new;
 
-	if (!*statement)
+	start = *lexeme;
+	end = start;
+	new = NULL;
+	if (!*lexeme)
 		error_exit("end of statement");
-	if (!is_word_lexeme(*statement))
+	if (!is_word_lexeme(*lexeme))
 		return ;
-	start = *statement;
+	start = *lexeme;
 	end = start;
 	while (*end && is_word_lexeme(end))
 		end++;
 	new = init_token(start, end - start);
 	add_token(new, tokens, current);
-	*statement = end;
-	}
-	
-void	handle_operators(char **statement, t_tok **tokens, t_tok **current)
+	*lexeme = end;
+}
+
+void	handle_parenthesis(char **lexeme, t_tok **tokens, t_tok **current)
 {
 	char	*start;
 	char	*end;
 	t_tok	*new;
 
-	if (!*statement)
-		error_exit("end of statement");
-	if (!is_operator(*statement))
-		return ;
-	start = *statement;
+	start = *lexeme;
 	end = start;
+	new = NULL;
+	new = init_token(start, end - start + 1);
+	add_token(new, tokens, current);
+	*lexeme = end + 1;
+}
 
-	if (is_open_parenthesis(end) || is_close_parenthesis(end))
-	{
-		new = init_token(start, end - start + 1);
-		add_token(new, tokens, current);
-		*statement = end + 1;
-		return ;
-	}
-	
-	if (is_greater(end))
-	{
-		if (is_greater(end + 1))
-			end++;
-		new = init_token(start, end - start + 1);
-		add_token(new, tokens, current);
-		*statement = end + 1;
-		if (is_operator(*statement))
-			error_exit("syntax error near unexpected token");
-		return ;
-	}
-	if (is_less(end))
-	{
-		if (is_less(end + 1))
-			end++;
-		new = init_token(start, end - start + 1);
-		add_token(new, tokens, current);
-		*statement = end + 1;
-		if (is_operator(*statement))
-			error_exit("syntax error near unexpected token");
-		return ;
-	}
-	if (is_vertical_bar(end))
-	{
-		if (is_vertical_bar(end + 1))
-			end++;
-		new = init_token(start, end - start + 1);
-		add_token(new, tokens, current);
-		*statement = end + 1;
-		if (is_operator(*statement))
-			error_exit("syntax error near unexpected token");
-		return ;
-	}
-	if (is_ampersand(end))
-	{
-		if (!is_ampersand(end + 1))
-			error_exit("dont need handle &");
+void	handle_greater(char **lexeme, t_tok **tokens, t_tok **current)
+{
+	char	*start;
+	char	*end;
+	t_tok	*new;
+
+	start = *lexeme;
+	end = start;
+	new = NULL;
+	if (is_greater(end + 1))
 		end++;
-		new = init_token(start, end - start + 1);
-		add_token(new, tokens, current);
-		*statement = end + 1;
-		if (is_operator(*statement))
-			error_exit("syntax error near unexpected token");
-		return ;
-	}
+	new = init_token(start, end - start + 1);
+	add_token(new, tokens, current);
+	*lexeme = end + 1;
+	if (is_operator(*lexeme))
+		error_exit("syntax error near unexpected token");
+}
 
 	
+void	handle_less(char **lexeme, t_tok **tokens, t_tok **current)
+{
+	char	*start;
+	char	*end;
+	t_tok	*new;
+
+	start = *lexeme;
+	end = start;
+	new = NULL;
+	new = init_token(start, end - start + 1);
+	add_token(new, tokens, current);
+	*lexeme = end + 1;
+	if (is_operator(*lexeme))
+		error_exit("syntax error near unexpected token");
+}
+
+void	handle_ampersand(char **lexeme, t_tok **tokens, t_tok **current)
+{
+	char	*start;
+	char	*end;
+	t_tok	*new;
+
+	start = *lexeme;
+	end = start;
+	new = NULL;
+	if (!is_ampersand(end + 1))
+		error_exit("dont need handle &");
+	end++;
+	new = init_token(start, end - start + 1);
+	add_token(new, tokens, current);
+	*lexeme = end + 1;
+	if (is_operator(*lexeme))
+		error_exit("syntax error near unexpected token");
+}
+
+void	handle_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current)
+{
+	char	*start;
+	char	*end;
+	t_tok	*new;
+
+	start = *lexeme;
+	end = start;
+	new = NULL;
+	if (is_vertical_bar(end + 1))
+		end++;
+	new = init_token(start, end - start + 1);
+	add_token(new, tokens, current);
+	*lexeme = end + 1;
+	if (is_operator(*lexeme))
+		error_exit("syntax error near unexpected token");
+}
+
+void	handle_heredoc(char **lexeme, t_tok **tokens, t_tok **current)
+{
+	char	*start;
+	char	*end;
+	t_tok	*new;
+
+	start = *lexeme;
+	end = start;
+	new = init_token(start, end - start + 1);
+	add_token(new, tokens, current);
+	*lexeme = end + 1;
+	if (is_operator(*lexeme))
+		error_exit("syntax error near unexpected token");
+}
+	
+void	handle_operators(char **lexeme, t_tok **tokens, t_tok **current)
+{
+	if (!*lexeme)
+		error_exit("end of statement");
+	if (!is_operator(*lexeme))
+		return ;
+	if (is_open_parenthesis(*lexeme) || is_close_parenthesis(*lexeme))
+		handle_parenthesis(lexeme, tokens, current);
+	else if (is_greater(*lexeme))
+		handle_greater(lexeme, tokens, current);
+	else if (is_less(*lexeme))
+	{
+		if (is_less(*(lexeme + 1)))
+			handle_heredoc(lexeme, tokens, current);
+		handle_less(lexeme, tokens, current);
+	}
+	if (is_vertical_bar(*lexeme))
+		handle_vertical_bar(lexeme, tokens, current);
+	if (is_ampersand(*lexeme))
+		handle_ampersand(lexeme, tokens, current);
 }
