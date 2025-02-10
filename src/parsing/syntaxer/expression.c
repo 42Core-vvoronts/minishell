@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 14:38:48 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:21:44 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ t_node	*create_word_node(t_tok **tok, t_ctx *ctx)
 	else
 	{
 		if (*tok && (*tok)->lexeme)
-			fprintf(stderr, "Error: expected command\n");
-		else
-			fprintf(stderr, "Error: expected command\n");
+			error_exit("expected command");
+			else
+			error_exit("expected command");
 		return NULL;
 	}
 }

@@ -17,7 +17,7 @@ reset='\033[0m'
 testcases=("VALID" "LIST" "GROUP" "PIPELINE" "REDIRECTION" "WORD")
 
 VALID=(
-    		"( < f2 ls / | cat | grep a && ls ) > f1"
+    		"(<f2 ls / | cat | grep a && ls ) > f1"
     		"( sleep 1 && ls ) > f1"
     		"ls > f1"
 			"ls >> f1 > f2"
@@ -32,6 +32,7 @@ LIST=(
 			"ls | cat && ls | cat && ls | cat" 
 			"ls | cat || ls | cat || ls | cat || ls | cat" 
 			"ls &&" "ls ||"
+			"ls&&sleep 1"
 )
 
 GROUP=(
@@ -105,7 +106,7 @@ for category in "${testcases[@]}"; do
     	echo -e "${darkgray}------------------------------------------------------${reset}"
 		printf "${lightblue}%"$padding"s%s%"$padding"s${reset}\n" "" "$test" ""
     	echo -e "${darkgray}------------------------------------------------------${reset}"
-		
+
 		# Run the test case in minishell:
 		{ echo "$test"; echo "exit"; } | "$MINISHELL_DIR/$MINISHELL_EXEC" > minishell_out 2> minishell_err
 		minishell_exit=$?

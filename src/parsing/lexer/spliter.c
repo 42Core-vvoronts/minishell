@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 11:09:27 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 17:33:54 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:25:34 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 bool	is_operator(char *lexeme)
 {
-	if (is_pipe_symbol(lexeme) || is_less(lexeme) || is_greater(lexeme) || 
-	is_and(lexeme) || is_open_parenthesis(lexeme) || is_close_parenthesis(lexeme))
+	if (is_vertical_bar(lexeme) || is_less(lexeme) || is_greater(lexeme) || 
+	is_ampersand(lexeme) || is_open_parenthesis(lexeme) || is_close_parenthesis(lexeme))
 		return true;
 	return false;
 }
@@ -88,11 +88,52 @@ void	handle_operators(char **statement, t_tok **tokens, t_tok **current)
 		*statement = end + 1;
 		return ;
 	}
-	if (is_double_greater(start) || is_double_less(start))
+	
+	if (is_greater(end))
+	{
+		if (is_greater(end + 1))
+			end++;
+		new = init_token(start, end - start + 1);
+		add_token(new, tokens, current);
+		*statement = end + 1;
+		if (is_operator(*statement))
+			error_exit("syntax error near unexpected token");
+		return ;
+	}
+	if (is_less(end))
+	{
+		if (is_less(end + 1))
+			end++;
+		new = init_token(start, end - start + 1);
+		add_token(new, tokens, current);
+		*statement = end + 1;
+		if (is_operator(*statement))
+			error_exit("syntax error near unexpected token");
+		return ;
+	}
+	if (is_vertical_bar(end))
+	{
+		if (is_vertical_bar(end + 1))
+			end++;
+		new = init_token(start, end - start + 1);
+		add_token(new, tokens, current);
+		*statement = end + 1;
+		if (is_operator(*statement))
+			error_exit("syntax error near unexpected token");
+		return ;
+	}
+	if (is_ampersand(end))
+	{
+		if (!is_ampersand(end + 1))
+			error_exit("dont need handle &");
 		end++;
-	if (*end == '\0')
-		error_exit("end of statement");
-	new = init_token(start, end - start);
-	add_token(new, tokens, current);
-	*statement = end;
+		new = init_token(start, end - start + 1);
+		add_token(new, tokens, current);
+		*statement = end + 1;
+		if (is_operator(*statement))
+			error_exit("syntax error near unexpected token");
+		return ;
+	}
+
+	
 }

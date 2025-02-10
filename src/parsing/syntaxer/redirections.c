@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 14:39:20 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:20:53 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ t_node *parse_redir(t_tok **tok, t_ctx *ctx)
 	
     if (!*tok || !is_word_token(*tok))
     {
-		fprintf(stderr, "Error: expected a word after redirection operator '%s'\n",
-			operator->lexeme);
+		error_exit("expected a word after operator: redirection");
 		return NULL;
     }
 	word_tok = *tok;

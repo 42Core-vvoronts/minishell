@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 09:56:48 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 15:18:30 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:01:20 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool is_close_parenthesis(char *lexeme)
     return false;
 }
 
-bool is_pipe_symbol(char *lexeme)
+bool is_vertical_bar(char *lexeme)
 {
     if (is_eqlchar(*lexeme, '|'))
         return true;
@@ -69,30 +69,9 @@ bool is_greater(char *lexeme)
     return false;
 }
 
-bool is_double_greater(char *lexeme)
+bool is_ampersand(char *lexeme)
 {
-    if (is_eqlstr(lexeme, ">>"))
-        return true;
-    return false;
-}
-
-bool is_double_less(char *lexeme)
-{
-    if (is_eqlstr(lexeme, "<<"))
-        return true;
-    return false;
-}
-
-bool is_and(char *lexeme)
-{
-    if (is_eqlstr(lexeme, "&&"))
-        return true;
-    return false;
-}
-
-bool is_or(char *lexeme)
-{
-    if (is_eqlstr(lexeme, "||"))
+    if (is_eqlchar(*lexeme, '&'))
         return true;
     return false;
 }

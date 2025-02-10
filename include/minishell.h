@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 14:39:55 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:20:59 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,14 +205,12 @@ void	add_token(t_tok *new, t_tok **head, t_tok **current);
 
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
-bool	is_pipe_symbol(char *lexeme);
+bool	is_vertical_bar(char *lexeme);
 bool	is_less(char *lexeme);
 bool	is_greater(char *lexeme);
-bool	is_and(char *lexeme);
+bool	is_ampersand(char *lexeme);
 bool	is_single_quote(char *lexeme);
 bool	is_double_quote(char *lexeme);
-bool	is_double_greater(char *lexeme);
-bool	is_double_less(char *lexeme);
 bool	is_space(char *lexeme);
 bool	is_word_lexeme(char *lexeme);
 
