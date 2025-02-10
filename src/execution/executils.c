@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/06 10:37:21 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 12:02:55 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 bool is_exist(char *pathname)
 {

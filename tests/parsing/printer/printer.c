@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 00:59:51 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 19:34:26 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:11:03 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
-char *get_name(t_type cmd) 
+char *get_name(t_type cmd)
 {
-	switch (cmd) 
+	switch (cmd)
 	{
 		case AND:
 			return "AND";
@@ -61,11 +61,12 @@ static char *escape_special_chars(const char *str)
 
 static void print_graphviz(t_node *node, FILE *stream)
 {
-    if (node == NULL) return;
+    if (node == NULL)
+		return;
 	char *escaped_token = escape_special_chars(node->token);
 	char *type_name = get_name(node->type);
 
-	fprintf(stream, "    n%p [label=\"%s \n%s\"];\n", (void*)node, type_name, escaped_token);
+	fprintf(stream, "    n%p [label=\"%s\n%s\"];\n", (void*)node, type_name, escaped_token);
 
     // Free the escaped token string
     free(escaped_token);
@@ -75,10 +76,20 @@ static void print_graphviz(t_node *node, FILE *stream)
         fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)node->left);
         print_graphviz(node->left, stream);
     }
+	else
+	{
+		fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)(node->token));
+		fprintf(stream, "    n%p [label=\"%s\"];\n", (void*)(node->token), "(null)");
+	}
     if (node->right) {
         fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)node->right);
         print_graphviz(node->right, stream);
     }
+	else
+	{
+		fprintf(stream, "    n%p -> n%p;\n", (void*)node, (void*)(node->token + 1));
+		fprintf(stream, "    n%p [label=\"%s\"];\n", (void*)(node->token + 1), "(null)");
+	}
 }
 
 void save_tree(t_node *node)
@@ -94,7 +105,7 @@ void save_tree(t_node *node)
 	printf("    graph [bgcolor=\"#212830\"];\n");
 	printf("    node [shape=box, style=rounded, fontname=\"Helvetica\", color=\"#d1d7e0\", \
 				fillcolor=\"#262c36\", fontcolor=\"#d1d7e0\", style=filled];\n");
-	printf("    edge [color=\"#d1d7e0\"];\n"); 
+	printf("    edge [color=\"#d1d7e0\"];\n");
     print_graphviz(node, stdout);
     printf("}\n");
 	fflush(stdout);

@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:11:28 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 09:59:00 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:16:30 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	evaluate(t_node *node)
 	else if (node->type == REDIR_HEREDOC)
 		process_redir_heredoc(node);
 	else if (node->type == ARGUMENT)
-		process_word(node);
+		process_argument(node);
 	else if (node->type == CONTENT)
 		process_content(node);
 	else if (node->type == GROUP)

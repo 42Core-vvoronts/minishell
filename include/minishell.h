@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 19:51:13 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 01:27:09 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,11 +181,11 @@ void	process_redir_heredoc(t_node *node);
 void	process_redir_in(t_node *node);
 void	process_redir_out(t_node *node);
 
-void	process_word(t_node *node);
+void	process_argument(t_node *node);
 void	process_content(t_node *node);
 
 void	evaluate(t_node *node);
-int minishell(int argc, char **argv, char **envp);
+int		prompt(int argc, char **argv, char **envp);
 
 // -- PARSING --
 t_node	*parse(char *statement, t_ctx *ctx);
@@ -225,7 +225,6 @@ void	*error_exit(char *msg);
 
 
 // -- PRINTER --
-int minishell(int argc, char **argv, char **envp);
 void print_tokens(t_tok *tokens);
 void print_node(t_node *ast, int depth);
 void save_tree(t_node *node);

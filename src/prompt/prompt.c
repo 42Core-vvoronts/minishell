@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 19:55:07 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 01:25:22 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-int minishell(int argc, char **argv, char **envp)
+int	prompt(int argc, char **argv, char **envp)
 {
     char	*statement;
 	t_node	*ast;
@@ -41,3 +41,8 @@ int minishell(int argc, char **argv, char **envp)
         free(statement);
     }
 }
+/* Testcases
+
+( < infile ls / | cat | grep a && ls ) > outfile
+
+*/

@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:23:16 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 10:07:13 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 12:34:36 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static	bool	is_valid(char *pathname, t_node *node)
 {

@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/10 09:59:32 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/10 10:13:36 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,9 +43,11 @@ VPATH				=	\
 						./src/parsing/:\
 						./src/parsing/syntaxer/:\
 						./src/parsing/errors/:\
-						./src/parsing/printer/:\
 						./src/parsing/lexer/:\
 						./src/prompt/:\
+						./src/test/:\
+						./test/parsing/:\
+						./test/parsing/printer/:\
 
 
 # Include flags
@@ -74,10 +76,10 @@ SRC 				=	\
 						redirections.c \
 						expression.c \
 						errors.c \
-						printer.c \
 						\
 						evaluation.c \
-						word.c \
+						argument.c \
+						arguments.c \
 						content.c \
 						\
 						redir_append.c \
@@ -95,8 +97,6 @@ SRC 				=	\
 						\
 						command.c \
 						\
-						arguments.c \
-						\
 						and.c \
 						or.c \
 						\
@@ -109,7 +109,15 @@ SRC 				=	\
 						export.c \
 						pwd.c \
 						unset.c \
-						\
+
+ifeq ($(shell if [ -d tests ]; then echo yes; fi),yes)
+
+VPATH				+=	\
+						./tests/parsing/printer/:
+
+SRC					+= 	\
+						printer.c
+endif
 
 # Object and Dependency files
 OBJ					=	$(SRC:%.c=obj/%.o)

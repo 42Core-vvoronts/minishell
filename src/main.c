@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 19:54:21 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 01:25:03 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -25,6 +25,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)ctx;
 	(void)node;
 
-	minishell(argc, argv, envp);
+	prompt(argc, argv, envp);
 	return (EXIT_SUCCESS);
 }

@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:19:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 10:23:26 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/09 13:11:22 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 void	add_arg(char *arg, t_node *node)
 {
