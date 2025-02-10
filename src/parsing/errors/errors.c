@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:34:37 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 14:00:46 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:23:18 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	*error_exit(char *msg)
 {
 	fprintf(stderr, "Error: %s\n", msg);
-	exit(1);
+	return (NULL);
 }

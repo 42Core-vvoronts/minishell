@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 13:29:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:39:55 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,9 +195,9 @@ t_node	*parse(char *statement, t_ctx *ctx);
 
 // -- LEXER --
 t_tok	*lexer(char *statement);
-void	handle_quotes(char **statement, t_tok **tokens);
-void	handle_words(char **statement, t_tok **tokens);
-void	handle_operators(char **statement, t_tok **tokens);
+void	handle_quotes(char **statement, t_tok **tokens, t_tok **current);
+void	handle_words(char **statement, t_tok **tokens, t_tok **current);
+void	handle_operators(char **statement, t_tok **tokens, t_tok **current);
 void	skip_spaces(char **statement);
 
 t_type	typify(char *lexeme);
@@ -213,6 +213,8 @@ bool	is_single_quote(char *lexeme);
 bool	is_double_quote(char *lexeme);
 bool	is_double_greater(char *lexeme);
 bool	is_double_less(char *lexeme);
+bool	is_space(char *lexeme);
+bool	is_word_lexeme(char *lexeme);
 
 // -- SYNTAXER --
 t_node	*syntaxer(t_tok *tok, t_ctx *ctx);
@@ -231,7 +233,7 @@ bool	is_group_open(t_tok *tok);
 bool	is_andor(t_tok *tok);
 bool	is_pipe(t_tok *tok);
 bool	is_redir(t_tok *tok);
-bool	is_word(t_tok *tok);
+bool	is_word_token(t_tok *tok);
 
 
 void	step_forward(t_tok **tok);

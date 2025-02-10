@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 10:40:28 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:38:48 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param tok Current token
  * @return true if the token is a word
  */
-bool	is_word(t_tok *tok)
+bool	is_word_token(t_tok *tok)
 {
 	if (!tok)
 		return (0);
@@ -63,7 +63,7 @@ void collect_args(t_tok **tok, t_node *word, t_ctx *ctx)
 	head = NULL;
 	if (!word)
 		return ;
-    while (*tok && is_word(*tok))
+    while (*tok && is_word_token(*tok))
     {
         arg = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL, ctx);
 		step_forward(tok);
@@ -86,7 +86,7 @@ t_node	*create_word_node(t_tok **tok, t_ctx *ctx)
 	t_node	*word;
 
 	word = NULL;
-	if ((*tok) && is_word(*tok))
+	if ((*tok) && is_word_token(*tok))
 	{
 		word = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL, ctx);
 		step_forward(tok);

@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:13:30 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 13:18:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:01:55 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strndup(char *s, int len)
 	if (!dest)
 		return (NULL);
 	mem = dest;
-	while (*s)
+	while (*s && len--)
 		*dest++ = *s++;
 	*dest = '\0';
 	return (mem);

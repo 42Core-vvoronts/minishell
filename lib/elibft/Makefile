@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 16:48:06 by ipetrov           #+#    #+#              #
-#    Updated: 2025/02/10 13:15:48 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/10 14:54:48 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,7 @@ SRC					= 	arr_add.c \
 						ft_tolower.c \
 						ft_toupper.c \
 						is_eqlstr.c \
+						is_eqlchar.c \
 						ft_split.c \
 # arr_to_lst.c
 # lst_to_arr.c

@@ -105,6 +105,7 @@ for category in "${testcases[@]}"; do
     	echo -e "${darkgray}------------------------------------------------------${reset}"
 		printf "${lightblue}%"$padding"s%s%"$padding"s${reset}\n" "" "$test" ""
     	echo -e "${darkgray}------------------------------------------------------${reset}"
+		
 		# Run the test case in minishell:
 		{ echo "$test"; echo "exit"; } | "$MINISHELL_DIR/$MINISHELL_EXEC" > minishell_out 2> minishell_err
 		minishell_exit=$?

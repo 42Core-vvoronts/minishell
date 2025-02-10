@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 13:11:01 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:19:46 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_tok	*init_token(char *start, int len)
 {
 	t_tok	*token;
 	
+
 	token = ft_calloc(1, sizeof(t_tok));
 	if (!token)
 		error(NULL, NONE, MALLOC_FAIL, true);

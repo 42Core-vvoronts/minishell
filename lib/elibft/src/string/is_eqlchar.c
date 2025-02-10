@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   is_eqlchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/08 13:06:02 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 16:47:37 by vvoronts         ###   ########.fr       */
+/*   Created: 2025/02/10 14:53:43 by vvoronts          #+#    #+#             */
+/*   Updated: 2025/02/10 15:15:51 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "elibft.h"
 
-t_node	*parse(char *statement, t_ctx *ctx)
+bool	is_eqlchar(const char s1, const char s2)
 {
-	t_tok	*tokens;
-	t_node	*ast;
-
-	tokens = lexer(statement);
-	ast = syntaxer(tokens, ctx);
-	//printer
-	save_tree(ast);
-	return ast;
+	return (s1 == s2);
 }
-
