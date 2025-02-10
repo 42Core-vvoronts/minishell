@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
+#    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/10 01:28:23 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/10 10:11:15 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,9 @@ VPATH				=	\
 						./src/parsing/errors/:\
 						./src/parsing/lexer/:\
 						./src/prompt/:\
+						./src/test/:\
+						./test/parsing/:\
+						./test/parsing/printer/:\
 
 
 # Include flags
