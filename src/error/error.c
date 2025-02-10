@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 01:15:39 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 13:58:04 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,16 @@ int	allclean(t_node *node)
 }
 // void	terminate()
 
+/**
+ * @brief Error exit
+ *
+ * @param data
+ * @param datatype
+ * @param error
+ * @param terminate
+ * 
+ */
+// void error(t_node *node, bool fatal)
 void error(void *data, t_datatype datatype, int error, bool terminate)
 {
 	(void)datatype;
@@ -145,11 +155,6 @@ void error(void *data, t_datatype datatype, int error, bool terminate)
 		puterr("not a valid identifier\n");
 		set_exitcode(data, 1);
 	}
-	else if (error == SYNTAX_ERROR)
-	{
-		// bash: syntax error near unexpected token `('
-		set_exitcode(data, 2);
-	}
 	else if (error == BUILTIN_MISUSE)
 	{
 		// ivan@fb32f8d82885:~$ cd -fddv
@@ -198,6 +203,16 @@ void error(void *data, t_datatype datatype, int error, bool terminate)
 		puterr("cd: ");
 		puterr("HOME not set\n");
 		set_exitcode(data, 1);
+	}
+	else if (error == TOKEN_ERROR)
+	{
+		puterr("Token error\n");
+		set_exitcode(data, 2); // 2???
+	}
+	else if (error == SYNTAX_ERROR)
+	{
+		puterr("Syntax error\n");
+		set_exitcode(data, 2);
 	}
 	else
 	{

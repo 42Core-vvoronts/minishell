@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 10:41:18 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:05:05 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,29 @@ t_type typify(char *lexeme)
 	return ARGUMENT;
 }
 
-t_tok *lexer(char *cmdline)
+void add_token(t_tok *new, t_tok **head, t_tok **current)
 {
-    t_tok *tokens = NULL;
-    t_tok *curtok = NULL;
-    t_tok *newtok = NULL;
-	char **lexemes;
+	if (*head == NULL)
+		*head = new;
+	else
+		(*current)->next = new;
+	*current = new;
+}
 
-	lexemes = ft_split(cmdline, ' ');
-    while (*lexemes)
+t_tok *lexer(char *statement)
+{
+	t_tok *tokens;
+
+	tokens = NULL;
+    while (*statement)
     {
-		newtok = init_token(*lexemes);
-        // Process current lexeme
-        if (tokens == NULL)
-            tokens = newtok;
-        else
-            curtok->next = newtok;
-
-        curtok = newtok;
-
-        lexemes++;
+		skip_spaces(&statement);
+		handle_quotes(&statement, &tokens);
+		handle_words(&statement, &tokens);
+		handle_operators(&statement, &tokens);
     }
-	// printf("\nTokens:\n");
-	// print_tokens(tokens);
     return tokens;
 }
+// new = init_token(*lexemes);
+// add_token(new, &tokens, &current);
+// lexemes++;

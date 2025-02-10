@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
+#    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 16:48:06 by ipetrov           #+#    #+#              #
-#    Updated: 2025/02/07 03:49:51 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/10 13:15:48 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,7 @@ SRC					= 	arr_add.c \
 						ft_strchr.c \
 						ft_strcmp.c \
 						ft_strdup.c \
+						ft_strndup.c \
 						ft_strdups.c \
 						ft_striteri.c \
 						ft_strjoin.c \

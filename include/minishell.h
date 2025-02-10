@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 10:40:22 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:29:34 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef enum e_error
 	FILE_NOT_FOUND,
 	PERMISSION_DENIED,
 	BUILTIN_MISUSE,
-	SYNTAX_ERROR,
 	NOT_VALID_IDENTIFIER,
 	NON_NUMERIC_EXIT,
 	TOO_MANY_ARG_EXIT,
@@ -87,6 +86,9 @@ typedef enum e_error
 	ERRNO_CD,
 	OLDPWD_NOT_SET_CD,
 	HOME_NOT_SET_CD,
+	// Parser
+	SYNTAX_ERROR,
+	TOKEN_ERROR,
 } t_error;
 
 typedef enum e_datatype
@@ -193,7 +195,13 @@ t_node	*parse(char *statement, t_ctx *ctx);
 
 // -- LEXER --
 t_tok	*lexer(char *statement);
+void	handle_quotes(char **statement, t_tok **tokens);
+void	handle_words(char **statement, t_tok **tokens);
+void	handle_operators(char **statement, t_tok **tokens);
+void	skip_spaces(char **statement);
+
 t_type	typify(char *lexeme);
+void	add_token(t_tok *new, t_tok **head, t_tok **current);
 
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
@@ -229,8 +237,7 @@ bool	is_word(t_tok *tok);
 void	step_forward(t_tok **tok);
 //init
 t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
-t_tok	*init_token(char *lexeme);
-
+t_tok	*init_token(char *start, int len);
 
 
 // errors

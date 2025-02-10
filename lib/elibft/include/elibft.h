@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elibft.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:04:12 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/07 03:49:43 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 13:15:14 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ char		*ft_strchr(const char *s, int c);
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strdup(const char *s);
 char		**ft_strdups(char **strs);
+char		*ft_strndup(char *s, int len);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 char		*ft_strjoin(char const *s1, char const *s2);
 size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);

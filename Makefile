@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/10 10:26:12 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/10 13:06:01 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,8 @@ SRC 				=	\
 						executils.c \
 						\
 						lexer.c \
-						definelex.c \
+						definer.c \
+						spliter.c \
 						parser.c \
 						syntaxer.c \
 						list.c \

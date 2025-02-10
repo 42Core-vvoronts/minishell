@@ -6,11 +6,11 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 10:33:03 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:11:01 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static	int	init_envp(t_ctx *ctx, char **envp)
 {
@@ -85,16 +85,35 @@ t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx 
     node->right = right;
     return node;
 }
+/**
+ * @brief Init a new token
+ *
+ * @param lexeme
 
-t_tok *init_token(char *lexeme)
+ * @return t_tok *token 
+ * 
+ */
+t_tok	*init_token(char *start, int len)
 {
-	t_tok *token;
-
+	t_tok	*token;
+	
 	token = ft_calloc(1, sizeof(t_tok));
 	if (!token)
 		error(NULL, NONE, MALLOC_FAIL, true);
-	token->lexeme = lexeme;
-	token->type = typify(lexeme);
+	token->lexeme = ft_strndup(start, len);
+	token->type = typify(token->lexeme);
 	token->next = NULL;
 	return token;
 }
+// t_tok	*init_token(char *lexeme)
+// {
+// 	t_tok	*token;
+
+// 	token = ft_calloc(1, sizeof(t_tok));
+// 	if (!token)
+// 		error(NULL, NONE, MALLOC_FAIL, true);
+// 	token->lexeme = lexeme;
+// 	token->type = typify(lexeme);
+// 	token->next = NULL;
+// 	return token;
+// }
