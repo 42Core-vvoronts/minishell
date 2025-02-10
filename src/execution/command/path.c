@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:09:00 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 12:26:15 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:32:14 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static char	*retrieve_pathname(char *pathval, t_node *node)
 	}
 	return (NULL);
 }
+
+//exit(127); bash: ./test/lds: No such file or directory
 char *search_filesystem(t_node *node)
 {
 	char	*pathname;
@@ -80,7 +82,7 @@ char *search_filesystem(t_node *node)
 	if (!pathname)
 		error(-1, node->ctx, (t_m){strerror(errno)});
 	if (!is_exist(pathname))
-		error(127, node->ctx, (t_m){pathname, strerror(errno)}); //exit(127); bash: ./test/lds: No such file or directory
+		error(127, node->ctx, (t_m){pathname, strerror(errno)});
 	else
 	{
 		free(pathname);
@@ -88,6 +90,9 @@ char *search_filesystem(t_node *node)
 	}
 	return (pathname);
 }
+
+//exit(127); inside of error // bash: dfdf: command not found
+//exit(126); bash: ./test/ls: Permission denied
 char *get_pathname(t_node *node)
 {
 	char	*pathname;
@@ -106,13 +111,13 @@ char *get_pathname(t_node *node)
 		}
 		pathname = retrieve_pathname(pathval, node);
 		if (!pathname)
-			error(127, node->ctx, (t_m){node->ctx->stash[0], CMD_NOT_FOUND}); //exit(127); inside of error // bash: dfdf: command not found
+			error(127, node->ctx, (t_m){node->ctx->stash[0], CMD_NOT_FOUND});
 	}
 	if (!pathname)
 		return (NULL);
 	if (is_executable(pathname))
 		return (pathname);
 	free(pathname);
-	error(126, node->ctx, (t_m){node->ctx->stash[0], strerror(errno)}); //exit(126); bash: ./test/ls: Permission denied
+	error(126, node->ctx, (t_m){node->ctx->stash[0], strerror(errno)});
 	return (NULL);
 }

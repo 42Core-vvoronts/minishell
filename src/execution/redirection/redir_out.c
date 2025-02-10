@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:23:38 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 10:20:28 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:37:46 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static	bool	is_valid(char *pathname, t_node *node)
 {
@@ -19,7 +19,7 @@ static	bool	is_valid(char *pathname, t_node *node)
 		error(1, node->ctx, (t_m){node->left->token, strerror(errno)}); //exit(1): bash: $VAR: ambiguous redirect
 		return (false);
 	}
-	else if (!is_writable(pathname))
+	else if (is_exist(pathname) && !is_writable(pathname))
 	{
 		error(1, node->ctx, (t_m){pathname, strerror(errno)}); //exit(1): bash: f2: Permission denied
 		return (false);

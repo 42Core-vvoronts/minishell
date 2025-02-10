@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 11:48:57 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:38:59 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void	prompt(int argc, char **argv, char **envp)
 }
 /* Testcases
 
-( < infile ls / | cat | grep a && ls ) > outfile
+( < infiles/inordinary ls / | cat | grep a && ls ) > outfiles/outordinary
 
 */
