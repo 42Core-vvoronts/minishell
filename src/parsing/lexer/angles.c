@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:01 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 19:33:08 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:40:50 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 bool is_less(char *lexeme)
 {
-    if (is_eqlchar(*lexeme, '<'))
+    if (lexeme && is_eqlchar(*lexeme, '<'))
         return true;
     return false;
 }
 
 bool is_greater(char *lexeme)
 {
-    if (is_eqlchar(*lexeme, '>'))
+    if (lexeme && is_eqlchar(*lexeme, '>'))
         return true;
     return false;
 }

@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:15 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 19:27:49 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:41:41 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 bool	is_open_parenthesis(char *lexeme)
 {
-    if (is_eqlchar(*lexeme, '('))
+    if (lexeme && is_eqlchar(*lexeme, '('))
         return true;
     return false;
 }
 
 bool	is_close_parenthesis(char *lexeme)
 {
-    if (is_eqlchar(*lexeme, ')'))
+    if (lexeme && is_eqlchar(*lexeme, ')'))
         return true;
     return false;
 }

@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:33 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 19:28:01 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:41:49 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_vertical_bar(char *lexeme)
 {
-    if (is_eqlchar(*lexeme, '|'))
+    if (lexeme && is_eqlchar(*lexeme, '|'))
         return true;
     return false;
 }

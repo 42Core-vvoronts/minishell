@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:24 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 19:27:54 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:41:46 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 bool	is_single_quote(char *lexeme)
 {
-    if (is_eqlchar(*lexeme, '\''))
+    if (lexeme && is_eqlchar(*lexeme, '\''))
         return true;
     return false;
 }
 
 bool	is_double_quote(char *lexeme)
 {
-    if (is_eqlchar(*lexeme, '\"'))
+    if (lexeme && is_eqlchar(*lexeme, '\"'))
         return true;
     return false;
 }

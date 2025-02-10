@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:41 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 19:07:11 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:42:00 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 bool	is_word_lexeme(char *lexeme)
 {
-    if (ft_isalpha(*lexeme) || ft_isdigit(*lexeme) || 
-        *lexeme == '_' || *lexeme == '-' || *lexeme == '.')
+    if (lexeme && (ft_isalpha(*lexeme) || ft_isdigit(*lexeme) || 
+        *lexeme == '_' || *lexeme == '-' || *lexeme == '.'))
         return true;
     return false;
 }
