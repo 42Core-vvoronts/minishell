@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 01:27:09 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 10:40:22 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
+char *get_pathname(t_node *node);
 void	error(void *data, t_datatype datatype, int error, bool terminate);
 pid_t	efork(t_node *node);
 void	eexecve(char *pathname, t_node *node);
@@ -193,37 +194,47 @@ t_node	*parse(char *statement, t_ctx *ctx);
 // -- LEXER --
 t_tok	*lexer(char *statement);
 t_type	typify(char *lexeme);
-bool	is_not_space(char symbol);
+
+bool	is_open_parenthesis(char *lexeme);
+bool	is_close_parenthesis(char *lexeme);
+bool	is_pipe_symbol(char *lexeme);
+bool	is_less(char *lexeme);
+bool	is_greater(char *lexeme);
+bool	is_and(char *lexeme);
+bool	is_single_quote(char *lexeme);
+bool	is_double_quote(char *lexeme);
+bool	is_double_greater(char *lexeme);
+bool	is_double_less(char *lexeme);
 
 // -- SYNTAXER --
 t_node	*syntaxer(t_tok *tok, t_ctx *ctx);
 t_node	*group_or_expression(t_tok **tok, t_ctx *ctx);
-// syntax tree
 t_node	*create_tree(t_tok **tok, int precedence, t_ctx *ctx);
-t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
 int		get_precedence(t_type type);
-// list
+
 t_node	*parse_list(t_tok **tok, t_ctx *ctx);
-// pipe
 t_node	*parse_pipeline(t_tok **tok, t_ctx *ctx);
-// expression
 t_node	*parse_expression(t_tok **tok, t_ctx *ctx);
-int		is_word(t_tok *tok);
-// group
 t_node	*parse_group(t_tok **tok, t_ctx *ctx);
-int		is_group_close(t_tok *tok);
-int		is_group_open(t_tok *tok);
-// redirecion
 t_node	*parse_redir(t_tok **tok, t_ctx *ctx);
-int		is_redir(t_tok *tok);
-// utils
+
+bool	is_group_close(t_tok *tok);
+bool	is_group_open(t_tok *tok);
+bool	is_andor(t_tok *tok);
+bool	is_pipe(t_tok *tok);
+bool	is_redir(t_tok *tok);
+bool	is_word(t_tok *tok);
+
+
 void	step_forward(t_tok **tok);
+//init
+t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
+t_tok	*init_token(char *lexeme);
+
+
+
 // errors
 void	*error_exit(char *msg);
-
-
-
-
 // -- PRINTER --
 void print_tokens(t_tok *tokens);
 void print_node(t_node *ast, int depth);

@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 19:23:17 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:29:42 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,6 @@ int get_precedence(t_type type)
 	if (type == REDIR_APPEND || type == REDIR_HEREDOC || type == REDIR_IN || type == REDIR_OUT)
 		return 2;
 	return 3;
-}
-
-/**
- * @brief Init a new tree node
- *
- * @param type The type of the token
- * @param token The token
- * @param left The left node
- * @param right The right node
-
- * @return t_node* 
- * 
- */
-t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx)
-{
-    t_node *node;
-
-	node = malloc(sizeof(t_node));
-    if (!node)
-		error_exit("malloc");
-    node->ctx = ctx;
-    node->type = type;
-    node->token = lexeme;
-    node->left = left;
-    node->right = right;
-    return node;
 }
 
 /**

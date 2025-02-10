@@ -6,13 +6,13 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:09 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 19:24:13 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:47:48 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_andor(t_tok *tok)
+bool	is_andor(t_tok *tok)
 {
 	if (!tok)
 		return (0);
@@ -46,7 +46,7 @@ t_node	*parse_list(t_tok **tok, t_ctx *ctx)
 	{
 		type = (*tok)->type;
 		operator = *tok;
-		*tok = (*tok)->next;
+		step_forward(tok);
 		right = parse_pipeline(tok, ctx);
 		left = init_node(type, operator->lexeme, left, right, ctx);
 	}

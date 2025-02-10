@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexing.c                                           :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 10:16:24 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:41:18 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,8 @@ t_tok *lexer(char *cmdline)
 	lexemes = ft_split(cmdline, ' ');
     while (*lexemes)
     {
+		newtok = init_token(*lexemes);
         // Process current lexeme
-        newtok = malloc(sizeof(t_tok));
-        newtok->lexeme = *lexemes;
-		newtok->type = typify((*lexemes));
-        // newtok->type = typify(newtok->type);
-        newtok->next = NULL;
-
         if (tokens == NULL)
             tokens = newtok;
         else

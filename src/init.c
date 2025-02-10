@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 09:28:27 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 10:33:03 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,43 @@ void	restore_std(t_node *node)
 	edup2(fd, STDIN_FILENO, node);
 	edup2(fd, STDOUT_FILENO, node);
 	close(fd);
+}
+
+/**
+ * @brief Init a new tree node
+ *
+ * @param type The type of the token
+ * @param token The token
+ * @param left The left node
+ * @param right The right node
+
+ * @return t_node* 
+ * 
+ */
+t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx)
+{
+    t_node *node;
+
+	node = ft_calloc(1, sizeof(t_node));
+	if (!node)
+		error(NULL, NONE, MALLOC_FAIL, true);
+    node->ctx = ctx;
+    node->type = type;
+    node->token = lexeme;
+    node->left = left;
+    node->right = right;
+    return node;
+}
+
+t_tok *init_token(char *lexeme)
+{
+	t_tok *token;
+
+	token = ft_calloc(1, sizeof(t_tok));
+	if (!token)
+		error(NULL, NONE, MALLOC_FAIL, true);
+	token->lexeme = lexeme;
+	token->type = typify(lexeme);
+	token->next = NULL;
+	return token;
 }

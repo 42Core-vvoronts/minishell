@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   define_lexemes.c                                   :+:      :+:    :+:   */
+/*   definelex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 09:56:48 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 09:57:09 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:37:40 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,13 @@ bool is_and(char *lexeme)
 bool is_or(char *lexeme)
 {
 	if (is_eqlstr(lexeme, "||"))
+		return true;
+	return false;
+}
+
+bool is_space(char *lexeme)
+{
+	if (is_eqlstr(lexeme, " "))
 		return true;
 	return false;
 }

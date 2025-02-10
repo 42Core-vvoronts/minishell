@@ -6,21 +6,21 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 19:10:08 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:40:39 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-int is_group_open(t_tok *tok)
+bool	is_group_open(t_tok *tok)
 {
 	if (tok->type == GROUP && is_eqlstr(tok->lexeme, "("))
 		return (1);
 	return (0);
 }
 
-int is_group_close(t_tok *tok)
+bool	is_group_close(t_tok *tok)
 {
 	if (tok->type == GROUP && is_eqlstr(tok->lexeme, ")"))
 		return (1);

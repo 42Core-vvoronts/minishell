@@ -6,13 +6,13 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/09 19:41:25 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:40:45 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_redir(t_tok *tok)
+bool	is_redir(t_tok *tok)
 {
 	if (!tok)
 		return (0);
