@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 03:54:47 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 04:05:13 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	prompt(int argc, char **argv, char **envp)
         ast = parse(statement, ctx);
 		// if (ast)
 		// 	exit(0);
-		// evaluate(ast);
+		evaluate(ast);
         free(statement);
     }
 }

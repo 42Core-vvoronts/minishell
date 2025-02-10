@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 05:53:35 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 04:58:38 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 10:24:50 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static	void	add_new(t_node *node, char *var)
 	i = ft_parrlen(node->ctx->envp);
 	result = ft_calloc(i + 2, sizeof(char *));
 	if (!result)
-		error(node, STRUCT_NODE, MALLOC_FAIL, true);
+		error(-1, node->ctx, (t_m){strerror(errno), NULL});
 	i = 0;
 	while (node->ctx->envp && (node->ctx->envp)[i])
 	{
@@ -82,7 +82,7 @@ void	add_var(t_node *node, char *str)
 
 	dupedstr = ft_strdup(str);
 	if (!dupedstr)
-		error(node, STRUCT_NODE, MALLOC_FAIL, true);
+		error(-1, node->ctx, (t_m){strerror(errno), NULL});
 	var = get_var(node->ctx, str);
 	if (var)
 	{

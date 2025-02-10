@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:07:37 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 02:26:03 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 10:24:56 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@ static	void	run_bin(t_node *node)
 {
 	pid_t	pid;
 	char	*pathname;
+	char	**argv;
+	char	**envp;
 
 	pid = efork(node);
 	if (pid == 0)
 	{
 		pathname = get_pathname(node);
-		eexecve(pathname, node);
-		exit(allclean(node));
+		argv = node->ctx->stash;
+		envp = node->ctx->envp;
+		allclean(node, 0);
+		eexecve(pathname, argv, envp);
 	}
 	node->ctx->exitcode = get_exitcode(pid);
 }
@@ -52,7 +56,8 @@ void	run_cmd(t_node *node)
 {
 	prepare_argv(node);
 	if (run_builtin(node))
-		return;
-	run_bin(node);
+		;
+	else
+		run_bin(node);
 	ft_parrclean(&(node->ctx->stash));
 }

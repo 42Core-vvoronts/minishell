@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 12:02:55 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 06:04:09 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,14 @@ void set_exitcode(void *node, int code)
 bool	is_ambiguous(char *pathname)
 {
 	return (ft_strchr(pathname, ' '));
+}
+
+void	restore_stdfd(int stdfd, t_node *node)
+{
+	int fd;
+
+	fd = eopen(node->ctx->ttyname, O_RDWR, 0777, node);
+	edup2(fd, stdfd, node);
+	close(fd);
 }
 

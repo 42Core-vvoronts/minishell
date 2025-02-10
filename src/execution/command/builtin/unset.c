@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/06 12:13:30 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 10:04:06 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static	void	update_envp(t_node *node, size_t len)
 	i = 0;
 	result = ft_calloc(len + 1, sizeof(char *));
 	if (!result)
-		error(node, STRUCT_NODE, MALLOC_FAIL, true);
+		error(-1, node->ctx, (t_m){strerror(errno)});
 	while (i < len)
 	{
 		if ((node->ctx->envp)[i])

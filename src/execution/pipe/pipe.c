@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:06:41 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 02:47:11 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 06:05:28 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static	void	process_left_child(t_node *node)
 		edup2(p.write, STDOUT_FILENO, node);
 		close_pipe(&p);
 		evaluate(node);
-		exit(node->ctx->exitcode);
+		exit(allclean(node, 1));
 	}
 	edup2(p.read, STDIN_FILENO, node);
 	close_pipe(&p);
@@ -34,7 +34,6 @@ static	void	process_left_child(t_node *node)
 static	void	process_right_child(t_node *node)
 {
 	pid_t	pid;
-	int		fd;
 
 	if (node->type == PIPE)
 	{
@@ -46,10 +45,9 @@ static	void	process_right_child(t_node *node)
 	{
 		// kill(getpid(), SIGSTOP);
 		evaluate(node);
-		exit(node->ctx->exitcode);
+		exit(allclean(node, 1));
 	}
-	fd = eopen(node->ctx->ttyname, O_RDWR, 0777, node);
-	edup2(fd, STDIN_FILENO, node);
+	restore_stdfd(STDIN_FILENO, node);
 	node->ctx->exitcode = get_exitcode(pid);
 }
 

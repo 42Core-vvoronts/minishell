@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:23:38 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 01:32:59 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 10:20:28 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static	bool	is_valid(char *pathname, t_node *node)
 {
 	if (is_ambiguous(pathname))
 	{
-		error(node, STRUCT_NODE, AMBIGUOUS_REDIR, false);
+		error(1, node->ctx, (t_m){node->left->token, strerror(errno)}); //exit(1): bash: $VAR: ambiguous redirect
 		return (false);
 	}
 	else if (!is_writable(pathname))
 	{
-		error(node, STRUCT_NODE, PERMISSION_DENIED, false);
+		error(1, node->ctx, (t_m){pathname, strerror(errno)}); //exit(1): bash: f2: Permission denied
 		return (false);
 	}
 	return (true);
@@ -41,5 +41,6 @@ void	process_redir_out(t_node *node)
 		close(fd);
 		evaluate(node->right);
 	}
+	restore_stdfd(STDOUT_FILENO, node);
 	free(pathname);
 }

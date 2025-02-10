@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/07 07:35:20 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 07:01:03 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,15 @@ static	bool	is_valid_identifier(char *str)
 void	run_export(t_node *node)
 {
 	size_t	i;
-	char	*hint;
 
 	i = 0;
 	while ((node->ctx->stash)[++i])
 	{
 		if (!is_valid_identifier((node->ctx->stash)[i]))
 		{
-			hint = ft_strdup((node->ctx->stash)[i]);
-			if (!hint)
-				error(node, STRUCT_NODE, MALLOC_FAIL, true);
-			node->ctx->hint = hint;
-			error(node, STRUCT_NODE, NOT_VALID_IDENTIFIER, false);
+			add_msg((node->ctx->stash)[i], node);
+			add_msg(NOT_VALID_IDENTIFIER, node);
+			error(node, MINISHELL, false);
 			continue ;
 		}
 		if (!is_required_to_add((node->ctx->stash)[i]))

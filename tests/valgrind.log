@@ -1,0 +1,395 @@
+==60935== Memcheck, a memory error detector
+==60935== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==60935== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==60935== Command: /usr/bin/dot -Tpng temp.dot -o result_tree.png
+==609==60992== 
+==60992== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==60992== Open file descriptor 3: /home/ivan/minishell/tests/valgrind.log
+==60992==    <inherited from parent>
+==60992== 
+==60992== 
+==60992== HEAP SUMMARY:
+==60992==     in use at exit: 236,480 bytes in 302 blocks
+==60992==   total heap usage: 591 allocs, 289 frees, 258,858 bytes allocated
+==60992== 
+==60992== 7 bytes in 1 blocks are still reachable in loss record 4 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x10EB07: copy_part (ft_split.c:70)
+==60992==    by 0x10EBD4: ft_split (ft_split.c:95)
+==60992==    by 0x109DBB: lexer (lexing.c:128)
+==60992==    by 0x1099A8: parse (parser.c:20)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 7 bytes in 1 blocks are still reachable in loss record 5 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x10EB07: copy_part (ft_split.c:70)
+==60992==    by 0x10EBD4: ft_split (ft_split.c:95)
+==60992==    by 0x10AEF8: prepare_argv (stash.c:68)
+==60992==    by 0x10BC8C: run_cmd (command.c:57)
+==60992==    by 0x10AC81: process_argument (argument.c:27)
+==60992==    by 0x10AB74: evaluate (evaluation.c:30)
+==60992==    by 0x1097F3: prompt (prompt.c:41)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 16 bytes in 1 blocks are still reachable in loss record 14 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x10E600: ft_parrjoin (ft_parrjoin.c:33)
+==60992==    by 0x10AF3D: prepare_argv (stash.c:74)
+==60992==    by 0x10BC8C: run_cmd (command.c:57)
+==60992==    by 0x10AC81: process_argument (argument.c:27)
+==60992==    by 0x10AB74: evaluate (evaluation.c:30)
+==60992==    by 0x1097F3: prompt (prompt.c:41)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 40 bytes in 1 blocks are still reachable in loss record 21 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x109EE3: init_node (syntaxer.c:56)
+==60992==    by 0x10A7C4: create_word_node (expression.c:91)
+==60992==    by 0x10A976: expression_no_group (expression.c:163)
+==60992==    by 0x10AA75: parse_expression (expression.c:187)
+==60992==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==60992==    by 0x10A111: parse_list (list.c:44)
+==60992==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==60992==    by 0x1099BF: parse (parser.c:21)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 40 bytes in 1 blocks are indirectly lost in loss record 22 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x109EE3: init_node (syntaxer.c:56)
+==60992==    by 0x10A7C4: create_word_node (expression.c:91)
+==60992==    by 0x10A976: expression_no_group (expression.c:163)
+==60992==    by 0x10AA75: parse_expression (expression.c:187)
+==60992==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==60992==    by 0x10A111: parse_list (list.c:44)
+==60992==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==60992==    by 0x1099BF: parse (parser.c:21)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 40 bytes in 1 blocks are indirectly lost in loss record 23 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x109EE3: init_node (syntaxer.c:56)
+==60992==    by 0x10A551: parse_redir (redirections.c:61)
+==60992==    by 0x10A5CD: stack_redirs (expression.c:36)
+==60992==    by 0x10A9C1: expression_no_group (expression.c:165)
+==60992==    by 0x10AA75: parse_expression (expression.c:187)
+==60992==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==60992==    by 0x10A111: parse_list (list.c:44)
+==60992==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==60992==    by 0x1099BF: parse (parser.c:21)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 40 bytes in 6 blocks are indirectly lost in loss record 24 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x10EB07: copy_part (ft_split.c:70)
+==60992==    by 0x10EBD4: ft_split (ft_split.c:95)
+==60992==    by 0x109DBB: lexer (lexing.c:128)
+==60992==    by 0x1099A8: parse (parser.c:20)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 40 bytes in 1 blocks are definitely lost in loss record 25 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x109EE3: init_node (syntaxer.c:56)
+==60992==    by 0x10A7C4: create_word_node (expression.c:91)
+==60992==    by 0x10A976: expression_no_group (expression.c:163)
+==60992==    by 0x10AA75: parse_expression (expression.c:187)
+==60992==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==60992==    by 0x10A111: parse_list (list.c:44)
+==60992==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==60992==    by 0x1099BF: parse (parser.c:21)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 48 bytes in 1 blocks are still reachable in loss record 29 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x10DD9D: ft_calloc (ft_calloc.c:33)
+==60992==    by 0x10962D: init_ctx (init.c:43)
+==60992==    by 0x109765: prompt (prompt.c:27)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 72 bytes in 7 blocks are indirectly lost in loss record 32 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x10EB07: copy_part (ft_split.c:70)
+==60992==    by 0x10EBD4: ft_split (ft_split.c:95)
+==60992==    by 0x10BCF6: split (path.c:19)
+==60992==    by 0x10BE49: retrieve_pathname (path.c:58)
+==60992==    by 0x10BFE7: get_pathname (path.c:94)
+==60992==    by 0x10BA92: run_bin (command.c:25)
+==60992==    by 0x10BCA8: run_cmd (command.c:61)
+==60992==    by 0x10AC81: process_argument (argument.c:27)
+==60992==    by 0x10AB74: evaluate (evaluation.c:30)
+==60992==    by 0x1097F3: prompt (prompt.c:41)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 80 bytes in 2 blocks are indirectly lost in loss record 34 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x109EE3: init_node (syntaxer.c:56)
+==60992==    by 0x10A52B: parse_redir (redirections.c:58)
+==60992==    by 0x10A5CD: stack_redirs (expression.c:36)
+==60992==    by 0x10A9C1: expression_no_group (expression.c:165)
+==60992==    by 0x10AA75: parse_expression (expression.c:187)
+==60992==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==60992==    by 0x10A111: parse_list (list.c:44)
+==60992==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==60992==    by 0x1099BF: parse (parser.c:21)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 96 bytes in 4 blocks are indirectly lost in loss record 38 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x109DCB: lexer (lexing.c:132)
+==60992==    by 0x1099A8: parse (parser.c:20)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 120 (80 direct, 40 indirect) bytes in 3 blocks are definitely lost in loss record 39 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x10EB99: ft_split (ft_split.c:88)
+==60992==    by 0x109DBB: lexer (lexing.c:128)
+==60992==    by 0x1099A8: parse (parser.c:20)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 136 (64 direct, 72 indirect) bytes in 1 blocks are definitely lost in loss record 40 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x10EB99: ft_split (ft_split.c:88)
+==60992==    by 0x10BCF6: split (path.c:19)
+==60992==    by 0x10BE49: retrieve_pathname (path.c:58)
+==60992==    by 0x10BFE7: get_pathname (path.c:94)
+==60992==    by 0x10BA92: run_bin (command.c:25)
+==60992==    by 0x10BCA8: run_cmd (command.c:61)
+==60992==    by 0x10AC81: process_argument (argument.c:27)
+==60992==    by 0x10AB74: evaluate (evaluation.c:30)
+==60992==    by 0x1097F3: prompt (prompt.c:41)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 168 (72 direct, 96 indirect) bytes in 3 blocks are definitely lost in loss record 43 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x109DCB: lexer (lexing.c:132)
+==60992==    by 0x1099A8: parse (parser.c:20)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 184 bytes in 1 blocks are still reachable in loss record 44 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x10DD9D: ft_calloc (ft_calloc.c:33)
+==60992==    by 0x1094F5: init_envp (init.c:21)
+==60992==    by 0x1096AF: init_ctx (init.c:49)
+==60992==    by 0x109765: prompt (prompt.c:27)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 200 (40 direct, 160 indirect) bytes in 1 blocks are definitely lost in loss record 45 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x109EE3: init_node (syntaxer.c:56)
+==60992==    by 0x10A551: parse_redir (redirections.c:61)
+==60992==    by 0x10A5CD: stack_redirs (expression.c:36)
+==60992==    by 0x10A9C1: expression_no_group (expression.c:165)
+==60992==    by 0x10AA75: parse_expression (expression.c:187)
+==60992==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==60992==    by 0x10A111: parse_list (list.c:44)
+==60992==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==60992==    by 0x1099BF: parse (parser.c:21)
+==60992==    by 0x1097E3: prompt (prompt.c:38)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== 2,548 bytes in 22 blocks are still reachable in loss record 65 of 96
+==60992==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==60992==    by 0x10E80B: ft_strdup (ft_strdup.c:30)
+==60992==    by 0x10959E: init_envp (init.c:32)
+==60992==    by 0x1096AF: init_ctx (init.c:49)
+==60992==    by 0x109765: prompt (prompt.c:27)
+==60992==    by 0x1094B4: main (main.c:28)
+==60992== 
+==60992== LEAK SUMMARY:
+==60992==    definitely lost: 296 bytes in 9 blocks
+==60992==    indirectly lost: 368 bytes in 21 blocks
+==60992==      possibly lost: 0 bytes in 0 blocks
+==60992==    still reachable: 2,850 bytes in 28 blocks
+==60992==         suppressed: 232,966 bytes in 244 blocks
+==60992== 
+==60992== For lists of detected and suppressed errors, rerun with: -s
+==60992== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 0 from 0)
+==32231== 
+==32231== Process terminating with default action of signal 2 (SIGINT)
+==32231==    at 0x48F953B: kill (syscall-template.S:120)
+==32231==    by 0x4895818: _rl_signal_handler (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==32231==    by 0x48965B3: rl_getc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==32231==    by 0x4895D6C: rl_read_key (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==32231==    by 0x4879443: readline_internal_char (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==32231==    by 0x48828D4: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==32231==    by 0x10979B: prompt (prompt.c:31)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==32231== Open file descriptor 3: /home/ivan/minishell/tests/valgrind.log
+==32231==    <inherited from parent>
+==32231== 
+==32231== 
+==32231== HEAP SUMMARY:
+==32231==     in use at exit: 242,771 bytes in 316 blocks
+==32231==   total heap usage: 579 allocs, 263 frees, 258,675 bytes allocated
+==32231== 
+==32231== 7 bytes in 1 blocks are still reachable in loss record 3 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x10EB07: copy_part (ft_split.c:70)
+==32231==    by 0x10EBD4: ft_split (ft_split.c:95)
+==32231==    by 0x109DBB: lexer (lexing.c:128)
+==32231==    by 0x1099A8: parse (parser.c:20)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 40 bytes in 1 blocks are still reachable in loss record 25 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x109EE3: init_node (syntaxer.c:56)
+==32231==    by 0x10A7C4: create_word_node (expression.c:91)
+==32231==    by 0x10A976: expression_no_group (expression.c:163)
+==32231==    by 0x10AA75: parse_expression (expression.c:187)
+==32231==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==32231==    by 0x10A111: parse_list (list.c:44)
+==32231==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==32231==    by 0x1099BF: parse (parser.c:21)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 40 bytes in 1 blocks are indirectly lost in loss record 26 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x109EE3: init_node (syntaxer.c:56)
+==32231==    by 0x10A7C4: create_word_node (expression.c:91)
+==32231==    by 0x10A976: expression_no_group (expression.c:163)
+==32231==    by 0x10AA75: parse_expression (expression.c:187)
+==32231==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==32231==    by 0x10A111: parse_list (list.c:44)
+==32231==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==32231==    by 0x1099BF: parse (parser.c:21)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 40 bytes in 1 blocks are indirectly lost in loss record 27 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x109EE3: init_node (syntaxer.c:56)
+==32231==    by 0x10A551: parse_redir (redirections.c:61)
+==32231==    by 0x10A5CD: stack_redirs (expression.c:36)
+==32231==    by 0x10A9C1: expression_no_group (expression.c:165)
+==32231==    by 0x10AA75: parse_expression (expression.c:187)
+==32231==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==32231==    by 0x10A111: parse_list (list.c:44)
+==32231==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==32231==    by 0x1099BF: parse (parser.c:21)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 40 bytes in 6 blocks are indirectly lost in loss record 28 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x10EB07: copy_part (ft_split.c:70)
+==32231==    by 0x10EBD4: ft_split (ft_split.c:95)
+==32231==    by 0x109DBB: lexer (lexing.c:128)
+==32231==    by 0x1099A8: parse (parser.c:20)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 40 bytes in 1 blocks are definitely lost in loss record 29 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x109EE3: init_node (syntaxer.c:56)
+==32231==    by 0x10A7C4: create_word_node (expression.c:91)
+==32231==    by 0x10A976: expression_no_group (expression.c:163)
+==32231==    by 0x10AA75: parse_expression (expression.c:187)
+==32231==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==32231==    by 0x10A111: parse_list (list.c:44)
+==32231==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==32231==    by 0x1099BF: parse (parser.c:21)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 48 bytes in 1 blocks are still reachable in loss record 34 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x10DD9D: ft_calloc (ft_calloc.c:33)
+==32231==    by 0x10962D: init_ctx (init.c:43)
+==32231==    by 0x109765: prompt (prompt.c:27)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 80 bytes in 2 blocks are indirectly lost in loss record 39 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x109EE3: init_node (syntaxer.c:56)
+==32231==    by 0x10A52B: parse_redir (redirections.c:58)
+==32231==    by 0x10A5CD: stack_redirs (expression.c:36)
+==32231==    by 0x10A9C1: expression_no_group (expression.c:165)
+==32231==    by 0x10AA75: parse_expression (expression.c:187)
+==32231==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==32231==    by 0x10A111: parse_list (list.c:44)
+==32231==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==32231==    by 0x1099BF: parse (parser.c:21)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 96 bytes in 4 blocks are indirectly lost in loss record 43 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x109DCB: lexer (lexing.c:132)
+==32231==    by 0x1099A8: parse (parser.c:20)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 120 (80 direct, 40 indirect) bytes in 3 blocks are definitely lost in loss record 46 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x10EB99: ft_split (ft_split.c:88)
+==32231==    by 0x109DBB: lexer (lexing.c:128)
+==32231==    by 0x1099A8: parse (parser.c:20)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 168 (72 direct, 96 indirect) bytes in 3 blocks are definitely lost in loss record 50 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x109DCB: lexer (lexing.c:132)
+==32231==    by 0x1099A8: parse (parser.c:20)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 184 bytes in 1 blocks are still reachable in loss record 51 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x10DD9D: ft_calloc (ft_calloc.c:33)
+==32231==    by 0x1094F5: init_envp (init.c:21)
+==32231==    by 0x1096AF: init_ctx (init.c:49)
+==32231==    by 0x109765: prompt (prompt.c:27)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 200 (40 direct, 160 indirect) bytes in 1 blocks are definitely lost in loss record 53 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x109EE3: init_node (syntaxer.c:56)
+==32231==    by 0x10A551: parse_redir (redirections.c:61)
+==32231==    by 0x10A5CD: stack_redirs (expression.c:36)
+==32231==    by 0x10A9C1: expression_no_group (expression.c:165)
+==32231==    by 0x10AA75: parse_expression (expression.c:187)
+==32231==    by 0x10A333: parse_pipeline (pipelines.c:39)
+==32231==    by 0x10A111: parse_list (list.c:44)
+==32231==    by 0x10A0A3: syntaxer (syntaxer.c:124)
+==32231==    by 0x1099BF: parse (parser.c:21)
+==32231==    by 0x1097E3: prompt (prompt.c:38)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 2,548 bytes in 22 blocks are still reachable in loss record 76 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x10E80B: ft_strdup (ft_strdup.c:30)
+==32231==    by 0x10959E: init_envp (init.c:32)
+==32231==    by 0x1096AF: init_ctx (init.c:49)
+==32231==    by 0x109765: prompt (prompt.c:27)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== 4,096 bytes in 1 blocks are still reachable in loss record 81 of 108
+==32231==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32231==    by 0x49D0049: ttyname (ttyname.c:42)
+==32231==    by 0x10966A: init_ctx (init.c:46)
+==32231==    by 0x109765: prompt (prompt.c:27)
+==32231==    by 0x1094B4: main (main.c:28)
+==32231== 
+==32231== LEAK SUMMARY:
+==32231==    definitely lost: 232 bytes in 8 blocks
+==32231==    indirectly lost: 296 bytes in 14 blocks
+==32231==      possibly lost: 0 bytes in 0 blocks
+==32231==    still reachable: 6,923 bytes in 27 blocks
+==32231==         suppressed: 235,320 bytes in 267 blocks
+==32231== 
+==32231== For lists of detected and suppressed errors, rerun with: -s
+==32231== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)

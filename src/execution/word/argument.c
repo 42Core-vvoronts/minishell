@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:10:13 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 01:34:20 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 10:23:28 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	process_argument(t_node *node)
 	//expand $var and expand *
 	arg = ft_strdup(node->token);
 	if (!arg)
-		error(node, STRUCT_NODE, MALLOC_FAIL, true);
+		error(-1, node->ctx, (t_m){strerror(errno), NULL});
 	add_stash(arg, node);
 	if (node->left)
 		evaluate(node->left);

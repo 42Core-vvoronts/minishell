@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/10 03:15:29 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/10 06:12:45 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRC 				=	\
 						argument.c \
 						stash.c \
 						content.c \
+						filename.c \
 						\
 						redir_append.c \
 						redir_heredoc.c \
@@ -124,14 +125,15 @@ DEP					=	$(SRC:%.c=dep/%.d)
 MFLAGS				=	 --no-print-directory -C
 
 
+
 # Build all targets
-all: lib $(NAME)
-	@echo "Building $(NAME) ..."
+all: $(NAME)
+	@echo "$(NAME) has been built"
 
 # Link mandatory object files
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) lib
+	@echo "Building $(NAME) ..."
 	@$(CC) $(OBJ) $(LIB) -o $@
-	@echo "$(NAME) has been built"
 
 # Build libraries
 lib:
@@ -154,7 +156,6 @@ clean:
 	@$(RM) obj
 	@$(RM) dep
 	@make clean $(MFLAGS) ./lib/elibft
-	@echo "$(NAME) has been cleaned"
 	@echo "$(NAME) has been cleaned"
 
 # Clean build files and executables

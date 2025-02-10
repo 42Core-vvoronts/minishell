@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/07 03:41:52 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:00:15 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../include/minishell.h"
+#include "minishell.h"
 
 //21474836490000000000
 static	bool	is_numeric(char *str)
@@ -47,12 +47,14 @@ void	run_exit(t_node *node)
 		}
 		if (!is_numeric(node->ctx->stash[1]))
 		{
-			node->ctx->hint = ft_strdup(node->ctx->stash[1]);
-			error(node, STRUCT_NODE, NON_NUMERIC_EXIT, true);
+			add_msg(node->ctx->stash[1], node);
+			add_msg(NON_NUMERIC_EXIT, node);
+			error(node, MINISHELL, false);
 		}
 		if (node->ctx->stash[2])
 		{
-			error(node, STRUCT_NODE, TOO_MANY_ARG_EXIT, false);
+			add_msg( TOO_MANY_ARG_EXIT, node);
+			error(node, MINISHELL, false);
 			return ;
 		}
 		put_exitcode(node);

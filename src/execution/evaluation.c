@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:11:28 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 02:42:23 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 05:59:12 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	evaluate(t_node *node)
 		process_argument(node);
 	else if (node->type == CONTENT)
 		process_content(node);
+	else if (node->type == FILENAME)
+		process_filename(node);
 	else if (node->type == GROUP)
 		process_group(node);
 	else if (node->type == AND)
