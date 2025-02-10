@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/09 13:13:20 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/10 01:28:23 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,6 @@ VPATH				=	\
 						./src/parsing/:\
 						./src/parsing/syntaxer/:\
 						./src/parsing/errors/:\
-						./src/parsing/printer/:\
 						./src/parsing/lexer/:\
 						./src/prompt/:\
 
@@ -73,7 +72,6 @@ SRC 				=	\
 						redirections.c \
 						expression.c \
 						errors.c \
-						printer.c \
 						\
 						evaluation.c \
 						argument.c \
@@ -108,7 +106,15 @@ SRC 				=	\
 						export.c \
 						pwd.c \
 						unset.c \
-						\
+
+ifeq ($(shell if [ -d tests ]; then echo yes; fi),yes)
+
+VPATH				+=	\
+						./tests/parsing/printer/:
+
+SRC					+= 	\
+						printer.c
+endif
 
 # Object and Dependency files
 OBJ					=	$(SRC:%.c=obj/%.o)

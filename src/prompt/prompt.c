@@ -6,12 +6,13 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 13:04:27 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 01:25:22 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-int minishell(int argc, char **argv, char **envp)
+#include "minishell.h"
+
+int	prompt(int argc, char **argv, char **envp)
 {
     char	*statement;
 	t_node	*ast;

@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 12:37:00 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 01:15:39 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ void error(void *data, t_datatype datatype, int error, bool terminate)
 	else if (error == AMBIGUOUS_REDIR)
 	{
 		// puterr(": ");
+		//bash: $VAR: ambiguous redirect
 		puterr("ambiguous redirect\n");
 		set_exitcode(data, 1);
 	}
