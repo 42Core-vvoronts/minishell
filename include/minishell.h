@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 18:20:59 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:33:37 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,9 +195,16 @@ t_node	*parse(char *statement, t_ctx *ctx);
 
 // -- LEXER --
 t_tok	*lexer(char *statement);
-void	handle_quotes(char **statement, t_tok **tokens, t_tok **current);
-void	handle_words(char **statement, t_tok **tokens, t_tok **current);
-void	handle_operators(char **statement, t_tok **tokens, t_tok **current);
+void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current);
+void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current);
+void	tokenize_operators(char **lexeme, t_tok **tokens, t_tok **current);
+
+void	tokenize_parenthesis(char **lexeme, t_tok **tokens, t_tok **current);
+void	tokenize_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current);
+void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current);
+void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current);
+void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current);
+
 void	skip_spaces(char **statement);
 
 t_type	typify(char *lexeme);
@@ -213,6 +220,7 @@ bool	is_single_quote(char *lexeme);
 bool	is_double_quote(char *lexeme);
 bool	is_space(char *lexeme);
 bool	is_word_lexeme(char *lexeme);
+bool	is_operator(char *lexeme);
 
 // -- SYNTAXER --
 t_node	*syntaxer(t_tok *tok, t_ctx *ctx);

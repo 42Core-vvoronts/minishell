@@ -6,12 +6,28 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 14:29:39 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:35:51 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+t_tok *lexer(char *statement)
+{
+	t_tok *tokens;
+	t_tok *current;
+
+	tokens = NULL;
+	current = NULL;
+    while (*statement)
+    {
+		skip_spaces(&statement);
+		tokenize_quotes(&statement, &tokens, &current);
+		tokenize_words(&statement, &tokens, &current);
+		tokenize_operators(&statement, &tokens, &current);
+    }
+    return tokens;
+}
 t_type typify(char *lexeme) 
 {
 	if (is_eqlstr(lexeme, "&&"))
@@ -42,22 +58,31 @@ void add_token(t_tok *new, t_tok **head, t_tok **current)
 	*current = new;
 }
 
-t_tok *lexer(char *statement)
+bool	is_operator(char *lexeme)
 {
-	t_tok *tokens;
-	t_tok *current;
-
-	tokens = NULL;
-	current = NULL;
-    while (*statement)
-    {
-		skip_spaces(&statement);
-		handle_quotes(&statement, &tokens, &current);
-		handle_words(&statement, &tokens, &current);
-		handle_operators(&statement, &tokens, &current);
-    }
-    return tokens;
+	if (is_greater(lexeme) || is_less(lexeme) ||
+		 is_vertical_bar(lexeme) || is_ampersand(lexeme) ||
+		 is_open_parenthesis(lexeme) || is_close_parenthesis(lexeme))
+		return true;
+	return false;
 }
-// new = init_token(*lexemes);
-// add_token(new, &tokens, &current);
-// lexemes++;
+
+void	tokenize_operators(char **lexeme, t_tok **tokens, t_tok **current)
+{
+	if (!*lexeme)
+		error_exit("end of statement");
+	if (is_open_parenthesis(*lexeme) || is_close_parenthesis(*lexeme))
+		tokenize_parenthesis(lexeme, tokens, current);
+	else if (is_less(*lexeme))
+	{
+		if (is_less(*(lexeme + 1)))
+			tokenize_heredoc(lexeme, tokens, current);
+		tokenize_angles(lexeme, tokens, current);
+	}
+	else if (is_greater(*lexeme))
+		tokenize_angles(lexeme, tokens, current);
+	else if (is_vertical_bar(*lexeme))
+		tokenize_vertical_bar(lexeme, tokens, current);
+	else if (is_ampersand(*lexeme))
+		tokenize_ampersand(lexeme, tokens, current);
+}
