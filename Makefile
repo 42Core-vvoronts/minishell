@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
+#    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/09 10:23:24 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/10 09:59:32 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,9 @@ SRC 				=	\
 						\
 						executils.c \
 						\
-						parser.c \
 						lexing.c \
+						definelex.c \
+						parser.c \
 						syntaxer.c \
 						list.c \
 						groups.c \
@@ -93,7 +94,6 @@ SRC 				=	\
 						envvar.c \
 						\
 						command.c \
-						path.c \
 						\
 						arguments.c \
 						\
