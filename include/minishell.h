@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 01:32:59 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 03:25:47 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void	process_argument(t_node *node);
 void	process_content(t_node *node);
 
 void	evaluate(t_node *node);
-int		prompt(int argc, char **argv, char **envp);
+void	prompt(int argc, char **argv, char **envp);
 
 // -- PARSING --
 t_node	*parse(char *statement, t_ctx *ctx);

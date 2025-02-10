@@ -6,23 +6,24 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 01:55:29 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 03:54:47 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	prompt(int argc, char **argv, char **envp)
+void	prompt(int argc, char **argv, char **envp)
 {
-    char	*statement;
+    char	*statement = NULL;
 	t_node	*ast;
 	t_ctx	*ctx;
 	(void)argc;
 	(void)argv;
 	(void)envp;
 	(void)ast;
+	(void)ctx;
+	(void)statement;
 
-	ast = NULL;
 	init_ctx(&ctx, envp);
 	char prompt[] = "\033[1;32mminishell$ \033[0m";
     while (true)
@@ -37,7 +38,7 @@ int	prompt(int argc, char **argv, char **envp)
         ast = parse(statement, ctx);
 		// if (ast)
 		// 	exit(0);
-		evaluate(ast);
+		// evaluate(ast);
         free(statement);
     }
 }
