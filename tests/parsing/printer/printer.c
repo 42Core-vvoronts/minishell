@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 00:59:51 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 03:44:44 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:37:43 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void save_tree(t_node *node)
 	int 	fd;
 	pid_t	pid;
 
-	chdir("./tests");
 	fd = open("temp.dot", O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);

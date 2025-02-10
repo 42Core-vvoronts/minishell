@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 11:00:01 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:44:35 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static	void	handle_no_args(t_node *node)
 	else
 	{
 		path = ft_strchr(*var, '=') + 1;
-		free(node->ctx->stash[1]);
-		node->ctx->stash[1] = ft_strdup(path);
-		if (!node->ctx->stash[1])
+		path = ft_strdup(path);
+		if (!path)
 			error(-1, node->ctx, (t_m){strerror(errno)});
+		add_stash(path, node);
 	}
 }
 
@@ -98,7 +98,7 @@ void	run_cd(t_node *node)
 	if (!node->ctx->stash[1][0])
 		;
 	else if (chdir(node->ctx->stash[1]) == ERROR)
-		error(1, node->ctx, (t_m){node->ctx->stash[1], strerror(errno)});
+		error(1, node->ctx, (t_m){CD, node->ctx->stash[1], strerror(errno)});
 	else
 		update_pwds(node, pwd);
 }

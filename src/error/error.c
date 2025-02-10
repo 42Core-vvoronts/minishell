@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 10:50:14 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:57:01 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,44 +89,20 @@ int	allclean(t_node *node, int mode)
 	return (exitcode);
 }
 
-//it duplicates char *arg
-void	add_msg(char *arg, t_node *node)
-{
-	size_t	i;
-	char **result;
-
-	i = ft_parrlen(node->ctx->msg);
-	result = ft_calloc(i + 2, sizeof(char *));
-	if (!result)
-		error(-1, node->ctx, (t_m){strerror(errno)});
-	arg = ft_strdup(arg);
-	if (!arg)
-		error(-1, node->ctx, (t_m){strerror(errno)});
-	i = 0;
-	while (node->ctx->msg && (node->ctx->msg)[i])
-	{
-		result[i] = (node->ctx->msg)[i];
-		i++;
-	}
-	result[i] = arg;
-	free(node->ctx->msg);
-	node->ctx->msg = result;
-}
-
 void error(int exitcode, t_ctx *ctx, t_m msg)
 {
 	puterr(PROGRAMM);
 	while (*msg)
 	{
+		puterr(": ");
 		if (*msg > (char *)TOK)
 		{
-			puterr(" `");
+			puterr("`");
 			puterr(*msg - TOK);
 			puterr("\'");
 			msg++;
 			continue ;
 		}
-		puterr(": ");
 		puterr(*msg);
 		msg++;
 	}
@@ -137,106 +113,6 @@ void error(int exitcode, t_ctx *ctx, t_m msg)
 		exit(exitcode);
 	}
 	else
-		set_exitcode(ctx->head, exitcode);
+		ctx->exitcode = exitcode;
 	return ;
-	// if (error == PERMISSION_DENIED)
-	// {
-	// 	// puterr(get_cmdname(data));
-	// 	// puterr(": ");
-	// 	perror("");
-	// 	if (terminate == true)
-	// 	{
-	// 		//clean here mem and fd
-	// 		exit(1);
-	// 	}
-	// 	set_exitcode(data, 1);
-	// }
-	// else if (error == NOT_EXECUTABLE)
-	// {
-	// 	// puterr(get_cmdname(data));
-	// 	// puterr(": ");
-	// 	perror("");
-	// 	exit(126);
-	// }
-	// else if (error == CMD_NOT_FOUND)
-	// {
-	// 	// puterr(get_cmdname(data));
-	// 	// puterr(": ");
-	// 	puterr("command not found\n");
-	// 	exit(127);
-	// }
-	// else if (error == AMBIGUOUS_REDIR)
-	// {
-	// 	// puterr(": ");
-	// 	//bash: $VAR: ambiguous redirect
-	// 	puterr("ambiguous redirect\n");
-	// 	set_exitcode(data, 1);
-	// }
-	// else if (error == NOT_VALID_IDENTIFIER)
-	// {
-	// 	puterr("export: ");
-	// 	puterr(((t_node *)data)->ctx->error[0]);
-	// 	puterr(": ");
-	// 	puterr("not a valid identifier\n");
-	// 	set_exitcode(data, 1);
-	// }
-	// else if (error == SYNTAX_ERROR)
-	// {
-	// 	// bash: syntax error near unexpected token `('
-	// 	set_exitcode(data, 2);
-	// }
-	// else if (error == BUILTIN_MISUSE)
-	// {
-	// 	// ivan@fb32f8d82885:~$ cd -fddv
-	// 	// bash: cd: -f: invalid option
-	// 	// cd: usage: cd [-L|[-P [-e]] [-@]] [dir]
-	// 	set_exitcode(data, 2);
-	// }
-	// else if (error == NON_NUMERIC_EXIT)
-	// {
-	// 	puterr("exit: ");
-	// 	puterr(((t_node *)data)->ctx->error[0]);
-	// 	puterr(": ");
-	// 	puterr("numeric argument required\n");
-	// 	// allclean(node);
-	// 	exit(1);
-	// }
-	// else if (error == TOO_MANY_ARG_EXIT)
-	// {
-	// 	puterr("exit: ");
-	// 	puterr("too many arguments\n");
-	// 	// allclean(node);
-	// 	set_exitcode(data, 1);
-	// }
-	// else if (error == TOO_MANY_ARG_CD)
-	// {
-	// 	puterr("cd: ");
-	// 	puterr("too many arguments\n");
-	// 	// allclean(node);
-	// 	set_exitcode(data, 1);
-	// }
-	// else if (error == ERRNO_CD)
-	// {
-	// 	puterr("cd: ");
-	// 	//print hint here
-	// 	perror("");
-	// 	set_exitcode(data, 1);
-	// }
-	// else if (error == OLDPWD_NOT_SET_CD)
-	// {
-	// 	puterr("cd: ");
-	// 	puterr("OLDPWD not set\n");
-	// 	set_exitcode(data, 1);
-	// }
-	// else if (error == HOME_NOT_SET_CD)
-	// {
-	// 	puterr("cd: ");
-	// 	puterr("HOME not set\n");
-	// 	set_exitcode(data, 1);
-	// }
-	// else
-	// {
-	// 	perror("");
-	// 	exit(1);
-	// }
 }

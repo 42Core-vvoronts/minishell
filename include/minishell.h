@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 10:57:14 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:15:07 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef enum e_type
 # define SYNTAX_ERROR "syntax error near unexpected token" //syntax error near unexpected token `('
 
 #define EXIT "exit"
+#define EXPORT "export"
 #define CD "cd"
 
 // typedef enum e_error

@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 11:00:15 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:13:15 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,38 +27,33 @@ static	bool	is_numeric(char *str)
 	return (true);
 }
 
-static	void	put_exitcode(t_node *node)
+static	int	evaluate_exitcode(t_node *node)
 {
 	int	sts;
 	sts = ft_atoi(node->ctx->stash[1], &node->ctx->exitcode, sizeof(int), 10);
 	if (sts == FAIL)
 		node->ctx->exitcode = 1;
+	return (node->ctx->exitcode);
 }
 
 void	run_exit(t_node *node)
 {
+	int	exitcode;
+
 	puterr("exit\n");
 	if (node->ctx->stash[1])
 	{
-		if (is_eqlstr(node->ctx->stash[1], "--"))
-		{
-			// allclean(node);
-			exit(EXIT_SUCCESS);
-		}
-		if (!is_numeric(node->ctx->stash[1]))
-		{
-			add_msg(node->ctx->stash[1], node);
-			add_msg(NON_NUMERIC_EXIT, node);
-			error(node, MINISHELL, false);
-		}
+		exitcode = evaluate_exitcode(node);
 		if (node->ctx->stash[2])
 		{
-			add_msg( TOO_MANY_ARG_EXIT, node);
-			error(node, MINISHELL, false);
+			error(1, node->ctx, (t_m){EXIT, TOO_MANY_ARG});
 			return ;
 		}
-		put_exitcode(node);
+		else if (is_eqlstr(node->ctx->stash[1], "--"))
+			exitcode = EXIT_SUCCESS;
+		else if (!is_numeric(node->ctx->stash[1]))
+			error(2, node->ctx, (t_m){EXIT, node->ctx->stash[1], EXIT_NON_NUM});
 	}
-	// printf("%d\n", node->ctx->exitcode);
-	exit(node->ctx->exitcode);
+	allclean(node, FULL);
+	exit(exitcode);
 }

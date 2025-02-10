@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 04:05:13 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:48:57 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	prompt(int argc, char **argv, char **envp)
 		// 	exit(0);
 		evaluate(ast);
         free(statement);
+		printf("exitcode: %d\n", ctx->exitcode);
     }
 }
 /* Testcases
