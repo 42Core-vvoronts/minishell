@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/10 19:24:47 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/11 13:19:19 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,9 +60,8 @@ LIB 				=	\
 
 # Source files
 SRC 				=	\
-						main.c \
+						test_main.c \
 						init.c \
-						prompt.c \
 						\
 						executils.c \
 						\

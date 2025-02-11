@@ -109,6 +109,7 @@ for category in "${testcases[@]}"; do
 
 		# Run the test case in minishell:
 		{ echo "$test"; echo "exit"; } | "$MINISHELL_DIR/$MINISHELL_EXEC" > minishell_out 2> minishell_err
+
 		minishell_exit=$?
 		# Run the same test case in bash
 		{ echo "$test"; echo "exit"; } | bash > bash_out 2> bash_err
