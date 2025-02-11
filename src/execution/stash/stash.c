@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:19:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 10:23:53 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/11 06:31:54 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	add_stash(char *arg, t_node *node)
 	i = ft_parrlen(node->ctx->stash);
 	result = ft_calloc(i + 2, sizeof(char *));
 	if (!result)
-		error(-1, node->ctx, (t_m){strerror(errno), NULL});
+		error(-1, node->ctx, (t_m){strerror(errno)});
 	i = 0;
 	while (node->ctx->stash && (node->ctx->stash)[i])
 	{
@@ -41,7 +41,7 @@ char	*pop_stash(t_node *node)
 	i = ft_parrlen(node->ctx->stash);
 	result = ft_calloc(i, sizeof(char *));
 	if (!result)
-		error(-1, node->ctx, (t_m){strerror(errno), NULL});
+		error(-1, node->ctx, (t_m){strerror(errno)});
 	i = 0;
 	while (node->ctx->stash && (node->ctx->stash)[i + 1])
 	{
@@ -69,7 +69,7 @@ void prepare_argv(t_node *node)
 		if (!tmp)
 		{
 			ft_parrclean(result);
-			error(-1, node->ctx, (t_m){strerror(errno), NULL});
+			error(-1, node->ctx, (t_m){strerror(errno)});
 		}
 		result = ft_parrjoin(result, tmp);
 		i++;

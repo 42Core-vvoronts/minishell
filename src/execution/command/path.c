@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:09:00 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 12:32:14 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/11 06:43:42 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,15 @@ char *search_filesystem(t_node *node)
 	pathname = ft_strdup(node->ctx->stash[0]);
 	if (!pathname)
 		error(-1, node->ctx, (t_m){strerror(errno)});
-	if (!is_exist(pathname))
-		error(127, node->ctx, (t_m){pathname, strerror(errno)});
+	if (is_exist(pathname))
+		return (pathname);
 	else
 	{
+		error(127, node->ctx, (t_m){pathname, strerror(errno)});
 		free(pathname);
 		return (NULL);
 	}
-	return (pathname);
+
 }
 
 //exit(127); inside of error // bash: dfdf: command not found
