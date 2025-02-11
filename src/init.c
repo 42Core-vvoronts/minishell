@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 10:23:20 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/11 06:09:28 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static	int	init_envp(t_ctx *ctx, char **envp)
 {
