@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/10 06:12:45 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/11 10:47:45 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,9 @@ VPATH				=	\
 						./src/execution/group/:\
 						./src/execution/pipe/:\
 						./src/execution/redirection/:\
-						./src/execution/signal/:\
 						./src/execution/word/:\
 						./src/execution/command/builtin:\
+						./src/signals/:\
 						./src/parsing/:\
 						./src/parsing/syntaxer/:\
 						./src/parsing/errors/:\
@@ -62,6 +62,8 @@ SRC 				=	\
 						prompt.c \
 						\
 						executils.c \
+						\
+						signals.c \
 						\
 						parser.c \
 						lexing.c \

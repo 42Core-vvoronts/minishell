@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 12:29:25 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/11 12:13:20 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "../lib/elibft/include/elibft.h"
 
-#include <errno.h>
+# define _POSIX_C_SOURCE 200809L
+# include <errno.h>
 # include <ctype.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -47,6 +48,14 @@ typedef enum e_type
 	ARGUMENT,
 }	t_type;
 
+typedef enum e_sigset
+{
+	IS_PROMPT,
+	IS_BINARY,
+	IS_HEREDOC,
+	IS_GROUP,
+}	t_sigset;
+
 // # define	GENERIC -1
 // # define	MALLOC
 // # define	OPEN_FAIL
@@ -62,7 +71,7 @@ typedef enum e_type
 // # define	SYNTAX_ERROR 2
 // # define	BUILTIN_MISUSE 2
 
-
+# define SIGNO -1
 # define FULL 1
 # define CMD 0
 # define PROGRAMM "bash"
@@ -81,6 +90,7 @@ typedef enum e_type
 #define EXPORT "export"
 #define CD "cd"
 
+extern int g_signal;
 // typedef enum e_error
 // {
 // 	GENERIC,
@@ -114,9 +124,8 @@ typedef struct s_ctx
 {
 	char			**envp;
 	char			**stash;
-	char			**msg;
 	char			*ttyname;
-	pid_t			exitcode;
+	int				exitcode;
 	struct s_node	*head;
 } t_ctx;
 
@@ -142,6 +151,7 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
+void	setup_signals(int mode, void *ctx);
 void	restore_stdfd(int stdfd, t_node *node);
 void	add_msg(char *arg, t_node *node);
 void	process_filename(t_node *node);

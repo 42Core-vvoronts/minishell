@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 12:38:59 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/11 12:58:16 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	prompt(int argc, char **argv, char **envp)
 {
-    char	*statement = NULL;
+    char	*statement;
 	t_node	*ast;
 	t_ctx	*ctx;
+	t_node	node;
 	(void)argc;
 	(void)argv;
 	(void)envp;
@@ -31,8 +32,8 @@ void	prompt(int argc, char **argv, char **envp)
         statement = readline(prompt);
         if (!statement)
         {
-            ft_printf("\n");
-            exit(1);
+			node.ctx = ctx;
+			run_exit(&node);
 		}
 		add_history(statement);
         ast = parse(statement, ctx);
@@ -40,6 +41,8 @@ void	prompt(int argc, char **argv, char **envp)
 		// 	exit(0);
 		evaluate(ast);
         free(statement);
+		// if (g_signal != SIGNO)
+		// 	ctx->exitcode = g_signal;
 		printf("exitcode: %d\n", ctx->exitcode);
     }
 }

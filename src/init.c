@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/11 06:09:28 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:49:35 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,6 @@ int	init_ctx(t_ctx **ctx, char **envp)
 	if (!*ctx)
 		error(-1, NULL, (t_m){strerror(errno), NULL});
 	(*ctx)->ttyname = ttyname(STDIN_FILENO);
-	// if (!(*ctx)->ttyname)
-	// 	error(ctx, STRUCT_CTX, MALLOC_FAIL, true);
 	init_envp(*ctx, envp);
 	return (SUCCESS);
-}
-
-void	restore_std(t_node *node)
-{
-	int	fd;
-
-	fd = eopen(node->ctx->ttyname, O_RDWR, 0777, node);
-	edup2(fd, STDIN_FILENO, node);
-	edup2(fd, STDOUT_FILENO, node);
-	close(fd);
 }

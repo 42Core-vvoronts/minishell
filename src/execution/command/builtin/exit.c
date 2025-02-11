@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 11:13:15 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:51:07 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	run_exit(t_node *node)
 	int	exitcode;
 
 	puterr("exit\n");
-	if (node->ctx->stash[1])
+	exitcode = node->ctx->exitcode;
+	if (node->ctx->stash && node->ctx->stash[1])
 	{
 		exitcode = evaluate_exitcode(node);
 		if (node->ctx->stash[2])
