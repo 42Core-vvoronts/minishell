@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes.c                                           :+:      :+:    :+:   */
+/*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:24 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 12:00:18 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 19:06:07 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ bool	is_double_quote(char *lexeme)
     return false;
 }
 
+// quotes need splited with space and only space
+// Only other operators work wthout blank eg:
+// "ls""-la" doesn't work without space
+// "ls" "-la" works
+// "ls">file.txt work because of redirection
 void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 {
 	char	*start;

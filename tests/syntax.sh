@@ -25,34 +25,40 @@ wpink=$(tput setaf 5)        # Pink (magenta is closest)
 wreset=$(tput sgr0)          # Reset  
 
 
+prompt="../minishell (((ls)))"
+result=$(expr '../minishell (((ls)))')
+echo $result
+# ../minishell $(echo "((((ls)))")
+# $MINIDIR/$MINIEXEC $test
+exit
 LEXER=(
 			"((((ls)"
 			">>>>>>>>>>>>>>"
-			"(((ls)))"
-			"( ( ( ls)))"
-			"( ( ( ls ) ) )"
-			"(ls)"
-			"|"
-			"	| echo oi"
-			"| |"
+			'(((ls)))'
+			# "( ( ( ls)))"
+			# "( ( ( ls ) ) )"
+			# "(ls)"
+			# "|"
+			# "	| echo oi"
+			# "| |"
 			# "| $"
-			"| >"
-			">"
-			">>"
-			">>>"
-			"<"
-			"<<"
-			"echo hi <"
-			"cat    <| ls"
-			"echo hi | >"
-			"echo hi | > >>"
-			"echo hi | < |"
-			"echo hi |   |"
+			# "| >"
+			# ">"
+			# ">>"
+			# ">>>"
+			# "<"
+			# "<<"
+			# "echo hi <"
+			# "cat    <| ls"
+			# "echo hi | >"
+			# "echo hi | > >>"
+			# "echo hi | < |"
+			# "echo hi |   |"
 			# "echo hi |  \"|\"  |"
 )
 
 VALID=(
-    		# "(<f2 ls / | cat | grep a && ls ) > f1"
+    		"(<f2 ls / | cat | grep a && ls ) > f1"
     		"( sleep 1 && ls ) > f1"
     		"ls > f1"
 			"ls >> f1 > f2"
@@ -193,24 +199,23 @@ print_row() {
     printf "%s\n" "---------------------------------------------------------------------------------------------------------------"
 }
 
-testcases=("GROUP")
+testcases=("LEXER")
 # testcases=("LEXER" "VALID" "LIST" "GROUP" "PIPELINE" "REDIRECTION" "WORD")
 
 printf "%s\n" "${wpink}---------------------------------------------------------------------------------------------------------------"
 printf "%-30s | %-03s | %-40s | %-03s | %-40s\n" "Test Case" "B" "Bash Output" "M" "Mini Output"
 printf "%s\n" "---------------------------------------------------------------------------------------------------------------${wreset}"
-for category in "${testcases[@]}"; do
+for category in ${testcases[@]}; do
 	# echo "--------------------------"
     # echo "Category: $category"
     eval "inputs=(\"\${${category}[@]}\")"
-    for test in "${inputs[@]}"; do
-
-        mini_result=$("$MINIDIR/$MINIEXEC" "$test" 2>&1)
+    for test in ${inputs[@]}; do
+        mini_result=$("$MINIDIR/$MINIEXEC" $test 2>&1)
 		mini_exit=$?
 
 		# bash_result=$(echo $test | bash 2>&1)
 		# bash_exit=$?
-		bash_result=$(echo "$test" | timeout 5 bash 2>&1)
+		bash_result=$(echo $test | timeout 5 bash 2>&1)
 		bash_exit=$?
 		if [ "$bash_exit" == 0 ]; then
 			bash_result=""
@@ -221,59 +226,3 @@ for category in "${testcases[@]}"; do
 
     done
 done
-
-
-
-# for category in "${testcases[@]}"; do
-#     eval "inputs=(\"\${${category}[@]}\")"  # Indirect expansion to get the correct array
-# 	width=52  # Adjust as needed
-# 	title="$category"
-# 	padding=$(( (width - ${#title}) / 2 ))
-# 	echo -e "${darkgray}------------------------------------------------------${reset}"
-# 	printf "${pink}%"$padding"s%s%"$padding"s${reset}\n" "" "$title" ""
-# 	echo -e "${darkgray}------------------------------------------------------${reset}"
-
-#     for test in "${inputs[@]}"; do
-# 		padding=$(( (width - ${#test}) / 2 ))
-#     	echo -e "${darkgray}------------------------------------------------------${reset}"
-# 		printf "${lightblue}%"$padding"s%s%"$padding"s${reset}\n" "" "$test" ""
-#     	echo -e "${darkgray}------------------------------------------------------${reset}"
-
-
-#         # Run minishell with the input string as an argument and capture both stdout and stderr
-#         mini_result=$("$MINIDIR/$MINIEXEC" "$test" 2>&1)
-# 		mini_exit=$?
-
-#         # Check the syntax of the test using bash without executing it
-#         bash_result=$(bash -n -c "$test" 2>&1)
-# 		bash_exit=$?
-
-
-# 		if [ "$mini_exit" -ne "$bash_exit" ]; then
-# 			echo -e "${red}[KO]${reset} expect: $bash_exit got: $mini_exit"
-# 		else
-# 			echo -e "${green}[OK]${reset} expect: $bash_exit got: $mini_exit"
-# 		fi
-
-# 		if [ "$mini_result" == "$bash_result" ]; then
-# 			color="${green}"
-# 			status="[OK]"
-# 		elif [ -z "$mini_result" ] && [ -z "$bash_result" ]; then
-# 			color="${green}"
-# 			status="[OK]"
-# 		elif [ -n "$mini_result" ] && [ -n "$bash_result" ]; then
-# 			color="${semigreen}"
-# 			status="[OK]"
-# 		else
-# 			color="${red}"
-# 			status="[KO]"
-# 		fi
-
-# 		echo -e "${color}${status}${reset} minishell: '$mini_result'"
-# 		echo -e "\nbash '$bash_result'"
-#     done
-# done
-# echo -e "${darkgray}------------------------------------------------------${reset}"
-
-
- 

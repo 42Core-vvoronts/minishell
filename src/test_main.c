@@ -7,41 +7,38 @@ void	prompt(int argc, char **argv, char **envp)
     char	*statement;
 	t_node	*ast;
 	t_ctx	*ctx;
+	t_node	node;
 	(void)argc;
 	(void)argv;
 	(void)envp;
 	(void)ast;
+	(void)ctx;
+	(void)statement;
 
-	ast = NULL;
 	init_ctx(&ctx, envp);
-
-    statement = argv[1];
+	setup_signals(IS_PROMPT, NULL);
+	statement = argv[1];
+	setup_signals(IS_RUNNING, ctx);
+	if (g_signal == SIGINT)
+		ctx->exitcode = g_signal + 128;
 	if (!statement)
 	{
-		ft_printf("\n");
-		exit(1);
+		node.ctx = ctx;
+		run_exit(&node);
 	}
-	// add_history(statement);
+	add_history(statement);
 	ast = parse(statement, ctx);
-	if (ast)
-		exit (ctx->exitcode);
+	if (!ast)
+		exit(ctx->exitcode);
 	evaluate(ast);
 	// free(statement);
+	// printf("exitcode: %d\n", ctx->exitcode);
+	if (g_signal != SIGNO)
+		g_signal = -1;
 }
-
 int	main(int argc, char **argv, char **envp)
 {
-	t_node	*node;
-	t_ctx	*ctx;
-	pid_t	pid;
-
-	(void)pid;
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	(void)ctx;
-	(void)node;
-
+	printf("Test: %s\n", argv[1]);
 	prompt(argc, argv, envp);
 	return (EXIT_SUCCESS);
 }
