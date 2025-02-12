@@ -73,7 +73,10 @@ LIST=(
 GROUP=(
 			"(" 
 			")" 
-			"()" 
+			"()"
+			")ls("
+			"(ls"
+			")ls)"
 			"( ls ) )" 
 			"((((((((((((()))))))))))))" 
 			"(sleep 1 | ls ) > f f2" 
@@ -190,8 +193,8 @@ print_row() {
     printf "%s\n" "---------------------------------------------------------------------------------------------------------------"
 }
 
-testcases=("LEXER")
-# "VALID" "LIST" "GROUP" "PIPELINE" "REDIRECTION" "WORD")
+testcases=("GROUP")
+# testcases=("LEXER" "VALID" "LIST" "GROUP" "PIPELINE" "REDIRECTION" "WORD")
 
 printf "%s\n" "${wpink}---------------------------------------------------------------------------------------------------------------"
 printf "%-30s | %-03s | %-40s | %-03s | %-40s\n" "Test Case" "B" "Bash Output" "M" "Mini Output"
@@ -205,7 +208,9 @@ for category in "${testcases[@]}"; do
         mini_result=$("$MINIDIR/$MINIEXEC" "$test" 2>&1)
 		mini_exit=$?
 
-		bash_result=$(echo $test | bash 2>&1)
+		# bash_result=$(echo $test | bash 2>&1)
+		# bash_exit=$?
+		bash_result=$(echo "$test" | timeout 5 bash 2>&1)
 		bash_exit=$?
 		if [ "$bash_exit" == 0 ]; then
 			bash_result=""

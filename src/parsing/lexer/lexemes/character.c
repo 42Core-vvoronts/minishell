@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   character.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/08 13:06:02 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 16:29:46 by vvoronts         ###   ########.fr       */
+/*   Created: 2025/02/12 16:38:02 by vvoronts          #+#    #+#             */
+/*   Updated: 2025/02/12 17:28:31 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*parse(char *statement, t_ctx *ctx)
+bool	is_character(char *lexeme)
 {
-	t_tok	*tokens;
-	t_node	*ast;
-
-	tokens = lexer(statement, ctx);
-	ast = syntaxer(tokens, ctx);
-	//printer
-	if (ast)
-		save_tree(ast);
-	return ast;
+	if (is_eqlchar(*lexeme, '*') || is_eqlchar(*lexeme, '$') ||
+		is_eqlchar(*lexeme, '?') || ft_isprint(*lexeme))
+		return true;
+	return false;
 }
-

@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 11:49:31 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:07:51 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_tok *lexer(char *statement, t_ctx *ctx)
 
 	tokens = NULL;
 	current = NULL;
-    while (*statement)
+    while (statement && *statement)
     {
 		skip_blanks(&statement);
 		tokenize_quotes(&statement, &tokens, &current, ctx);

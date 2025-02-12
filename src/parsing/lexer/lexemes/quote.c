@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:24 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 11:46:26 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:00:18 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 	t_tok	*new;
 
 	if (!*lexeme)
-		error_exit("end of statement");
+		return ;
 	if (!is_double_quote(*lexeme) && !is_single_quote(*lexeme))
 		return ;
 	start = *lexeme;
 	end = *lexeme + 1;
-	if (*end == '\0')
-		error_exit("end of statement");
 	while (*end && !is_double_quote(end) && !is_single_quote(end))
 		end++;
 	if (!is_double_quote(end) && !is_single_quote(end))

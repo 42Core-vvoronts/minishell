@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 10:56:59 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:21:34 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	prompt(int argc, char **argv, char **envp)
 		}
 		add_history(statement);
         ast = parse(statement, ctx);
-		// if (ast)
-		// 	exit(0);
+		if (!ast)
+			exit(ctx->exitcode);
 		evaluate(ast);
         free(statement);
 		printf("exitcode: %d\n", ctx->exitcode);

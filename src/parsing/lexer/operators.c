@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:30:20 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 11:48:50 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:05:42 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	is_operator(char *lexeme)
 void	tokenize_operators(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 {
 	if (!*lexeme)
-		error_exit("end of statement");
+		return ;
 	if (is_open_parenthesis(*lexeme) || is_close_parenthesis(*lexeme))
 		tokenize_parenthesis(lexeme, tokens, current, ctx);
 	else if (is_less(*lexeme))

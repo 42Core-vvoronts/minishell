@@ -21,8 +21,12 @@ void	prompt(int argc, char **argv, char **envp)
 		ft_printf("\n");
 		exit(1);
 	}
-	add_history(statement);
+	// add_history(statement);
 	ast = parse(statement, ctx);
+	if (ast)
+		exit (ctx->exitcode);
+	evaluate(ast);
+	// free(statement);
 }
 
 int	main(int argc, char **argv, char **envp)

@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/12 11:48:00 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/12 16:54:55 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ VPATH				=	\
 						./src/parsing/syntaxer/:\
 						./src/parsing/errors/:\
 						./src/parsing/lexer/:\
+						./src/parsing/lexer/lexemes:\
 						./src/prompt/:\
 						./src/test/:\
 						./test/parsing/:\
@@ -60,7 +61,8 @@ LIB 				=	\
 
 # Source files
 SRC 				=	\
-						test_main.c \
+						main.c \
+						prompt.c \
 						init.c \
 						\
 						executils.c \
@@ -70,15 +72,16 @@ SRC 				=	\
 						parser.c \
 						\
 						lexer.c \
-						inittok.c \
+						tokens.c \
+						words.c \
 						operators.c \
 						ampersand.c \
-						angles.c \
-						blanks.c \
+						angle.c \
+						blank.c \
+						character.c \
 						parenthesis.c \
-						quotes.c \
+						quote.c \
 						verticalbar.c \
-						words.c \
 						\
 						syntaxer.c \
 						list.c \
