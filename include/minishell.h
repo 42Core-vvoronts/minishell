@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 04:48:25 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 05:08:20 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <stdbool.h>
+# include <dirent.h>
 # include <string.h>    // strlen
 # include <stdlib.h>    // exit
 # include <unistd.h>    // syscalls

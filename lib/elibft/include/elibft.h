@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:04:12 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 04:31:21 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 05:17:57 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void		putout(char *str);
 void		ft_parrclean(void *arr);
 void		*ft_parrjoin(void *arr1, void *arr2);
 size_t		ft_parrlen(void *arr);
+void		*ft_parradd(void *arr, void *item);
 
 //string
 int			ft_isalnum(int c);

@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 16:48:06 by ipetrov           #+#    #+#              #
-#    Updated: 2025/02/12 04:34:01 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/12 05:18:11 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRC					= 	arr_add.c \
 						ft_parrclean.c \
 						ft_parrjoin.c \
 						ft_parrlen.c \
+						ft_parradd.c \
 						\
 						ft_isalnum.c \
 						ft_isalpha.c \
