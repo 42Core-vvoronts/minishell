@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 03:21:21 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 04:48:25 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef char *t_m[5];
 typedef struct s_ctx
 {
 	char			**envp;
+	char			**export;
 	char			**stash;
 	char			*ttyname;
 	int				exitcode;
