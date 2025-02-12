@@ -6,41 +6,35 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:07:24 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 07:41:27 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 12:55:22 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// bool contain_wildcard(char *str)
-// {
-// 	return ((bool)ft_strchr(str ,'*'));
-// }
-
-static bool match_pattern(char *str, char *pattern, int mode)
+bool contain_wildcard(char *str)
 {
-	int	increment;
+	return ((bool)ft_strchr(str ,'*'));
+}
 
-	if (mode == 0)
-		return (match_pattern(str, pattern, 1) && match_pattern(str, pattern, -1));
-	if (mode == 1)
-		increment = 1;
-	else if (mode == -1)
-	{
-		while (*(str + 1))
-			str++;
-		while (*(pattern + 1))
-			pattern++;
-		increment = -1;
-	}
+// On success, readdir() returns a pointer to a dirent structure.
+// (This structure may be statically allocated; do not attempt to free(3) it.
+static bool match_pattern(char *str, char *pattern)
+{
 	while(*str && *pattern)
 	{
-		if (*pattern == '*')
-			return (true);
-		if (*str != *pattern)
+		if (*pattern == '*')//scan for char after ***** 'd' and ft_strchr('d')
+		{
+			while (*pattern == '*')
+				pattern++;
+			if (!*pattern)
+				return (true);
+			str = ft_strchr(str, *pattern);
+		}
+		if (!str || (*str != *pattern))
 			return (false);
-		str += increment;
-		pattern += increment;
+		str++;
+		pattern++;
 	}
 	return (true);
 }
@@ -54,7 +48,7 @@ char **expand_wildcard(t_node *node)
 	dir = opendir(".");
 	if (dir == NULL)
 		error(-1, node->ctx, (t_m){strerror(errno)});
-	entry = readdir(dir); //does it alocate memory for that?
+	entry = readdir(dir); //check errno for errors
 	result = NULL;
 	while (entry != NULL)
 	{
@@ -63,23 +57,25 @@ char **expand_wildcard(t_node *node)
 			entry = readdir(dir);
 			continue ;
 		}
-		if (match_pattern(entry->d_name, "m*.sh", 0))
+		if (match_pattern(entry->d_name, "sle*p*r*t*c"))
 			result = ft_parradd(result, entry->d_name);
-		entry = readdir(dir);
+		entry = readdir(dir); //check errno for errors
 	}
+	if (closedir(dir) == ERROR)
+		error(-1, node->ctx, (t_m){strerror(errno)});
 	return (result);
 }
 
- int main()
- {
-	char			**result;
+//  int main()
+//  {
+// 	char			**result;
 
-	result = expand_wildcard(NULL);
-	printf("\n");
-	while (result && *result)
-	{
-		printf("%s\n", *result);
-		result++;
-	}
- 	// printf("result: %d\n", match_pattern("dir1", "D*1", 0));
- }
+// 	result = expand_wildcard(NULL);
+// 	printf("\n");
+// 	while (result && *result)
+// 	{
+// 		printf("%s\n", *result);
+// 		result++;
+// 	}
+//  	// printf("result: %d\n", match_pattern("dir1", "D*1", 0));
+//  }

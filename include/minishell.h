@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 05:08:20 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 11:51:23 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,9 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
+
+bool	contain_wildcard(char *str);
+char	**expand_wildcard(t_node *node);
 void	setup_signals(int mode, void *ctx);
 void	restore_stdfd(int stdfd, t_node *node);
 void	add_msg(char *arg, t_node *node);
