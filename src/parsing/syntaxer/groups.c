@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 14:31:39 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 19:56:34 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_node *parse_group(t_tok **token, t_ctx *ctx)
 			error(2, ctx, (t_m){"syntax error: unexpected end of file"});			
 		else if (is_group_close(*token))
 			error(2, ctx, (t_m){"syntax error near unexpected token", (*token)->lexeme});
+		else if (is_group_open(*token))
+			return(parse_group(token, ctx));
 		else
 		{
 			node = parse_list(token, ctx);
