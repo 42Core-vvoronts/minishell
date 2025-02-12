@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:21:17 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/11 13:00:31 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 01:39:19 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	get_exitcode(pid_t pid)
 			}
 			else if (WIFSIGNALED(status))
 			{
-				exitcode = WTERMSIG(status);
+				exitcode = WTERMSIG(status) + 128;
 			}
 		}
 	}

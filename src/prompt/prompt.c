@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/11 12:58:16 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 03:22:11 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ void	prompt(int argc, char **argv, char **envp)
 	char prompt[] = "\033[1;32mminishell$ \033[0m";
     while (true)
     {
+		setup_signals(IS_PROMPT, NULL);
         statement = readline(prompt);
+		setup_signals(IS_RUNNING, ctx);
+		if (g_signal == SIGINT)
+			ctx->exitcode = g_signal + 128;
         if (!statement)
         {
 			node.ctx = ctx;
@@ -41,9 +45,9 @@ void	prompt(int argc, char **argv, char **envp)
 		// 	exit(0);
 		evaluate(ast);
         free(statement);
-		// if (g_signal != SIGNO)
-		// 	ctx->exitcode = g_signal;
 		printf("exitcode: %d\n", ctx->exitcode);
+		if (g_signal != SIGNO)
+			g_signal = -1;
     }
 }
 /* Testcases

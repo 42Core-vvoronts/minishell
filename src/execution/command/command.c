@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:07:37 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/11 12:23:22 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 03:07:30 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static	void	run_bin(t_node *node)
 		eexecve(pathname, node);
 	}
 	node->ctx->exitcode = get_exitcode(pid);
+	if (node->ctx->exitcode == (128 + SIGQUIT))
+		write(STDOUT_FILENO, "Quit: 3", 7);
 }
 
 static	bool	run_builtin(t_node *node)
