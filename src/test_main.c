@@ -1,7 +1,8 @@
 #include "minishell.h"
 
+int g_signal;
 
-int	prompt(int argc, char **argv, char **envp)
+void	prompt(int argc, char **argv, char **envp)
 {
     char	*statement;
 	t_node	*ast;
@@ -22,7 +23,6 @@ int	prompt(int argc, char **argv, char **envp)
 	}
 	add_history(statement);
 	ast = parse(statement, ctx);
-	return (EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv, char **envp)

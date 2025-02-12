@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/11 13:19:19 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/12 10:55:03 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,16 +30,16 @@ VPATH				=	\
 						./src/error/:\
 						./src/execution/:\
 						./src/execution/andor/:\
-						./src/execution/arguments/:\
+						./src/execution/stash/:\
 						./src/execution/command/:\
 						./src/execution/exitcode/:\
 						./src/execution/expansion/:\
 						./src/execution/group/:\
 						./src/execution/pipe/:\
 						./src/execution/redirection/:\
-						./src/execution/signal/:\
 						./src/execution/word/:\
 						./src/execution/command/builtin:\
+						./src/signals/:\
 						./src/parsing/:\
 						./src/parsing/syntaxer/:\
 						./src/parsing/errors/:\
@@ -65,6 +65,8 @@ SRC 				=	\
 						\
 						executils.c \
 						\
+						signals.c \
+						\
 						parser.c \
 						\
 						lexer.c \
@@ -87,8 +89,9 @@ SRC 				=	\
 						\
 						evaluation.c \
 						argument.c \
-						arguments.c \
+						stash.c \
 						content.c \
+						filename.c \
 						\
 						redir_append.c \
 						redir_heredoc.c \
@@ -136,14 +139,15 @@ DEP					=	$(SRC:%.c=dep/%.d)
 MFLAGS				=	 --no-print-directory -C
 
 
+
 # Build all targets
-all: lib $(NAME)
-	@echo "Building $(NAME) ..."
+all: $(NAME)
+	@echo "$(NAME) has been built"
 
 # Link mandatory object files
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) lib
+	@echo "Building $(NAME) ..."
 	@$(CC) $(OBJ) $(LIB) -o $@
-	@echo "$(NAME) has been built"
 
 # Build libraries
 lib:
@@ -166,7 +170,6 @@ clean:
 	@$(RM) obj
 	@$(RM) dep
 	@make clean $(MFLAGS) ./lib/elibft
-	@echo "$(NAME) has been cleaned"
 	@echo "$(NAME) has been cleaned"
 
 # Clean build files and executables

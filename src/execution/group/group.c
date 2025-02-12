@@ -6,27 +6,26 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:08:52 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 10:07:13 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/11 06:26:28 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 void	process_group(t_node *node)
 {
 	pid_t	pid;
 
-	pid = fork();
+	pid = efork(node);
 	if (pid == 0)
 	{
-		evaluate(node->right);
-		exit(allclean(node));
+		evaluate(node->left);
+		exit(allclean(node, 1));
 		return ;
 	}
 	else if (pid > 0)
 	{
-		node->ctx->exitcode = get_exitcode(pid); //last_child
-		//set $? using node->ctx->exitcode use export builtin for that
+		node->ctx->exitcode = get_exitcode(pid);
 		return ;
 	}
 }

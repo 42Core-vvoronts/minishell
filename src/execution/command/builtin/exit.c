@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/07 03:41:52 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/11 07:51:07 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../include/minishell.h"
+#include "minishell.h"
 
 //21474836490000000000
 static	bool	is_numeric(char *str)
@@ -27,36 +27,34 @@ static	bool	is_numeric(char *str)
 	return (true);
 }
 
-static	void	put_exitcode(t_node *node)
+static	int	evaluate_exitcode(t_node *node)
 {
 	int	sts;
 	sts = ft_atoi(node->ctx->stash[1], &node->ctx->exitcode, sizeof(int), 10);
 	if (sts == FAIL)
 		node->ctx->exitcode = 1;
+	return (node->ctx->exitcode);
 }
 
 void	run_exit(t_node *node)
 {
+	int	exitcode;
+
 	puterr("exit\n");
-	if (node->ctx->stash[1])
+	exitcode = node->ctx->exitcode;
+	if (node->ctx->stash && node->ctx->stash[1])
 	{
-		if (is_eqlstr(node->ctx->stash[1], "--"))
-		{
-			// allclean(node);
-			exit(EXIT_SUCCESS);
-		}
-		if (!is_numeric(node->ctx->stash[1]))
-		{
-			node->ctx->hint = ft_strdup(node->ctx->stash[1]);
-			error(node, STRUCT_NODE, NON_NUMERIC_EXIT, true);
-		}
+		exitcode = evaluate_exitcode(node);
 		if (node->ctx->stash[2])
 		{
-			error(node, STRUCT_NODE, TOO_MANY_ARG_EXIT, false);
+			error(1, node->ctx, (t_m){EXIT, TOO_MANY_ARG});
 			return ;
 		}
-		put_exitcode(node);
+		else if (is_eqlstr(node->ctx->stash[1], "--"))
+			exitcode = EXIT_SUCCESS;
+		else if (!is_numeric(node->ctx->stash[1]))
+			error(2, node->ctx, (t_m){EXIT, node->ctx->stash[1], EXIT_NON_NUM});
 	}
-	// printf("%d\n", node->ctx->exitcode);
-	exit(node->ctx->exitcode);
+	allclean(node, FULL);
+	exit(exitcode);
 }

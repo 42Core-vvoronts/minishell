@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 19:33:37 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:08:23 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define MINISHELL_H
 
 # include "../lib/elibft/include/elibft.h"
-# include "../lib/elibft/include/elibft.h"
 
+# define _POSIX_C_SOURCE 200809L
+# include <errno.h>
 # include <ctype.h>
 # include <signal.h>
 # include <fcntl.h>
@@ -47,6 +48,15 @@ typedef enum e_type
 	ARGUMENT,
 }	t_type;
 
+typedef enum e_sigset
+{
+	IS_PROMPT,
+	IS_BINARY,
+	IS_RUNNING,
+	IS_HEREDOC,
+	IS_GROUP,
+}	t_sigset;
+
 // # define	GENERIC -1
 // # define	MALLOC
 // # define	OPEN_FAIL
@@ -62,50 +72,90 @@ typedef enum e_type
 // # define	SYNTAX_ERROR 2
 // # define	BUILTIN_MISUSE 2
 
-typedef enum e_error
-{
-	GENERIC,
-	MALLOC_FAIL,
-	OPEN_FAIL,
-	EXECVE_FAIL,
-	FORK_FAIL,
-	PIPE_FAIL,
-	DUP_FAIL,
-	NOT_EXECUTABLE,
-	NOT_READABLE,
-	NOT_WRITABLE,
-	AMBIGUOUS_REDIR,
-	CMD_NOT_FOUND,
-	FILE_NOT_FOUND,
-	PERMISSION_DENIED,
-	BUILTIN_MISUSE,
-	NOT_VALID_IDENTIFIER,
-	NON_NUMERIC_EXIT,
-	TOO_MANY_ARG_EXIT,
-	TOO_MANY_ARG_CD,
-	ERRNO_CD,
-	OLDPWD_NOT_SET_CD,
-	HOME_NOT_SET_CD,
-	// Parser
-	SYNTAX_ERROR,
-	TOKEN_ERROR,
-} t_error;
+// typedef enum e_error
+// {
+// 	GENERIC,
+// 	MALLOC_FAIL,
+// 	OPEN_FAIL,
+// 	EXECVE_FAIL,
+// 	FORK_FAIL,
+// 	PIPE_FAIL,
+// 	DUP_FAIL,
+// 	NOT_EXECUTABLE,
+// 	NOT_READABLE,
+// 	NOT_WRITABLE,
+// 	AMBIGUOUS_REDIR,
+// 	CMD_NOT_FOUND,
+// 	FILE_NOT_FOUND,
+// 	PERMISSION_DENIED,
+// 	BUILTIN_MISUSE,
+// 	NOT_VALID_IDENTIFIER,
+// 	NON_NUMERIC_EXIT,
+// 	TOO_MANY_ARG_EXIT,
+// 	TOO_MANY_ARG_CD,
+// 	ERRNO_CD,
+// 	OLDPWD_NOT_SET_CD,
+// 	HOME_NOT_SET_CD,
+// 	// Parser
+// 	SYNTAX_ERROR,
+// 	TOKEN_ERROR,
+// } t_error;
 
-typedef enum e_datatype
-{
-	NONE,
-	STRUCT_CTX,
-	STRUCT_NODE,
-}	t_datatype;
+# define SIGNO -1
+# define FULL 1
+# define CMD 0
+# define PROGRAMM "bash"
+# define TOK 0xf000000000000000
+# define FILE_NOT_FOUND "No such file or directory"
+# define CMD_NOT_FOUND "command not found"
+# define AMBIG_REDIR "ambiguous redirect"
+# define NOT_VALID_IDN "not a valid identifier"
+# define EXIT_NON_NUM "numeric argument required"
+# define TOO_MANY_ARG "too many arguments"
+# define CD_OLDPWD "OLDPWD not set"
+# define CD_HOME "HOME not set"
+# define SYNTAX_ERROR "syntax error near unexpected token" //syntax error near unexpected token `('
+
+#define EXIT "exit"
+#define EXPORT "export"
+#define CD "cd"
+
+extern int g_signal;
+// typedef enum e_error
+// {
+// 	GENERIC,
+// 	MALLOC_FAIL,
+// 	OPEN_FAIL,
+// 	EXECVE_FAIL,
+// 	FORK_FAIL,
+// 	PIPE_FAIL,
+// 	DUP_FAIL,
+// 	NOT_EXECUTABLE = SYSTEM,
+// 	NOT_READABLE,
+// 	NOT_WRITABLE,
+// 	FILE_NOT_FOUND,
+// 	AMBIGUOUS_REDIR,
+// 	CMD_NOT_FOUND,
+// 	PERMISSION_DENIED,
+// 	BUILTIN_MISUSE,
+// 	NOT_VALID_IDENTIFIER,
+// 	SYNTAX_ERROR,
+// 	EXIT_NON_NUMERIC,
+// 	EXIT_TOO_MANY_ARG = EXIT,
+// 	CD_TOO_MANY_ARG,
+// 	CD_ERRNO,
+// 	CD_OLDPWD_NOT_SET,
+// 	CD_HOME_NOT_SET = CD,
+// } t_error;
+
+typedef char *t_m[5];
 
 typedef struct s_ctx
 {
-	char	**envp;
-	char	*ttyname;
-	char	**stash;
-	int		*fds;
-	char	*hint;
-	pid_t	exitcode;
+	char			**envp;
+	char			**stash;
+	char			*ttyname;
+	int				exitcode;
 	struct s_node	*head;
 } t_ctx;
 
@@ -131,8 +181,11 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
-char *get_pathname(t_node *node);
-void	error(void *data, t_datatype datatype, int error, bool terminate);
+void	setup_signals(int mode, void *ctx);
+void	restore_stdfd(int stdfd, t_node *node);
+void	add_msg(char *arg, t_node *node);
+void	process_filename(t_node *node);
+void	error(int exitcode, t_ctx *ctx, t_m msg);
 pid_t	efork(t_node *node);
 void	eexecve(char *pathname, t_node *node);
 char	*get_cmdname(void *node);
@@ -148,10 +201,10 @@ int		init_ctx(t_ctx **ctx, char **envp);
 void	process_and(t_node	*node);
 void	process_or(t_node	*node);
 
-int		allclean(t_node *node);
+int	allclean(t_node *node, int mode);
 
-void	add_arg(char *arg, t_node *node);
-char	*pop_arg(t_node *node);
+void	add_stash(char *arg, t_node *node);
+char	*pop_stash(t_node *node);
 void	prepare_argv(t_node *node);
 
 void 	run_cmd(t_node *node);
@@ -188,7 +241,7 @@ void	process_argument(t_node *node);
 void	process_content(t_node *node);
 
 void	evaluate(t_node *node);
-int		prompt(int argc, char **argv, char **envp);
+void	prompt(int argc, char **argv, char **envp);
 
 // -- PARSING --
 t_node	*parse(char *statement, t_ctx *ctx);

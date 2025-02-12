@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:21:17 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/05 01:21:34 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 01:39:19 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 int	get_exitcode(pid_t pid)
 {
@@ -28,6 +28,10 @@ int	get_exitcode(pid_t pid)
 			if (WIFEXITED(status))
 			{
 				exitcode = WEXITSTATUS(status);
+			}
+			else if (WIFSIGNALED(status))
+			{
+				exitcode = WTERMSIG(status) + 128;
 			}
 		}
 	}

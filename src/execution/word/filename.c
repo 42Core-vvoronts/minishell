@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   filename.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 11:00:13 by ipetrov          ###   ########.fr       */
+/*   Created: 2025/02/05 01:10:13 by ipetrov           #+#    #+#             */
+/*   Updated: 2025/02/10 10:24:08 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	run_env(t_node *node)
+void	process_filename(t_node *node)
 {
-	size_t	i;
+	char *arg;
 
-	i = 0;
-	while (node->ctx->envp && node->ctx->envp[i])
-	{
-		ft_printf("%s\n", node->ctx->envp[i]);
-		i++;
-	}
-	node->ctx->exitcode = EXIT_SUCCESS;
+	//expand $var and expand *
+	arg = ft_strdup(node->token);
+	if (!arg)
+		error(-1, node->ctx, (t_m){strerror(errno), NULL});
+	add_stash(arg, node);
 }

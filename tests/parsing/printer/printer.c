@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 00:59:51 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 13:11:03 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 11:37:43 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,6 @@ void save_tree(t_node *node)
 		close(fd);
 	}
 }
-
-
-
 
 void print_tokens(t_tok *token)
 {

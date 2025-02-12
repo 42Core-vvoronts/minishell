@@ -6,11 +6,11 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:07:37 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 10:21:06 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:06:35 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 static	void	run_bin(t_node *node)
 {
@@ -23,8 +23,9 @@ static	void	run_bin(t_node *node)
 		pathname = get_pathname(node);
 		eexecve(pathname, node);
 	}
-	else if (pid > 0)
-		node->ctx->exitcode = get_exitcode(pid);
+	node->ctx->exitcode = get_exitcode(pid);
+	if (node->ctx->exitcode == (128 + SIGQUIT))
+		write(STDOUT_FILENO, "Quit: 3", 7);
 }
 
 static	bool	run_builtin(t_node *node)
@@ -50,16 +51,10 @@ static	bool	run_builtin(t_node *node)
 
 void	run_cmd(t_node *node)
 {
-	if (node->ctx->stash == NULL)
-		return ;
-	if (node->ctx->exitcode != EXIT_SUCCESS)
-	{
-		ft_parrclean(&(node->ctx->stash));
-		return ;
-	}
 	prepare_argv(node);
 	if (run_builtin(node))
-		return;
-	run_bin(node);
+		;
+	else
+		run_bin(node);
 	ft_parrclean(&(node->ctx->stash));
 }
