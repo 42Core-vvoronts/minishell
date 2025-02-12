@@ -6,11 +6,34 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 03:22:11 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 04:46:31 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static	void	handle_shlvl(t_ctx *ctx)
+{
+	char	**var;
+	int		lvl;
+	char	*lvlvar;
+	char	*result;
+	t_node	node;
+
+	node.ctx = ctx;
+	lvl = 0;
+	var = get_var(ctx, "SHLVL");
+	lvlvar = "";
+	if (var)
+		lvlvar = get_val(ctx, "SHLVL");
+	ft_atoi(lvlvar, &lvl, sizeof(int), 10);
+	lvl++;
+	result = ft_strjoin("SHLVL=", ft_itoa(lvl));
+	if (!result)
+		error(-1, ctx, (t_m){strerror(errno)});
+	add_var(&node, result);
+	free(result);
+}
 
 void	prompt(int argc, char **argv, char **envp)
 {
@@ -26,28 +49,33 @@ void	prompt(int argc, char **argv, char **envp)
 	(void)statement;
 
 	init_ctx(&ctx, envp);
+	handle_shlvl(ctx);
+	g_signal = SIGNO;
 	char prompt[] = "\033[1;32mminishell$ \033[0m";
     while (true)
     {
+
 		setup_signals(IS_PROMPT, NULL);
         statement = readline(prompt);
 		setup_signals(IS_RUNNING, ctx);
-		if (g_signal == SIGINT)
-			ctx->exitcode = g_signal + 128;
         if (!statement)
         {
 			node.ctx = ctx;
 			run_exit(&node);
 		}
-		add_history(statement);
+		add_history(statement); //not add if NULL?
         ast = parse(statement, ctx);
 		// if (ast)
 		// 	exit(0);
 		evaluate(ast);
         free(statement);
-		printf("exitcode: %d\n", ctx->exitcode);
 		if (g_signal != SIGNO)
+		{
+			ctx->exitcode = g_signal + 128;
 			g_signal = -1;
+		}
+		printf("exitcode: %d\n", ctx->exitcode);
+
     }
 }
 /* Testcases

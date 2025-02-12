@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 07:59:30 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 03:23:40 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 03:51:38 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@ static	void handle_signal(int signum)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	g_signal = SIGINT;
+	g_signal = signum;
+}
+
+static	void handle_running_signal(int signum)
+{
+	(void)signum;
+	g_signal = signum;
 }
 
 // setup_signal(SIGQUIT, SIG_IGN, &node);
@@ -53,11 +59,12 @@ static void setup_binary_signals(struct sigaction sa, void *ctx)
 
 static void setup_running_signals(struct sigaction sa, void *ctx)
 {
-	sa.sa_handler = SIG_IGN;
+	sa.sa_handler = handle_running_signal;
 	if (sigaction(SIGINT, &sa, NULL) == ERROR)
 		error(-1, ctx, (t_m){strerror(errno)});
 	if (sigaction(SIGQUIT, &sa, NULL) == ERROR)
 		error(-1, ctx, (t_m){strerror(errno)});
+	sa.sa_handler = SIG_IGN;
 	if (sigaction(SIGTERM, &sa, NULL) == ERROR)
 		error(-1, ctx, (t_m){strerror(errno)});
 }

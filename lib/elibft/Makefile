@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 16:48:06 by ipetrov           #+#    #+#              #
-#    Updated: 2025/02/07 03:49:51 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/12 04:34:01 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC					= 	arr_add.c \
 						arr_retrieve.c \
 						\
 						ft_atoi.c \
+						ft_itoa.c \
 						\
 						get_next_line.c \
 						\

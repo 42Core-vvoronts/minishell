@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:04:12 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/07 03:49:43 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 04:31:21 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void		*arr_retrieve(t_arr **arr);
 t_lst		*arr_to_lst(t_arr **arr);
 t_arr		*lst_to_arr(t_lst **lst);
 int			ft_atoi(char *str, void *number, size_t size_of, int base);
+char		*ft_itoa(int n);
 t_arr		*strs_to_arr(t_arr **arr, char **strs);
 
 //file

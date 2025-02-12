@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 05:53:35 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 10:24:50 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 04:41:21 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 static	bool	is_eqlvar(char *envvar, char *varname)
 {
@@ -48,11 +48,11 @@ char *get_val(t_ctx *ctx, char *varname)
 
 	var = get_var(ctx, varname);
 	if (var)
-		return (*var + (ft_strchr(*var, '=') - *var));
+		return (*var + (ft_strchr(*var, '=') - *var + 1));
 	return (NULL);
 }
 
-static	void	add_new(t_node *node, char *var)
+static void	add_new(t_node *node, char *var)
 {
 	size_t	i;
 	char **result;
