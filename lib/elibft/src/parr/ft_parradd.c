@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:14:53 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 07:07:12 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 07:40:11 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,24 @@ void	*ft_parradd(void *arr, void *item)
 	void	**mem;
 	void	**a;
 
-	len = ft_parrlen(arr);
+	a = (void **)arr;
+	if (!arr)
+	{
+		a = malloc(sizeof(void *));
+		if (!a)
+			return (NULL);
+		*a = NULL;
+	}
+	len = ft_parrlen(a);
 	result = (void **)malloc((len + 2) * sizeof(void *));
 	if (!result)
 		return (NULL);
 	mem = result;
-	a = (void **)arr;
-	while (arr && *a)
-		*result++ = *a++;
+	len = 0;
+	while (a && a[len])
+		*result++ = a[len++];
 	*result++ = item;
 	*result = NULL;
-	free(arr);
+	free(a);
 	return ((void *)mem);
 }

@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/12 04:34:08 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/12 07:24:12 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ SRC 				=	\
 						\
 						exitcode.c \
 						envvar.c \
+						wildcard.c \
 						\
 						command.c \
 						path.c \

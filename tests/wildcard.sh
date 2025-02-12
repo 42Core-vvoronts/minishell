@@ -22,8 +22,10 @@ backup_new_main="../src/execution/expansion/wildcard.c.orig"
 # Use sed to comment out the main function
 cp $old_main $backup_old_main || exit
 cp $new_main $backup_new_main || exit
-sed -i '/int\s\+main\s*(.*)/,/^}/ s/^/\/\//' "$old_main"
-sed -i '/^\/\/ int\s\+main\s*(.*)/,/^\/\/}/ s/^\/\///' "$new_main"
+sed -i '/int[[:space:]]\+main[[:space:]]*(.*)/,/^}/ {
+    /^\/\//! s/^/\/\/ /
+}'  "$old_main"
+sed -i '/int[[:space:]]\+main[[:space:]]*(.*)/,/^}/ s#^// ##' "$new_main"
 
 echo -e "${BLUE}\n---- Makefile ----\n${RESET}"
 make --no-print-directory -C .. || exit
@@ -32,4 +34,4 @@ rm -f "$old_main" "$new_main"
 mv $backup_old_main $old_main
 mv $backup_new_main $new_main
 
-./minishell
+../minishell

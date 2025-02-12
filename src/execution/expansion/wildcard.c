@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:07:24 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 06:45:55 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 07:41:27 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,37 +40,46 @@ static bool match_pattern(char *str, char *pattern, int mode)
 		if (*str != *pattern)
 			return (false);
 		str += increment;
+		pattern += increment;
 	}
 	return (true);
 }
 
-// char **expand_wildcard(t_node *node)
-// {
-// 	DIR				*dir;
-// 	struct dirent	*entry;
-// 	char			**result;
-
-// 	dir = opendir(".");
-// 	if (dir == NULL)
-// 		error(-1, node->ctx, (t_m){strerror(errno)});
-// 	entry = readdir(dir); //does it alocate memory for that?
-// 	while (entry != NULL)
-// 	{
-// 		if (is_eqlstr(entry->d_name, ".") || is_eqlstr(entry->d_name, ".."))
-// 		{
-// 			entry = readdir(dir);
-// 			continue ;
-// 		}
-// 		ft_parradd(result, entry->d_name);
-// 		printf("d_name: %s\n", entry->d_name);
-// 		// printf("d_namlen: %hu\n", entry->d_namlen);
-// 		// printf("d_ino: %llu\n", entry->d_ino);
-// 		printf("\n");
-// 		entry = readdir(dir);
-// 	}
-// }
-
-int main()
+char **expand_wildcard(t_node *node)
 {
-	printf("result: %d\n", match_pattern("dir1", "d*1", 0));
+	DIR				*dir;
+	struct dirent	*entry;
+	char			**result;
+
+	dir = opendir(".");
+	if (dir == NULL)
+		error(-1, node->ctx, (t_m){strerror(errno)});
+	entry = readdir(dir); //does it alocate memory for that?
+	result = NULL;
+	while (entry != NULL)
+	{
+		if (is_eqlstr(entry->d_name, ".") || is_eqlstr(entry->d_name, ".."))
+		{
+			entry = readdir(dir);
+			continue ;
+		}
+		if (match_pattern(entry->d_name, "m*.sh", 0))
+			result = ft_parradd(result, entry->d_name);
+		entry = readdir(dir);
+	}
+	return (result);
 }
+
+ int main()
+ {
+	char			**result;
+
+	result = expand_wildcard(NULL);
+	printf("\n");
+	while (result && *result)
+	{
+		printf("%s\n", *result);
+		result++;
+	}
+ 	// printf("result: %d\n", match_pattern("dir1", "D*1", 0));
+ }
