@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 10:59:10 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:22:20 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,27 +83,7 @@ t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx 
     node->right = right;
     return node;
 }
-/**
- * @brief Init a new token
- *
- * @param lexeme
 
- * @return t_tok *token 
- * 
- */
-t_tok	*init_token(char *start, int len)
-{
-	t_tok	*token;
-	
-
-	token = ft_calloc(1, sizeof(t_tok));
-	if (!token)
-		error(-1, NULL, (t_m){strerror(errno), NULL});
-	token->lexeme = ft_strndup(start, len);
-	token->type = typify(token->lexeme);
-	token->next = NULL;
-	return token;
-}
 // t_tok	*init_token(char *lexeme)
 // {
 // 	t_tok	*token;

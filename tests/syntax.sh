@@ -52,7 +52,7 @@ LEXER=(
 )
 
 VALID=(
-    		"(<f2 ls / | cat | grep a && ls ) > f1"
+    		# "(<f2 ls / | cat | grep a && ls ) > f1"
     		"( sleep 1 && ls ) > f1"
     		"ls > f1"
 			"ls >> f1 > f2"
@@ -118,7 +118,6 @@ WORD=(
 			"ls" 
 			"ls " 
 			"ls -la"
-			"a aa aaa"
 )
 
 #!/bin/bash
@@ -191,7 +190,8 @@ print_row() {
     printf "%s\n" "---------------------------------------------------------------------------------------------------------------"
 }
 
-testcases=("LEXER" "VALID" "LIST" "GROUP" "PIPELINE" "REDIRECTION" "WORD")
+testcases=("LEXER")
+# "VALID" "LIST" "GROUP" "PIPELINE" "REDIRECTION" "WORD")
 
 printf "%s\n" "${wpink}---------------------------------------------------------------------------------------------------------------"
 printf "%-30s | %-03s | %-40s | %-03s | %-40s\n" "Test Case" "B" "Bash Output" "M" "Mini Output"

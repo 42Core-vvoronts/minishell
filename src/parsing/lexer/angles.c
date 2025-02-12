@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:01 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 19:40:50 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:45:39 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool is_greater(char *lexeme)
     return false;
 }
 
-void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current)
+void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 {
 	char	*start;
 	char	*end;
@@ -39,14 +39,14 @@ void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current)
 		;
 	else if (is_greater(end + 1))
 		end++;
-	new = init_token(start, end - start + 1);
+	new = init_token(start, end - start + 1, ctx);
 	add_token(new, tokens, current);
 	*lexeme = end + 1;
 	if (is_operator(*lexeme))
 		error_exit("syntax error near unexpected token");
 }
 
-void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current)
+void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 {
 	char	*start;
 	char	*end;
@@ -54,7 +54,7 @@ void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current)
 
 	start = *lexeme;
 	end = start;
-	new = init_token(start, end - start + 1);
+	new = init_token(start, end - start + 1, ctx);
 	add_token(new, tokens, current);
 	*lexeme = end + 1;
 	if (is_operator(*lexeme))

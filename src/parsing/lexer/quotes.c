@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:24 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 19:41:46 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:46:26 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	is_double_quote(char *lexeme)
     return false;
 }
 
-void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current)
+void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 {
 	char	*start;
 	char	*end;
@@ -44,7 +44,7 @@ void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current)
 		end++;
 	if (!is_double_quote(end) && !is_single_quote(end))
 		error_exit("Unclosed quote");
-	new = init_token(start, end - start + 1);
+	new = init_token(start, end - start + 1, ctx);
 	add_token(new, tokens, current);
 	*lexeme = end + 1;
 }

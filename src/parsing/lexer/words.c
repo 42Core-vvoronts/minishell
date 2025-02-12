@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:41 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 19:42:00 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:48:15 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	is_word_lexeme(char *lexeme)
     return false;
 }
 
-void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current)
+void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 {
 	char	*start;
 	char	*end;
@@ -37,7 +37,7 @@ void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current)
 	end = start;
 	while (*end && is_word_lexeme(end))
 		end++;
-	new = init_token(start, end - start);
+	new = init_token(start, end - start, ctx);
 	add_token(new, tokens, current);
 	*lexeme = end;
 }

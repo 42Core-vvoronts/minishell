@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 11:08:23 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:50:03 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,21 +247,23 @@ void	prompt(int argc, char **argv, char **envp);
 t_node	*parse(char *statement, t_ctx *ctx);
 
 // -- LEXER --
-t_tok	*lexer(char *statement);
-void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current);
-void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current);
-void	tokenize_operators(char **lexeme, t_tok **tokens, t_tok **current);
+t_tok	*lexer(char *statement, t_ctx *ctx);
+void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_operators(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 
-void	tokenize_parenthesis(char **lexeme, t_tok **tokens, t_tok **current);
-void	tokenize_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current);
-void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current);
-void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current);
-void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current);
+void	tokenize_parenthesis(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 
-void	skip_spaces(char **statement);
+void	skip_blanks(char **lexeme);
 
-t_type	typify(char *lexeme);
+t_tok	*init_token(char *start, int len, t_ctx *ctx);
+t_type	typify_token(char *lexeme);
 void	add_token(t_tok *new, t_tok **head, t_tok **current);
+
 
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
@@ -271,7 +273,7 @@ bool	is_greater(char *lexeme);
 bool	is_ampersand(char *lexeme);
 bool	is_single_quote(char *lexeme);
 bool	is_double_quote(char *lexeme);
-bool	is_space(char *lexeme);
+bool	is_blank(char *lexeme);
 bool	is_word_lexeme(char *lexeme);
 bool	is_operator(char *lexeme);
 
@@ -298,7 +300,6 @@ bool	is_word_token(t_tok *tok);
 void	step_forward(t_tok **tok);
 //init
 t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
-t_tok	*init_token(char *start, int len);
 
 
 // errors
