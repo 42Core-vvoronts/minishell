@@ -25,54 +25,43 @@ wpink=$(tput setaf 5)        # Pink (magenta is closest)
 wreset=$(tput sgr0)          # Reset  
 
 
-prompt="../minishell (((ls)))"
-result=$(expr '../minishell (((ls)))')
-echo $result
+# prompt="../minishell (((ls)))"
+# result=$(expr '../minishell (((ls)))')
+# echo $result
 # ../minishell $(echo "((((ls)))")
 # $MINIDIR/$MINIEXEC $test
-exit
 LEXER=(
-			"((((ls)"
-			">>>>>>>>>>>>>>"
-			'(((ls)))'
-			# "( ( ( ls)))"
-			# "( ( ( ls ) ) )"
-			# "(ls)"
-			# "|"
-			# "	| echo oi"
-			# "| |"
-			# "| $"
-			# "| >"
-			# ">"
-			# ">>"
-			# ">>>"
-			# "<"
-			# "<<"
-			# "echo hi <"
-			# "cat    <| ls"
-			# "echo hi | >"
-			# "echo hi | > >>"
-			# "echo hi | < |"
-			# "echo hi |   |"
-			# "echo hi |  \"|\"  |"
+			# "$"
+			# "?"
+			"*"
+			"&"
+			">"
+			"<"
+			"/"
+			"."
+			"_"
+			"-"
+			"|"
+			"||"
+			"&&"
+			"ab*de"
+			""
+			" "
 )
 
-VALID=(
-    		"(<f2 ls / | cat | grep a && ls ) > f1"
-    		"( sleep 1 && ls ) > f1"
-    		"ls > f1"
-			"ls >> f1 > f2"
-			"sleep 1 | ls -la"
+NONOBV=(
+    		"(<f2 ls / | cat | grep a && ls) > f1"
+			"echo A && (echo B || echo C) echo F)"
+			">new.file | <other.file <other.file <other.file <new.file echo SUCCESS"
+			">other.file >other.file >new.file | <new.file echo FAIL_IF_NOT_ERROR"
+
 )
 
 LIST=(
-			"&&" "||" "&& ||" 
-			"&& ls" 
+			"&& ||" 
+			"ls &&"
 			"ls || && cat" 
 			"ls && ls | cat" 
-			"ls | cat && ls | cat && ls | cat" 
-			"ls | cat || ls | cat || ls | cat || ls | cat" 
-			"ls &&" "ls ||"
 			"ls&&sleep 1"
 )
 
@@ -84,16 +73,13 @@ GROUP=(
 			"(ls"
 			")ls)"
 			"( ls ) )" 
+			'(((ls)))'
+			'((ls))'
+			'(ls)'
 			"((((((((((((()))))))))))))" 
-			"(sleep 1 | ls ) > f f2" 
-			"(ls|cat )" 
-			"( echo abiba >f3 )" 
-			"( ( sleep 3 &&sleep 1 ) | ls )" 
+			"(sleep 1 | ls) > f f2" 
+			"((sleep 3 &&sleep 1) | ls)" 
 			"< f ( ls | cat )" 
-			"> f ( ls |cat )" 
-			">> f ( ls| cat )" 
-			">> f> f1> f2 ( ls | cat )" 
-			"echo 'aboba' >f1 > f2 > f3 ls -la"
 )
 
 PIPELINE=(
@@ -105,28 +91,22 @@ PIPELINE=(
 )
 
 REDIRECTION=(
-			">" 
-			">>" 
-			"<" 
 			"< <" 
 			"> > > > > > > > > >" 
+			">>>>>>>>>>>>>>>"
 			">>>>>" "<<<<<" 
-			"ls > f1 -la" 
-			"ls > f1 -la > f2"
-			"> f1 echo hello" 
-			"ls > f1" "> f1 f2" 
 			"> f4 > f5 > f6" 
+			"ls >f1 -la" 
+			"ls > f1 -la > f2"
+			"ls > f1" "> f1 f2" 
 			"echo 'aboba' > f1 > f2 > f3" 
-			"< f7" 
-			"< f1 echo 'hello'" 
-			"< f1 cat" 
 			"< f1 f2 cat"
 )
 
 WORD=(
-			"ls" 
-			"ls " 
-			"ls -la"
+			# "ls" 
+			# "ls " 
+			# "ls -la"
 )
 
 #!/bin/bash
@@ -199,22 +179,22 @@ print_row() {
     printf "%s\n" "---------------------------------------------------------------------------------------------------------------"
 }
 
-testcases=("LEXER")
-# testcases=("LEXER" "VALID" "LIST" "GROUP" "PIPELINE" "REDIRECTION" "WORD")
+# testcases=("LEXER")
+testcases=("LEXER" "NONOBV" "LIST" "GROUP" "PIPELINE" "REDIRECTION" "WORD")
 
 printf "%s\n" "${wpink}---------------------------------------------------------------------------------------------------------------"
 printf "%-30s | %-03s | %-40s | %-03s | %-40s\n" "Test Case" "B" "Bash Output" "M" "Mini Output"
 printf "%s\n" "---------------------------------------------------------------------------------------------------------------${wreset}"
-for category in ${testcases[@]}; do
+for category in "${testcases[@]}"; do
 	# echo "--------------------------"
     # echo "Category: $category"
     eval "inputs=(\"\${${category}[@]}\")"
-    for test in ${inputs[@]}; do
+    for test in "${inputs[@]}"; do
+		# result=$(expr '../minishell (((ls)))')
+		# echo $result
         mini_result=$("$MINIDIR/$MINIEXEC" $test 2>&1)
 		mini_exit=$?
 
-		# bash_result=$(echo $test | bash 2>&1)
-		# bash_exit=$?
 		bash_result=$(echo $test | timeout 5 bash 2>&1)
 		bash_exit=$?
 		if [ "$bash_exit" == 0 ]; then

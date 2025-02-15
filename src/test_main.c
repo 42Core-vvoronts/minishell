@@ -38,7 +38,6 @@ void	prompt(int argc, char **argv, char **envp)
 }
 int	main(int argc, char **argv, char **envp)
 {
-	printf("Test: %s\n", argv[1]);
 	prompt(argc, argv, envp);
 	return (EXIT_SUCCESS);
 }

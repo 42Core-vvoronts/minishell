@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/12 19:00:12 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/15 11:03:23 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,8 +89,6 @@ SRC 				=	\
 						pipelines.c \
 						redirections.c \
 						expression.c \
-						\
-						errors.c \
 						\
 						evaluation.c \
 						argument.c \

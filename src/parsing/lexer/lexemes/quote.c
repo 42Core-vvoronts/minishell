@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:24 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 19:06:07 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/15 09:05:59 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 	while (*end && !is_double_quote(end) && !is_single_quote(end))
 		end++;
 	if (!is_double_quote(end) && !is_single_quote(end))
-		error_exit("Unclosed quote");
+		error(2, ctx, (t_m){"syntax error near unexpected token", end});
 	new = init_token(start, end - start + 1, ctx);
 	add_token(new, tokens, current);
 	*lexeme = end + 1;

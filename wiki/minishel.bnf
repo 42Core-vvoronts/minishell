@@ -52,9 +52,10 @@ ls: cannot access "/hom'e'": No such file or directory
 
 
 rponomar@z2t14c2: ~$ echo A && (echo B || echo C) echo F)
-bash: syntax error near unexpected token `echo'
+bash: syntax error near unexpected token echo
 rponomar@z2t14c2:~$ echo $?
 2
+---
 $NONEXIST | $EMPTY && $BLANC || $NONEXIST && ""
 $NONEXIST - there is no such var
 $EMPTY : export EMPTY=
@@ -67,3 +68,8 @@ cat other.file
 SUCCESS
 rm -rf new.file
 >other.file >other.file >new.file | <new.file echo FAIL_IF_NOT_ERROR
+
+
+) syntax error near unexpected token `)
+ls)))  syntax error near unexpected token `)
+(ls) 

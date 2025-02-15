@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 13:59:03 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/15 09:59:26 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_node	*group_or_expression(t_tok **tok, t_ctx *ctx)
 
 /**
  * @brief Recursive descent with precedence climbing
- * 
+ *  
  * This function starts by parsing a group or simple expression, then iterates
  * through tokens, recursively handling operators with higher or equal precedence.
  * It builds an AST node for each operator, ensuring correct operator associativity.
@@ -106,5 +106,10 @@ t_node *syntaxer(t_tok *tokens, t_ctx *ctx)
 	t_node *ast;
 	
 	ast = parse_list(&tokens, ctx);
+	if (tokens)
+	{
+		error(2, ctx, (t_m){"syntax error near unexpected token", tokens->lexeme});
+		return NULL;
+	}
 	return (ast);
 }

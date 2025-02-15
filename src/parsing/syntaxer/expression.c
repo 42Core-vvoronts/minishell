@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 18:21:44 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/15 09:24:57 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,6 @@ t_node	*create_word_node(t_tok **tok, t_ctx *ctx)
 	}
 	else
 	{
-		if (*tok && (*tok)->lexeme)
-			error_exit("expected command");
-			else
-			error_exit("expected command");
 		return NULL;
 	}
 }
@@ -183,6 +179,11 @@ t_node	*parse_expression(t_tok **tok, t_ctx *ctx)
 		return NULL;
 	if (is_group_open(*tok))
 		return (expression_with_group(tok, ctx));
+	else if (is_group_close(*tok))
+	{
+		error(2, ctx, (t_m){"syntax error near unexpected token", (*tok)->lexeme});
+		return NULL;
+	}
 	else
 		return (expression_no_group(tok, ctx));
 }
