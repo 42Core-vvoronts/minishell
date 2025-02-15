@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
+#    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/12 07:24:12 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/15 11:36:14 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,11 @@ VPATH				=	\
 						./src/parsing/syntaxer/:\
 						./src/parsing/errors/:\
 						./src/parsing/lexer/:\
+						./src/parsing/lexer/lexemes:\
 						./src/prompt/:\
+						./src/test/:\
+						./test/parsing/:\
+						./test/parsing/printer/:\
 
 
 # Include flags
@@ -58,22 +62,33 @@ LIB 				=	\
 # Source files
 SRC 				=	\
 						main.c \
-						init.c \
 						prompt.c \
+						init.c \
 						\
 						executils.c \
 						\
 						signals.c \
 						\
 						parser.c \
-						lexing.c \
+						\
+						lexer.c \
+						tokens.c \
+						words.c \
+						operators.c \
+						ampersand.c \
+						angle.c \
+						blank.c \
+						character.c \
+						parenthesis.c \
+						quote.c \
+						verticalbar.c \
+						\
 						syntaxer.c \
 						list.c \
 						groups.c \
 						pipelines.c \
 						redirections.c \
 						expression.c \
-						errors.c \
 						\
 						evaluation.c \
 						argument.c \

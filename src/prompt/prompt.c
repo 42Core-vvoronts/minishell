@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 04:46:31 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/15 11:39:00 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	prompt(int argc, char **argv, char **envp)
 		}
 		add_history(statement); //not add if NULL?
         ast = parse(statement, ctx);
-		// if (ast)
-		// 	exit(0);
+		if (!ast)
+			exit(ctx->exitcode);
 		evaluate(ast);
         free(statement);
 		if (g_signal != SIGNO)

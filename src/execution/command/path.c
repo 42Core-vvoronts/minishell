@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:09:00 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/11 06:43:42 by ipetrov          ###   ########.fr       */
+<<<<<<< HEAD
+/*   Updated: 2025/02/10 10:08:48 by vvoronts         ###   ########.fr       */
+=======
+/*   Updated: 2025/02/12 11:06:41 by vvoronts         ###   ########.fr       */
+>>>>>>> feat/lexer
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 static	char	**split(char *pathval, t_node *node)
 {
@@ -18,7 +22,11 @@ static	char	**split(char *pathval, t_node *node)
 
 	dirnames = ft_split(pathval, ':');
 	if (!dirnames)
+<<<<<<< HEAD
+		error(node, STRUCT_NODE, MALLOC_FAIL, true);
+=======
 		error(-1, node->ctx, (t_m){strerror(errno)});
+>>>>>>> feat/lexer
 	return (dirnames);
 }
 
@@ -30,7 +38,11 @@ static	char	*add_slash(char	**dirnames, t_node *node, size_t i)
 	if (!pathname)
 	{
 		ft_parrclean(dirnames);
+<<<<<<< HEAD
+		error(node, STRUCT_NODE, MALLOC_FAIL, true);
+=======
 		error(-1, node->ctx, (t_m){strerror(errno)});
+>>>>>>> feat/lexer
 	}
 	return (pathname);
 }
@@ -44,7 +56,11 @@ static	char	*add_basename(char	**dirnames, char *slashname, t_node *node)
 	if (!pathname)
 	{
 		ft_parrclean(dirnames);
+<<<<<<< HEAD
+		error(node, STRUCT_NODE, MALLOC_FAIL, true);
+=======
 		error(-1, node->ctx, (t_m){strerror(errno)});
+>>>>>>> feat/lexer
 	}
 	return (pathname);
 }

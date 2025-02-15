@@ -1,0 +1,639 @@
+make: Entering directory '/home/vicxptrv/github/42Core-vvoronts/minishell'
+Building minishell ...
+minishell has been built
+make: Leaving directory '/home/vicxptrv/github/42Core-vvoronts/minishell'
+[35m---------------------------------------------------------------------------------------------------------------
+Test Case                      | B   | Bash Output                              | M   | Mini Output                             
+---------------------------------------------------------------------------------------------------------------(B[m
+((((ls)                        | 2   | bash: line 1: unexpected EOF w           | [31m 0 (B[m | [92m[OK](B[m Error: expected ')' at the end
+                               |     | hile looking for matching `)'            |     |  of group                               
+                               |     |                                          |     | Error: expected ')'                     
+                               |     | bash: line 2: syntax error: un           |     | at the end of group                     
+                               |     | expected end of file                     |     | Error: exp                              
+                               |     |                                          |     | ected ')' at the end of group           
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+>>>>>>>>>>>>>>                 | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: syntax error near unexp
+                               |     | r unexpected token `>>'                  |     | ected token                             
+                               |     | bash:                                    |     | Error: syntax erro                      
+                               |     | line 1: `>>>>>>>>>>>>>>'                 |     | r near unexpected token                 
+                               |     |                                          |     | Error:                                  
+                               |     |                                          |     |  syntax error near unexpected           
+                               |     |                                          |     | token                                   
+                               |     |                                          |     | Error: syntax error near                
+                               |     |                                          |     |  unexpected token                       
+                               |     |                                          |     | Error: synta                            
+                               |     |                                          |     | x error near unexpected token           
+                               |     |                                          |     |                                         
+                               |     |                                          |     | Error: syntax error near unexp          
+                               |     |                                          |     | ected token                             
+                               |     |                                          |     | Error: expected a                       
+                               |     |                                          |     | word after operator: redirecti          
+                               |     |                                          |     | on                                      
+                               |     |                                          |     | Error: expected a word afte             
+                               |     |                                          |     | r operator: redirection                 
+                               |     |                                          |     | Error:                                  
+                               |     |                                          |     |  expected a word after operato          
+                               |     |                                          |     | r: redirection                          
+                               |     |                                          |     | Error: expected                         
+                               |     |                                          |     |  a word after operator: redire          
+                               |     |                                          |     | ction                                   
+                               |     |                                          |     | Error: expected a word a                
+                               |     |                                          |     | fter operator: redirection              
+                               |     |                                          |     | Err                                     
+                               |     |                                          |     | or: expected a word after oper          
+                               |     |                                          |     | ator: redirection                       
+                               |     |                                          |     | Error: expec                            
+                               |     |                                          |     | ted a word after operator: red          
+                               |     |                                          |     | irection                                
+                               |     |                                          |     | Error: expected comma                   
+                               |     |                                          |     | nd                                      
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+(((ls)))                       | 1   |                                          | [31m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+( ( ( ls)))                    | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+( ( ( ls ) ) )                 | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+(ls)                           | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+|                              | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `|'                   |     | Error:                                  
+                               |     | bash: l                                  |     |  Invalid pipeline                       
+                               |     | ine 1: `|'                               |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+	| echo oi                     | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `|'                   |     |                                         
+                               |     | bash: l                                  |     |                                         
+                               |     | ine 1: `| echo oi'                       |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+| |                            | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `|'                   |     | Error:                                  
+                               |     | bash: l                                  |     |  expected command                       
+                               |     | ine 1: `| |'                             |     | Error: Inval                            
+                               |     |                                          |     | id pipeline                             
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+| >                            | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `|'                   |     | Error:                                  
+                               |     | bash: l                                  |     |  expected a word after operato          
+                               |     | ine 1: `| >'                             |     | r: redirection                          
+                               |     |                                          |     | Error: expected                         
+                               |     |                                          |     |  command                                
+                               |     |                                          |     | Error: Invalid pipeli                   
+                               |     |                                          |     | ne                                      
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+>                              | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `newline'             |     | perator: redirection                    
+                               |     | b                                        |     | Error: ex                               
+                               |     | ash: line 1: `>'                         |     | pected command                          
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+>>                             | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `newline'             |     | perator: redirection                    
+                               |     | b                                        |     | Error: ex                               
+                               |     | ash: line 1: `>>'                        |     | pected command                          
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+>>>                            | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: syntax error near unexp
+                               |     | r unexpected token `>'                   |     | ected token                             
+                               |     | bash: l                                  |     | Error: expected a                       
+                               |     | ine 1: `>>>'                             |     | word after operator: redirecti          
+                               |     |                                          |     | on                                      
+                               |     |                                          |     | Error: expected a word afte             
+                               |     |                                          |     | r operator: redirection                 
+                               |     |                                          |     | Error:                                  
+                               |     |                                          |     |  expected command                       
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+<                              | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `newline'             |     | perator: redirection                    
+                               |     | b                                        |     | Error: ex                               
+                               |     | ash: line 1: `<'                         |     | pected command                          
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+<<                             | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: syntax error near unexp
+                               |     | r unexpected token `newline'             |     | ected token                             
+                               |     | b                                        |     | Error: expected a                       
+                               |     | ash: line 1: `<<'                        |     | word after operator: redirecti          
+                               |     |                                          |     | on                                      
+                               |     |                                          |     | Error: expected a word afte             
+                               |     |                                          |     | r operator: redirection                 
+                               |     |                                          |     | Error:                                  
+                               |     |                                          |     |  expected command                       
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+echo hi <                      | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `newline'             |     | perator: redirection                    
+                               |     | b                                        |     |                                         
+                               |     | ash: line 1: `echo hi <'                 |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+cat    <| ls                   | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: syntax error near unexp
+                               |     | r unexpected token `|'                   |     | ected token                             
+                               |     | bash: l                                  |     | Error: expected a                       
+                               |     | ine 1: `cat <| ls'                       |     | word after operator: redirecti          
+                               |     |                                          |     | on                                      
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+echo hi | >                    | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `newline'             |     | perator: redirection                    
+                               |     | b                                        |     | Error: ex                               
+                               |     | ash: line 1: `echo hi | >'               |     | pected command                          
+                               |     |                                          |     | Error: Invalid                          
+                               |     |                                          |     | pipeline                                
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+echo hi | > >>                 | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `>>'                  |     | perator: redirection                    
+                               |     | bash:                                    |     | Error: ex                               
+                               |     | line 1: `echo hi | > >>'                 |     | pected a word after operator:           
+                               |     |                                          |     | redirection                             
+                               |     |                                          |     | Error: expected co                      
+                               |     |                                          |     | mmand                                   
+                               |     |                                          |     | Error: Invalid pipeline                 
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+echo hi | < |                  | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `|'                   |     | perator: redirection                    
+                               |     | bash: l                                  |     | Error: ex                               
+                               |     | ine 1: `echo hi | < |'                   |     | pected command                          
+                               |     |                                          |     | Error: Invalid                          
+                               |     |                                          |     | pipeline                                
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+echo hi |   |                  | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `|'                   |     | Error:                                  
+                               |     | bash: l                                  |     |  Invalid pipeline                       
+                               |     | ine 1: `echo hi | |'                     |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+( sleep 1 && ls ) > f1         | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls > f1                        | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls >> f1 > f2                  | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+sleep 1 | ls -la               | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+&&                             | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `&&'                  |     |                                         
+                               |     | bash:                                    |     |                                         
+                               |     | line 1: `&&'                             |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+||                             | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `||'                  |     |                                         
+                               |     | bash:                                    |     |                                         
+                               |     | line 1: `||'                             |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+&& ||                          | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `&&'                  |     | Error:                                  
+                               |     | bash:                                    |     |  expected command                       
+                               |     | line 1: `&& ||'                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+&& ls                          | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `&&'                  |     |                                         
+                               |     | bash:                                    |     |                                         
+                               |     | line 1: `&& ls'                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls || && cat                   | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `&&'                  |     |                                         
+                               |     | bash:                                    |     |                                         
+                               |     | line 1: `ls || && cat'                   |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls && ls | cat                 | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls | cat && ls | cat && ls | c
+at | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+at                             |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls | cat || ls | cat || ls | c
+at || ls | cat | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+at || ls | cat                 |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls &&                          | 2   | bash: line 2: syntax error: un           | [31m 0 (B[m | [31m[KO](B[m                         
+                               |     | expected end of file                     |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls ||                          | 2   | bash: line 2: syntax error: un           | [31m 0 (B[m | [31m[KO](B[m                         
+                               |     | expected end of file                     |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls&&sleep 1                    | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+(                              | 2   | bash: line 2: syntax error: un           | [31m 0 (B[m | [92m[OK](B[m Error: expected ')' at the end
+                               |     | expected end of file                     |     |  of group                               
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+)                              | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `)'                   |     |                                         
+                               |     | bash: l                                  |     |                                         
+                               |     | ine 1: `)'                               |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+()                             | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `)'                   |     |                                         
+                               |     | bash: l                                  |     |                                         
+                               |     | ine 1: `()'                              |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+( ls ) )                       | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [31m[KO](B[m                         
+                               |     | r unexpected token `)'                   |     |                                         
+                               |     | bash: l                                  |     |                                         
+                               |     | ine 1: `( ls ) )'                        |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+((((((((((((()))))))))))))     | 1   | bash: line 1: ((: ((((((((((()           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | )))))))))): syntax error: oper           |     |                                         
+                               |     | and expected (error token is "           |     |                                         
+                               |     | )))))))))))")                            |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+(sleep 1 | ls ) > f f2         | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [31m[KO](B[m                         
+                               |     | r unexpected token `f2'                  |     |                                         
+                               |     | bash:                                    |     |                                         
+                               |     | line 1: `(sleep 1 | ls ) > f f           |     |                                         
+                               |     | 2'                                       |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+(ls|cat )                      | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+( echo abiba >f3 )             | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+( ( sleep 3 &&sleep 1 ) | ls ) | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+< f ( ls | cat )               | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `('                   |     |                                         
+                               |     | bash: l                                  |     |                                         
+                               |     | ine 1: `< f ( ls | cat )'                |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+> f ( ls |cat )                | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `('                   |     |                                         
+                               |     | bash: l                                  |     |                                         
+                               |     | ine 1: `> f ( ls |cat )'                 |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+>> f ( ls| cat )               | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `('                   |     |                                         
+                               |     | bash: l                                  |     |                                         
+                               |     | ine 1: `>> f ( ls| cat )'                |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+>> f> f1> f2 ( ls | cat )      | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `('                   |     |                                         
+                               |     | bash: l                                  |     |                                         
+                               |     | ine 1: `>> f> f1> f2 ( ls | ca           |     |                                         
+                               |     | t )'                                     |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+echo 'aboba' >f1 > f2 > f3 ls 
+-la | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+-la                            |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+|                              | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `|'                   |     | Error:                                  
+                               |     | bash: l                                  |     |  Invalid pipeline                       
+                               |     | ine 1: `|'                               |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+| | |                          | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     | r unexpected token `|'                   |     | Error:                                  
+                               |     | bash: l                                  |     |  expected command                       
+                               |     | ine 1: `| | |'                           |     | Error: expec                            
+                               |     |                                          |     | ted command                             
+                               |     |                                          |     | Error: Invalid pip                      
+                               |     |                                          |     | eline                                   
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls |                           | 2   | bash: line 2: syntax error: un           | [31m 0 (B[m | [92m[OK](B[m Error: Invalid pipeline 
+                               |     | expected end of file                     |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls | cat                       | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls | cat | grep a | grep b | g
+rep c | grep d | 1   |                                          | [31m 0 (B[m | [32m[OK](B[m                         
+rep c | grep d                 |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+>                              | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `newline'             |     | perator: redirection                    
+                               |     | b                                        |     | Error: ex                               
+                               |     | ash: line 1: `>'                         |     | pected command                          
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+>>                             | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `newline'             |     | perator: redirection                    
+                               |     | b                                        |     | Error: ex                               
+                               |     | ash: line 1: `>>'                        |     | pected command                          
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+<                              | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `newline'             |     | perator: redirection                    
+                               |     | b                                        |     | Error: ex                               
+                               |     | ash: line 1: `<'                         |     | pected command                          
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+< <                            | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `<'                   |     | perator: redirection                    
+                               |     | bash: l                                  |     | Error: ex                               
+                               |     | ine 1: `< <'                             |     | pected a word after operator:           
+                               |     |                                          |     | redirection                             
+                               |     |                                          |     | Error: expected co                      
+                               |     |                                          |     | mmand                                   
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+> > > > > > > > > >            | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: expected a word after o
+                               |     | r unexpected token `>'                   |     | perator: redirection                    
+                               |     | bash: l                                  |     | Error: ex                               
+                               |     | ine 1: `> > > > > > > > > >'             |     | pected a word after operator:           
+                               |     |                                          |     | redirection                             
+                               |     |                                          |     | Error: expected a                       
+                               |     |                                          |     | word after operator: redirecti          
+                               |     |                                          |     | on                                      
+                               |     |                                          |     | Error: expected a word afte             
+                               |     |                                          |     | r operator: redirection                 
+                               |     |                                          |     | Error:                                  
+                               |     |                                          |     |  expected a word after operato          
+                               |     |                                          |     | r: redirection                          
+                               |     |                                          |     | Error: expected                         
+                               |     |                                          |     |  a word after operator: redire          
+                               |     |                                          |     | ction                                   
+                               |     |                                          |     | Error: expected a word a                
+                               |     |                                          |     | fter operator: redirection              
+                               |     |                                          |     | Err                                     
+                               |     |                                          |     | or: expected a word after oper          
+                               |     |                                          |     | ator: redirection                       
+                               |     |                                          |     | Error: expec                            
+                               |     |                                          |     | ted a word after operator: red          
+                               |     |                                          |     | irection                                
+                               |     |                                          |     | Error: expected a wor                   
+                               |     |                                          |     | d after operator: redirection           
+                               |     |                                          |     |                                         
+                               |     |                                          |     | Error: expected command                 
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+>>>>>                          | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: syntax error near unexp
+                               |     | r unexpected token `>>'                  |     | ected token                             
+                               |     | bash:                                    |     | Error: syntax erro                      
+                               |     | line 1: `>>>>>'                          |     | r near unexpected token                 
+                               |     |                                          |     | Error:                                  
+                               |     |                                          |     |  expected a word after operato          
+                               |     |                                          |     | r: redirection                          
+                               |     |                                          |     | Error: expected                         
+                               |     |                                          |     |  a word after operator: redire          
+                               |     |                                          |     | ction                                   
+                               |     |                                          |     | Error: expected a word a                
+                               |     |                                          |     | fter operator: redirection              
+                               |     |                                          |     | Err                                     
+                               |     |                                          |     | or: expected command                    
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+<<<<<                          | 2   | bash: line 1: syntax error nea           | [31m 0 (B[m | [92m[OK](B[m Error: syntax error near unexp
+                               |     | r unexpected token `<<'                  |     | ected token                             
+                               |     | bash:                                    |     | Error: syntax erro                      
+                               |     | line 1: `<<<<<'                          |     | r near unexpected token                 
+                               |     |                                          |     | Error:                                  
+                               |     |                                          |     |  syntax error near unexpected           
+                               |     |                                          |     | token                                   
+                               |     |                                          |     | Error: syntax error near                
+                               |     |                                          |     |  unexpected token                       
+                               |     |                                          |     | Error: expec                            
+                               |     |                                          |     | ted a word after operator: red          
+                               |     |                                          |     | irection                                
+                               |     |                                          |     | Error: expected a wor                   
+                               |     |                                          |     | d after operator: redirection           
+                               |     |                                          |     |                                         
+                               |     |                                          |     | Error: expected a word after o          
+                               |     |                                          |     | perator: redirection                    
+                               |     |                                          |     | Error: ex                               
+                               |     |                                          |     | pected a word after operator:           
+                               |     |                                          |     | redirection                             
+                               |     |                                          |     | Error: expected a                       
+                               |     |                                          |     | word after operator: redirecti          
+                               |     |                                          |     | on                                      
+                               |     |                                          |     | Error: expected command                 
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls > f1 -la                    | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls > f1 -la > f2               | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+> f1 echo hello                | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls > f1                        | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+> f1 f2                        | 127 | bash: line 1: f2: command not            | [31m 0 (B[m | [31m[KO](B[m                         
+                               |     | found                                    |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+> f4 > f5 > f6                 | 0   |                                          | [32m 0 (B[m | [31m[KO](B[m Error: expected command 
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+echo 'aboba' > f1 > f2 > f3    | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+< f7                           | 1   | bash: line 1: f7: No such file           | [31m 0 (B[m | [92m[OK](B[m Error: expected command 
+                               |     |  or directory                            |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+< f1 echo 'hello'              | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+< f1 cat                       | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+< f1 f2 cat                    | 127 | bash: line 1: f2: command not            | [31m 0 (B[m | [31m[KO](B[m                         
+                               |     | found                                    |     |                                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls                             | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls                             | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------
+ls -la                         | 0   |                                          | [32m 0 (B[m | [32m[OK](B[m                         
+                               |     |                                          |     |                                         
+                               |     |                                          |     |                                         
+---------------------------------------------------------------------------------------------------------------

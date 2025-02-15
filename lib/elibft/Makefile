@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
+#    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 16:48:06 by ipetrov           #+#    #+#              #
-#    Updated: 2025/02/12 05:18:11 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/15 11:37:15 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,7 @@ SRC					= 	arr_add.c \
 						ft_strchr.c \
 						ft_strcmp.c \
 						ft_strdup.c \
+						ft_strndup.c \
 						ft_strdups.c \
 						ft_striteri.c \
 						ft_strjoin.c \
@@ -104,6 +105,7 @@ SRC					= 	arr_add.c \
 						ft_tolower.c \
 						ft_toupper.c \
 						is_eqlstr.c \
+						is_eqlchar.c \
 						ft_split.c \
 # arr_to_lst.c
 # lst_to_arr.c

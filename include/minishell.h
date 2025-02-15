@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 11:51:23 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/15 11:35:59 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,35 @@ typedef enum e_sigset
 // # define	HEREDOC_INPUT 1
 // # define	SYNTAX_ERROR 2
 // # define	BUILTIN_MISUSE 2
+
+// typedef enum e_error
+// {
+// 	GENERIC,
+// 	MALLOC_FAIL,
+// 	OPEN_FAIL,
+// 	EXECVE_FAIL,
+// 	FORK_FAIL,
+// 	PIPE_FAIL,
+// 	DUP_FAIL,
+// 	NOT_EXECUTABLE,
+// 	NOT_READABLE,
+// 	NOT_WRITABLE,
+// 	AMBIGUOUS_REDIR,
+// 	CMD_NOT_FOUND,
+// 	FILE_NOT_FOUND,
+// 	PERMISSION_DENIED,
+// 	BUILTIN_MISUSE,
+// 	NOT_VALID_IDENTIFIER,
+// 	NON_NUMERIC_EXIT,
+// 	TOO_MANY_ARG_EXIT,
+// 	TOO_MANY_ARG_CD,
+// 	ERRNO_CD,
+// 	OLDPWD_NOT_SET_CD,
+// 	HOME_NOT_SET_CD,
+// 	// Parser
+// 	SYNTAX_ERROR,
+// 	TOKEN_ERROR,
+// } t_error;
 
 # define SIGNO -1
 # define FULL 1
@@ -223,39 +252,64 @@ void	prompt(int argc, char **argv, char **envp);
 t_node	*parse(char *statement, t_ctx *ctx);
 
 // -- LEXER --
-t_tok	*lexer(char *statement);
-t_type	typify(char *lexeme);
-bool	is_not_space(char symbol);
+t_tok	*lexer(char *statement, t_ctx *ctx);
+void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_operators(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+
+void	tokenize_parenthesis(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+
+void	skip_blanks(char **lexeme);
+
+t_tok	*init_token(char *start, int len, t_ctx *ctx);
+t_type	typify_token(char *lexeme);
+void	add_token(t_tok *new, t_tok **head, t_tok **current);
+
+
+bool	is_open_parenthesis(char *lexeme);
+bool	is_close_parenthesis(char *lexeme);
+bool	is_vertical_bar(char *lexeme);
+bool	is_less(char *lexeme);
+bool	is_greater(char *lexeme);
+bool	is_ampersand(char *lexeme);
+bool	is_single_quote(char *lexeme);
+bool	is_double_quote(char *lexeme);
+bool	is_blank(char *lexeme);
+bool	is_character(char *lexeme);
+bool	is_word_lexeme(char *lexeme);
+bool	is_operator(char *lexeme);
 
 // -- SYNTAXER --
 t_node	*syntaxer(t_tok *tok, t_ctx *ctx);
 t_node	*group_or_expression(t_tok **tok, t_ctx *ctx);
-// syntax tree
 t_node	*create_tree(t_tok **tok, int precedence, t_ctx *ctx);
-t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
 int		get_precedence(t_type type);
-// list
+
 t_node	*parse_list(t_tok **tok, t_ctx *ctx);
-// pipe
 t_node	*parse_pipeline(t_tok **tok, t_ctx *ctx);
-// expression
 t_node	*parse_expression(t_tok **tok, t_ctx *ctx);
-int		is_word(t_tok *tok);
-// group
 t_node	*parse_group(t_tok **tok, t_ctx *ctx);
-int		is_group_close(t_tok *tok);
-int		is_group_open(t_tok *tok);
-// redirecion
 t_node	*parse_redir(t_tok **tok, t_ctx *ctx);
-int		is_redir(t_tok *tok);
-// utils
+
+bool	is_group_close(t_tok *tok);
+bool	is_group_open(t_tok *tok);
+bool	is_andor(t_tok *tok);
+bool	is_pipe(t_tok *tok);
+bool	is_redir(t_tok *tok);
+bool	is_word_token(t_tok *tok);
+
+
 void	step_forward(t_tok **tok);
+//init
+t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
+
+
 // errors
 void	*error_exit(char *msg);
-
-
-
-
 // -- PRINTER --
 void print_tokens(t_tok *tokens);
 void print_node(t_node *ast, int depth);
