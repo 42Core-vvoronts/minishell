@@ -6,11 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:50:25 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/07 04:20:11 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/12 03:02:37 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../include/minishell.h"
+#include "minishell.h"
 
 
 static	void	process_option(char **stash, bool *newline, size_t *i)

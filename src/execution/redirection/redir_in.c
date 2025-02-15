@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:23:16 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/09 12:34:36 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/10 10:20:01 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static	bool	is_valid(char *pathname, t_node *node)
 {
-	if (is_ambiguous(pathname))
+	if (is_ambiguous(pathname))//change to check how many args in stash if more then 1 use token name as hint
 	{
-		error(node, STRUCT_NODE, AMBIGUOUS_REDIR, false);
+		error(1, node->ctx, (t_m){node->left->token, strerror(errno)}); //exit(1): bash: $VAR: ambiguous redirect
 		return (false);
 	}
 	else if (!is_exist(pathname))
 	{
-		error(node, STRUCT_NODE, FILE_NOT_FOUND, false);
+		error(1, node->ctx, (t_m){pathname, strerror(errno)}); //exit(1); bash: f100: No such file or directory
 		return (false);
 	}
 	else if (!is_readable(pathname))
 	{
-		error(node, STRUCT_NODE, PERMISSION_DENIED, false);
+		error(1, node->ctx, (t_m){pathname, strerror(errno)}); //exit(1): bash: f2: Permission denied
 		return (false);
 	}
 	return (true);
@@ -38,7 +38,7 @@ void	process_redir_in(t_node *node)
 	char	*pathname;
 
 	evaluate(node->left);
-	pathname = pop_arg(node);
+	pathname = pop_stash(node);
 	if (is_valid(pathname, node))
 	{
 		fd = eopen(pathname, O_RDONLY, 0777, node);
@@ -46,5 +46,6 @@ void	process_redir_in(t_node *node)
 		close(fd);
 		evaluate(node->right);
 	}
+	restore_stdfd(STDIN_FILENO, node);
 	free(pathname);
 }

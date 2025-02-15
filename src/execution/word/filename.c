@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   filename.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 14:34:37 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/07 15:05:34 by vvoronts         ###   ########.fr       */
+/*   Created: 2025/02/05 01:10:13 by ipetrov           #+#    #+#             */
+/*   Updated: 2025/02/10 10:24:08 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*error_exit(char *msg)
+void	process_filename(t_node *node)
 {
-	fprintf(stderr, "Error: %s\n", msg);
-	return (NULL);
+	char *arg;
+
+	//expand $var and expand *
+	arg = ft_strdup(node->token);
+	if (!arg)
+		error(-1, node->ctx, (t_m){strerror(errno), NULL});
+	add_stash(arg, node);
 }
