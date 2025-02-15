@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:05:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 07:23:15 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/15 11:43:32 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int g_signal;
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	prompt(argc, argv, envp);
-// 	return (EXIT_SUCCESS);
-// }
+int	main(int argc, char **argv, char **envp)
+{
+	prompt(argc, argv, envp);
+	return (EXIT_SUCCESS);
+}
