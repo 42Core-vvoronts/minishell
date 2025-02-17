@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:30:20 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/12 17:05:42 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:28:46 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@ void	tokenize_operators(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *c
 		tokenize_parenthesis(lexeme, tokens, current, ctx);
 	else if (is_less(*lexeme))
 	{
-		char *next;
-		next = lexeme[1];
-		if (next && is_less(next))
+		if (*(*lexeme + 1) && is_less(*lexeme + 1))
 			tokenize_heredoc(lexeme, tokens, current, ctx);
-		tokenize_angles(lexeme, tokens, current, ctx);
+		else
+			tokenize_angles(lexeme, tokens, current, ctx);
 	}
 	else if (is_greater(*lexeme))
 		tokenize_angles(lexeme, tokens, current, ctx);

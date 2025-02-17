@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:01 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/15 10:23:37 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:24:01 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,4 @@ void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 	new = init_token(start, end - start + 1, ctx);
 	add_token(new, tokens, current);
 	*lexeme = end + 1;
-	// if (is_operator(*lexeme))
-	// 	error(2, ctx, (t_m){"syntax error near unexpected token", *lexeme});
-}
-
-void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
-{
-	char	*start;
-	char	*end;
-	t_tok	*new;
-
-	start = *lexeme;
-	end = start;
-	new = init_token(start, end - start + 1, ctx);
-	add_token(new, tokens, current);
-	*lexeme = end + 1;
-	// if (is_operator(*lexeme))
-	// 	error(2, ctx, (t_m){"syntax error near unexpected token", *lexeme});
 }

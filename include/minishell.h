@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/15 11:35:59 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:35:31 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,13 +262,14 @@ void	tokenize_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current, t_ctx
 void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
+void	tokenize_content(char *delim, t_tok **tokens, t_tok **current, t_ctx *ctx);
+char	*get_delimeter(char **lexeme, t_ctx *ctx);
 
 void	skip_blanks(char **lexeme);
 
 t_tok	*init_token(char *start, int len, t_ctx *ctx);
 t_type	typify_token(char *lexeme);
 void	add_token(t_tok *new, t_tok **head, t_tok **current);
-
 
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
