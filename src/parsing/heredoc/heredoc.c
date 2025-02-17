@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/17 16:28:01 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:35:35 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	tokenize_content(char *delim, t_tok **tokens, t_tok **current, t_ctx *ctx)
 	while (1)
 	{
 		line = readline("> ");
-		printf("line: %s\n", line);
 		if (!line || is_eqlstr(line, delim))
 		{
 			free(line);
