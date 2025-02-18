@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:09 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/10 10:47:48 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/18 09:58:36 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ t_node	*parse_list(t_tok **tok, t_ctx *ctx)
 		operator = *tok;
 		step_forward(tok);
 		right = parse_pipeline(tok, ctx);
+		if (!right || !left)
+		{
+			error(2, ctx, (t_m){"syntax error near unexpected token", operator->lexeme});
+			return NULL;
+		}
 		left = init_node(type, operator->lexeme, left, right, ctx);
 	}
 	return left;
