@@ -31,8 +31,8 @@ wreset=$(tput sgr0)          # Reset
 # ../minishell $(echo "((((ls)))")
 # $MINIDIR/$MINIEXEC $test
 LEXER=(
-			# "$"
-			# "?"
+			"$"
+			"?"
 			"*"
 			"&"
 			">"

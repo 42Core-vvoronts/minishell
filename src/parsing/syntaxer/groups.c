@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/15 08:23:54 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:55:04 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ t_node *parse_group(t_tok **token, t_ctx *ctx)
 			if (*token && is_group_close(*token))
 			{
 				step_forward(token);
-				if (!*token)
-					error(2, ctx, (t_m){"syntax error near unexpected token", "newline"});
-				else
-					return init_node(GROUP, "()", node, NULL, ctx);
+				// if (!*token)
+				// 	error(2, ctx, (t_m){"syntax error near unexpected token", "newline"});
+				// else
+				return init_node(GROUP, "()", node, NULL, ctx);
 			}
 			else
 				error(2, ctx, (t_m){"unexpected EOF while looking for matching", ")"});

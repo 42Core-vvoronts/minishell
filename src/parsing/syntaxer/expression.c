@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/15 09:24:57 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/18 12:33:33 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,11 @@ t_node	*create_word_node(t_tok **tok, t_ctx *ctx)
  * 
  * Example: (ls | cat) > f1
  * 
- * 		 >       <- redir
+ * 		 >
  * 		/ \
  * 	f1     ()       <- group
  * 		   /
- *        |        <- pipe
+ *        |          
  * 		 / \
  * 	   ls  cat
  */
