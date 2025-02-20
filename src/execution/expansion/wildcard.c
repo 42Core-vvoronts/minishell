@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:07:24 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 12:55:22 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/20 04:08:37 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ bool contain_wildcard(char *str)
 
 // On success, readdir() returns a pointer to a dirent structure.
 // (This structure may be statically allocated; do not attempt to free(3) it.
+// scan for char after ***** 'd' and ft_strchr('d')
 static bool match_pattern(char *str, char *pattern)
 {
 	while(*str && *pattern)
 	{
-		if (*pattern == '*')//scan for char after ***** 'd' and ft_strchr('d')
+		if (*pattern == '*')
 		{
 			while (*pattern == '*')
 				pattern++;

@@ -6,15 +6,19 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:08:11 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 01:32:47 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/20 04:16:00 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 void	process_content(t_node *node)
 {
+	char *arg;
+
 	//expand $var and expand *
-	add_stash(ft_strdup(node->token), node);
-	evaluate(node->right);
+	arg = ft_strdup(node->token);
+	if (!arg)
+		error(-1, node->ctx, (t_m){strerror(errno), NULL});
+	add_stash(arg, node);
 }
