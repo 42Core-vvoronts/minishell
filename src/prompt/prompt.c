@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 11:14:21 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/23 12:56:33 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,27 @@ void	prompt(int argc, char **argv, char **envp)
 	(void)ast;
 	(void)ctx;
 	(void)statement;
+	(void)node;
 
+	setup_signals(IS_IGNORE, NULL);
 	init_ctx(&ctx, envp);
+
 	handle_shlvl(ctx);
 	g_signal = SIGNO;
 	char prompt[] = "bash-5.2$ ";
     while (true)
     {
-		setup_signals(IS_PROMPT, NULL);
+		setup_signals(IS_PROMPT, ctx);
         statement = readline(prompt);
+		setup_signals(IS_IGNORE, ctx);
         if (!statement)
         {
 			node.ctx = ctx;
 			run_exit(&node);
 		}
 		add_history(statement); //not add if NULL?
-		setup_signals(IS_HEREDOC, ctx);
         ast = parse(statement, ctx);
+		if (ast)
 		evaluate(ast);
         free(statement);
 		if (g_signal != SIGNO)
@@ -72,11 +76,6 @@ void	prompt(int argc, char **argv, char **envp)
 			g_signal = SIGNO;
 		}
 		printf("exitcode: %d\n", ctx->exitcode);
-
     }
 }
-/* Testcases
 
-( < infiles/inordinary ls / | cat | grep a && ls ) > outfiles/outordinary
-
-*/

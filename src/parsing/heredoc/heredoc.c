@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 13:57:43 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/23 11:24:34 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,43 +58,62 @@ static char *ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
 	return (content);
 }
 
+static bool	is_valid_delim(char *delim, t_ctx *ctx, t_tok **current)
+{
+	if (!delim)
+	{
+		error(2, ctx, (t_m){"syntax error near unexpected token 'newline'"});
+		*current = NULL;
+		return (false);
+	}
+	return (true);
+}
+
+static	void process_signal(char *content, t_ctx *ctx, t_tok **current)
+{
+	t_node node;
+
+	node.ctx = ctx;
+	restore_stdfd(STDIN_FILENO, &node);
+	free(content);
+	*current = NULL;
+}
+
+static bool	is_eot(char *line, char *delim, t_ctx *ctx)
+{
+	if (!line || is_eqlstr(line, delim))
+	{
+		if (!line)
+			error(0, ctx, (t_m){"warning: here-document delimited by end-of-file, wanted", delim + TOK});
+		free(line);
+		return (true);
+	}
+	return (false);
+}
+
 static void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **current)
 {
 	char	*content;
 	char	*line;
 	t_tok	*new;
-	int 	sigflag;
 
-	if (!delim)
-		error(2, ctx, (t_m){"syntax error near unexpected token 'newline'"});
-	content = NULL;
+	if (!is_valid_delim(delim, ctx, current))
+		return ;
+	content = ft_strdup("");
+	if (!content)
+		error(-1, ctx, (t_m){strerror(errno)});
 	new = NULL;
-	sigflag = 0;
 	while (1)
 	{
 		line = readline("> ");
 		if (g_signal == SIGINT)
 		{
-			sigflag = 1;
-			break ; //if signal do not make token just return NULL or false
+			process_signal(content, ctx, current);
+			return ;
 		}
-		if (!line || is_eqlstr(line, delim))
-		{
-			if (!line)
-				error(0, ctx, (t_m){"warning: here-document delimited by end-of-file wanted", delim + TOK});
-			free(line);
+		if (is_eot(line, delim, ctx))
 			break ;
-		}
 		content = ft_strjoin_nl(content, line, ctx);
-	}
-	if (sigflag)
-	{
-		t_node node;
-		node.ctx = ctx;
-		restore_stdfd(STDIN_FILENO, &node);
-		free(content);
-		current = NULL;
-		return ;
 	}
 	new = init_token(content, ft_strlen(content), ctx);
 	add_token(new, tokens, current);
@@ -111,5 +130,7 @@ void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx
 	new = init_token(start, end - start + 1, ctx);
 	add_token(new, tokens, current);
 	*lexeme = end + 1;
+	setup_signals(IS_HEREDOC, ctx);
 	tokenize_content(get_delimeter(lexeme, ctx), ctx, tokens, current);
+	setup_signals(IS_IGNORE, ctx);
 }
