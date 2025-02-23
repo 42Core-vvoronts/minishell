@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:33 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 10:51:15 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:09:52 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	tokenize_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current, t_ctx
 	new = init_token(start, end - start + 1, ctx);
 	add_token(new, tokens, current);
 	*lexeme = end + 1;
-	if (is_ampersand(*lexeme) || is_vertical_bar(*lexeme) || is_close_parenthesis(*lexeme)) 
-		error(2, ctx, (t_m){"syntax error near unexpected token", *lexeme});
+	// skip_blanks(lexeme);
+	// if (is_ampersand(*lexeme) || is_vertical_bar(*lexeme) || is_close_parenthesis(*lexeme)) 
+	// 	error(2, ctx, (t_m){"syntax error near unexpected token", *lexeme});
 }
