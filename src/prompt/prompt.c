@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 11:02:02 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/23 12:56:33 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,17 @@ void	prompt(int argc, char **argv, char **envp)
 	(void)ast;
 	(void)ctx;
 	(void)statement;
+	(void)node;
 
 	setup_signals(IS_IGNORE, NULL);
 	init_ctx(&ctx, envp);
+
 	handle_shlvl(ctx);
 	g_signal = SIGNO;
 	char prompt[] = "bash-5.2$ ";
-	// char *tty = ttyname(STDIN_FILENO);
     while (true)
     {
 		setup_signals(IS_PROMPT, ctx);
-		// int fd = open(tty, O_RDWR, 0777);
-		// dup2(fd, STDIN_FILENO);
         statement = readline(prompt);
 		setup_signals(IS_IGNORE, ctx);
         if (!statement)
@@ -79,8 +78,4 @@ void	prompt(int argc, char **argv, char **envp)
 		printf("exitcode: %d\n", ctx->exitcode);
     }
 }
-/* Testcases
 
-( < infiles/inordinary ls / | cat | grep a && ls ) > outfiles/outordinary
-
-*/

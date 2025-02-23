@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 11:12:37 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/23 11:24:34 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static char *ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
 	free(tmp2);
 	return (content);
 }
-
 
 static bool	is_valid_delim(char *delim, t_ctx *ctx, t_tok **current)
 {
