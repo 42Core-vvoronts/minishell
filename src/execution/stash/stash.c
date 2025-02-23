@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+//add argument to end of stash
 void	add_stash(char *arg, t_node *node)
 {
 	size_t	i;
@@ -32,6 +33,7 @@ void	add_stash(char *arg, t_node *node)
 	node->ctx->stash = result;
 }
 
+//get argument on top of stash
 char	*pop_stash(t_node *node)
 {
 	size_t	i;
@@ -54,6 +56,7 @@ char	*pop_stash(t_node *node)
 	return (arg);
 }
 
+//split by space?
 void prepare_argv(t_node *node)
 {
 	size_t 	i;

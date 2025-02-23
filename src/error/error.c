@@ -96,7 +96,7 @@ int	allclean(t_node *node, int mode)
  *
  * @note Usage: error(-1, node->ctx, (t_m){strerror(errno)});
  * error(127, node->ctx, (t_m){node->ctx->stash[0], FILE_NOT_FOUND});
- * 
+ *
  */
 void error(int exitcode, t_ctx *ctx, t_m msg)
 {

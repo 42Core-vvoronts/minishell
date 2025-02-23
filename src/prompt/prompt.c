@@ -51,7 +51,7 @@ void	prompt(int argc, char **argv, char **envp)
 	init_ctx(&ctx, envp);
 	handle_shlvl(ctx);
 	g_signal = SIGNO;
-	char prompt[] = "\033[1;32mminishell$ \033[0m";
+	char prompt[] = "bash-5.2$ ";
     while (true)
     {
 		setup_signals(IS_PROMPT, NULL);
@@ -65,14 +65,14 @@ void	prompt(int argc, char **argv, char **envp)
 		setup_signals(IS_HEREDOC, ctx);
         ast = parse(statement, ctx);
 		if (!ast)
-			exit(ctx->exitcode);
+			exit(ctx->exitcode); // fix here
 		setup_signals(IS_RUNNING, ctx);
 		evaluate(ast);
         free(statement);
 		if (g_signal != SIGNO)
 		{
 			ctx->exitcode = g_signal + 128;
-			g_signal = -1;
+			g_signal = SIGNO;
 		}
 		printf("exitcode: %d\n", ctx->exitcode);
 
