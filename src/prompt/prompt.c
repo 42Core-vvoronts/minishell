@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/15 11:39:00 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:22:15 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void	prompt(int argc, char **argv, char **envp)
 		}
 		add_history(statement); //not add if NULL?
         ast = parse(statement, ctx);
-		if (!ast)
-			exit(ctx->exitcode);
 		evaluate(ast);
         free(statement);
 		if (g_signal != SIGNO)

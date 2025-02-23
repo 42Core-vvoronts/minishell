@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:41 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/17 19:31:33 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:54:40 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 	start = *lexeme;
 	end = start;
 	while (*end && is_word_lexeme(end))
+	{
+		if (is_double_quote(end-1))
+			double_string(&end, ctx);
+		else
+			single_string(&end, ctx);
 		end++;
+	}
 	new = init_token(start, end - start, ctx);
 	add_token(new, tokens, current);
 	if (*end)
