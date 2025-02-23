@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/17 16:35:31 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/23 09:34:16 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,10 +253,10 @@ t_node	*parse(char *statement, t_ctx *ctx);
 
 // -- LEXER --
 t_tok	*lexer(char *statement, t_ctx *ctx);
-void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_operators(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 
+void	tokenize_quotes(char **lexeme, t_ctx *ctx);
 void	tokenize_parenthesis(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
