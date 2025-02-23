@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 17:26:50 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:51:23 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,13 +272,14 @@ t_type	typify_token(char *lexeme);
 void	add_token(t_tok *new, t_tok **head, t_tok **current);
 void	clean_tokens(t_tok **tokens);
 
-
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
 bool	is_vertical_bar(char *lexeme);
 bool	is_less(char *lexeme);
 bool	is_greater(char *lexeme);
 bool	is_ampersand(char *lexeme);
+bool	is_asterisk(char *lexeme);
+bool	is_dollar(char *lexeme);
 bool	is_single_quote(char *lexeme);
 bool	is_double_quote(char *lexeme);
 bool	is_blank(char *lexeme);
@@ -305,11 +306,9 @@ bool	is_pipe(t_tok *tok);
 bool	is_redir(t_tok *tok);
 bool	is_word_token(t_tok *tok);
 
-
 void	step_forward(t_tok **tok);
 //init
 t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
-
 
 // errors
 void	*error_exit(char *msg);
