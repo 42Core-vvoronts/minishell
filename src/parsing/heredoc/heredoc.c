@@ -25,21 +25,48 @@ char	*get_delimeter(char **lexeme, t_ctx *ctx)
 		end++;
 	delim = ft_strndup(start, end - start);
 	if (!delim)
-		error(-1, ctx, (t_m){strerror(errno), NULL});
+		error(-1, ctx, (t_m){strerror(errno)});
 	*lexeme = end;
 	return delim;
+}
+
+static char *ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = ft_strjoin(line, "\n");
+	if (!tmp)
+	{
+		free(content);
+		free(line);
+		error(-1, ctx, (t_m){strerror(errno)});
+	}
+	free(line);
+	if (!content)
+		return (tmp);
+	tmp2 = content;
+	content = ft_strjoin(content, tmp);
+	if (!content)
+	{
+		free(tmp);
+		free(tmp2);
+		error(-1, ctx, (t_m){strerror(errno)});
+	}
+	free(tmp);
+	free(tmp2);
+	return (content);
 }
 
 void	tokenize_content(char *delim, t_tok **tokens, t_tok **current, t_ctx *ctx)
 {
 	char	*content;
 	char	*line;
-	char	*tmp;
 	t_tok	*new;
 
 	if (!delim)
 		error(2, ctx, (t_m){"syntax error near unexpected token `newline'"});
-	content = ft_strdup("");
+	content = NULL;
 	while (1)
 	{
 		line = readline("> ");
@@ -48,10 +75,7 @@ void	tokenize_content(char *delim, t_tok **tokens, t_tok **current, t_ctx *ctx)
 			free(line);
 			break;
 		}
-		tmp = content;
-		content = ft_strjoin(content, line);
-		free(tmp);
-		free(line);
+		content = ft_strjoin_nl(content, line, ctx);
 	}
 	new = init_token(content, ft_strlen(content), ctx);
 	add_token(new, tokens, current);
