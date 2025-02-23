@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:24 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/17 19:11:48 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/23 09:46:45 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,16 @@ void	double_string(char **end, t_ctx *ctx)
  * @note init token and add it to the end of the list
  * 
  */
-void	tokenize_quotes(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
+void	tokenize_quotes(char **end, t_ctx *ctx)
 {
-    char    *start;
-    char    *end;
-    t_tok   *new;
-
-    if (!*lexeme || (!is_double_quote(*lexeme) && !is_single_quote(*lexeme)))
+    if (!*end || (!is_double_quote(*end) && !is_single_quote(*end)))
         return;
-    
-    start = *lexeme;
-    end = start;
-    while (*end && (is_double_quote(end) || is_single_quote(end)))
+    while (*end && (is_double_quote(*end) || is_single_quote(*end)))
 	{
-		end++;
-		if (is_double_quote(end-1))
-			double_string(&end, ctx);
+		(*end)++;
+		if (is_double_quote(*end-1))
+			double_string(end, ctx);
         else
-			single_string(&end, ctx);
+			single_string(end, ctx);
     }
-    new = init_token(start, end - start + 1, ctx);
-    add_token(new, tokens, current);
-    *lexeme = end + 1;
 }
