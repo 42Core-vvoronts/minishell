@@ -70,8 +70,17 @@ void	tokenize_content(char *delim, t_tok **tokens, t_tok **current, t_ctx *ctx)
 	while (1)
 	{
 		line = readline("> ");
+		if (g_signal == SIGINT)
+		{
+			t_node node;
+			node.ctx = ctx;
+			restore_stdfd(STDIN_FILENO, &node);
+			return ; //if signal do not make token just return NULL or false
+		}
 		if (!line || is_eqlstr(line, delim))
 		{
+			if (!line)
+				error(0, ctx, (t_m){"warning: here-document delimited by end-of-file wanted", delim + TOK});
 			free(line);
 			break;
 		}

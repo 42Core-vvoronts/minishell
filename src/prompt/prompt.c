@@ -54,19 +54,19 @@ void	prompt(int argc, char **argv, char **envp)
 	char prompt[] = "\033[1;32mminishell$ \033[0m";
     while (true)
     {
-
 		setup_signals(IS_PROMPT, NULL);
         statement = readline(prompt);
-		setup_signals(IS_RUNNING, ctx);
         if (!statement)
         {
 			node.ctx = ctx;
 			run_exit(&node);
 		}
 		add_history(statement); //not add if NULL?
+		setup_signals(IS_HEREDOC, ctx);
         ast = parse(statement, ctx);
 		if (!ast)
 			exit(ctx->exitcode);
+		setup_signals(IS_RUNNING, ctx);
 		evaluate(ast);
         free(statement);
 		if (g_signal != SIGNO)

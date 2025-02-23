@@ -30,10 +30,15 @@ static	void handle_running_signal(int signum)
 	g_signal = signum;
 }
 
+static	void handle_heredoc_signal(int signum)
+{
+	handle_signal(signum);
+	close(STDIN_FILENO);
+}
+
 // setup_signal(SIGQUIT, SIG_IGN, &node);
 // setup_signal(SIGINT, handle_sigint_prompt, &node);
 //SIG_IGN
-
 static void setup_prompt_signals(struct sigaction sa, void *ctx)
 {
 	sa.sa_handler = handle_signal;
@@ -69,6 +74,18 @@ static void setup_running_signals(struct sigaction sa, void *ctx)
 		error(-1, ctx, (t_m){strerror(errno)});
 }
 
+static void setup_heredoc_signals(struct sigaction sa, void *ctx)
+{
+	sa.sa_handler = handle_heredoc_signal;
+	if (sigaction(SIGINT, &sa, NULL) == ERROR)
+		error(-1, ctx, (t_m){strerror(errno)});
+	sa.sa_handler = SIG_IGN;
+	if (sigaction(SIGQUIT, &sa, NULL) == ERROR)
+		error(-1, ctx, (t_m){strerror(errno)});
+	if (sigaction(SIGTERM, &sa, NULL) == ERROR)
+		error(-1, ctx, (t_m){strerror(errno)});
+}
+
 void setup_signals(int mode, void *ctx)
 {
 	struct sigaction sa;
@@ -78,18 +95,11 @@ void setup_signals(int mode, void *ctx)
 	if (sigemptyset(&sa.sa_mask) == ERROR)
 		error(-1, ctx, (t_m){strerror(errno)});
 	if (mode == IS_PROMPT)
-	{
 		setup_prompt_signals(sa, ctx);
-		return ;
-	}
 	else if (mode == IS_BINARY)
-	{
 		setup_binary_signals(sa, ctx);
-		return ;
-	}
 	else if (mode == IS_RUNNING)
-	{
 		setup_running_signals(sa, ctx);
-		return ;
-	}
+	else if (mode == IS_HEREDOC)
+		setup_heredoc_signals(sa, ctx);
 }
