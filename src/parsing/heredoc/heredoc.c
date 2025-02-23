@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*get_delimeter(char **lexeme, t_ctx *ctx)
+static char	*get_delimeter(char **lexeme, t_ctx *ctx)
 {
 	char	*start;
 	char	*end;
@@ -58,7 +58,7 @@ static char *ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
 	return (content);
 }
 
-void	tokenize_content(char *delim, t_tok **tokens, t_tok **current, t_ctx *ctx)
+static void	tokenize_content(char *delim, t_tok **tokens, t_tok **current, t_ctx *ctx)
 {
 	char	*content;
 	char	*line;

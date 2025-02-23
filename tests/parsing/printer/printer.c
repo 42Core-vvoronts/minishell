@@ -116,7 +116,7 @@ void save_tree(t_node *node)
 	{
 		char *args[] = {"dot", "-Tpng", "temp.dot", "-o", "result_tree.png", NULL};
 		if (execvp(args[0], args) == -1)
-			perror("execvp failed");
+			ft_putstr_fd("Install graphviz to get tree:\n	sudo apt install graphviz\n", STDERR_FILENO);
 		exit(0);
 	}
 	else if (pid > 0)

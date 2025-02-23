@@ -262,8 +262,6 @@ void	tokenize_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current, t_ctx
 void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
-void	tokenize_content(char *delim, t_tok **tokens, t_tok **current, t_ctx *ctx);
-char	*get_delimeter(char **lexeme, t_ctx *ctx);
 
 void	skip_blanks(char **lexeme);
 
