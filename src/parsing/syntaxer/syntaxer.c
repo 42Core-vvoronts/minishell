@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 10:52:05 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/23 11:22:04 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,9 @@ t_node	*create_tree(t_tok **tok, int precedence, t_ctx *ctx)
 t_node *syntaxer(t_tok *tokens, t_ctx *ctx)
 {
 	t_node *ast;
-	
-	ast = parse_list(&tokens, ctx);
+
+	ast = NULL;
+	if (tokens)
+		ast = parse_list(&tokens, ctx);
 	return (ast);
 }
