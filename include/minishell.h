@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 08:17:47 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/23 09:14:45 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef enum e_sigset
 	IS_BINARY,
 	IS_RUNNING,
 	IS_HEREDOC,
-	IS_GROUP,
+	IS_IGNORE
 }	t_sigset;
 
 # define SIGNO -1
