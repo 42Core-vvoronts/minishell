@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 17:14:28 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:26:50 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,6 +270,8 @@ void	skip_blanks(char **lexeme);
 t_tok	*init_token(char *start, int len, t_ctx *ctx);
 t_type	typify_token(char *lexeme);
 void	add_token(t_tok *new, t_tok **head, t_tok **current);
+void	clean_tokens(t_tok **tokens);
+
 
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
