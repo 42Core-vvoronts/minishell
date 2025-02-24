@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 07:59:30 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 03:51:38 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/23 09:25:16 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ static	void handle_running_signal(int signum)
 
 static	void handle_heredoc_signal(int signum)
 {
-	handle_signal(signum);
+	(void)signum;
+	if (write(STDOUT_FILENO, "\n", 1) == ERROR)
+		error(-1, NULL, (t_m){strerror(errno)});
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_signal = signum;
 	close(STDIN_FILENO);
 }
 
@@ -86,6 +91,17 @@ static void setup_heredoc_signals(struct sigaction sa, void *ctx)
 		error(-1, ctx, (t_m){strerror(errno)});
 }
 
+static void setup_ignore_signals(struct sigaction sa, void *ctx)
+{
+	sa.sa_handler = SIG_IGN;
+	if (sigaction(SIGINT, &sa, NULL) == ERROR)
+		error(-1, ctx, (t_m){strerror(errno)});
+	if (sigaction(SIGQUIT, &sa, NULL) == ERROR)
+		error(-1, ctx, (t_m){strerror(errno)});
+	if (sigaction(SIGTERM, &sa, NULL) == ERROR)
+		error(-1, ctx, (t_m){strerror(errno)});
+}
+
 void setup_signals(int mode, void *ctx)
 {
 	struct sigaction sa;
@@ -102,4 +118,6 @@ void setup_signals(int mode, void *ctx)
 		setup_running_signals(sa, ctx);
 	else if (mode == IS_HEREDOC)
 		setup_heredoc_signals(sa, ctx);
+	else if (mode == IS_IGNORE)
+		setup_ignore_signals(sa, ctx);
 }

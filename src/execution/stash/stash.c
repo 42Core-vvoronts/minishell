@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:19:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/11 06:31:54 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/23 06:14:51 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	add_stash(char *arg, t_node *node)
 	node->ctx->stash = result;
 }
 
-//get argument on top of stash
+//get argument on top?end? of stash
 char	*pop_stash(t_node *node)
 {
 	size_t	i;

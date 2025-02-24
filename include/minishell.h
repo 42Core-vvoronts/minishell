@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 11:10:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:38:38 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,52 +55,8 @@ typedef enum e_sigset
 	IS_BINARY,
 	IS_RUNNING,
 	IS_HEREDOC,
-	IS_GROUP,
+	IS_IGNORE
 }	t_sigset;
-
-// # define	GENERIC -1
-// # define	MALLOC
-// # define	OPEN_FAIL
-// # define	EXECVE_FAIL
-// # define	FORK_FAIL
-// # define	PIPECALL
-// # define	NOT_EXECUTABLE 126
-// # define	CMD_NOT_FOUND 127
-// # define	FILE_NOT_FOUND 1
-// # define	PERMISSION_DENIED 1
-// # define	INPUT 1
-// # define	HEREDOC_INPUT 1
-// # define	SYNTAX_ERROR 2
-// # define	BUILTIN_MISUSE 2
-
-// typedef enum e_error
-// {
-// 	GENERIC,
-// 	MALLOC_FAIL,
-// 	OPEN_FAIL,
-// 	EXECVE_FAIL,
-// 	FORK_FAIL,
-// 	PIPE_FAIL,
-// 	DUP_FAIL,
-// 	NOT_EXECUTABLE,
-// 	NOT_READABLE,
-// 	NOT_WRITABLE,
-// 	AMBIGUOUS_REDIR,
-// 	CMD_NOT_FOUND,
-// 	FILE_NOT_FOUND,
-// 	PERMISSION_DENIED,
-// 	BUILTIN_MISUSE,
-// 	NOT_VALID_IDENTIFIER,
-// 	NON_NUMERIC_EXIT,
-// 	TOO_MANY_ARG_EXIT,
-// 	TOO_MANY_ARG_CD,
-// 	ERRNO_CD,
-// 	OLDPWD_NOT_SET_CD,
-// 	HOME_NOT_SET_CD,
-// 	// Parser
-// 	SYNTAX_ERROR,
-// 	TOKEN_ERROR,
-// } t_error;
 
 # define SIGNO -1
 # define FULL 1
@@ -122,32 +78,6 @@ typedef enum e_sigset
 #define CD "cd"
 
 extern int g_signal;
-// typedef enum e_error
-// {
-// 	GENERIC,
-// 	MALLOC_FAIL,
-// 	OPEN_FAIL,
-// 	EXECVE_FAIL,
-// 	FORK_FAIL,
-// 	PIPE_FAIL,
-// 	DUP_FAIL,
-// 	NOT_EXECUTABLE = SYSTEM,
-// 	NOT_READABLE,
-// 	NOT_WRITABLE,
-// 	FILE_NOT_FOUND,
-// 	AMBIGUOUS_REDIR,
-// 	CMD_NOT_FOUND,
-// 	PERMISSION_DENIED,
-// 	BUILTIN_MISUSE,
-// 	NOT_VALID_IDENTIFIER,
-// 	SYNTAX_ERROR,
-// 	EXIT_NON_NUMERIC,
-// 	EXIT_TOO_MANY_ARG = EXIT,
-// 	CD_TOO_MANY_ARG,
-// 	CD_ERRNO,
-// 	CD_OLDPWD_NOT_SET,
-// 	CD_HOME_NOT_SET = CD,
-// } t_error;
 
 typedef char *t_m[5];
 
@@ -183,18 +113,15 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
-
 bool	contain_wildcard(char *str);
 char	**expand_wildcard(t_node *node);
 void	setup_signals(int mode, void *ctx);
 void	restore_stdfd(int stdfd, t_node *node);
-void	add_msg(char *arg, t_node *node);
 void	process_filename(t_node *node);
 void	error(int exitcode, t_ctx *ctx, t_m msg);
 pid_t	efork(t_node *node);
 void	eexecve(char *pathname, t_node *node);
 char	*get_cmdname(void *node);
-void	set_exitcode(void *node, int code);
 int		eopen(char *pathname, int flags, int mode, t_node *node);
 void	edup2(int oldfd, int newfd, t_node *node);
 
@@ -207,7 +134,7 @@ int		init_ctx(t_ctx **ctx, char **envp);
 void	process_and(t_node	*node);
 void	process_or(t_node	*node);
 
-int	allclean(t_node *node, int mode);
+int		allclean(t_node *node, int mode);
 
 void	add_stash(char *arg, t_node *node);
 char	*pop_stash(t_node *node);

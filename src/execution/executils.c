@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 11:47:36 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/23 10:27:24 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	restore_stdfd(int stdfd, t_node *node)
 
 	fd = eopen(node->ctx->ttyname, O_RDWR, 0777, node);
 	edup2(fd, stdfd, node);
-	close(fd);
+	if (fd != stdfd)
+		close(fd);
 }
 
