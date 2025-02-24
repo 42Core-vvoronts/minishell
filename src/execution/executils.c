@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 10:27:24 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 08:05:19 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ bool	is_writable(char *pathname)
 	return (!access(pathname, W_OK));
 }
 
+bool	is_directory(char *pathname)
+{
+	struct stat info;
+
+    stat(pathname, &info);
+    return S_ISDIR(info.st_mode);
+}
+
 bool is_executable(char *pathname)
 {
 	return (!access(pathname, F_OK | X_OK));
@@ -43,9 +51,9 @@ char	*get_cmdname(void *node)
 }
 
 
-bool	is_ambiguous(char *pathname)
+bool	is_ambiguous(char **stash)
 {
-	return (ft_strchr(pathname, ' '));
+	return (ft_parrlen(stash));
 }
 
 void	restore_stdfd(int stdfd, t_node *node)

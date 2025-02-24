@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 11:24:34 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 04:44:11 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*get_delimeter(char **lexeme, t_ctx *ctx)
 	if (!delim)
 		error(-1, ctx, (t_m){strerror(errno)});
 	*lexeme = end;
-	return delim;
+	return (delim);
 }
 
 static char *ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
@@ -58,14 +58,54 @@ static char *ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
 	return (content);
 }
 
-static bool	is_valid_delim(char *delim, t_ctx *ctx, t_tok **current)
+static	bool	get_quotes_ctx(char *delim)
 {
-	if (!delim)
+	return (ft_strchr(delim, '\'') || ft_strchr(delim, '"'));
+}
+
+static size_t	get_len_bare_delim(char *delim)
+{
+	size_t len;
+
+	len = 0;
+	while (*delim)
+	{
+		if (*delim != '\'' || *delim != '"')
+			len++;
+		delim++;
+	}
+	return (len);
+}
+
+//returns false if delim invalid
+//puts delimed cleaned of quotes into char **delim
+//if there were quotes puts true into bool *quotes
+static bool	get_valid_delim(char **delim, t_ctx *ctx, t_tok **current, bool *quotes)
+{
+	char *new_delim;
+	size_t i;
+	size_t j;
+
+	if (!*delim)
 	{
 		error(2, ctx, (t_m){"syntax error near unexpected token 'newline'"});
 		*current = NULL;
 		return (false);
 	}
+	*quotes = get_quotes_ctx(*delim);
+	new_delim = ft_calloc(get_len_bare_delim(*delim) + 1, sizeof(char)); //check for fail
+	if (!new_delim)
+		error(-1, ctx, (t_m){strerror(errno)});
+	i = 0;
+	j = 0;
+	while ((*delim)[i])
+	{
+		if ((*delim)[i] != '\'' && (*delim)[i] != '"')
+			new_delim[j++] = (*delim)[i];
+		i++;
+	}
+	free(*delim);
+	*delim = new_delim;
 	return (true);
 }
 
@@ -91,18 +131,47 @@ static bool	is_eot(char *line, char *delim, t_ctx *ctx)
 	return (false);
 }
 
+static void	attach_token(char	*content, t_ctx *ctx, t_tok **tokens, t_tok **current)
+{
+	t_tok	*new;
+
+	new = NULL;
+	new = init_token(content, ft_strlen(content), ctx);
+	ctx->exitcode = 0;
+	add_token(new, tokens, current);
+}
+
+//add char = 1 as the first character if we need to expand content
+static	char	*add_expand_flag(char *content, t_ctx *ctx)
+{
+	char	*q_content;
+	size_t	i;
+	size_t	j;
+
+	i = ft_strlen(content);
+	q_content = ft_calloc(i + 2, sizeof(char));
+	if (!q_content)
+		error(-1, ctx, (t_m){strerror(errno)});
+	i = 0;
+	j = 0;
+	q_content[i++] = 1;
+	while(content[j])
+		q_content[i++] = content[j++];
+	free(content);
+	return (q_content);
+}
+
 static void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **current)
 {
 	char	*content;
 	char	*line;
-	t_tok	*new;
+	bool	quotes;
 
-	if (!is_valid_delim(delim, ctx, current))
+	if (!get_valid_delim(&delim, ctx, current, &quotes))
 		return ;
 	content = ft_strdup("");
 	if (!content)
 		error(-1, ctx, (t_m){strerror(errno)});
-	new = NULL;
 	while (1)
 	{
 		line = readline("> ");
@@ -115,8 +184,9 @@ static void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **cu
 			break ;
 		content = ft_strjoin_nl(content, line, ctx);
 	}
-	new = init_token(content, ft_strlen(content), ctx);
-	add_token(new, tokens, current);
+	if (quotes == false)
+		content = add_expand_flag(content, ctx);
+	attach_token(content, ctx, tokens, current);
 }
 
 void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
@@ -132,5 +202,5 @@ void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx
 	*lexeme = end + 1;
 	setup_signals(IS_HEREDOC, ctx);
 	tokenize_content(get_delimeter(lexeme, ctx), ctx, tokens, current);
-	setup_signals(IS_IGNORE, ctx);
+	setup_signals(IS_RUNNING, ctx);
 }

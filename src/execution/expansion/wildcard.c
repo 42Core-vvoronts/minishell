@@ -6,27 +6,27 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:07:24 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/20 04:08:37 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 06:58:40 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool contain_wildcard(char *str)
+bool	contain_wildcard(char *str)
 {
-	return ((bool)ft_strchr(str ,'*'));
+	return ((bool)ft_strchr(str , 5));
 }
 
 // On success, readdir() returns a pointer to a dirent structure.
 // (This structure may be statically allocated; do not attempt to free(3) it.
 // scan for char after ***** 'd' and ft_strchr('d')
-static bool match_pattern(char *str, char *pattern)
+static	bool match_pattern(char *str, char *pattern)
 {
 	while(*str && *pattern)
 	{
-		if (*pattern == '*')
+		if (*pattern == 5)
 		{
-			while (*pattern == '*')
+			while (*pattern == 5)
 				pattern++;
 			if (!*pattern)
 				return (true);
@@ -40,17 +40,46 @@ static bool match_pattern(char *str, char *pattern)
 	return (true);
 }
 
-char **expand_wildcard(t_node *node)
+//replace wildcard int 5 with asterisk *
+char	*replace_wildcard(char *str, t_node *node)
+{
+	size_t	i;
+	char *result;
+
+	i = 0;
+	result = ft_strdup(str);
+	if (!result)
+		error(-1, node->ctx, (t_m){strerror(errno)});
+	while (result [i])
+	{
+		if (result [i] == 5)
+			result[i] = '*';
+		i++;
+	}
+	return (result);
+}
+
+static	void	add_filename_to_stash(t_node *node, char *filename)
+{
+	char *arg;
+
+	arg = ft_strdup(filename);
+	if (!arg)
+		error(-1, node->ctx, (t_m){strerror(errno)});
+	node->ctx->stash = ft_parradd(node->ctx->stash, arg);
+}
+
+void expand_wildcard(t_node *node, char *pattern)
 {
 	DIR				*dir;
 	struct dirent	*entry;
-	char			**result;
+	size_t	len;
 
 	dir = opendir(".");
 	if (dir == NULL)
 		error(-1, node->ctx, (t_m){strerror(errno)});
-	entry = readdir(dir); //check errno for errors
-	result = NULL;
+	entry = readdir(dir);
+	len = ft_parrlen(node->ctx->stash);
 	while (entry != NULL)
 	{
 		if (is_eqlstr(entry->d_name, ".") || is_eqlstr(entry->d_name, ".."))
@@ -58,13 +87,31 @@ char **expand_wildcard(t_node *node)
 			entry = readdir(dir);
 			continue ;
 		}
-		if (match_pattern(entry->d_name, "sle*p*r*t*c"))
-			result = ft_parradd(result, entry->d_name);
-		entry = readdir(dir); //check errno for errors
+		if (match_pattern(entry->d_name, pattern))
+			add_filename_to_stash(node, entry->d_name);
+		entry = readdir(dir);
 	}
+	if (ft_parrlen(node->ctx->stash) == len)
+		node->ctx->stash = ft_parradd(node->ctx->stash, replace_wildcard(pattern, node));
 	if (closedir(dir) == ERROR)
 		error(-1, node->ctx, (t_m){strerror(errno)});
-	return (result);
+	free(pattern);
+}
+
+void	handle_wildcard(t_node *node, char **input)
+{
+	size_t i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (contain_wildcard(input[i]))
+			expand_wildcard(node, input[i]);
+		else
+			node->ctx->stash = ft_parradd(node->ctx->stash, input[i]);
+		i++;
+	}
+	free(input);
 }
 
 //  int main()

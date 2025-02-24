@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 15:18:33 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 16:44:47 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <sys/stat.h>
 
 # define REDIR_FAIL 1
 # define STACK_SIZE 256
@@ -68,13 +69,14 @@ typedef enum e_sigset
 # define TOO_MANY_ARG "too many arguments"
 # define CD_OLDPWD "OLDPWD not set"
 # define CD_HOME "HOME not set"
+# define IS_DIR "Is a directory"
 # define SYNTAX_ERROR "syntax error near unexpected token" //syntax error near unexpected token `('
 
 #define EXIT "exit"
 #define EXPORT "export"
 #define CD "cd"
 
-extern int g_signal;
+extern volatile sig_atomic_t g_signal;;
 
 typedef char *t_m[5];
 
@@ -112,8 +114,11 @@ typedef struct s_pipe
 	int write;
 } t_pipe;
 
+bool	is_directory(char *pathname);
+void	handle_wildcard(t_node *node, char **input);
+void	expand(char **lexeme, t_ctx *ctx);
 bool	contain_wildcard(char *str);
-char	**expand_wildcard(t_node *node);
+void expand_wildcard(t_node *node, char *pattern);
 void	setup_signals(int mode, void *ctx);
 void	restore_stdfd(int stdfd, t_node *node);
 void	process_filename(t_node *node);
@@ -124,7 +129,6 @@ char	*get_cmdname(void *node);
 int		eopen(char *pathname, int flags, int mode, t_node *node);
 void	edup2(int oldfd, int newfd, t_node *node);
 
-char	*expand(char **lexeme, t_ctx *ctx);
 char	**get_var(t_ctx *ctx, char *varname);
 char	*get_val(t_ctx *ctx, char *varname);
 void	add_var(t_node *node, char *str);
@@ -146,7 +150,7 @@ int		get_exitcode(pid_t pid);
 bool	is_exist(char *pathname);
 bool	is_executable(char *pathname);
 bool	is_pathname(char *cmd);
-bool	is_ambiguous(char *pathname);
+bool	is_ambiguous(char **stash);
 bool	is_readable(char *pathname);
 bool	is_writable(char *pathname);
 

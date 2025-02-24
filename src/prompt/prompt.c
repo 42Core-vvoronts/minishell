@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 15:06:31 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 16:45:17 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,13 @@ static	void	handle_shlvl(t_ctx *ctx)
 		lvlvar = get_val(ctx, "SHLVL");
 	ft_atoi(lvlvar, &lvl, sizeof(int), 10);
 	lvl++;
-	result = ft_strjoin("SHLVL=", ft_itoa(lvl));
+	lvlvar = ft_itoa(lvl);
+	if (!lvlvar)
+		error(-1, ctx, (t_m){strerror(errno)});
+	result = ft_strjoin("SHLVL=", lvlvar);
 	if (!result)
 		error(-1, ctx, (t_m){strerror(errno)});
+	free(lvlvar);
 	add_var(&node, result);
 	free(result);
 }
@@ -59,7 +63,7 @@ void	prompt(int argc, char **argv, char **envp)
     {
 		setup_signals(IS_PROMPT, ctx);
         statement = readline(prompt);
-		setup_signals(IS_IGNORE, ctx);
+		setup_signals(IS_RUNNING, ctx);
         if (!statement)
         {
 			node.ctx = ctx;
@@ -68,14 +72,14 @@ void	prompt(int argc, char **argv, char **envp)
 		add_history(statement); //not add if NULL?
         ast = parse(statement, ctx);
 		if (ast)
-		evaluate(ast);
+			evaluate(ast);
         free(statement);
 		if (g_signal != SIGNO)
 		{
 			ctx->exitcode = g_signal + 128;
 			g_signal = SIGNO;
 		}
-		printf("exitcode: %d\n", ctx->exitcode);
+		printf("exitcode: %s\n", get_val(ctx, "?"));
     }
 }
 
