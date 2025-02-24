@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 12:56:33 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/23 13:08:17 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ void	prompt(int argc, char **argv, char **envp)
 		add_history(statement); //not add if NULL?
         ast = parse(statement, ctx);
 		if (ast)
-		evaluate(ast);
+			evaluate(ast);
         free(statement);
 		if (g_signal != SIGNO)
 		{
 			ctx->exitcode = g_signal + 128;
 			g_signal = SIGNO;
 		}
-		printf("exitcode: %d\n", ctx->exitcode);
+		printf("exitcode: %s\n", get_val(ctx, "?"));
     }
 }
 

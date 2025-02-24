@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 09:14:45 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 01:05:51 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef enum e_sigset
 #define EXPORT "export"
 #define CD "cd"
 
-extern int g_signal;
+extern volatile sig_atomic_t g_signal;;
 
 typedef char *t_m[5];
 
