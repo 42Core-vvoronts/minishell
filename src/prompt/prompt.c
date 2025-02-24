@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 16:45:17 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:25:06 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	prompt(int argc, char **argv, char **envp)
 			ctx->exitcode = g_signal + 128;
 			g_signal = SIGNO;
 		}
-		printf("exitcode: %s\n", get_val(ctx, "?"));
+		printf("exitcode: %d\n", ctx->exitcode);
     }
 }
 
