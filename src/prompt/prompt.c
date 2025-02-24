@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 13:08:17 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 04:43:07 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	prompt(int argc, char **argv, char **envp)
     {
 		setup_signals(IS_PROMPT, ctx);
         statement = readline(prompt);
-		setup_signals(IS_IGNORE, ctx);
+		setup_signals(IS_RUNNING, ctx);
         if (!statement)
         {
 			node.ctx = ctx;

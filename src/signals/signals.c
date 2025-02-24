@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 07:59:30 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 09:25:16 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 04:45:01 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,16 @@ static void setup_heredoc_signals(struct sigaction sa, void *ctx)
 		error(-1, ctx, (t_m){strerror(errno)});
 }
 
-static void setup_ignore_signals(struct sigaction sa, void *ctx)
-{
-	sa.sa_handler = SIG_IGN;
-	if (sigaction(SIGINT, &sa, NULL) == ERROR)
-		error(-1, ctx, (t_m){strerror(errno)});
-	if (sigaction(SIGQUIT, &sa, NULL) == ERROR)
-		error(-1, ctx, (t_m){strerror(errno)});
-	if (sigaction(SIGTERM, &sa, NULL) == ERROR)
-		error(-1, ctx, (t_m){strerror(errno)});
-}
+// static void setup_ignore_signals(struct sigaction sa, void *ctx)
+// {
+// 	sa.sa_handler = SIG_IGN;
+// 	if (sigaction(SIGINT, &sa, NULL) == ERROR)
+// 		error(-1, ctx, (t_m){strerror(errno)});
+// 	if (sigaction(SIGQUIT, &sa, NULL) == ERROR)
+// 		error(-1, ctx, (t_m){strerror(errno)});
+// 	if (sigaction(SIGTERM, &sa, NULL) == ERROR)
+// 		error(-1, ctx, (t_m){strerror(errno)});
+// }
 
 void setup_signals(int mode, void *ctx)
 {
@@ -118,6 +118,6 @@ void setup_signals(int mode, void *ctx)
 		setup_running_signals(sa, ctx);
 	else if (mode == IS_HEREDOC)
 		setup_heredoc_signals(sa, ctx);
-	else if (mode == IS_IGNORE)
-		setup_ignore_signals(sa, ctx);
+	// else if (mode == IS_IGNORE)
+	// 	setup_ignore_signals(sa, ctx);
 }

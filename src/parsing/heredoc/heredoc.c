@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 03:51:44 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 04:44:11 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,5 +202,5 @@ void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx
 	*lexeme = end + 1;
 	setup_signals(IS_HEREDOC, ctx);
 	tokenize_content(get_delimeter(lexeme, ctx), ctx, tokens, current);
-	setup_signals(IS_IGNORE, ctx);
+	setup_signals(IS_RUNNING, ctx);
 }
