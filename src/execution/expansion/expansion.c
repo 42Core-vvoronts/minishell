@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:33:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 12:24:16 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:27:48 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void	single_chunk(char **end, char **result, t_ctx *ctx);
 void	plain_chunk(char **end, char **result, t_ctx *ctx);
 char	*handle_variable(char **end, t_ctx *ctx);
 bool	is_valid_var_char(char *c);
-bool	is_literal(char *c);
+bool	is_plain(char *c);
 
 bool	is_valid_var_char(char *c)
 {
 	return (ft_isalnum(*c) || is_eqlchar(*c, '_'));
 }
 
-bool	is_literal(char *c)
+bool	is_plain(char *c)
 {
-	return (!is_single_quote(c) && !is_double_quote(c) && !is_dollar(c));
+	return (!is_single_quote(c) && !is_double_quote(c) && !is_dollar(c) && !is_asterisk(c));
 }
 
 void	ft_strnjoin(char **result, char *str, size_t len, t_ctx *ctx)
@@ -101,19 +101,10 @@ void	single_chunk(char **end, char **result, t_ctx *ctx)
 	(*end)++;
 	while (**end && !is_single_quote(*end))
 	{
-		if (is_double_quote(*end))
-		{
-			ft_strnjoin(result, "\"", 1, ctx);
-			double_chunk(end, result, ctx);
-			ft_strnjoin(result, "\"",1,  ctx);
-		}
-		else
-		{
-			start = *end;
-			while (**end && (!is_single_quote(*end) || is_double_quote(*end)))
-				(*end)++;
-			ft_strnjoin(result, start, *end - start, ctx);
-		}
+		start = *end;
+		while (**end && !is_single_quote(*end))
+			(*end)++;
+		ft_strnjoin(result, start, *end - start, ctx);
 	}
 	if (is_single_quote(*end))
 		(*end)++;
@@ -137,28 +128,22 @@ void	double_chunk(char **end, char **result, t_ctx *ctx)
 	(*end)++;
 	while (**end && !is_double_quote(*end))
 	{
-		if (is_single_quote(*end))
-		{
-			ft_strnjoin(result, "\'", 1, ctx);
-			single_chunk(end, result, ctx);
-			ft_strnjoin(result, "\'", 1, ctx);
-		}
-		else if (is_dollar(*end))
+		if (is_dollar(*end))
 		{
 			value = handle_variable(end, ctx);
 			ft_strnjoin(result, value, ft_strlen(value), ctx);
+		}
+		else if (!is_double_quote(*end))
+		{
+			start = *end;
+			while (*end && !is_double_quote(*end) && !is_dollar(*end))
+				(*end)++;
+			ft_strnjoin(result, start, *end - start, ctx);
 		}
 		else if (is_double_quote(*end))
 		{
 			(*end)++;
 			return ;
-		}
-		else
-		{
-			start = *end;
-			while (*end && is_literal(*end))
-				(*end)++;
-			ft_strnjoin(result, start, *end - start, ctx);
 		}
 	}
 	if (is_double_quote(*end))
@@ -180,32 +165,32 @@ void	plain_chunk(char **end, char **result, t_ctx *ctx)
 	char	*start;
 	char	*tmp;
 
-	char blank[2] = {5, '\0'};
+	char	wildcard[2] = {5, '\0'};
+	char	blank = 4;
 
 	while (**end && !is_single_quote(*end) && !is_double_quote(*end))
 	{
 		if (is_dollar(*end))
 		{
 			value = handle_variable(end, ctx);
-			tmp = value;
 			while (*tmp)
 			{
 				if (is_blank(tmp))
-					*tmp = 4;
+					*tmp = blank;
 				tmp++;
 			}
 			ft_strnjoin(result, value, ft_strlen(value), ctx);
 		}
 		if (is_asterisk(*end))
 		{
-			ft_strnjoin(result, blank, 1, ctx);
+			ft_strnjoin(result, wildcard, 1, ctx);
 			while (is_asterisk(*end))
 				(*end)++;
 		}
-		else if (is_literal(*end))
+		else if (is_plain(*end))
 		{
 			start = *end;
-			while (**end && is_literal(*end) && !is_asterisk(*end))
+			while (**end && is_plain(*end))
 				(*end)++;
 			ft_strnjoin(result, start, *end - start, ctx);
 		}
@@ -245,5 +230,3 @@ char	*expand(char **lexeme, t_ctx *ctx)
 		ft_strnjoin(&result, "\0", 1, ctx);
 	return (result);
 }
-
-//"ls$USER'LITERAL*'"$USER'aaa'
