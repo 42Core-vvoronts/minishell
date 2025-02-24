@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 10:27:24 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 04:21:03 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ char	*get_cmdname(void *node)
 }
 
 
-bool	is_ambiguous(char *pathname)
+bool	is_ambiguous(char **stash)
 {
-	return (ft_strchr(pathname, ' '));
+	return (ft_parrlen(stash));
 }
 
 void	restore_stdfd(int stdfd, t_node *node)

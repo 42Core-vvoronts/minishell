@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:23:38 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 12:37:46 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 04:21:07 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 static	bool	is_valid(char *pathname, t_node *node)
 {
-	if (is_ambiguous(pathname))
+	if (is_ambiguous(node->ctx->stash))
 	{
-		error(1, node->ctx, (t_m){node->left->token, strerror(errno)}); //exit(1): bash: $VAR: ambiguous redirect
+		error(1, node->ctx, (t_m){node->left->token, AMBIG_REDIR}); //exit(1): bash: $VAR: ambiguous redirect
+		ft_parrclean(&(node->ctx->stash));
 		return (false);
 	}
 	else if (is_exist(pathname) && !is_writable(pathname))

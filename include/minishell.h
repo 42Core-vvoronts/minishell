@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 01:05:51 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 04:13:20 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int		get_exitcode(pid_t pid);
 bool	is_exist(char *pathname);
 bool	is_executable(char *pathname);
 bool	is_pathname(char *cmd);
-bool	is_ambiguous(char *pathname);
+bool	is_ambiguous(char **stash);
 bool	is_readable(char *pathname);
 bool	is_writable(char *pathname);
 
