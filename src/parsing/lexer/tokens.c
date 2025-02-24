@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:21:51 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 17:26:55 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:02:19 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@
 t_tok	*init_token(char *start, int len, t_ctx *ctx)
 {
 	t_tok	*token;
-	
 
 	token = ft_calloc(1, sizeof(t_tok));
 	if (!token)
 		error(-1, ctx, (t_m){strerror(errno), NULL});
 	token->lexeme = ft_strndup(start, len);
+	if (!token->lexeme)
+		error(-1, ctx, (t_m){strerror(errno), NULL});
 	token->type = typify_token(token->lexeme);
 	token->next = NULL;
 	return token;

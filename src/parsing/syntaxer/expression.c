@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/18 12:33:33 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:54:30 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,15 @@ void collect_args(t_tok **tok, t_node *word, t_ctx *ctx)
 t_node	*create_word_node(t_tok **tok, t_ctx *ctx)
 {
 	t_node	*word;
+	char *test;
 
 	word = NULL;
 	if ((*tok) && is_word_token(*tok))
 	{
 		word = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL, ctx);
 		step_forward(tok);
+		test = expand(&(word->token), ctx);
+		printf("%s\n", test);
 		return word;
 	}
 	else

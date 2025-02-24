@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 17:51:23 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:10:34 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ void	set_exitcode(void *node, int code);
 int		eopen(char *pathname, int flags, int mode, t_node *node);
 void	edup2(int oldfd, int newfd, t_node *node);
 
+char	*expand(char **lexeme, t_ctx *ctx);
 char	**get_var(t_ctx *ctx, char *varname);
 char	*get_val(t_ctx *ctx, char *varname);
 void	add_var(t_node *node, char *str);
@@ -264,7 +265,6 @@ void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx
 void	tokenize_quotes(char **lexeme, t_ctx *ctx);
 void	single_string(char **end, t_ctx *ctx);
 void	double_string(char **end, t_ctx *ctx);
-
 void	skip_blanks(char **lexeme);
 
 t_tok	*init_token(char *start, int len, t_ctx *ctx);
