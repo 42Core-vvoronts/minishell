@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 04:43:07 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 08:25:17 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,13 @@ static	void	handle_shlvl(t_ctx *ctx)
 		lvlvar = get_val(ctx, "SHLVL");
 	ft_atoi(lvlvar, &lvl, sizeof(int), 10);
 	lvl++;
-	result = ft_strjoin("SHLVL=", ft_itoa(lvl));
+	lvlvar = ft_itoa(lvl);
+	if (!lvlvar)
+		error(-1, ctx, (t_m){strerror(errno)});
+	result = ft_strjoin("SHLVL=", lvlvar);
 	if (!result)
 		error(-1, ctx, (t_m){strerror(errno)});
+	free(lvlvar);
 	add_var(&node, result);
 	free(result);
 }

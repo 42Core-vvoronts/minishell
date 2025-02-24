@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:33:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 07:20:18 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 08:28:36 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,5 +239,6 @@ void	expand(char **lexeme, t_ctx *ctx)
 		free(result);
 		error(-1, ctx, (t_m){strerror(errno)});
 	}
+	free(result);
 	handle_wildcard(ctx->head, field);
 }
