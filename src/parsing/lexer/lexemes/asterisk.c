@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   blank.c                                            :+:      :+:    :+:   */
+/*   asterisk.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 19:11:12 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 09:56:20 by vvoronts         ###   ########.fr       */
+/*   Created: 2025/02/23 17:50:28 by vvoronts          #+#    #+#             */
+/*   Updated: 2025/02/23 18:36:46 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_blank(char *lexeme)
+bool	is_asterisk(char *lexeme)
 {
-	if (*lexeme && (is_eqlchar(*lexeme, ' ') || 
-		is_eqlchar(*lexeme, '\t') || is_eqlchar(*lexeme, '\n')))
+	if (lexeme && is_eqlchar(*lexeme, '*'))
 		return true;
 	return false;
-}
-
-void	skip_blanks(char **lexeme)
-{
-	while (is_blank(*lexeme))
-		(*lexeme)++;
 }

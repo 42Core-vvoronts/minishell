@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 13:01:21 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:38:38 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char	*get_cmdname(void *node);
 int		eopen(char *pathname, int flags, int mode, t_node *node);
 void	edup2(int oldfd, int newfd, t_node *node);
 
+char	*expand(char **lexeme, t_ctx *ctx);
 char	**get_var(t_ctx *ctx, char *varname);
 char	*get_val(t_ctx *ctx, char *varname);
 void	add_var(t_node *node, char *str);
@@ -191,12 +192,12 @@ void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx
 void	tokenize_quotes(char **lexeme, t_ctx *ctx);
 void	single_string(char **end, t_ctx *ctx);
 void	double_string(char **end, t_ctx *ctx);
-
 void	skip_blanks(char **lexeme);
 
 t_tok	*init_token(char *start, int len, t_ctx *ctx);
 t_type	typify_token(char *lexeme);
 void	add_token(t_tok *new, t_tok **head, t_tok **current);
+void	clean_tokens(t_tok **tokens);
 
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
@@ -204,6 +205,8 @@ bool	is_vertical_bar(char *lexeme);
 bool	is_less(char *lexeme);
 bool	is_greater(char *lexeme);
 bool	is_ampersand(char *lexeme);
+bool	is_asterisk(char *lexeme);
+bool	is_dollar(char *lexeme);
 bool	is_single_quote(char *lexeme);
 bool	is_double_quote(char *lexeme);
 bool	is_blank(char *lexeme);

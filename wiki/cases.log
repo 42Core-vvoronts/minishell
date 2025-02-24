@@ -26,3 +26,30 @@ cat other.file
 SUCCESS
 rm -rf new.file
 >other.file >other.file >new.file | <new.file echo FAIL_IF_NOT_ERROR
+
+'"|"'   
+> "|": command not found
+
+"'|'"
+> '|': command not found
+
+"'"|"'"
+': command not found
+> ': command not found
+
+'"'|'"'  
+> ": command not found
+> ": command not found
+
+"'$USER'"
+> 'vicxptrv': command not found
+
+"ls$USER'LITERAL*'"$USER'aaa'
+> lsvicxptrv'LITERAL*'vicxptrvaaa: command not found
+
+"ls$USER'LITERAL*'plain*****"$USER'aaa'
+> lsvicxptrv'LITERAL*'plain*****vicxptrvaaa: command not found
+
+export VAR="blank      blank"
+echo $VAR
+> blank blank
