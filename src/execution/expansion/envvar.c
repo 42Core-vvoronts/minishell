@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 05:53:35 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 19:00:40 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 19:47:49 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	*get_val_exitcode(t_ctx *ctx)
 		error(-1, ctx, (t_m){strerror(errno)});
 	ft_strlcpy(code, code_alloc, sizeof(code_alloc));
 	free(code_alloc);
-	printf("code: %s\n", code);
 	return (code);
 }
 

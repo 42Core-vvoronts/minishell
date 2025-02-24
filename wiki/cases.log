@@ -57,3 +57,25 @@ export VAR="blank      blank"
 echo $VAR
 > blank blank
 
+
+$?
+> 127: command not found
+
+"$?"
+> 127: command not found
+
+'$?'
+> $?: command not found
+
+$nonexist
+> 
+> 0
+
+$nonexist$?
+> 0: command not found (random last exitcode)
+
+$USER$?
+> vicxptrv127: command not found (random last exitcode)
+
+$USER$?aboba
+vicxptrv127aboba: command not found (random last exitcode)

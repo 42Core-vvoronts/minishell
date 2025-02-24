@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:33:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 19:05:39 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 19:41:02 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char	*handle_variable(char **end, t_ctx *ctx)
 	if (is_queston(*end))
 	{
 		value = get_val_exitcode(ctx);
-		(*end)++;
 		(*end)++;
 	}
 	else
