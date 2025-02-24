@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:33:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 08:28:36 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 18:01:05 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	double_chunk(char **end, char **result, t_ctx *ctx);
-void	single_chunk(char **end, char **result, t_ctx *ctx);
-void	plain_chunk(char **end, char **result, t_ctx *ctx);
-char	*handle_variable(char **end, t_ctx *ctx);
-bool	is_valid_var_char(char *c);
-bool	is_plain(char *c);
-
-bool	is_valid_var_char(char *c)
+bool	is_valid_varname(char *c)
 {
 	return (ft_isalnum(*c) || is_eqlchar(*c, '_'));
 }
@@ -67,7 +60,7 @@ char	*handle_variable(char **end, t_ctx *ctx)
 
 	(*end)++;
 	start = *end;
-	while (**end && is_valid_var_char(*end))
+	while (**end && is_valid_varname(*end))
 		(*end)++;
 	if (*end - start == 0)
 		value = "$";
@@ -203,17 +196,17 @@ void	plain_chunk(char **end, char **result, t_ctx *ctx)
 }
 
 
-// /**
-//  * @brief Process the ARGUMENT, CONTEN and FILENAME nodes content
-//  *
-//  * @param lexeme content of the node
-//  * @param ctx pointer to context of programm to cleanup
-//  *
-//  * Handle the expansion of variables and preparing wildcard expansion
-//  * depending on quotation of string
-//  *
-//  * @return result string with expanded variables and trimmed quotes when nessesary
-//  */
+/**
+ * @brief Process the ARGUMENT and FILENAME nodes content
+ *
+ * @param lexeme content of the node
+ * @param ctx pointer to context of programm to cleanup
+ *
+ * Handle the expansion of variables and preparing wildcard expansion
+ * depending on quotation of string
+ *
+ * @return result string with expanded variables and trimmed quotes when nessesary
+ */
 void	expand(char **lexeme, t_ctx *ctx)
 {
 	char	*result;
@@ -241,4 +234,47 @@ void	expand(char **lexeme, t_ctx *ctx)
 	}
 	free(result);
 	handle_wildcard(ctx->head, field);
+}
+
+/**
+ * @brief Process heredoc content
+ *
+ * @param content pointer to the start character of heredoc content
+ * @param ctx pointer to context of programm to cleanup
+ *
+ * @return result string with expanded variables
+ * 
+ */
+char	*expand_heredoc(char **content, t_ctx *ctx)
+{
+	char	*value;
+	char	*start;
+	char	*result;
+	char	*end;
+
+	result = malloc(sizeof(char));
+	if (!result)
+		error(-1, ctx, (t_m){strerror(errno)});
+	end = *content;
+	*result = '\0';
+	while (*end)
+	{
+		if (is_dollar(end))
+		{
+			value = handle_variable(&end, ctx);
+			if (value)
+				ft_strnjoin(&result, value, ft_strlen(value), ctx);
+		}
+		else if (*end && !is_dollar(end))
+		{
+			start = end;
+			while (*end && !is_dollar(end))
+				end++;
+			ft_strnjoin(&result, start, end - start, ctx);	
+		}
+	}
+	if (result)
+		ft_strnjoin(&result, "\0", 1, ctx);
+	printf("result: %s\n", result);
+	return (result);
 }

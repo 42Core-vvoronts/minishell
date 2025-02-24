@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 16:44:47 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:06:32 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,19 @@ typedef struct s_pipe
 	int write;
 } t_pipe;
 
+void	expand(char **lexeme, t_ctx *ctx);
+void	double_chunk(char **end, char **result, t_ctx *ctx);
+void	single_chunk(char **end, char **result, t_ctx *ctx);
+void	plain_chunk(char **end, char **result, t_ctx *ctx);
+char	*expand_heredoc(char **content, t_ctx *ctx);
+char	*handle_variable(char **end, t_ctx *ctx);
+bool	is_valid_varname(char *c);
+bool	is_plain(char *c);
+
 bool	is_directory(char *pathname);
 void	handle_wildcard(t_node *node, char **input);
-void	expand(char **lexeme, t_ctx *ctx);
 bool	contain_wildcard(char *str);
-void expand_wildcard(t_node *node, char *pattern);
+void	expand_wildcard(t_node *node, char *pattern);
 void	setup_signals(int mode, void *ctx);
 void	restore_stdfd(int stdfd, t_node *node);
 void	process_filename(t_node *node);
