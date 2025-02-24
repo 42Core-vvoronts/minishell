@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:24 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 09:46:45 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 10:30:32 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,26 @@
 
 bool	is_single_quote(char *lexeme)
 {
-    if (lexeme && is_eqlchar(*lexeme, '\''))
-        return true;
-    return false;
+	if (lexeme && is_eqlchar(*lexeme, '\''))
+		return true;
+	return false;
 }
 
 bool	is_double_quote(char *lexeme)
 {
-    if (lexeme && is_eqlchar(*lexeme, '\"'))
-        return true;
-    return false;
+	if (lexeme && is_eqlchar(*lexeme, '\"'))
+		return true;
+	return false;
 }
 
 void	single_string(char **end, t_ctx *ctx)
 {
 	while (**end && !is_single_quote(*end))
+	{
 		(*end)++;
+		if (is_double_quote(*end-1))
+			double_string(end, ctx);
+	}
 	if (is_single_quote(*end))
 		(*end)++;
 	else
@@ -39,7 +43,11 @@ void	single_string(char **end, t_ctx *ctx)
 void	double_string(char **end, t_ctx *ctx)
 {
 	while (**end && !is_double_quote(*end))
+	{
 		(*end)++;
+		if (is_single_quote(*end-1))
+			single_string(end, ctx);
+	}
 	if (is_double_quote(*end))
 		(*end)++;
 	else

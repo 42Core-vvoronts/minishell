@@ -6,24 +6,11 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 14:05:19 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:27:04 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void clean(t_tok **tokens)
-{
-	t_tok *tmp;
-
-	while (*tokens)
-	{
-		tmp = *tokens;
-		*tokens = (*tokens)->next;
-		free(tmp->lexeme);
-		free(tmp);
-	}
-}
 
 /**
  * @brief tokenizes the statement and check lexemes validity
@@ -48,7 +35,7 @@ t_tok *lexer(char *statement, t_ctx *ctx)
 		tokenize_operators(&statement, &tokens, &current, ctx);
 		if (current == NULL)
 		{
-			clean(&tokens);
+			clean_tokens(&tokens);
 			return (current);
 		}
     }
