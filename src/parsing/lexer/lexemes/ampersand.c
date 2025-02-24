@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:59:49 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/15 09:07:41 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:32:42 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *c
 	end = start;
 	new = NULL;
 	if (!is_ampersand(end + 1))
+	{
 		error(2, ctx, (t_m){"syntax error near unexpected token", end+1});
+		ctx->panic = true;
+		return ;
+	}
 	end++;
 	new = init_token(start, end - start + 1, ctx);
 	add_token(new, tokens, current);
@@ -37,5 +41,6 @@ void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *c
 	if (is_operator(*lexeme))
 	{
 		error(2, ctx, (t_m){"syntax error near unexpected token", *lexeme});
+		ctx->panic = true;
 	}
 }

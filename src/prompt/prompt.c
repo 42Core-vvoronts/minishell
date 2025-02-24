@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 08:25:17 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 16:45:17 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	prompt(int argc, char **argv, char **envp)
 
 	handle_shlvl(ctx);
 	g_signal = SIGNO;
-	char prompt[] = "bash-5.2$ ";
+	char prompt[] = "minishell$ ";
     while (true)
     {
 		setup_signals(IS_PROMPT, ctx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 08:19:23 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 17:06:32 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@
 # include <ctype.h>
 # include <signal.h>
 # include <fcntl.h>
-# include <signal.h>
-# include <fcntl.h>
 # include <string.h>
 # include <stdbool.h>
 # include <dirent.h>
-# include <string.h>    // strlen
-# include <stdlib.h>    // exit
-# include <unistd.h>    // syscalls
+# include <stdlib.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 #include <sys/stat.h>
@@ -91,6 +88,8 @@ typedef struct s_ctx
 	char			*ttyname;
 	int				exitcode;
 	struct s_node	*head;
+	struct s_tok	*headtok;
+	bool			panic;
 } t_ctx;
 
 typedef struct s_node
@@ -102,12 +101,6 @@ typedef struct s_node
 	struct s_node	*right;
 } t_node;
 
-typedef struct s_pipe
-{
-	int read;
-	int write;
-} t_pipe;
-
 typedef struct s_tok
 {
 	t_type			type;
@@ -115,11 +108,25 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
+typedef struct s_pipe
+{
+	int read;
+	int write;
+} t_pipe;
+
+void	expand(char **lexeme, t_ctx *ctx);
+void	double_chunk(char **end, char **result, t_ctx *ctx);
+void	single_chunk(char **end, char **result, t_ctx *ctx);
+void	plain_chunk(char **end, char **result, t_ctx *ctx);
+char	*expand_heredoc(char **content, t_ctx *ctx);
+char	*handle_variable(char **end, t_ctx *ctx);
+bool	is_valid_varname(char *c);
+bool	is_plain(char *c);
+
 bool	is_directory(char *pathname);
 void	handle_wildcard(t_node *node, char **input);
-void	expand(char **lexeme, t_ctx *ctx);
 bool	contain_wildcard(char *str);
-void expand_wildcard(t_node *node, char *pattern);
+void	expand_wildcard(t_node *node, char *pattern);
 void	setup_signals(int mode, void *ctx);
 void	restore_stdfd(int stdfd, t_node *node);
 void	process_filename(t_node *node);
@@ -201,7 +208,6 @@ void	skip_blanks(char **lexeme);
 t_tok	*init_token(char *start, int len, t_ctx *ctx);
 t_type	typify_token(char *lexeme);
 void	add_token(t_tok *new, t_tok **head, t_tok **current);
-void	clean_tokens(t_tok **tokens);
 
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
@@ -238,11 +244,14 @@ bool	is_redir(t_tok *tok);
 bool	is_word_token(t_tok *tok);
 
 void	step_forward(t_tok **tok);
-//init
+
+// -- INIT --
 t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
 
-// errors
-void	*error_exit(char *msg);
+// -- CLEAN --
+void	clean_tokens(t_tok **tokens);
+void	clean_tree(t_node *node);
+
 // -- PRINTER --
 void print_tokens(t_tok *tokens);
 void print_node(t_node *ast, int depth);

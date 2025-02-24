@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 11:22:04 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:04:32 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,18 @@ t_node	*create_tree(t_tok **tok, int precedence, t_ctx *ctx)
  * 
  * @return pointer to the root node of the tree
  */
-t_node *syntaxer(t_tok *tokens, t_ctx *ctx)
+t_node	*syntaxer(t_tok *tokens, t_ctx *ctx)
 {
-	t_node *ast;
+	t_node	*ast;
 
-	ast = NULL;
 	if (tokens)
 		ast = parse_list(&tokens, ctx);
+	if (tokens)
+	{
+		error(2, ctx, (t_m){"syntax error near unexpected token", tokens->lexeme});
+		clean_tree(ast);
+		return (NULL);
+	}
+	ctx->head = ast;
 	return (ast);
 }
