@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 03:35:25 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 03:51:44 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static size_t	get_len_bare_delim(char *delim)
 	}
 	return (len);
 }
+
 //returns false if delim invalid
 //puts delimed cleaned of quotes into char **delim
 //if there were quotes puts true into bool *quotes
@@ -93,6 +94,8 @@ static bool	get_valid_delim(char **delim, t_ctx *ctx, t_tok **current, bool *quo
 	}
 	*quotes = get_quotes_ctx(*delim);
 	new_delim = ft_calloc(get_len_bare_delim(*delim) + 1, sizeof(char)); //check for fail
+	if (!new_delim)
+		error(-1, ctx, (t_m){strerror(errno)});
 	i = 0;
 	j = 0;
 	while ((*delim)[i])
@@ -138,8 +141,8 @@ static void	attach_token(char	*content, t_ctx *ctx, t_tok **tokens, t_tok **curr
 	add_token(new, tokens, current);
 }
 
-//flag that quotes here
-static	char	*add_quotes_flag(char *content, t_ctx *ctx)
+//add char = 1 as the first character if we need to expand content
+static	char	*add_expand_flag(char *content, t_ctx *ctx)
 {
 	char	*q_content;
 	size_t	i;
@@ -181,8 +184,8 @@ static void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **cu
 			break ;
 		content = ft_strjoin_nl(content, line, ctx);
 	}
-	if (quotes == true)
-		content = add_quotes_flag(content, ctx);
+	if (quotes == false)
+		content = add_expand_flag(content, ctx);
 	attach_token(content, ctx, tokens, current);
 }
 
