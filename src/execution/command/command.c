@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:07:37 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 06:59:31 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 09:27:19 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ static	bool	run_builtin(t_node *node)
 
 void	run_cmd(t_node *node)
 {
+	if (!node->ctx->stash)
+	{
+		node->ctx->exitcode = 0;
+		return ;
+	}
 	if (run_builtin(node))
 		;
 	else
