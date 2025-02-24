@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 11:10:21 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 18:43:21 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void	edup2(int oldfd, int newfd, t_node *node);
 
 char	**get_var(t_ctx *ctx, char *varname);
 char	*get_val(t_ctx *ctx, char *varname);
+char	*get_val_exitcode(t_ctx *ctx);
 void	add_var(t_node *node, char *str);
 int		init_ctx(t_ctx **ctx, char **envp);
 

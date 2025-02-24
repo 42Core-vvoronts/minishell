@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 05:53:35 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 10:33:44 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 19:00:40 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,25 @@ char **get_var(t_ctx *ctx, char *varname)
 char *get_val(t_ctx *ctx, char *varname)
 {
 	char	**var;
-	char	*code;
 
-	if (*varname == '?')
-	{
-		code = ft_itoa(ctx->exitcode);
-		if (!code)
-			error(-1, ctx, (t_m){strerror(errno)});
-		return (code);
-	}
 	var = get_var(ctx, varname);
 	if (var)
 		return (*var + (ft_strchr(*var, '=') - *var + 1));
 	return (NULL);
+}
+
+char	*get_val_exitcode(t_ctx *ctx)
+{
+	char	*code_alloc;
+	static char	code[12];
+	
+	code_alloc = ft_itoa(ctx->exitcode);
+	if (!code_alloc)
+		error(-1, ctx, (t_m){strerror(errno)});
+	ft_strlcpy(code, code_alloc, sizeof(code_alloc));
+	free(code_alloc);
+	printf("code: %s\n", code);
+	return (code);
 }
 
 static void	add_new(t_node *node, char *var)

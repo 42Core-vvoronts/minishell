@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:33:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 11:10:02 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 19:05:39 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ bool	is_valid_varname(char *c)
 bool	is_plain(char *c)
 {
 	return (!is_single_quote(c) && !is_double_quote(c) && !is_dollar(c) && !is_asterisk(c));
+}
+
+bool is_queston(char *c)
+{
+	return (*c == '?');
 }
 
 void	ft_strnjoin(char **result, char *str, size_t len, t_ctx *ctx)
@@ -41,6 +46,12 @@ void	ft_strnjoin(char **result, char *str, size_t len, t_ctx *ctx)
 	free(tmp);
 	*result = mem;
 }
+// 
+// after expand ? clean get_val
+// $? -> get_val
+// echo $ prints $
+// $? $?jfhkjfhkj
+// empty string and null return but not if variable nonexist 
 
 /**
  * @brief Get the value of the variable
@@ -60,18 +71,26 @@ char	*handle_variable(char **end, t_ctx *ctx)
 
 	(*end)++;
 	start = *end;
-	while (**end && is_valid_varname(*end))
+	if (is_queston(*end))
+	{
+		value = get_val_exitcode(ctx);
 		(*end)++;
-	if (*end - start == 0)
-		value = "$";
-	//specific handle of $?
+		(*end)++;
+	}
 	else
 	{
-		varname = ft_strndup(start, *end - start);
-		if (!varname)
-			error(-1, ctx, (t_m){strerror(errno)});
-		value = get_val(ctx, varname);
-		free (varname);
+		while (**end && is_valid_varname(*end))
+			(*end)++;
+		if (*end - start == 0)
+			value = "$";
+		else
+		{
+			varname = ft_strndup(start, *end - start);
+			if (!varname)
+				error(-1, ctx, (t_m){strerror(errno)});
+			value = get_val(ctx, varname);
+			free (varname);
+		}
 	}
 	return (value);
 }
