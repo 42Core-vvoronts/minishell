@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/23 11:22:04 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 14:04:25 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,10 @@ t_node *syntaxer(t_tok *tokens, t_ctx *ctx)
 	ast = NULL;
 	if (tokens)
 		ast = parse_list(&tokens, ctx);
+	if (tokens)
+	{
+		error(2, ctx, (t_m){"syntax error near unexpected token", tokens->lexeme});
+		ast = NULL;
+	}
 	return (ast);
 }

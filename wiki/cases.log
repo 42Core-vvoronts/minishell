@@ -3,15 +3,6 @@ ls "|" cat
 
 max args: $ getconf ARG_MAX 2097152
 
-$ ls "/"'h''o''m'"'e'"
-ls: cannot access "/hom'e'": No such file or directory
-
-
-rponomar@z2t14c2:~$ echo A && (echo B || echo C) echo F)
-bash: syntax error near unexpected token `echo'
-rponomar@z2t14c2:~$ echo $?
-2
-
 $NONEXIST | $EMPTY && $BLANC || $NONEXIST && ""
 $NONEXIST - there is no such var
 $EMPTY : export EMPTY=
@@ -26,6 +17,18 @@ cat other.file
 SUCCESS
 rm -rf new.file
 >other.file >other.file >new.file | <new.file echo FAIL_IF_NOT_ERROR
+
+
+$ ls "/"'h''o''m'"'e'"
+> ls: cannot access "/hom'e'": No such file or directory
+
+echo A && (echo B || echo C) echo F)
+> bash: syntax error near unexpected token `echo'
+echo $?
+2
+
+ls|(cat)
+> OK
 
 '"|"'   
 > "|": command not found
@@ -53,3 +56,4 @@ rm -rf new.file
 export VAR="blank      blank"
 echo $VAR
 > blank blank
+
