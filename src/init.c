@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/15 11:38:53 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:19:41 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,14 @@ int	init_ctx(t_ctx **ctx, char **envp)
 	*ctx = ft_calloc(1, sizeof(t_ctx));
 	if (!*ctx)
 		error(-1, NULL, (t_m){strerror(errno), NULL});
+	(*ctx)->envp = NULL;
+	(*ctx)->export = NULL;
+	(*ctx)->stash = NULL;
 	(*ctx)->ttyname = ttyname(STDIN_FILENO);
 	(*ctx)->exitcode = EXIT_SUCCESS;
+	(*ctx)->head = NULL;
+	(*ctx)->headtok = NULL;
+	(*ctx)->panic = false;
 	init_envp(*ctx, envp);
 	return (SUCCESS);
 }
@@ -85,15 +91,27 @@ t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx 
     return node;
 }
 
-// t_tok	*init_token(char *lexeme)
-// {
-// 	t_tok	*token;
+/**
+ * @brief Init a new token node
+ *
+ * @param start The start character of the lexeme
+ * @param len The length of the lexeme
+ * @param ctx The context
 
-// 	token = ft_calloc(1, sizeof(t_tok));
-// 	if (!token)
-// 		error(NULL, NONE, MALLOC_FAIL, true);
-// 	token->lexeme = lexeme;
-// 	token->type = typify(lexeme);
-// 	token->next = NULL;
-// 	return token;
-// }
+ * @return pointer to the new node
+ * 
+ */
+t_tok	*init_token(char *start, int len, t_ctx *ctx)
+{
+	t_tok	*token;
+
+	token = ft_calloc(1, sizeof(t_tok));
+	if (!token)
+		error(-1, ctx, (t_m){strerror(errno), NULL});
+	token->lexeme = ft_strndup(start, len);
+	if (!token->lexeme)
+		error(-1, ctx, (t_m){strerror(errno), NULL});
+	token->type = typify_token(token->lexeme);
+	token->next = NULL;
+	return token;
+}

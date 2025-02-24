@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 13:38:38 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:18:33 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@
 # include <ctype.h>
 # include <signal.h>
 # include <fcntl.h>
-# include <signal.h>
-# include <fcntl.h>
 # include <string.h>
 # include <stdbool.h>
 # include <dirent.h>
-# include <string.h>    // strlen
-# include <stdlib.h>    // exit
-# include <unistd.h>    // syscalls
+# include <stdlib.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -89,6 +86,8 @@ typedef struct s_ctx
 	char			*ttyname;
 	int				exitcode;
 	struct s_node	*head;
+	struct s_tok	*headtok;
+	bool			panic;
 } t_ctx;
 
 typedef struct s_node
@@ -100,18 +99,18 @@ typedef struct s_node
 	struct s_node	*right;
 } t_node;
 
-typedef struct s_pipe
-{
-	int read;
-	int write;
-} t_pipe;
-
 typedef struct s_tok
 {
 	t_type			type;
 	char			*lexeme;
 	struct s_tok	*next;
 } t_tok;
+
+typedef struct s_pipe
+{
+	int read;
+	int write;
+} t_pipe;
 
 bool	contain_wildcard(char *str);
 char	**expand_wildcard(t_node *node);
@@ -197,7 +196,6 @@ void	skip_blanks(char **lexeme);
 t_tok	*init_token(char *start, int len, t_ctx *ctx);
 t_type	typify_token(char *lexeme);
 void	add_token(t_tok *new, t_tok **head, t_tok **current);
-void	clean_tokens(t_tok **tokens);
 
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
@@ -234,11 +232,14 @@ bool	is_redir(t_tok *tok);
 bool	is_word_token(t_tok *tok);
 
 void	step_forward(t_tok **tok);
-//init
+
+// -- INIT --
 t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
 
-// errors
-void	*error_exit(char *msg);
+// -- CLEAN --
+void	clean_tokens(t_tok **tokens);
+void	clean_tree(t_node *node);
+
 // -- PRINTER --
 void print_tokens(t_tok *tokens);
 void print_node(t_node *ast, int depth);
