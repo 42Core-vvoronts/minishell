@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/02/24 04:13:20 by ipetrov          ###   ########.fr       */
-=======
-/*   Updated: 2025/02/24 13:38:38 by vvoronts         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2025/02/24 08:19:23 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +30,7 @@
 # include <unistd.h>    // syscalls
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <sys/stat.h>
 
 # define REDIR_FAIL 1
 # define STACK_SIZE 256
@@ -75,6 +72,7 @@ typedef enum e_sigset
 # define TOO_MANY_ARG "too many arguments"
 # define CD_OLDPWD "OLDPWD not set"
 # define CD_HOME "HOME not set"
+# define IS_DIR "Is a directory"
 # define SYNTAX_ERROR "syntax error near unexpected token" //syntax error near unexpected token `('
 
 #define EXIT "exit"
@@ -117,8 +115,11 @@ typedef struct s_tok
 	struct s_tok	*next;
 } t_tok;
 
+bool	is_directory(char *pathname);
+void	handle_wildcard(t_node *node, char **input);
+void	expand(char **lexeme, t_ctx *ctx);
 bool	contain_wildcard(char *str);
-char	**expand_wildcard(t_node *node);
+void expand_wildcard(t_node *node, char *pattern);
 void	setup_signals(int mode, void *ctx);
 void	restore_stdfd(int stdfd, t_node *node);
 void	process_filename(t_node *node);
@@ -129,7 +130,6 @@ char	*get_cmdname(void *node);
 int		eopen(char *pathname, int flags, int mode, t_node *node);
 void	edup2(int oldfd, int newfd, t_node *node);
 
-char	*expand(char **lexeme, t_ctx *ctx);
 char	**get_var(t_ctx *ctx, char *varname);
 char	*get_val(t_ctx *ctx, char *varname);
 void	add_var(t_node *node, char *str);

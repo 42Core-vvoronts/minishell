@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:07:37 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/15 11:38:42 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 06:59:31 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static	bool	run_builtin(t_node *node)
 
 void	run_cmd(t_node *node)
 {
-	prepare_argv(node);
 	if (run_builtin(node))
 		;
 	else

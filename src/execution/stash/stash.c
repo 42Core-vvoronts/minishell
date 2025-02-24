@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:19:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 05:13:58 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 07:54:37 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@ char	*pop_stash(t_node *node)
 	char **result;
 	char *arg;
 
+	if (!node->ctx->stash)
+		return (NULL);
 	i = ft_parrlen(node->ctx->stash);
 	result = ft_calloc(i, sizeof(char *));
 	if (!result)
 		error(-1, node->ctx, (t_m){strerror(errno)});
 	i = 0;
-	while (node->ctx->stash && (node->ctx->stash)[i + 1])
+	while ((node->ctx->stash)[i + 1])
 	{
 		result[i] = (node->ctx->stash)[i];
 		i++;

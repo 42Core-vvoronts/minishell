@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:33:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 13:27:48 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 07:20:18 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	ft_strnjoin(char **result, char *str, size_t len, t_ctx *ctx)
  *
  * @param end pointer to the current character of string
  * @param ctx pointer to context of programm to cleanup
- * 
+ *
  * @return value of the variable
- * 
+ *
  * @note Moves end pointer to the end of the chunk
  */
 char	*handle_variable(char **end, t_ctx *ctx)
@@ -89,7 +89,7 @@ char	*handle_variable(char **end, t_ctx *ctx)
  * @param end pointer to the current character of string
  * @param result pointer to the result string
  * @param ctx pointer to context of programm to cleanup
- * 
+ *
  * @note Moves end pointer to the end of the chunk, adds chunk to result string
  */
 void	single_chunk(char **end, char **result, t_ctx *ctx)
@@ -115,7 +115,7 @@ void	single_chunk(char **end, char **result, t_ctx *ctx)
  * @param end pointer to the current character of string
  * @param result pointer to the result string
  * @param ctx pointer to context of programm to cleanup
- * 
+ *
  * @note Moves end pointer to the end of the chunk, adds chunk to result string
  */
 void	double_chunk(char **end, char **result, t_ctx *ctx)
@@ -131,7 +131,8 @@ void	double_chunk(char **end, char **result, t_ctx *ctx)
 		if (is_dollar(*end))
 		{
 			value = handle_variable(end, ctx);
-			ft_strnjoin(result, value, ft_strlen(value), ctx);
+			if (value)
+				ft_strnjoin(result, value, ft_strlen(value), ctx);
 		}
 		else if (!is_double_quote(*end))
 		{
@@ -156,7 +157,7 @@ void	double_chunk(char **end, char **result, t_ctx *ctx)
  * @param end pointer to the current character of string
  * @param result pointer to the result string
  * @param ctx pointer to context of programm to cleanup
- * 
+ *
  * @note Moves end pointer to the end of the chunk, adds chunk to result string
  */
 void	plain_chunk(char **end, char **result, t_ctx *ctx)
@@ -173,13 +174,17 @@ void	plain_chunk(char **end, char **result, t_ctx *ctx)
 		if (is_dollar(*end))
 		{
 			value = handle_variable(end, ctx);
-			while (*tmp)
+			if (value)
 			{
-				if (is_blank(tmp))
-					*tmp = blank;
-				tmp++;
+				tmp = value;
+				while (*tmp)
+				{
+					if (is_blank(tmp))
+						*tmp = blank;
+					tmp++;
+				}
+				ft_strnjoin(result, value, ft_strlen(value), ctx);
 			}
-			ft_strnjoin(result, value, ft_strlen(value), ctx);
 		}
 		if (is_asterisk(*end))
 		{
@@ -194,23 +199,25 @@ void	plain_chunk(char **end, char **result, t_ctx *ctx)
 				(*end)++;
 			ft_strnjoin(result, start, *end - start, ctx);
 		}
-	}	
+	}
 }
 
-/**
- * @brief Process the ARGUMENT, CONTEN and FILENAME nodes content
- *
- * @param lexeme content of the node
- * @param ctx pointer to context of programm to cleanup
- * 
- * Handle the expansion of variables and preparing wildcard expansion 
- * depending on quotation of string
- * 
- * @return result string with expanded variables and trimmed quotes when nessesary
- */
-char	*expand(char **lexeme, t_ctx *ctx)
+
+// /**
+//  * @brief Process the ARGUMENT, CONTEN and FILENAME nodes content
+//  *
+//  * @param lexeme content of the node
+//  * @param ctx pointer to context of programm to cleanup
+//  *
+//  * Handle the expansion of variables and preparing wildcard expansion
+//  * depending on quotation of string
+//  *
+//  * @return result string with expanded variables and trimmed quotes when nessesary
+//  */
+void	expand(char **lexeme, t_ctx *ctx)
 {
 	char	*result;
+	char	**field;
 	char	*end;
 
 	result = malloc(sizeof(char));
@@ -224,9 +231,13 @@ char	*expand(char **lexeme, t_ctx *ctx)
 		single_chunk(&end, &result, ctx);
 		plain_chunk(&end, &result, ctx);
 	}
-	// free(lexeme);
-	// printf("%s", result);
 	if (result)
 		ft_strnjoin(&result, "\0", 1, ctx);
-	return (result);
+	field = ft_split(result, 4);
+	if (!field)
+	{
+		free(result);
+		error(-1, ctx, (t_m){strerror(errno)});
+	}
+	handle_wildcard(ctx->head, field);
 }

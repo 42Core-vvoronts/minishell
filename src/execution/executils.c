@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 04:21:03 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 08:05:19 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ bool	is_readable(char *pathname)
 bool	is_writable(char *pathname)
 {
 	return (!access(pathname, W_OK));
+}
+
+bool	is_directory(char *pathname)
+{
+	struct stat info;
+
+    stat(pathname, &info);
+    return S_ISDIR(info.st_mode);
 }
 
 bool is_executable(char *pathname)

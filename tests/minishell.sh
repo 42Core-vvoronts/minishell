@@ -64,13 +64,13 @@ if [ "$1" == "-v" ]; then
 		--track-fds=yes \
 		--leak-check=full \
 		--show-leak-kinds=all \
-		--error-limit=no \
 		--log-file=valgrind.log \
+		--error-limit=no \
 		--suppressions=valgrind.supp \
 		"
 		# --gen-suppressions=all \
 	echo -e "${BLUE}\n---- Minishell ----\n${RESET}"
-	sudo valgrind $VALGRIND_FLAGS ../minishell
+	valgrind $VALGRIND_FLAGS ../minishell
 else
 	echo -e "${BLUE}\n---- Minishell ----\n${RESET}"
 	../minishell
