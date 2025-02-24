@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:33:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 18:01:05 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:10:02 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ void	expand(char **lexeme, t_ctx *ctx)
  * @param ctx pointer to context of programm to cleanup
  *
  * @return result string with expanded variables
- * 
+ *
  */
 char	*expand_heredoc(char **content, t_ctx *ctx)
 {
@@ -270,11 +270,10 @@ char	*expand_heredoc(char **content, t_ctx *ctx)
 			start = end;
 			while (*end && !is_dollar(end))
 				end++;
-			ft_strnjoin(&result, start, end - start, ctx);	
+			ft_strnjoin(&result, start, end - start, ctx);
 		}
 	}
 	if (result)
 		ft_strnjoin(&result, "\0", 1, ctx);
-	printf("result: %s\n", result);
 	return (result);
 }

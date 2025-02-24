@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 05:53:35 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/23 12:56:37 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/24 10:33:44 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static void	add_new(t_node *node, char *var)
 }
 
 //add variable to envp
-//it replace duplicate or creates new
+//it replaces duplicate or creates new
 //it mallocs char *str
 void	add_var(t_node *node, char *str)
 {
