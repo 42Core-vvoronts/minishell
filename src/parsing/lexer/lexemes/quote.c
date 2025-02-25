@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:24 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 15:23:05 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:03:06 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	single_string(char **end, t_ctx *ctx)
 	else
 	{
 		error(2, ctx, (t_m){"Expected", "\'"});
-		ctx->panic = true;
 	}
 }
 
@@ -48,7 +47,6 @@ void	double_string(char **end, t_ctx *ctx)
 	else
 	{
 		error(2, ctx, (t_m){"Expected", "\""});
-		ctx->panic = true;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:14:37 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 10:34:40 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:10:34 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,17 @@
 void	double_chunk(char **end, char **result, t_ctx *ctx)
 {
 	char	*start;
-
+	
 	if (!is_double_quote(*end))
 		return ;
 	(*end)++;
-	while (**end && !is_double_quote(*end))
+	while (**end)
 	{
+		if (is_double_quote(*end) && is_double_quote(*end - 1))
+		{
+			ft_strnjoin(result, "\x1D", 1, ctx);
+			break ;
+		}
 		if (is_dollar(*end))
 			expand_variable(end, ctx, result);
 		else if (!is_double_quote(*end))
@@ -38,6 +43,7 @@ void	double_chunk(char **end, char **result, t_ctx *ctx)
 			while (*end && !is_double_quote(*end) && !is_dollar(*end))
 				(*end)++;
 			ft_strnjoin(result, start, *end - start, ctx);
+				
 		}
 		else if (is_double_quote(*end))
 		{

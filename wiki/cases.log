@@ -87,3 +87,16 @@ $nonexist
 " "
 > : command not found
 > 127
+
+""$nonexist
+> Command '' not found
+
+
+$nonexist
+p result hex ""
+p field char ** hex
+p *field 0x0
+
+""
+p result
+""
