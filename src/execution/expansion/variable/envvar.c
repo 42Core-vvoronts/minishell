@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envvar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 05:53:35 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 10:33:44 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 10:10:59 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,7 @@ char **get_var(t_ctx *ctx, char *varname)
 char *get_val(t_ctx *ctx, char *varname)
 {
 	char	**var;
-	char	*code;
 
-	if (*varname == '?')
-	{
-		code = ft_itoa(ctx->exitcode);
-		if (!code)
-			error(-1, ctx, (t_m){strerror(errno)});
-		return (code);
-	}
 	var = get_var(ctx, varname);
 	if (var)
 		return (*var + (ft_strchr(*var, '=') - *var + 1));

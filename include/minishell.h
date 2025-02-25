@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 11:10:21 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 10:22:10 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,11 @@ typedef struct s_pipe
 } t_pipe;
 
 void	expand(char **lexeme, t_ctx *ctx);
+char	*expand_heredoc(char **content, t_ctx *ctx);
+void	ft_strnjoin(char **result, char *str, size_t len, t_ctx *ctx);
 void	double_chunk(char **end, char **result, t_ctx *ctx);
 void	single_chunk(char **end, char **result, t_ctx *ctx);
 void	plain_chunk(char **end, char **result, t_ctx *ctx);
-char	*expand_heredoc(char **content, t_ctx *ctx);
 char	*handle_variable(char **end, t_ctx *ctx);
 bool	is_valid_varname(char *c);
 bool	is_plain(char *c);
@@ -139,6 +140,7 @@ void	edup2(int oldfd, int newfd, t_node *node);
 
 char	**get_var(t_ctx *ctx, char *varname);
 char	*get_val(t_ctx *ctx, char *varname);
+char	*get_val_exitcode(t_ctx *ctx);
 void	add_var(t_node *node, char *str);
 int		init_ctx(t_ctx **ctx, char **envp);
 
@@ -208,7 +210,7 @@ void	skip_blanks(char **lexeme);
 t_tok	*init_token(char *start, int len, t_ctx *ctx);
 t_type	typify_token(char *lexeme);
 void	add_token(t_tok *new, t_tok **head, t_tok **current);
-
+// lexemes
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
 bool	is_vertical_bar(char *lexeme);
@@ -223,6 +225,7 @@ bool	is_blank(char *lexeme);
 bool	is_character(char *lexeme);
 bool	is_word_lexeme(char *lexeme);
 bool	is_operator(char *lexeme);
+bool	is_queston(char *c);
 
 // -- SYNTAXER --
 t_node	*syntaxer(t_tok *tok, t_ctx *ctx);

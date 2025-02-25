@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/24 11:37:31 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/25 03:36:21 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,9 @@ VPATH				=	\
 						./src/execution/command/:\
 						./src/execution/exitcode/:\
 						./src/execution/expansion/:\
+						./src/execution/expansion/quotes:\
+						./src/execution/expansion/variable:\
+						./src/execution/expansion/wildcard:\
 						./src/execution/group/:\
 						./src/execution/pipe/:\
 						./src/execution/redirection/:\
@@ -83,6 +86,7 @@ SRC 				=	\
 						character.c \
 						dollar.c \
 						parenthesis.c \
+						question.c \
 						quote.c \
 						verticalbar.c \
 						\
@@ -110,9 +114,14 @@ SRC 				=	\
 						group.c \
 						\
 						exitcode.c \
-						envvar.c \
-						wildcard.c \
+						\
 						expansion.c \
+						qdouble.c \
+						qsingle.c \
+						qplain.c \
+						envvar.c \
+						expvar.c \
+						wildcard.c \
 						\
 						command.c \
 						path.c \
