@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 10:22:10 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 11:05:17 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,9 @@ void	ft_strnjoin(char **result, char *str, size_t len, t_ctx *ctx);
 void	double_chunk(char **end, char **result, t_ctx *ctx);
 void	single_chunk(char **end, char **result, t_ctx *ctx);
 void	plain_chunk(char **end, char **result, t_ctx *ctx);
-char	*handle_variable(char **end, t_ctx *ctx);
+void	expand_variable(char **end, t_ctx *ctx, char **result);
+void	expand_variable_blanks(char **end, t_ctx *ctx, char **result);
+void	get_value(char **end, t_ctx *ctx, char **value);
 bool	is_valid_varname(char *c);
 bool	is_plain(char *c);
 

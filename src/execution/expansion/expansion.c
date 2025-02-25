@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:33:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 10:15:57 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 10:59:08 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * Handle the expansion of variables and preparing wildcard expansion
  * depending on quotation of string
  *
- * @return result string with expanded variables and trimmed quotes when nessesary
+ * @return result string with expanded variables and trimmed quotes
  */
 void	expand(char **lexeme, t_ctx *ctx)
 {
@@ -63,7 +63,6 @@ void	expand(char **lexeme, t_ctx *ctx)
  */
 char	*expand_heredoc(char **content, t_ctx *ctx)
 {
-	char	*value;
 	char	*start;
 	char	*result;
 	char	*end;
@@ -76,11 +75,7 @@ char	*expand_heredoc(char **content, t_ctx *ctx)
 	while (*end)
 	{
 		if (is_dollar(end))
-		{
-			value = handle_variable(&end, ctx);
-			if (value)
-				ft_strnjoin(&result, value, ft_strlen(value), ctx);
-		}
+			expand_variable(&end, ctx, &result);
 		else if (*end && !is_dollar(end))
 		{
 			start = end;
@@ -93,7 +88,6 @@ char	*expand_heredoc(char **content, t_ctx *ctx)
 		ft_strnjoin(&result, "\0", 1, ctx);
 	return (result);
 }
-
 
 void	ft_strnjoin(char **result, char *str, size_t len, t_ctx *ctx)
 {
