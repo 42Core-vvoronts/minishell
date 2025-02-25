@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:14:37 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 15:10:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:28:33 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
  */
 void	double_chunk(char **end, char **result, t_ctx *ctx)
 {
-	char	*start;
-	
 	if (!is_double_quote(*end))
 		return ;
 	(*end)++;
@@ -38,13 +36,7 @@ void	double_chunk(char **end, char **result, t_ctx *ctx)
 		if (is_dollar(*end))
 			expand_variable(end, ctx, result);
 		else if (!is_double_quote(*end))
-		{
-			start = *end;
-			while (*end && !is_double_quote(*end) && !is_dollar(*end))
-				(*end)++;
-			ft_strnjoin(result, start, *end - start, ctx);
-				
-		}
+			collect_double_chars(end, result, ctx);
 		else if (is_double_quote(*end))
 		{
 			(*end)++;
@@ -53,4 +45,14 @@ void	double_chunk(char **end, char **result, t_ctx *ctx)
 	}
 	if (is_double_quote(*end))
 		(*end)++;
+}
+
+void	collect_double_chars(char **end, char **result, t_ctx *ctx)
+{
+	char	*start;
+
+	start = *end;
+	while (*end && !is_double_quote(*end) && !is_dollar(*end))
+		(*end)++;
+	ft_strnjoin(result, start, *end - start, ctx);
 }
