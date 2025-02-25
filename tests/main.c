@@ -16,34 +16,34 @@
 #include <errno.h>
 #include <stdarg.h>
 
-typedef char *t_m[5];
+// typedef char *t_m[5];
 
 
-void puterr(char *str)
-{
-	write(STDERR_FILENO, str, strlen(str));
-}
+// void puterr(char *str)
+// {
+// 	write(STDERR_FILENO, str, strlen(str));
+// }
 
-void error(int exitcode, t_m msg)
-{
-	(void)exitcode;
-	puterr(PROGRAMM);
-	while (*msg)
-	{
-		if (*msg > (char *)TOK)
-		{
-			puterr(" `");
-			puterr(*msg - TOK);
-			puterr("\'");
-			msg++;
-			continue ;
-		}
-		puterr(": ");
-		puterr(*msg);
-		msg++;
-	}
-	puterr("\n");
-}
+// void error(int exitcode, t_m msg)
+// {
+// 	(void)exitcode;
+// 	puterr(PROGRAMM);
+// 	while (*msg)
+// 	{
+// 		if (*msg > (char *)TOK)
+// 		{
+// 			puterr(" `");
+// 			puterr(*msg - TOK);
+// 			puterr("\'");
+// 			msg++;
+// 			continue ;
+// 		}
+// 		puterr(": ");
+// 		puterr(*msg);
+// 		msg++;
+// 	}
+// 	puterr("\n");
+// }
 
 // void get_msg(int n, ...)
 // {
@@ -52,6 +52,17 @@ void error(int exitcode, t_m msg)
 
 int	main()
 {
+	char *str;
+	char **test;
+	int fd[2];
+	dup(STDIN_FILENO);
+	pipe(fd);
+	malloc(1000);
+	str = malloc(7777);
+	test = malloc(sizeof(char *));
+	*test = str;
+	free(test);
+	str = NULL;
 	// char *str;
 
 	// str = FILE_NOT_FOUND;
@@ -67,5 +78,5 @@ int	main()
 	// // size_t p2 = ULLONG_MAX;
 	// size_t p4 = p1 | p2;
 	// size_t p5 = p4 ^ p2;
-	error(1, (t_m){FILE_NOT_FOUND + TOK, NULL});
+	// error(1, (t_m){FILE_NOT_FOUND + TOK, NULL});
 }

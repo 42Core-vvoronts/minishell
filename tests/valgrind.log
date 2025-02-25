@@ -1,58 +1,9 @@
-==42367== Memcheck, a memory error detector
-==42367== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
-==42367== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
-==42367== Command: ../minishell
-==42367== Parent PID: 42347
-==42367== 
-==42367== 
-==42367== FILE DESCRIPTORS: 6 open (3 std) at exit.
-==42367== Open file descriptor 22: /dev/pts/ptmx
-==42367==    <inherited from parent>
-==42367== 
-==42367== Open file descriptor 20: /home/ivan/.vscode-server/data/logs/20250222T113143/ptyhost.log
-==42367==    <inherited from parent>
-==42367== 
-==42367== Open file descriptor 3: /home/ivan/minishell/tests/valgrind.log
-==42367==    <inherited from parent>
-==42367== 
-==42367== 
-==42367== HEAP SUMMARY:
-==42367==     in use at exit: 232,867 bytes in 240 blocks
-==42367==   total heap usage: 527 allocs, 287 frees, 258,678 bytes allocated
-==42367== 
-==42367== 2 bytes in 1 blocks are definitely lost in loss record 2 of 80
-==42367==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==42367==    by 0x111B91: ft_itoa (ft_itoa.c:37)
-==42367==    by 0x10E491: get_val (envvar.c:54)
-==42367==    by 0x109C71: prompt (prompt.c:82)
-==42367==    by 0x1095D4: main (main.c:19)
-==42367== 
-==42367== 5 bytes in 1 blocks are indirectly lost in loss record 4 of 80
-==42367==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==42367==    by 0x11284F: ft_strndup (ft_strndup.c:31)
-==42367==    by 0x10C21A: init_token (tokens.c:32)
-==42367==    by 0x10B541: tokenize_words (words.c:45)
-==42367==    by 0x10B32B: lexer (lexer.c:34)
-==42367==    by 0x10A947: parse (parser.c:47)
-==42367==    by 0x109C13: prompt (prompt.c:73)
-==42367==    by 0x1095D4: main (main.c:19)
-==42367== 
-==42367== 29 (24 direct, 5 indirect) bytes in 1 blocks are definitely lost in loss record 21 of 80
-==42367==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==42367==    by 0x111CD3: ft_calloc (ft_calloc.c:33)
-==42367==    by 0x10C1C6: init_token (tokens.c:29)
-==42367==    by 0x10B541: tokenize_words (words.c:45)
-==42367==    by 0x10B32B: lexer (lexer.c:34)
-==42367==    by 0x10A947: parse (parser.c:47)
-==42367==    by 0x109C13: prompt (prompt.c:73)
-==42367==    by 0x1095D4: main (main.c:19)
-==42367== 
-==42367== LEAK SUMMARY:
-==42367==    definitely lost: 26 bytes in 2 blocks
-==42367==    indirectly lost: 5 bytes in 1 blocks
-==42367==      possibly lost: 0 bytes in 0 blocks
-==42367==    still reachable: 0 bytes in 0 blocks
-==42367==         suppressed: 232,836 bytes in 237 blocks
-==42367== 
-==42367== For lists of detected and suppressed errors, rerun with: -s
-==42367== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==51686== 27 (24 direct, 3 indirect) bytes in 1 blocks are definitely lost in loss record 20 of 79
+==51686==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==51686==    by 0x1123EF: ft_calloc (ft_calloc.c:33)
+==51686==    by 0x1099A9: init_token (init.c:104)
+==51686==    by 0x10B7A9: tokenize_words (words.c:45)
+==51686==    by 0x10B400: lexer (lexer.c:35)
+==51686==    by 0x10AA10: parse (parser.c:47)
+==51686==    by 0x109CF9: prompt (prompt.c:73)
+==51686==    by 0x1095F4: main (main.c:19)

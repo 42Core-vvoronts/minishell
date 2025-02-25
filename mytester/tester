@@ -29,9 +29,13 @@ RED="\e[0;31m"
 END="\033[0m"
 
 chmod 000 ./test_files/invalid_permission
+trap "chmod 666 ./test_files/invalid_permission" EXIT
 mkdir ./outfiles
+trap "rm -rf ./outfiles" EXIT
 mkdir ./mini_outfiles
+trap "rm -rf ./mini_outfiles" EXIT
 mkdir ./bash_outfiles
+trap "rm -rf ./bash_outfiles" EXIT
 
 printf $RED
 echo "🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥";
@@ -49,8 +53,9 @@ PROMPT=$(echo -e "\nexit\n" | $MINISHELL_PATH | head -n 1 | sed "s/\x1B\[[0-9;]\
 # Helper commands:
 REMOVE_COLORS="sed s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g"
 REMOVE_EXIT="grep -v ^exit$"
-
-VALGRIND="valgrind --trace-children=yes --track-fds=yes --leak-check=full -show-leak-kinds=all --error-limit=no"
+VALGRIND_TMP=tmp.log
+trap "rm -f $VALGRIND_TMP" EXIT
+VALGRIND="valgrind -q --track-fds=yes --trace-children=yes --leak-check=full --error-limit=no --suppressions=valgrind.supp --log-file=$VALGRIND_TMP"
 
 for testfile in ${test_lists[*]}; do
 
@@ -62,40 +67,35 @@ for testfile in ${test_lists[*]}; do
 
 		rm -rf ./outfiles/*
 		rm -rf ./mini_outfiles/*
-		rm -rf ./mini_valgrind.log
 		MINI_OUTPUT=$(echo -e "$teste" | $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT )
 		MINI_OUTFILES=$(cp ./outfiles/* ./mini_outfiles &>/dev/null)
+		TEST=$(echo -e "$teste" | $VALGRIND $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS)
 		MINI_EXIT_CODE=$(echo -e "$MINISHELL_PATH\n$teste\necho \$?\nexit\n" | bash 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT | tail -n 1)
 		MINI_ERROR_MSG=$(trap "" PIPE && echo "$teste" | $MINISHELL_PATH 2>&1 > /dev/null | grep -o '[^:]*$' )
-		# MINI_VALGRIND=$("$VALGRIND --log-file=mini_valgrind.log $MINISHELL_PATH")
-		MINI_VALGRIND=$(echo -e "$teste" | $VALGRIND --log-file=mini_valgrind.log $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT )
+		MINI_LEAKS=$(sed '/.*tmp\.log\|.*<inherited from parent>\|.*FILE DESCRIPTORS.*\|^==[0-9]\+==[[:space:]]*$/d' "$VALGRIND_TMP")
 
 		rm -rf ./outfiles/*
 		rm -rf ./bash_outfiles/*
-		rm -rf ./bash_valgrind.log
 		BASH_OUTPUT=$(echo -e "$teste" | bash 2> /dev/null)
 		BASH_EXIT_CODE=$(echo $?)
 		BASH_OUTFILES=$(cp ./outfiles/* ./bash_outfiles &>/dev/null)
 		BASH_ERROR_MSG=$(trap "" PIPE && echo "$teste" | bash 2>&1 > /dev/null | grep -o '[^:]*$' | head -n1)
-		# BASH_VALGRIND=$("$VALGRIND --log-file=bash_valgrind.log bash")
-		# BASH_VALGRIND=$(echo -e "$teste" | $VALGRIND --log-file=bash_valgrind.log bash 2> /dev/null)
 
 		OUTFILES_DIFF=$(diff --brief ./mini_outfiles ./bash_outfiles)
-		# VALGRIND_DIFF=$(diff --brief ./mini_valgrind.log ./bash_valgrind.log)
 
 		printf $YELLOW
 		printf "Test %3s: " $i
-		if [[ "$MINI_OUTPUT" == "$BASH_OUTPUT" && "$MINI_EXIT_CODE" == "$BASH_EXIT_CODE" && -z "$OUTFILES_DIFF" && -z "$VALGRIND_DIFF" ]]; then
+		if [[ "$MINI_OUTPUT" == "$BASH_OUTPUT" && "$MINI_EXIT_CODE" == "$BASH_EXIT_CODE" && -z "$OUTFILES_DIFF" ]]; then
 			printf ✅
 			((ok++))
 			if [ "$MINI_ERROR_MSG" != "$BASH_ERROR_MSG" ]; then
 				printf "⚠️"
 			fi
-			if [ -z "$VALGRIND_DIFF" ]; then
-				printf "💧"
-			fi
 		else
 			printf ❌
+		fi
+		if [ "$MINI_LEAKS" ]; then
+				printf "💧"
 		fi
 		printf "$GREY $teste \n$END"
 		if [ "$OUTFILES_DIFF" ]; then
