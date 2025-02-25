@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:44:20 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 06:25:53 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 07:09:32 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static	bool	is_valid(char *pathname, t_node *node, int *fd)
 		error(1, node->ctx, (t_m){pathname, IS_DIR}); //exit(1): bash: f2: Permission denied
 		return (false);
 	}
-	*fd = eopen(pathname, O_WRONLY | O_CREAT | O_TRUNC, 0666, node);
+	*fd = eopen(pathname, O_WRONLY | O_CREAT | O_APPEND, 0666, node);
 	if (*fd == ERROR)
 		return (false);
 	return (true);
@@ -48,8 +48,8 @@ void	process_redir_append(t_node *node)
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 		evaluate(node->right);
+		restore_stdfd(STDOUT_FILENO, node);
 	}
 	else
-	free(pathname);
-	restore_stdfd(STDOUT_FILENO, node);
+		free(pathname);
 }

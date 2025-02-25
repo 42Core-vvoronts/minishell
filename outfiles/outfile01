@@ -5,6 +5,7 @@ f1
 f2
 include
 lib
+mini_outfiles
 minishell
 minishell_tester
 mytester

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:09:00 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/15 11:42:29 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 07:51:42 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char *get_pathname(t_node *node)
 	}
 	if (!pathname)
 		return (NULL);
-	if (is_executable(pathname))
+	if (is_executable(pathname) && !is_directory(pathname))
 		return (pathname);
 	free(pathname);
 	error(126, node->ctx, (t_m){node->ctx->stash[0], strerror(errno)});

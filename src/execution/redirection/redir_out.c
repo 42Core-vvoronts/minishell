@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:23:38 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 06:25:48 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 07:09:15 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	process_redir_out(t_node *node)
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 		evaluate(node->right);
+		restore_stdfd(STDOUT_FILENO, node);
 	}
 	else
-	free(pathname);
-	restore_stdfd(STDOUT_FILENO, node);
+		free(pathname);
 }

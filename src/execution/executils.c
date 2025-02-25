@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 06:27:17 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 07:53:36 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ bool	is_directory(char *pathname)
 	struct stat info;
 
     stat(pathname, &info);
+	errno = EISDIR;
     return S_ISDIR(info.st_mode);
 }
 
@@ -50,7 +51,6 @@ char	*get_cmdname(void *node)
 	return (((t_node *)node)->ctx->stash[0]);
 }
 
-
 bool	is_ambiguous(char **stash)
 {
 	return (ft_parrlen(stash));
@@ -63,4 +63,3 @@ void	restore_stdfd(int stdfd, t_node *node)
 	else if (stdfd == STDOUT_FILENO)
 		edup2(node->ctx->fdout, stdfd, node);
 }
-
