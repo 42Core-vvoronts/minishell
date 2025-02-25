@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 04:35:12 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 05:38:15 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ bool	is_ambiguous(char **stash)
 
 void	restore_stdfd(int stdfd, t_node *node)
 {
-	edup2(node->ctx->stdfd, stdfd, node);
+	if (stdfd == STDIN_FILENO)
+		edup2(node->ctx->fdin, stdfd, node);
+	else if (stdfd == STDOUT_FILENO)
+		edup2(node->ctx->fdout, stdfd, node);
 }
 

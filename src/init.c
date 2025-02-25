@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 04:34:11 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 05:36:34 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	init_ctx(t_ctx **ctx, char **envp)
 	*ctx = ft_calloc(1, sizeof(t_ctx));
 	if (!*ctx)
 		error(-1, NULL, (t_m){strerror(errno), NULL});
-	(*ctx)->stdfd = dup(STDIN_FILENO);
+	(*ctx)->fdin = dup(STDIN_FILENO);
+	(*ctx)->fdout = dup(STDOUT_FILENO);
 	(*ctx)->exitcode = EXIT_SUCCESS;
 	(*ctx)->panic = false;
 	init_envp(*ctx, envp);

@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:43:15 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 04:53:35 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 05:38:05 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	allclean(t_node *node, int mode)
 	ctx = node->ctx;
 	clean_tree(node->ctx->head);
 	exitcode = ctx->exitcode;
-	close(ctx->stdfd);
+	close(ctx->fdin);
+	close(ctx->fdout);
 	free(ctx);
 	return (exitcode);
 }
