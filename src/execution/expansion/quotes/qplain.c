@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:06:27 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 10:14:36 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 10:56:48 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,15 @@
  */
 void	plain_chunk(char **end, char **result, t_ctx *ctx)
 {
-	char	*value;
 	char	*start;
-	char	*tmp;
+	char	wildcard[2];
 
-	char	wildcard[2] = {5, '\0'};
-	char	blank = 4;
-
+	wildcard[0] = 5;
+	wildcard[1] = '\0';
 	while (**end && !is_single_quote(*end) && !is_double_quote(*end))
 	{
 		if (is_dollar(*end))
-		{
-			value = handle_variable(end, ctx);
-			if (value)
-			{
-				tmp = value;
-				while (*tmp)
-				{
-					if (is_blank(tmp))
-						*tmp = blank;
-					tmp++;
-				}
-				ft_strnjoin(result, value, ft_strlen(value), ctx);
-			}
-		}
+			expand_variable_blanks(end, ctx, result);
 		if (is_asterisk(*end))
 		{
 			ft_strnjoin(result, wildcard, 1, ctx);
@@ -65,5 +50,8 @@ void	plain_chunk(char **end, char **result, t_ctx *ctx)
 
 bool	is_plain(char *c)
 {
-	return (!is_single_quote(c) && !is_double_quote(c) && !is_dollar(c) && !is_asterisk(c));
+	if (is_blank(c) || is_single_quote(c) || is_double_quote(c)
+		|| is_dollar(c) || is_asterisk(c))
+		return (false);
+	return (true);
 }

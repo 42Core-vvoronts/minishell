@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:15:18 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 10:15:35 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:29:04 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,34 @@
  */
 void	single_chunk(char **end, char **result, t_ctx *ctx)
 {
-	char	*start;
-
 	if (!is_single_quote(*end))
 		return ;
 	(*end)++;
-	while (**end && !is_single_quote(*end))
+	while (**end)
 	{
-		start = *end;
-		while (**end && !is_single_quote(*end))
+		if (is_single_quote(*end) && is_single_quote(*end - 1))
+		{
+			ft_strnjoin(result, "\x1D", 1, ctx);
+			break ;
+		}
+		if (!is_single_quote(*end))
+			collect_single_chars(end, result, ctx);
+		else if (is_single_quote(*end))
+		{
 			(*end)++;
-		ft_strnjoin(result, start, *end - start, ctx);
+			return ;
+		}
 	}
 	if (is_single_quote(*end))
 		(*end)++;
+}
+
+void	collect_single_chars(char **end, char **result, t_ctx *ctx)
+{
+	char	*start;
+
+	start = *end;
+	while (**end && !is_single_quote(*end))
+		(*end)++;
+	ft_strnjoin(result, start, *end - start, ctx);
 }
