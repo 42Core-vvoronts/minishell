@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 16:45:17 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 09:57:22 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	prompt(int argc, char **argv, char **envp)
 			ctx->exitcode = g_signal + 128;
 			g_signal = SIGNO;
 		}
-		printf("exitcode: %s\n", get_val(ctx, "?"));
+		// printf("exitcode: %d\n", ctx->exitcode);
     }
 }
 
