@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/11 07:51:07 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 03:55:14 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static	bool	is_numeric(char *str)
 	size_t	i;
 
 	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]) || i == 19)
@@ -38,23 +40,19 @@ static	int	evaluate_exitcode(t_node *node)
 
 void	run_exit(t_node *node)
 {
-	int	exitcode;
-
-	puterr("exit\n");
-	exitcode = node->ctx->exitcode;
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	if (node->ctx->stash && node->ctx->stash[1])
 	{
-		exitcode = evaluate_exitcode(node);
+		node->ctx->exitcode = evaluate_exitcode(node);
 		if (node->ctx->stash[2])
 		{
 			error(1, node->ctx, (t_m){EXIT, TOO_MANY_ARG});
 			return ;
 		}
 		else if (is_eqlstr(node->ctx->stash[1], "--"))
-			exitcode = EXIT_SUCCESS;
+			node->ctx->exitcode = EXIT_SUCCESS;
 		else if (!is_numeric(node->ctx->stash[1]))
 			error(2, node->ctx, (t_m){EXIT, node->ctx->stash[1], EXIT_NON_NUM});
 	}
-	allclean(node, FULL);
-	exit(exitcode);
+	exit(allclean(node, FULL));
 }
