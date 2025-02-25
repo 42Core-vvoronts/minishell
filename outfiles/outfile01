@@ -2,6 +2,7 @@ Makefile
 README.md
 dep
 f1
+f2
 include
 lib
 minishell
@@ -9,6 +10,7 @@ minishell_tester
 mytester
 obj
 outfiles
+result_tree.png
 src
 tests
 v.log

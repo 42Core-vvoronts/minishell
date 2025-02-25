@@ -6,13 +6,13 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:23:38 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 05:38:32 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 06:25:48 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	bool	is_valid(char *pathname, t_node *node)
+static	bool	is_valid(char *pathname, t_node *node, int *fd)
 {
 	if (!pathname || is_ambiguous(node->ctx->stash))
 	{
@@ -30,6 +30,9 @@ static	bool	is_valid(char *pathname, t_node *node)
 		error(1, node->ctx, (t_m){pathname, IS_DIR}); //exit(1): bash: f2: Permission denied
 		return (false);
 	}
+	*fd = eopen(pathname, O_WRONLY | O_CREAT | O_TRUNC, 0666, node);
+	if (*fd == ERROR)
+		return (false);
 	return (true);
 }
 
@@ -40,13 +43,13 @@ void	process_redir_out(t_node *node)
 
 	evaluate(node->left);
 	pathname = pop_stash(node);
-	if (is_valid(pathname, node))
+	if (is_valid(pathname, node, &fd))
 	{
-		fd = eopen(pathname, O_WRONLY | O_CREAT | O_TRUNC, 0666, node);
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 		evaluate(node->right);
 	}
-	restore_stdfd(STDOUT_FILENO, node);
+	else
 	free(pathname);
+	restore_stdfd(STDOUT_FILENO, node);
 }
