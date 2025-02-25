@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 08:33:34 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 10:51:24 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef enum e_sigset
 # define SIGNO -1
 # define FULL 1
 # define CMD 0
-# define PROGRAMM "bash"
+# define PROGRAMM "minishell"
 # define TOK 0xf000000000000000
 # define FILE_NOT_FOUND "No such file or directory"
 # define CMD_NOT_FOUND "command not found"

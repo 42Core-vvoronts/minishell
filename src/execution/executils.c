@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 07:53:36 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 10:42:49 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ bool	is_directory(char *pathname)
 	struct stat info;
 
     stat(pathname, &info);
-	errno = EISDIR;
-    return S_ISDIR(info.st_mode);
+	if (S_ISDIR(info.st_mode))
+	{
+		errno = EISDIR;
+		return (true);
+	}
+    return (false);
 }
 
 bool is_executable(char *pathname)

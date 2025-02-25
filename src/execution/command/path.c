@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:09:00 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 07:51:42 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/25 10:48:49 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static char	*retrieve_pathname(char *pathval, t_node *node)
 	char	*pathname;
 	size_t	i;
 
+	if (node->ctx->stash[0][0] == '\0')
+		return (NULL);
 	dirnames = split(pathval, node);
 	i = 0;
 	while (dirnames[i])
