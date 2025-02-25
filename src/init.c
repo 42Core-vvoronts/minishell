@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 15:19:41 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 04:34:11 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,22 @@ int	init_ctx(t_ctx **ctx, char **envp)
 	*ctx = ft_calloc(1, sizeof(t_ctx));
 	if (!*ctx)
 		error(-1, NULL, (t_m){strerror(errno), NULL});
-	(*ctx)->envp = NULL;
-	(*ctx)->export = NULL;
-	(*ctx)->stash = NULL;
-	(*ctx)->ttyname = ttyname(STDIN_FILENO);
+	(*ctx)->stdfd = dup(STDIN_FILENO);
 	(*ctx)->exitcode = EXIT_SUCCESS;
-	(*ctx)->head = NULL;
-	(*ctx)->headtok = NULL;
 	(*ctx)->panic = false;
 	init_envp(*ctx, envp);
 	return (SUCCESS);
 }
 
-void	restore_std(t_node *node)
-{
-	int	fd;
+// void	restore_std(t_node *node)
+// {
+// 	int	fd;
 
-	fd = eopen(node->ctx->ttyname, O_RDWR, 0777, node);
-	edup2(fd, STDIN_FILENO, node);
-	edup2(fd, STDOUT_FILENO, node);
-	close(fd);
-}
+// 	fd = eopen(node->ctx->ttyname, O_RDWR, 0777, node);
+// 	edup2(fd, STDIN_FILENO, node);
+// 	edup2(fd, STDOUT_FILENO, node);
+// 	close(fd);
+// }
 
 /**
  * @brief Init a new tree node
@@ -73,8 +68,8 @@ void	restore_std(t_node *node)
  * @param left The left node
  * @param right The right node
 
- * @return t_node* 
- * 
+ * @return t_node*
+ *
  */
 t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx)
 {
@@ -99,7 +94,7 @@ t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx 
  * @param ctx The context
 
  * @return pointer to the new node
- * 
+ *
  */
 t_tok	*init_token(char *start, int len, t_ctx *ctx)
 {

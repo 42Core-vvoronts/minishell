@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleaner.c                                          :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:43:15 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 14:44:39 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/25 04:36:11 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	allclean(t_node *node, int mode)
 	ctx = node->ctx;
 	clean_tree(node->ctx->head);
 	exitcode = ctx->exitcode;
+	close(node->ctx->stdfd);
 	free(ctx);
 	return (exitcode);
 }
