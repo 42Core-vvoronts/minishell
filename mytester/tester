@@ -13,12 +13,46 @@ else
 		"pipes"
 		"redirects"
 		"extras"
+		"wildcards"
+		"bonus"
 	)
 fi
 
-if [[ $1 == "wildcards"  || $1 == "bonus" ]]; then
-	MINISHELL_PATH="../minishell_bonus"
-fi
+function	debug() {
+
+	rm -rf ./outfiles/*
+	rm -rf ./mini_outfiles/*
+
+	read teste
+	MINI_OUTPUT=$(echo -e "$teste" | $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT )
+	MINI_OUTFILES=$(ls ./outfiles 2>/dev/null)
+	TEST=$(echo -e "$teste" | $VALGRIND $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS)
+	MINI_EXIT_CODE=$(echo -e "$MINISHELL_PATH\n$teste\necho \$?\nexit\n" | bash 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT | tail -n 1)
+	MINI_ERROR_MSG=$(trap "" PIPE && echo "$teste" | $MINISHELL_PATH 2>&1 > /dev/null | grep -o '[^:]*$' )
+	MINI_LEAKS=$(sed '/.*tmp\.log\|.*<inherited from parent>\|.*FILE DESCRIPTORS.*\|^==[0-9]\+==[[:space:]]*$/d' "$VALGRIND_TMP")
+
+	echo -e "${BLUE}\n————————————Stdout${RESET}"
+	echo "$MINI_OUTPUT"
+
+	echo -e "${BLUE}\n————————————Stderr${RESET}"
+	echo "$MINI_ERROR_MSG"
+
+	echo -e "${BLUE}\n————————————Outfiles${RESET}"
+	echo "$MINI_OUTFILES"
+
+	echo -e "${BLUE}\n————————————Exitcode${RESET}"
+	echo "$MINI_EXIT_CODE"
+
+	echo -e "${BLUE}\n————————————Leaks${RESET}"
+	echo "$MINI_LEAKS"
+
+	chmod 666 ./test_files/invalid_permission
+	rm -rf ./outfiles
+	rm -rf ./mini_outfiles
+	rm -rf ./bash_outfiles
+	rm -f $VALGRIND_TMP
+
+}
 
 BOLD="\e[1m"
 YELLOW="\033[0;33m"
@@ -27,15 +61,40 @@ PURPLE="\033[0;35m"
 BLUE="\033[0;36m"
 RED="\e[0;31m"
 END="\033[0m"
+RED="\e[31m"
+GREEN="\e[32m"
+BLUE="\e[34m"
+YELLOW="\033[0;33m"
+RESET="\e[0m"
 
 chmod 000 ./test_files/invalid_permission
-trap "chmod 666 ./test_files/invalid_permission" EXIT
-mkdir ./outfiles
-trap "rm -rf ./outfiles" EXIT
-mkdir ./mini_outfiles
-trap "rm -rf ./mini_outfiles" EXIT
-mkdir ./bash_outfiles
-trap "rm -rf ./bash_outfiles" EXIT
+if [ -d "./outfiles" ]; then
+    rm -rf "./outfiles"
+    mkdir ./outfiles
+fi
+if [ -d "./mini_outfiles" ]; then
+    rm -rf "./mini_outfiles"
+    mkdir ./mini_outfiles
+fi
+if [ -d "./bash_outfiles" ]; then
+    rm -rf "./bash_outfiles"
+    mkdir ./bash_outfiles
+fi
+
+PROMPT=$(echo -e "\nexit\n" | $MINISHELL_PATH | head -n 1 | sed "s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g" )
+# Helper commands:
+REMOVE_COLORS="sed s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g"
+REMOVE_EXIT="grep -v ^exit$"
+VALGRIND_TMP=tmp.log
+if [ -d "$VALGRIND_TMP" ]; then
+    rm -f "$VALGRIND_TMP"
+fi
+VALGRIND="valgrind -q --track-fds=yes --trace-children=yes --leak-check=full --error-limit=no --suppressions=valgrind.supp --log-file=$VALGRIND_TMP"
+
+if [[ "$1" == "-d" ]]; then
+	debug
+	exit
+fi
 
 printf $RED
 echo "🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥";
@@ -49,13 +108,6 @@ echo "                                                                          
 echo "🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥";
 echo "                                                                                              ";
 
-PROMPT=$(echo -e "\nexit\n" | $MINISHELL_PATH | head -n 1 | sed "s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g" )
-# Helper commands:
-REMOVE_COLORS="sed s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g"
-REMOVE_EXIT="grep -v ^exit$"
-VALGRIND_TMP=tmp.log
-trap "rm -f $VALGRIND_TMP" EXIT
-VALGRIND="valgrind -q --track-fds=yes --trace-children=yes --leak-check=full --error-limit=no --suppressions=valgrind.supp --log-file=$VALGRIND_TMP"
 
 for testfile in ${test_lists[*]}; do
 
@@ -124,6 +176,7 @@ chmod 666 ./test_files/invalid_permission
 rm -rf ./outfiles
 rm -rf ./mini_outfiles
 rm -rf ./bash_outfiles
+rm -f $VALGRIND_TMP
 
 printf $PURPLE
 printf $BOLD

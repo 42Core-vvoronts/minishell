@@ -15,6 +15,19 @@
 # define TOK 0xf000000000000000
 #include <errno.h>
 #include <stdarg.h>
+# define _POSIX_C_SOURCE 200809L
+# include <errno.h>
+# include <ctype.h>
+# include <signal.h>
+# include <fcntl.h>
+# include <string.h>
+# include <stdbool.h>
+# include <dirent.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+#include <sys/stat.h>
 
 // typedef char *t_m[5];
 
@@ -52,17 +65,24 @@
 
 int	main()
 {
-	char *str;
-	char **test;
-	int fd[2];
-	dup(STDIN_FILENO);
-	pipe(fd);
-	malloc(1000);
-	str = malloc(7777);
-	test = malloc(sizeof(char *));
-	*test = str;
-	free(test);
-	str = NULL;
+	int fd = dup(STDIN_FILENO);
+	pid_t pid = fork();
+	if (pid > 0)
+	{
+		close(fd);
+	}
+
+	// char *str;
+	// char **test;
+	// int fd[2];
+	// dup(STDIN_FILENO);
+	// pipe(fd);
+	// malloc(1000);
+	// str = malloc(7777);
+	// test = malloc(sizeof(char *));
+	// *test = str;
+	// free(test);
+	// str = NULL;
 	// char *str;
 
 	// str = FILE_NOT_FOUND;

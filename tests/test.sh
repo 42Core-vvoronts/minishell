@@ -11,7 +11,7 @@ rm $VALGRIND_LOG
 
 # echo $RESULT
 
-$VALGRIND ../minishell <<< $(echo -e "ls")
+$VALGRIND ./a.out <<< $(echo -e "ls")
 
 sed '/.*tmp\.log\|.*<inherited from parent>\|.*FILE DESCRIPTORS.*\|^==[0-9]\+==[[:space:]]*$/d' "$VALGRIND_TMP" > $VALGRIND_LOG
 
