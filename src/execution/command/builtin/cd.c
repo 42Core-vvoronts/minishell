@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 11:44:35 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 06:09:05 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static	void	update_pwds(t_node *node, char *pwd)
 	if (!envvar)
 		error(-1, node->ctx, (t_m){strerror(errno)});
 	add_var(node, envvar);
+	free(envvar);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		error(-1, node->ctx, (t_m){strerror(errno)});
@@ -71,6 +72,7 @@ static	void	update_pwds(t_node *node, char *pwd)
 	if (!envvar)
 		error(-1, node->ctx, (t_m){strerror(errno)});
 	add_var(node, envvar);
+	free(envvar);
 
 }
 //exit(1); bash: cd: too many arguments

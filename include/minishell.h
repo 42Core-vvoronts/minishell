@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 10:51:24 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 04:57:14 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct s_pipe
 	int write;
 } t_pipe;
 
+bool	is_eqlvar(char *envvar, char *varname);
 void	expand(char **lexeme, t_ctx *ctx);
 char	*expand_heredoc(char **content, t_ctx *ctx);
 void	ft_strnjoin(char **result, char *str, size_t len, t_ctx *ctx);
