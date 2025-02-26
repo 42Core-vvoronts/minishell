@@ -16,6 +16,7 @@ else
 		"wildcards"
 		"bonus"
 		"parsing"
+		"crazy"
 	)
 fi
 
@@ -81,6 +82,11 @@ fi
 mkdir ./outfiles
 mkdir ./mini_outfiles
 mkdir ./bash_outfiles
+
+export EMPTY=
+export BLANK="      "
+export BLANKSTAR="   *   "
+export STAR="*"
 
 PROMPT=$(echo -e "\nexit\n" | $MINISHELL_PATH | head -n 1 | sed "s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g" )
 # Helper commands:

@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/26 06:36:49 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:23:30 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ void	prompt(int argc, char **argv, char **envp)
     {
 		setup_signals(IS_PROMPT, ctx);
         statement = readline(prompt);
+		if (g_signal != SIGNO)
+		{
+			ctx->exitcode = g_signal + 128;
+			g_signal = SIGNO;
+		}
 		setup_signals(IS_RUNNING, ctx);
         if (!statement)
         {
@@ -75,11 +80,6 @@ void	prompt(int argc, char **argv, char **envp)
 		if (ast)
 			evaluate(ast);
         free(statement);
-		if (g_signal != SIGNO)
-		{
-			ctx->exitcode = g_signal + 128;
-			g_signal = SIGNO;
-		}
 		// printf("exitcode: %d\n", ctx->exitcode);
     }
 }

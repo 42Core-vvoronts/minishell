@@ -1,0 +1,19 @@
+ls > ./nonexist/f1
+$NONEXIST | $EMPTY && $BLANK || $NONEXIST && ""
+*
+|
+||
+ls |
+ls <fq /
+ls >./adfsdf/dafdsf
+"" | "" |  ""
+ls > $NON
+ls > $MY"./outfiles/VAR"
+echo  $STAR
+ls  .$BLANKSTAR..
+echo $HOME$?
+echo $?a
+echo $HOME?
+$NON | ls
+$NON | cat
+
