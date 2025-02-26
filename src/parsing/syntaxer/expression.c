@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 10:11:30 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:15:33 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ t_node	*parse_expression(t_tok **tok, t_ctx *ctx)
 	else if (is_group_close(*tok))
 	{
 		error(2, ctx, (t_m){"syntax error near unexpected token", (*tok)->lexeme});
-		return NULL;
+		return (NULL);
 	}
 	else
 		return (expression_no_group(tok, ctx));
