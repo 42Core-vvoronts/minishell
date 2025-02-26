@@ -1,2 +1,3 @@
 
 |
+ls >outfile01 && cat outfile01
