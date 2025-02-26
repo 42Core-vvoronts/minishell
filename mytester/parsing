@@ -1,5 +1,16 @@
 
 |
+echo hello world
+env | sort | grep -v SHLVL | grep -v ^_
+grep hi "<infile" <         ./test_files/infile
+echo hi >>./outfiles/outfile01 | echo bye
+echo hi >>./outfiles/outfile01 | echo bye >>./outfiles/outfile02
+echo hi | echo >>./outfiles/outfile01 bye >./test_files/invalid_permission
+echo 'bye *' t*.c bye
+$EMPTY echo hi
+echo 'bye *' bo*s bye
+echo 'bye *' t*.c bye
+echo *bonus *.supp bonjour
 ls |
 | ls
 ls >outfile01 && cat outfile01
