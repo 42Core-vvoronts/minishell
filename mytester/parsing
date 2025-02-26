@@ -45,3 +45,8 @@ $nonexist
 " "
 ""$nonexist
 echo hi < ./test_files/infile bye bye
+
+ls >>./outfiles/outfile01 >>./test_files/invalid_permission
+ls >./outfiles/outfile01 >>./outfiles/outfile01 >./outfiles/outfile02
+ls >>./outfiles/outfile01
+ls >./outfiles/outfile01 >./test_files/invalid_permission
