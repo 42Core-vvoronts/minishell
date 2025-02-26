@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:09:00 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 10:48:49 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 09:15:42 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static char	*retrieve_pathname(char *pathval, t_node *node)
 		ft_parrclean(&dirnames);
 		return (pathname);
 	}
+	ft_parrclean(&dirnames);
 	return (NULL);
 }
 

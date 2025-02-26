@@ -28,6 +28,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 // typedef char *t_m[5];
 
@@ -65,11 +66,27 @@
 
 int	main()
 {
-	int fd = dup(STDIN_FILENO);
+	char *str;
+	// int fd = dup(STDIN_FILENO);
 	pid_t pid = fork();
-	if (pid > 0)
+	if (pid == 0)
 	{
-		close(fd);
+		char *cmd[3];
+
+		str = malloc(100);
+		str++;
+		cmd[0] = "ls";
+		cmd[1] = "a";
+		cmd[2] = NULL;
+		// fd = dup(STDIN_FILENO);
+		// fd = open(".", O_RDWR);
+		execve("/bin/grep", cmd, NULL);
+		exit(1);
+	}
+	else if (pid > 0)
+	{
+		wait(NULL);
+		// close(fd);
 	}
 
 	// char *str;

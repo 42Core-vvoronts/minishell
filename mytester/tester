@@ -89,7 +89,7 @@ VALGRIND_TMP=tmp.log
 if [ -d "$VALGRIND_TMP" ]; then
     rm -f "$VALGRIND_TMP"
 fi
-VALGRIND="valgrind -q --track-fds=yes --trace-children=yes --leak-check=full --error-limit=no --suppressions=valgrind.supp --log-file=$VALGRIND_TMP"
+VALGRIND="valgrind -q --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --error-limit=no --suppressions=valgrind.supp --log-file=$VALGRIND_TMP"
 
 if [[ "$1" == "-d" ]]; then
 	debug

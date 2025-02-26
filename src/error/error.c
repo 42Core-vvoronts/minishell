@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/26 03:55:08 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 09:07:55 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	eexecve(char *pathname, t_node *node)
 	argv = node->ctx->stash;
 	envp = node->ctx->envp;
 	exitcode = node->ctx->exitcode;
-	allclean(node, 0);
 	setup_signals(IS_BINARY, node->ctx);
+	allclean(node, 0);
 	if (!pathname)
 		;
 	else if (execve(pathname, argv, envp) == ERROR)
