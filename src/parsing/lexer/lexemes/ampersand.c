@@ -6,17 +6,25 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:59:49 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 14:02:43 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:14:34 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool is_ampersand(char *lexeme)
+bool	is_ampersand(char *lexeme)
 {
-    if (lexeme && is_eqlchar(*lexeme, '&'))
-        return true;
-    return false;
+	if (lexeme && is_eqlchar(*lexeme, '&'))
+		return (true);
+	return (false);
+}
+
+bool	is_double_ampersand(char *lexeme)
+{
+	if (lexeme && is_eqlchar(*lexeme, '&'))
+		if (lexeme+1 && *(lexeme + 1) && is_eqlchar(*(lexeme + 1), '&'))
+			return (true);
+	return (false);
 }
 
 void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)

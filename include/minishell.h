@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 13:12:24 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:12:40 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,7 @@ bool	is_vertical_bar(char *lexeme);
 bool	is_less(char *lexeme);
 bool	is_greater(char *lexeme);
 bool	is_ampersand(char *lexeme);
+bool	is_double_ampersand(char *lexeme);
 bool	is_asterisk(char *lexeme);
 bool	is_dollar(char *lexeme);
 bool	is_single_quote(char *lexeme);
