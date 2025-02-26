@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 09:30:52 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:12:24 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,7 @@ void	step_forward(t_tok **tok);
 t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
 
 // -- CLEAN --
+char	*to_prompt(char *type, char *lexeme, int code, t_ctx *ctx);
 void	clean_tokens(t_tok **tokens);
 void	clean_tree(t_node *node);
 
