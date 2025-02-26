@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:43:15 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 04:13:38 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 06:33:53 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	allclean(t_node *node, int mode)
 	t_ctx	*ctx;
 	int		exitcode;
 
-	if (mode == 1)
+	if (mode == FULL)
 	{
 		if (node->ctx->envp)
 			ft_parrclean(&(node->ctx->envp));
