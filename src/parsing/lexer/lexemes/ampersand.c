@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:59:49 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 17:14:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:01:12 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ bool	is_ampersand(char *lexeme)
 bool	is_double_ampersand(char *lexeme)
 {
 	if (lexeme && is_eqlchar(*lexeme, '&'))
-		if (lexeme+1 && *(lexeme + 1) && is_eqlchar(*(lexeme + 1), '&'))
+	{
+		if (*(lexeme + 1) && is_eqlchar(*(lexeme + 1), '&'))
 			return (true);
+	}
 	return (false);
 }
 
