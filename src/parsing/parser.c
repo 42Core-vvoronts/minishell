@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:06:02 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 09:53:01 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 11:35:21 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_node	*parse(char *statement, t_ctx *ctx)
 	ast = syntaxer(tokens, ctx);
 	ctx->head = ast;
 	//printer
-	if (ast)
-		save_tree(ast);
+	// if (ast)
+	// 	save_tree(ast);
 	return (ast);
 }

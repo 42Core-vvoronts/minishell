@@ -1,0 +1,16 @@
+Makefile
+README.md
+dep
+include
+lib
+minishell
+minishell_tester
+mytester
+obj
+outfile01
+outfiles
+result_tree.png
+src
+tests
+v.log
+wiki
