@@ -1,11 +1,17 @@
 
 |
 echo hello world
+(echo hello world) | cat
 env | sort | grep -v SHLVL | grep -v ^_
 grep hi "<infile" <         ./test_files/infile
 echo hi >>./outfiles/outfile01 | echo bye
+(echo hi >>./outfiles/outfile01 | echo bye) && sleep 1
 echo hi >>./outfiles/outfile01 | echo bye >>./outfiles/outfile02
+(echo hi >>./outfiles/outfile01 | echo bye >>./outfiles/outfile02) && sleep 1
 echo hi | echo >>./outfiles/outfile01 bye >./test_files/invalid_permission
+(echo hi | echo >>./outfiles/outfile01 bye >./test_files/invalid_permission) >> ./outfiles/outfile01
+(echo a b < ./test_files/infile c d > ./outfiles/outfile01) e f && sleep 1) | cat
+< ./test_files/infile echo hi (echo hello | cat)
 echo 'bye *' t*.c bye
 $EMPTY echo hi
 echo 'bye *' bo*s bye
