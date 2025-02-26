@@ -1,9 +1,3 @@
-==51686== 27 (24 direct, 3 indirect) bytes in 1 blocks are definitely lost in loss record 20 of 79
-==51686==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==51686==    by 0x1123EF: ft_calloc (ft_calloc.c:33)
-==51686==    by 0x1099A9: init_token (init.c:104)
-==51686==    by 0x10B7A9: tokenize_words (words.c:45)
-==51686==    by 0x10B400: lexer (lexer.c:35)
-==51686==    by 0x10AA10: parse (parser.c:47)
-==51686==    by 0x109CF9: prompt (prompt.c:73)
-==51686==    by 0x1095F4: main (main.c:19)
+==41699== Open file descriptor 4:
+==41699==    at 0x497493B: dup (syscall-template.S:120)
+==41699==    by 0x10919E: main (in /home/ivan/minishell/tests/a.out)
