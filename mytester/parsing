@@ -1,3 +1,28 @@
 
 |
 ls >outfile01 && cat outfile01
+ls "|" cat
+ls "/"'h''o''m'"'e'"
+echo A && (echo B || echo C) echo F)
+ls|(cat)
+'"|"'   
+"'|'"
+"'"|"'"
+'"'|'"'  
+"'$USER'"
+"ls$USER'LITERAL*'"$USER'aaa'
+"ls$USER'LITERAL*'plain*****"$USER'aaa'
+> lsvicxptrv'LITERAL*'plain*****vicxptrvaaa: command not found
+export VAR="blank      blank"
+echo $VAR
+"$?"
+'$?'
+$?
+$nonexist$?
+$USER$?
+$USER$?aboba
+$nonexist
+""
+" "
+""$nonexist
+echo hi < ./test_files/infile bye bye
