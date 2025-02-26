@@ -1,5 +1,0 @@
-==89412== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==89412== Open file descriptor 3: /home/ivan/minishell/mytester/tmp.log
-==89412==    <inherited from parent>
-==89412== 
-==89412== 

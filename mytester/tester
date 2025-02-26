@@ -15,6 +15,7 @@ else
 		"extras"
 		"wildcards"
 		"bonus"
+		"parsing"
 	)
 fi
 
@@ -29,8 +30,7 @@ function	debug() {
 	TEST=$(echo -e "$teste" | $VALGRIND $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS)
 	MINI_EXIT_CODE=$(echo -e "$MINISHELL_PATH\n$teste\necho \$?\nexit\n" | bash 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT | tail -n 1)
 	MINI_ERROR_MSG=$(trap "" PIPE && echo "$teste" | $MINISHELL_PATH 2>&1 > /dev/null | grep -o '[^:]*$' )
-	MINI_LEAKS=$(sed '/.*tmp\.log\|.*<inherited from parent>\|.*FILE DESCRIPTORS.*\|^==[0-9]\+==[[:space:]]*$/d' "$VALGRIND_TMP")
-
+	MINI_LEAKS=$(sed '/.*tmp\.log\|.*<inherited from parent>\|.*FILE DESCRIPTORS.*\|^==[0-9]\+==[[:space:]]*$\|.*\/dev\/ptmx/d' "$VALGRIND_TMP")
 	echo -e "${BLUE}\n————————————Stdout${RESET}"
 	echo "$MINI_OUTPUT"
 
@@ -124,7 +124,7 @@ for testfile in ${test_lists[*]}; do
 		TEST=$(echo -e "$teste" | $VALGRIND $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS)
 		MINI_EXIT_CODE=$(echo -e "$MINISHELL_PATH\n$teste\necho \$?\nexit\n" | bash 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT | tail -n 1)
 		MINI_ERROR_MSG=$(trap "" PIPE && echo "$teste" | $MINISHELL_PATH 2>&1 > /dev/null | grep -o '[^:]*$' )
-		MINI_LEAKS=$(sed '/.*tmp\.log\|.*<inherited from parent>\|.*FILE DESCRIPTORS.*\|^==[0-9]\+==[[:space:]]*$/d' "$VALGRIND_TMP")
+		MINI_LEAKS=$(sed '/.*tmp\.log\|.*<inherited from parent>\|.*FILE DESCRIPTORS.*\|^==[0-9]\+==[[:space:]]*$\|.*\/dev\/ptmx/d' "$VALGRIND_TMP")
 
 		rm -rf ./outfiles/*
 		rm -rf ./bash_outfiles/*
