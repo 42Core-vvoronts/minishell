@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ampersand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:59:49 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 17:14:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 11:02:14 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ bool	is_ampersand(char *lexeme)
 bool	is_double_ampersand(char *lexeme)
 {
 	if (lexeme && is_eqlchar(*lexeme, '&'))
-		if (lexeme+1 && *(lexeme + 1) && is_eqlchar(*(lexeme + 1), '&'))
+	{
+		if (*(lexeme + 1) && is_eqlchar(*(lexeme + 1), '&'))
 			return (true);
+	}
 	return (false);
 }
 
