@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:11:12 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 15:45:46 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:18:23 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ bool	is_blank(char *lexeme)
 {
 	if (*lexeme && (is_eqlchar(*lexeme, ' ') || 
 		is_eqlchar(*lexeme, '\t')))
-		return true;
-	return false;
+		return (true);
+	return (false);
 }
 
 void	skip_blanks(char **lexeme)

@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 10:10:55 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 10:51:40 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ bool	is_vertical_bar(char *lexeme);
 bool	is_less(char *lexeme);
 bool	is_greater(char *lexeme);
 bool	is_ampersand(char *lexeme);
+bool	is_double_ampersand(char *lexeme);
 bool	is_asterisk(char *lexeme);
 bool	is_dollar(char *lexeme);
 bool	is_single_quote(char *lexeme);

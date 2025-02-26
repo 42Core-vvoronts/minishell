@@ -1,0 +1,5 @@
+==32176== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==32176== Open file descriptor 3: /home/ivan/minishell/mytester/tmp.log
+==32176==    <inherited from parent>
+==32176== 
+==32176== 

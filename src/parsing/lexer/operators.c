@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:30:20 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 15:23:53 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:02:35 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 bool	is_operator(char *lexeme)
 {
 	if (is_greater(lexeme) || is_less(lexeme) ||
-		 is_vertical_bar(lexeme) || is_ampersand(lexeme) ||
-		 is_open_parenthesis(lexeme) || is_close_parenthesis(lexeme))
+		 is_vertical_bar(lexeme) ||
+		 is_open_parenthesis(lexeme) || is_close_parenthesis(lexeme) ||
+		 is_double_ampersand(lexeme))
 		return true;
 	return false;
 }
