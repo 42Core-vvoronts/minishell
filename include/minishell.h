@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 10:51:24 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 09:30:52 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,8 @@ t_node	*parse_pipeline(t_tok **tok, t_ctx *ctx);
 t_node	*parse_expression(t_tok **tok, t_ctx *ctx);
 t_node	*parse_group(t_tok **tok, t_ctx *ctx);
 t_node	*parse_redir(t_tok **tok, t_ctx *ctx);
+t_node	**stack_redirs(t_tok **tok, t_node **stack, int *elem, t_ctx *ctx);
+t_node	*unfold_redirs(t_node **stack, int *elem, t_node *node);
 
 bool	is_group_close(t_tok *tok);
 bool	is_group_open(t_tok *tok);

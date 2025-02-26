@@ -100,3 +100,7 @@ p *field 0x0
 ""
 p result
 ""
+
+
+echo hi < Makefile bye bye
+> hi bye bye
