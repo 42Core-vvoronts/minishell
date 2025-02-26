@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:43:15 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 05:38:05 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 04:13:38 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,15 @@ int	allclean(t_node *node, int mode)
 
 	if (mode == 1)
 	{
-		ft_parrclean(&(node->ctx->envp));
-		ft_parrclean(&(node->ctx->stash));
+		if (node->ctx->envp)
+			ft_parrclean(&(node->ctx->envp));
+		if (node->ctx->stash)
+			ft_parrclean(&(node->ctx->stash));
 	}
 	ctx = node->ctx;
-	clean_tree(node->ctx->head);
 	exitcode = ctx->exitcode;
+	if (node->ctx->head)
+		clean_tree(node->ctx->head);
 	close(ctx->fdin);
 	close(ctx->fdout);
 	free(ctx);

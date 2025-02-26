@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:44:20 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 07:09:32 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 03:56:16 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	process_redir_append(t_node *node)
 	pathname = pop_stash(node);
 	if (is_valid(pathname, node, &fd))
 	{
+		free(pathname);
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 		evaluate(node->right);

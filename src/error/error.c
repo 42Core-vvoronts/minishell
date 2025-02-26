@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 06:20:19 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 03:55:08 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	eopen(char *pathname, int flags, int mode, t_node *node)
 	fd = open(pathname, flags, mode, node);
 	if (fd == ERROR)
 		error(1, node->ctx, (t_m){strerror(errno)});
-	free(pathname);
 	return (fd);
 }
 
