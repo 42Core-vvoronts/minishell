@@ -70,16 +70,16 @@ RESET="\e[0m"
 chmod 000 ./test_files/invalid_permission
 if [ -d "./outfiles" ]; then
     rm -rf "./outfiles"
-    mkdir ./outfiles
 fi
 if [ -d "./mini_outfiles" ]; then
     rm -rf "./mini_outfiles"
-    mkdir ./mini_outfiles
 fi
 if [ -d "./bash_outfiles" ]; then
     rm -rf "./bash_outfiles"
-    mkdir ./bash_outfiles
 fi
+mkdir ./outfiles
+mkdir ./mini_outfiles
+mkdir ./bash_outfiles
 
 PROMPT=$(echo -e "\nexit\n" | $MINISHELL_PATH | head -n 1 | sed "s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g" )
 # Helper commands:
