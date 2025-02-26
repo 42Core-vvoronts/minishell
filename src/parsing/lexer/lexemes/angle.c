@@ -6,24 +6,24 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:01 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/17 16:24:01 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:15:27 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool is_less(char *lexeme)
+bool	is_less(char *lexeme)
 {
-    if (lexeme && is_eqlchar(*lexeme, '<'))
-        return true;
-    return false;
+	if (lexeme && is_eqlchar(*lexeme, '<'))
+		return (true);
+	return (false);
 }
 
-bool is_greater(char *lexeme)
+bool	is_greater(char *lexeme)
 {
-    if (lexeme && is_eqlchar(*lexeme, '>'))
-        return true;
-    return false;
+	if (lexeme && is_eqlchar(*lexeme, '>'))
+		return (true);
+	return (false);
 }
 
 void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)

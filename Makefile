@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/26 13:15:18 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/26 17:12:46 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,12 +83,12 @@ SRC 				=	\
 						angle.c \
 						asterisk.c \
 						blank.c \
-						character.c \
 						dollar.c \
 						parenthesis.c \
 						question.c \
 						quote.c \
 						verticalbar.c \
+						word.c \
 						\
 						syntaxer.c \
 						list.c \
