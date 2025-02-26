@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:35 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 12:01:21 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:14:48 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,13 @@ t_node	*parse_pipeline(t_tok **tok, t_ctx *ctx)
 		operator = *tok;
 		step_forward(tok);
 		if (is_pipe(*tok))
-		{
-			error(2, ctx, (t_m){"syntax error near unexpected token", (*tok)->lexeme});
-			return (NULL);
-		}
+			return((t_node*)to_prompt("syntax", (*tok)->lexeme, 2, ctx));
 		right = parse_pipeline(tok, ctx);
 		if (!right)
-		{
-			error(2, ctx, (t_m){"syntax error near unexpected token"});
-			return (NULL);
-		}
+			return((t_node*)to_prompt("syntax", NULL, 2, ctx));
 		root = init_node(operator->type, operator->lexeme, left, right, ctx);
 		return (root);
 	}
 	return (left);
 }
+
