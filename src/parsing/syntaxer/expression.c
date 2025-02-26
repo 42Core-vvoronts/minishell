@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/24 13:36:14 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:04:49 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,42 +27,26 @@ bool	is_word_token(t_tok *tok)
 			tok->type == FILENAME);
 }
 
-t_node	**stack_redirs(t_tok **tok, t_node **stack, int *elem, t_ctx *ctx)
-{
-	t_node	*redir;
-	
-	while ((*tok) && is_redir(*tok))
-	{
-		redir = parse_redir(tok, ctx);
-		if (redir)
-			stack[(*elem)++] = redir;
-	}
-	return (stack);
-}
-
-t_node	*unfold_redirs(t_node **stack, int *elem, t_node *node)
-{
-	t_node	*redir;
-	
-	while ((*elem) > 0)
-	{
-		redir = stack[--(*elem)];
-		redir->right = node;
-		node = redir;
-	}
-	return node;
-}
-
 void collect_args(t_tok **tok, t_node *word, t_ctx *ctx)
 {
-    t_node	*arg;
-    t_node	*head;
+	t_node	*head;
 	t_node	*tail;
+    t_node	*arg;
+	t_node	*tmp;
 
 	tail = NULL;
 	head = NULL;
-	if (!word)
+	if (!word || !*tok)
 		return ;
+	tmp = word;
+	if (tmp && tmp->left)
+		head = tmp->left;
+	tail = head;
+	while (tmp && tmp->left)
+	{
+		tail = tmp->left;
+		tmp = tmp->left;
+	}
     while (*tok && is_word_token(*tok))
     {
         arg = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL, ctx);
@@ -157,8 +141,11 @@ t_node *expression_no_group(t_tok **tok, t_ctx *ctx)
 	elem = 0;
 	stack_redirs(tok, stack, &elem, ctx);
 	word = create_word_node(tok, ctx);
-	collect_args(tok, word, ctx);
-	stack_redirs(tok, stack, &elem, ctx);
+	while (*tok && (is_word_token(*tok) || is_redir(*tok)))
+	{
+		collect_args(tok, word, ctx);
+		stack_redirs(tok, stack, &elem, ctx);
+	}
     node = word;
 	result = unfold_redirs(stack, &elem, node);
     return result;
@@ -182,7 +169,7 @@ t_node	*parse_expression(t_tok **tok, t_ctx *ctx)
 	else if (is_group_close(*tok))
 	{
 		error(2, ctx, (t_m){"syntax error near unexpected token", (*tok)->lexeme});
-		return NULL;
+		return (NULL);
 	}
 	else
 		return (expression_no_group(tok, ctx));

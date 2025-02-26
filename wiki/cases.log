@@ -1,5 +1,3 @@
-ls "|" cat
-
 
 max args: $ getconf ARG_MAX 2097152
 
@@ -19,84 +17,6 @@ rm -rf new.file
 >other.file >other.file >new.file | <new.file echo FAIL_IF_NOT_ERROR
 
 
-$ ls "/"'h''o''m'"'e'"
-> ls: cannot access "/hom'e'": No such file or directory
-
-echo A && (echo B || echo C) echo F)
-> bash: syntax error near unexpected token `echo'
-echo $?
-2
-
-ls|(cat)
-> OK
-
-'"|"'   
-> "|": command not found
-
-"'|'"
-> '|': command not found
-
-"'"|"'"
-': command not found
-> ': command not found
-
-'"'|'"'  
-> ": command not found
-> ": command not found
-
-"'$USER'"
-> 'vicxptrv': command not found
-
-"ls$USER'LITERAL*'"$USER'aaa'
-> lsvicxptrv'LITERAL*'vicxptrvaaa: command not found
-
-"ls$USER'LITERAL*'plain*****"$USER'aaa'
-> lsvicxptrv'LITERAL*'plain*****vicxptrvaaa: command not found
-
-export VAR="blank      blank"
-echo $VAR
-> blank blank
-
-
-$?
-> 127: command not found
-
-"$?"
-> 127: command not found
-
-'$?'
-> $?: command not found
-
-$nonexist$?
-> 0: command not found (random last exitcode)
-
-$USER$?
-> vicxptrv127: command not found (random last exitcode)
-
-$USER$?aboba
-vicxptrv127aboba: command not found (random last exitcode)
-
-$nonexist
-> promptback
-> 0
-
-""
-> Command '' not found
-> 127
-
-" "
-> : command not found
-> 127
-
-""$nonexist
-> Command '' not found
-
-
-$nonexist
-p result hex ""
-p field char ** hex
-p *field 0x0
-
-""
-p result
-""
+vicxptrv@VICTORIA:~/github/42Core-vvoronts/minishell$ ls |
+> ls
+valid in bash?

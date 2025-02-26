@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
+#    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/25 03:36:21 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/26 13:15:18 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,6 +130,7 @@ SRC 				=	\
 						or.c \
 						\
 						error.c \
+						wraperror.c \
 						clean.c \
 						\
 						cd.c \

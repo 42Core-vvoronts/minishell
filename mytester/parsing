@@ -1,2 +1,52 @@
 
 |
+echo hello world
+(echo hello world) | cat
+env | sort | grep -v SHLVL | grep -v ^_
+grep hi "<infile" <         ./test_files/infile
+echo hi >>./outfiles/outfile01 | echo bye
+(echo hi >>./outfiles/outfile01 | echo bye) && sleep 1
+echo hi >>./outfiles/outfile01 | echo bye >>./outfiles/outfile02
+(echo hi >>./outfiles/outfile01 | echo bye >>./outfiles/outfile02) && sleep 1
+echo hi | echo >>./outfiles/outfile01 bye >./test_files/invalid_permission
+(echo hi | echo >>./outfiles/outfile01 bye >./test_files/invalid_permission) >> ./outfiles/outfile01
+(echo a b < ./test_files/infile c d > ./outfiles/outfile01) e f && sleep 1) | cat
+< ./test_files/infile echo hi (echo hello | cat)
+echo 'bye *' t*.c bye
+$EMPTY echo hi
+echo 'bye *' bo*s bye
+echo 'bye *' t*.c bye
+echo *bonus *.supp bonjour
+ls |
+| ls
+ls >outfile01 && cat outfile01
+ls "|" cat
+ls "/"'h''o''m'"'e'"
+echo A && (echo B || echo C) echo F)
+ls|(cat)
+'"|"'   
+"'|'"
+"'"|"'"
+'"'|'"'  
+"'$USER'"
+"ls$USER'LITERAL*'"$USER'aaa'
+"ls$USER'LITERAL*'plain*****"$USER'aaa'
+> lsvicxptrv'LITERAL*'plain*****vicxptrvaaa: command not found
+export VAR="blank      blank"
+echo $VAR
+"$?"
+'$?'
+$?
+$nonexist$?
+$USER$?
+$USER$?aboba
+$nonexist
+""
+" "
+""$nonexist
+echo hi < ./test_files/infile bye bye
+
+ls >>./outfiles/outfile01 >>./test_files/invalid_permission
+ls >./outfiles/outfile01 >>./outfiles/outfile01 >./outfiles/outfile02
+ls >>./outfiles/outfile01
+ls >./outfiles/outfile01 >./test_files/invalid_permission
