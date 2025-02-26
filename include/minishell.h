@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 09:58:37 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 10:10:55 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ bool	is_plain(char *c);
 bool	is_directory(char *pathname);
 void	handle_wildcard(t_node *node, char **input);
 bool	contain_wildcard(char *str);
-void	expand_wildcard(t_node *node, char *pattern);
+void	expand_wildcard(t_node *node, char *pattern, char ***result);
 void	setup_signals(int mode, void *ctx);
 void	restore_stdfd(int stdfd, t_node *node);
 void	process_filename(t_node *node);
