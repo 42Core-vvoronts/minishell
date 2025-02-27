@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/27 11:02:32 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/27 11:46:58 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -143,15 +143,6 @@ SRC 				=	\
 						export.c \
 						pwd.c \
 						unset.c \
-
-ifeq ($(shell if [ -d tests ]; then echo yes; fi),yes)
-
-VPATH				+=	\
-						./tests/parsing/printer/:
-
-SRC					+= 	\
-						printer.c
-endif
 
 # Object and Dependency files
 OBJ					=	$(SRC:%.c=obj/%.o)
