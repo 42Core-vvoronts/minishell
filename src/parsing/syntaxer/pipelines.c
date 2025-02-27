@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:35 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 16:56:12 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:53:59 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_node	*parse_pipeline(t_tok **tok, t_ctx *ctx)
 		right = parse_pipeline(tok, ctx);
 		if (!right)
 			return ((t_node *)parserror("syntax", "newline", 2, ctx));
-		root = init_node(operator->type, operator->lexeme, left, right, ctx);
+		root = init_node(operator, left, right, ctx);
 		return (root);
 	}
 	return (left);

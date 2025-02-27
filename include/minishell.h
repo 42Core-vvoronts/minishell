@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 15:15:31 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:51:08 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_ctx
 	struct s_node	*head;
 	struct s_tok	*headtok;
 	bool			errlex;
+	bool			errsyn;
 } t_ctx;
 
 typedef struct s_node
@@ -197,12 +198,13 @@ void	prompt(int argc, char **argv, char **envp);
 
 // -- PARSING --
 t_node	*parse(char *statement, t_ctx *ctx);
-
 // -- LEXER --
 t_tok	*lexer(char *statement, t_ctx *ctx);
+t_tok	*init_token(char *start, int len, t_ctx *ctx);
+t_type	typify_token(char *lexeme);
+void	add_token(t_tok *new, t_tok **head, t_tok **current);
 void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_operators(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
-
 void	tokenize_parenthesis(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
 void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
@@ -212,11 +214,6 @@ void	tokenize_quotes(char **lexeme, t_ctx *ctx);
 void	single_string(char **end, t_ctx *ctx);
 void	double_string(char **end, t_ctx *ctx);
 void	skip_blanks(char **lexeme);
-
-t_tok	*init_token(char *start, int len, t_ctx *ctx);
-t_type	typify_token(char *lexeme);
-void	add_token(t_tok *new, t_tok **head, t_tok **current);
-// lexemes
 bool	is_open_parenthesis(char *lexeme);
 bool	is_close_parenthesis(char *lexeme);
 bool	is_vertical_bar(char *lexeme);
@@ -233,13 +230,9 @@ bool	is_character(char *lexeme);
 bool	is_word_lexeme(char *lexeme);
 bool	is_operator(char *lexeme);
 bool	is_queston(char *c);
-
 // -- SYNTAXER --
 t_node	*syntaxer(t_tok *tok, t_ctx *ctx);
-t_node	*group_or_expression(t_tok **tok, t_ctx *ctx);
-t_node	*create_tree(t_tok **tok, int precedence, t_ctx *ctx);
-int		get_precedence(t_type type);
-
+t_node	*init_node(t_tok *tok, t_node *left, t_node *right, t_ctx *ctx);
 t_node	*parse_list(t_tok **tok, t_ctx *ctx);
 t_node	*parse_pipeline(t_tok **tok, t_ctx *ctx);
 t_node	*parse_expression(t_tok **tok, t_ctx *ctx);
@@ -247,27 +240,20 @@ t_node	*parse_group(t_tok **tok, t_ctx *ctx);
 t_node	*parse_redir(t_tok **tok, t_ctx *ctx);
 t_node	**stack_redirs(t_tok **tok, t_node **stack, int *elem, t_ctx *ctx);
 t_node	*unfold_redirs(t_node **stack, int *elem, t_node *node);
-
 bool	is_group_close(t_tok *tok);
 bool	is_group_open(t_tok *tok);
 bool	is_andor(t_tok *tok);
 bool	is_pipe(t_tok *tok);
 bool	is_redir(t_tok *tok);
 bool	is_word_token(t_tok *tok);
-
 void	step_forward(t_tok **tok);
-
-// -- INIT --
-t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx);
-
 // -- CLEAN --
 char	*parserror(char *type, char *lexeme, int code, t_ctx *ctx);
 void	clean_tokens(t_tok *tokens);
 void	clean_tree(t_node *node);
-
 // -- PRINTER --
-void print_tokens(t_tok *tokens);
-void print_node(t_node *ast, int depth);
-void save_tree(t_node *node);
+void	print_tokens(t_tok *tokens);
+void	print_node(t_node *ast, int depth);
+void	save_tree(t_node *node);
 
 #endif

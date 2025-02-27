@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:07:01 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 10:19:31 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:51:50 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*parserror(char *type, char *lexeme, int code, t_ctx *ctx)
 	if (is_eqlstr(type, "syntax"))
 		msg = "syntax error near unexpected token";
 	else
-		msg = "??";
+		msg = type;
 	if (lexeme)
 		error(code, ctx, (t_m){msg, lexeme+TOK});
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 02:17:33 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 16:59:03 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ void error(int exitcode, t_ctx *ctx, t_m msg)
 	puterr(PROGRAMM);
 	while (*msg)
 	{
-		puterr(": ");
 		if (*msg > (char *)TOK)
 		{
-			puterr("`");
+			puterr(" `");
 			puterr(*msg - TOK);
 			puterr("\'");
 			msg++;
 			continue ;
 		}
+		puterr(": ");
 		puterr(*msg);
 		msg++;
 	}

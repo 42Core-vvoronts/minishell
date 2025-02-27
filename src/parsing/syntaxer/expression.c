@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 14:14:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 17:56:33 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void collect_args(t_tok **tok, t_node *word, t_ctx *ctx)
 	}
     while (*tok && is_word_token(*tok))
     {
-        arg = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL, ctx);
+        arg = init_node(*tok, NULL, NULL, ctx);
 		step_forward(tok);
         if (!head)
         {
@@ -72,7 +72,7 @@ t_node	*create_word_node(t_tok **tok, t_ctx *ctx)
 	word = NULL;
 	if ((*tok) && is_word_token(*tok))
 	{
-		word = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL, ctx);
+		word = init_node((*tok), NULL, NULL, ctx);
 		step_forward(tok);
 		return word;
 	}
@@ -148,7 +148,7 @@ t_node *expression_no_group(t_tok **tok, t_ctx *ctx)
 		collect_args(tok, word, ctx);
 		stack_redirs(tok, stack, &elem, ctx);
 	}
-	if (is_group_open(*tok)) // || is_group_close(*tok))
+	if (is_group_open(*tok))
 		return ((t_node *)parserror("syntax", (*tok)->lexeme, 2, ctx));
     node = word;
 	result = unfold_redirs(stack, &elem, node);
