@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 10:33:22 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 10:53:51 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <sys/stat.h>
+# include <sys/stat.h>
 
 # define REDIR_FAIL 1
 # define STACK_SIZE 256
@@ -70,16 +70,14 @@ typedef enum e_sigset
 # define CD_OLDPWD "OLDPWD not set"
 # define CD_HOME "HOME not set"
 # define IS_DIR "Is a directory"
-# define SYNTAX_ERROR "syntax error near unexpected token" //syntax error near unexpected token `('
+# define SYNTAX_ERROR "syntax error near unexpected token"
 
-#define EXIT "exit"
-#define EXPORT "export"
-#define CD "cd"
+# define EXIT "exit"
+# define EXPORT "export"
+# define CD "cd"
 
-extern volatile sig_atomic_t g_signal;;
-
-typedef char *t_m[5];
-
+extern volatile sig_atomic_t	g_signal;;
+typedef char					*t_m[5];
 typedef struct s_ctx
 {
 	char			**envp;
@@ -91,7 +89,7 @@ typedef struct s_ctx
 	struct s_node	*head;
 	struct s_tok	*headtok;
 	bool			lexerr;
-} t_ctx;
+}	t_ctx;
 
 typedef struct s_node
 {
@@ -100,20 +98,20 @@ typedef struct s_node
 	char			*token;
 	struct s_node	*left;
 	struct s_node	*right;
-} t_node;
+}	t_node;
 
 typedef struct s_tok
 {
 	t_type			type;
 	char			*lexeme;
 	struct s_tok	*next;
-} t_tok;
+}	t_tok;
 
 typedef struct s_pipe
 {
-	int read;
-	int write;
-} t_pipe;
+	int	read;
+	int	write;
+}	t_pipe;
 
 void	handle_signal(int signum);
 void	handle_running_signal(int signum);
@@ -162,9 +160,8 @@ int		allclean(t_node *node, int mode);
 
 void	add_stash(char *arg, t_node *node);
 char	*pop_stash(t_node *node);
-void	prepare_argv(t_node *node);
 
-void 	run_cmd(t_node *node);
+void	run_cmd(t_node *node);
 char	*get_pathname(t_node *node);
 
 int		get_exitcode(pid_t pid);
@@ -270,8 +267,7 @@ char	*parserror(char *type, char *lexeme, int code, t_ctx *ctx);
 void	clean_tokens(t_tok *tokens);
 
 // -- PRINTER --
-void print_tokens(t_tok *tokens);
-void print_node(t_node *ast, int depth);
-void save_tree(t_node *node);
+void	print_tokens(t_tok *tokens);
+void	save_tree(t_node *node);
 
 #endif
