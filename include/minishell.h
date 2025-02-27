@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 10:13:15 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 09:42:55 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,6 @@ t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx 
 // -- CLEAN --
 char	*parserror(char *type, char *lexeme, int code, t_ctx *ctx);
 void	clean_tokens(t_tok *tokens);
-void	clean_tree(t_node *node);
 
 // -- PRINTER --
 void print_tokens(t_tok *tokens);

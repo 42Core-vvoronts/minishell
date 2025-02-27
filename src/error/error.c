@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 08:44:09 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 09:41:50 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	edup2(int oldfd, int newfd, t_node *node)
 	if (dup2(oldfd, newfd) == ERROR)
 		error(-1, node->ctx, (t_m){strerror(errno)});
 }
+
 pid_t	efork(t_node *node)
 {
 	pid_t	pid;
@@ -69,7 +70,7 @@ void	eexecve(char *pathname, t_node *node)
  * error(127, node->ctx, (t_m){node->ctx->stash[0], FILE_NOT_FOUND});
  *
  */
-void error(int exitcode, t_ctx *ctx, t_m msg)
+void	error(int exitcode, t_ctx *ctx, t_m msg)
 {
 	puterr(PROGRAMM);
 	while (*msg)
