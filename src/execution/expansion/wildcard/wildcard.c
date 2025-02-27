@@ -6,23 +6,18 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:07:24 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/26 10:35:02 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 10:18:09 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	contain_wildcard(char *str)
-{
-	return ((bool)ft_strchr(str , 5));
-}
-
 // On success, readdir() returns a pointer to a dirent structure.
 // (This structure may be statically allocated; do not attempt to free(3) it.
 // scan for char after ***** 'd' and ft_strchr('d')
-static	bool match_pattern(char *str, char *pattern)
+static	bool	match_pattern(char *str, char *pattern)
 {
-	while(*str && *pattern)
+	while (*str && *pattern)
 	{
 		if (*pattern == 5)
 		{
@@ -44,7 +39,7 @@ static	bool match_pattern(char *str, char *pattern)
 char	*replace_wildcard(char *str, t_node *node)
 {
 	size_t	i;
-	char *result;
+	char	*result;
 
 	i = 0;
 	result = ft_strdup(str);
@@ -59,9 +54,9 @@ char	*replace_wildcard(char *str, t_node *node)
 	return (result);
 }
 
-static	void	add_filename_to_result(t_node *node, char *filename, char ***result)
+static	void	add_name_to_result(t_node *node, char *filename, char ***result)
 {
-	char *arg;
+	char	*arg;
 
 	arg = ft_strdup(filename);
 	if (!arg)
@@ -69,7 +64,7 @@ static	void	add_filename_to_result(t_node *node, char *filename, char ***result)
 	*result = ft_parradd(*result, arg);
 }
 
-void expand_wildcard(t_node *node, char *pattern, char ***result)
+void	expand_wildcard(t_node *node, char *pattern, char ***result)
 {
 	DIR				*dir;
 	struct dirent	*entry;
@@ -86,7 +81,7 @@ void expand_wildcard(t_node *node, char *pattern, char ***result)
 			continue ;
 		}
 		if (match_pattern(entry->d_name, pattern))
-			add_filename_to_result(node, entry->d_name, result);
+			add_name_to_result(node, entry->d_name, result);
 		entry = readdir(dir);
 	}
 	if (*result == NULL)
@@ -96,46 +91,10 @@ void expand_wildcard(t_node *node, char *pattern, char ***result)
 	free(pattern);
 }
 
-// Function to swap two string pointers
-static void swap(char **str1, char **str2)
-{
-    char *temp;
-
-	temp = *str1;
-    *str1 = *str2;
-    *str2 = temp;
-}
-
-// Function to perform Bubble Sort on an array of strings using while loops
-static void bubble_sort(char ***arr, int n)
-{
-    int i;
-    int swapped;
-
-	i = 0;
-	swapped = 1;
-    while (i < n - 1 && swapped)
-	{
-        swapped = 0;
-        int j;
-		j = 0;
-        while (j < n - i - 1)
-		{
-            if (ft_strcmp((*arr)[j], (*arr)[j + 1]) > 0)
-			{
-                swap(&(*arr)[j], &(*arr)[j + 1]);
-                swapped = 1;
-            }
-            j++;
-        }
-        i++;
-    }
-}
-
 void	handle_wildcard(t_node *node, char **input)
 {
-	size_t i;
-	char**	result;
+	size_t	i;
+	char	**result;
 
 	i = 0;
 	result = NULL;
@@ -153,17 +112,3 @@ void	handle_wildcard(t_node *node, char **input)
 	}
 	free(input);
 }
-
-//  int main()
-//  {
-// 	char			**result;
-
-// 	result = expand_wildcard(NULL);
-// 	printf("\n");
-// 	while (result && *result)
-// 	{
-// 		printf("%s\n", *result);
-// 		result++;
-// 	}
-//  	// printf("result: %d\n", match_pattern("dir1", "D*1", 0));
-//  }

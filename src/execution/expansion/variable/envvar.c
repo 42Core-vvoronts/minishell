@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 05:53:35 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/26 04:57:09 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 10:14:26 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	is_eqlvar(char *envvar, char *varname)
 //return pointer to envp variable
 //return NULL if not found
 //varname = "PATH" or "HOME", no any $ or \n
-char **get_var(t_ctx *ctx, char *varname)
+char	**get_var(t_ctx *ctx, char *varname)
 {
 	char	**envp;
 
@@ -44,7 +44,7 @@ char **get_var(t_ctx *ctx, char *varname)
 //return content of envp variable
 //return NULL if variable not found
 //varname = "PATH" or "HOME", no any $ or \n
-char *get_val(t_ctx *ctx, char *varname)
+char	*get_val(t_ctx *ctx, char *varname)
 {
 	char	**var;
 
@@ -54,10 +54,10 @@ char *get_val(t_ctx *ctx, char *varname)
 	return (NULL);
 }
 
-static void	add_new(t_node *node, char *var)
+static	void	add_new(t_node *node, char *var)
 {
 	size_t	i;
-	char **result;
+	char	**result;
 
 	i = ft_parrlen(node->ctx->envp);
 	result = ft_calloc(i + 2, sizeof(char *));
@@ -79,8 +79,8 @@ static void	add_new(t_node *node, char *var)
 //it mallocs char *str
 void	add_var(t_node *node, char *str)
 {
-	char **var;
-	char *dupedstr;
+	char	**var;
+	char	*dupedstr;
 
 	dupedstr = ft_strdup(str);
 	if (!dupedstr)

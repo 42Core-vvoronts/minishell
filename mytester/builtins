@@ -37,7 +37,7 @@ unset HOME
 unset PATH
 unset SHELL
 cd $PWD
-cd $PWD hi 
+cd $PWD hi
 cd 123123
 exit 123
 exit 298
@@ -49,4 +49,5 @@ exit "-100"
 exit -"100"
 exit hello
 exit 42 world
+
 
