@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 19:09:35 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:46:31 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,8 +211,12 @@ void	tokenize_parenthesis(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
 void	tokenize_vertical_bar(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
 void	tokenize_ampersand(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
 void	tokenize_angles(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
-void	tokenize_heredoc(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
 void	tokenize_quotes(char **lex, t_ctx *ctx);
+void	tokenize_heredoc(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
+void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **current);
+bool	get_valid_delim(char **delim, t_ctx *ctx, t_tok **current, bool *quotes);
+void	attach_token(char *content, t_ctx *ctx, t_tok **tokens, t_tok **current);
+char	*get_delimeter(char **lexeme, t_ctx *ctx);
 void	single_string(char **end, t_ctx *ctx);
 void	double_string(char **end, t_ctx *ctx);
 void	skip_blanks(char **lex);
