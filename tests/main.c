@@ -30,90 +30,9 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-// typedef char *t_m[5];
-
-
-// void puterr(char *str)
-// {
-// 	write(STDERR_FILENO, str, strlen(str));
-// }
-
-// void error(int exitcode, t_m msg)
-// {
-// 	(void)exitcode;
-// 	puterr(PROGRAMM);
-// 	while (*msg)
-// 	{
-// 		if (*msg > (char *)TOK)
-// 		{
-// 			puterr(" `");
-// 			puterr(*msg - TOK);
-// 			puterr("\'");
-// 			msg++;
-// 			continue ;
-// 		}
-// 		puterr(": ");
-// 		puterr(*msg);
-// 		msg++;
-// 	}
-// 	puterr("\n");
-// }
-
-// void get_msg(int n, ...)
-// {
-// 	write(1, (char *)(&n + 1), strlen((char *)(&n + 1)));
-// }
-
 int	main()
 {
-	char *str;
-	// int fd = dup(STDIN_FILENO);
-	pid_t pid = fork();
-	if (pid == 0)
-	{
-		char *cmd[3];
-
-		str = malloc(100);
-		str++;
-		cmd[0] = "ls";
-		cmd[1] = "a";
-		cmd[2] = NULL;
-		// fd = dup(STDIN_FILENO);
-		// fd = open(".", O_RDWR);
-		execve("/bin/grep", cmd, NULL);
-		exit(1);
-	}
-	else if (pid > 0)
-	{
-		wait(NULL);
-		// close(fd);
-	}
-
-	// char *str;
-	// char **test;
-	// int fd[2];
-	// dup(STDIN_FILENO);
-	// pipe(fd);
-	// malloc(1000);
-	// str = malloc(7777);
-	// test = malloc(sizeof(char *));
-	// *test = str;
-	// free(test);
-	// str = NULL;
-	// char *str;
-
-	// str = FILE_NOT_FOUND;
-	// str = AMBIGUOUS_REDIR;
-	// str = NOT_VALID_IDENTIFIER;
-	// str = SYNTAX_ERROR;
-	// str = SYSTEM;
-	// str = CMD_NOT_FOUND;
-	// // void *p2 = (void*)0xffffffffffffffff;
-
-	// size_t p1 = 0x7fffffffe318;
-	// size_t p2 = 0xf000000000000000;
-	// // size_t p2 = ULLONG_MAX;
-	// size_t p4 = p1 | p2;
-	// size_t p5 = p4 ^ p2;
-	// error(1, (t_m){FILE_NOT_FOUND + TOK, NULL});
+	write(STDOUT_FILENO, "ABCDEF", 6);
+	write(STDOUT_FILENO, "\b\b", 2);
+	'\b';
 }

@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 03:23:07 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 07:26:28 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ void	prompt(int argc, char **argv, char **envp)
 			evaluate(ast);
         free(statement);
 		if (g_signal == SIGQUIT && ctx->exitcode != EXIT_SUCCESS)
-		{
 			write(STDOUT_FILENO, "Quit\n", 5);
-		}
+		else if (g_signal == SIGINT)
+			write(STDOUT_FILENO, "\n", 1);
 		// printf("exitcode: %d\n", ctx->exitcode);
     }
 }
