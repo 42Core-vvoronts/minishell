@@ -17,6 +17,7 @@ else
 		"bonus"
 		"parsing"
 		"crazy"
+		"errors"
 	)
 fi
 

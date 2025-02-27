@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 18:10:05 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:45:17 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,8 +235,9 @@ t_node	*syntaxer(t_tok *tok, t_ctx *ctx);
 t_node	*init_node(t_tok *tok, t_node *left, t_node *right, t_ctx *ctx);
 t_node	*parse_list(t_tok **tok, t_ctx *ctx);
 t_node	*parse_pipeline(t_tok **tok, t_ctx *ctx);
-t_node	*parse_expression(t_tok **tok, t_ctx *ctx);
 t_node	*parse_group(t_tok **tok, t_ctx *ctx);
+t_node	*parse_expression(t_tok **tok, t_ctx *ctx);
+void	collect_args(t_tok **tok, t_node *word, t_ctx *ctx);
 t_node	*parse_redir(t_tok **tok, t_ctx *ctx);
 t_node	**stack_redirs(t_tok **tok, t_node **stack, int *elem, t_ctx *ctx);
 t_node	*unfold_redirs(t_node **stack, int *elem, t_node *node);

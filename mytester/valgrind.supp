@@ -1,11 +1,4 @@
 {
-   parsing
-   Memcheck:Leak
-   ...
-   fun:parse
-   ...
-}
-{
    readline
    Memcheck:Leak
    ...

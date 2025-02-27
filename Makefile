@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/26 17:12:46 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/27 18:43:02 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,9 +44,9 @@ VPATH				=	\
 						./src/execution/command/builtin:\
 						./src/parsing/:\
 						./src/parsing/heredoc/:\
-						./src/parsing/syntaxer/:\
 						./src/parsing/lexer/:\
 						./src/parsing/lexer/lexemes:\
+						./src/parsing/syntaxer/:\
 						./src/prompt/:\
 						./src/signals/:\
 						./src/test/:\
@@ -96,6 +96,7 @@ SRC 				=	\
 						pipelines.c \
 						redirections.c \
 						expression.c \
+						arguments.c \
 						\
 						evaluation.c \
 						argument.c \
