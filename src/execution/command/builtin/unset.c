@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/26 06:01:02 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 09:53:20 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static	void	update_envp(t_node *node, size_t len)
 {
 	size_t	i;
 	size_t	j;
-	char **result;
+	char	**result;
 
 	i = 0;
 	j = 0;

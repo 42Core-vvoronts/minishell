@@ -88,12 +88,13 @@ export EMPTY=
 export BLANK="      "
 export BLANKSTAR="   *   "
 export STAR="*"
+export AMBIGUOS="f1 f2 f3"
 
 PROMPT=$(echo -e "\nexit\n" | $MINISHELL_PATH | head -n 1 | sed "s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g" )
 # Helper commands:
 REMOVE_COLORS="sed s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g"
 REMOVE_EXIT="grep -v ^exit$"
-VALGRIND_TMP=tmp.log
+VALGRIND_TMP=./manual_tests/tmp.log
 if [ -d "$VALGRIND_TMP" ]; then
     rm -f "$VALGRIND_TMP"
 fi

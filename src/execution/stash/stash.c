@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:19:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/26 04:14:38 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 10:23:59 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	add_stash(char *arg, t_node *node)
 {
 	size_t	i;
-	char **result;
+	char	**result;
 
 	i = ft_parrlen(node->ctx->stash);
 	result = ft_calloc(i + 2, sizeof(char *));
@@ -38,8 +38,8 @@ void	add_stash(char *arg, t_node *node)
 char	*pop_stash(t_node *node)
 {
 	size_t	i;
-	char **result;
-	char *arg;
+	char	**result;
+	char	*arg;
 
 	if (!node->ctx->stash)
 		return (NULL);
@@ -58,4 +58,3 @@ char	*pop_stash(t_node *node)
 	node->ctx->stash = result;
 	return (arg);
 }
-

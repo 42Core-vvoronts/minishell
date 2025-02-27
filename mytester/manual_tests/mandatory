@@ -4,6 +4,7 @@ echo -n hello
 # update env variable value
 export HELLO=123
 export HELLO="beautiful world"
+export VAR=12321323234export VAR=12321323234DD
 
 # keep track of OLDPWD
 cd obj

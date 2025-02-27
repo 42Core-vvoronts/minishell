@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   content.c                                          :+:      :+:    :+:   */
+/*   executils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/09 10:08:11 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 10:24:51 by ipetrov          ###   ########.fr       */
+/*   Created: 2025/02/05 06:25:06 by ipetrov           #+#    #+#             */
+/*   Updated: 2025/02/27 10:28:24 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	bool	is_expansion_required(char *content)
+bool	is_exist(char *pathname)
 {
-	return (*content == 1);
+	return (!access(pathname, F_OK));
 }
 
-void	process_content(t_node *node)
+bool	is_readable(char *pathname)
 {
-	char	*arg;
+	return (!access(pathname, R_OK));
+}
 
-	if (is_expansion_required(node->token))
-	{
-		if (*(node->token + 1) == '\0')
-			arg = ft_strdup("");
-		else
-		{
-			arg = node->token + 1;
-			arg = expand_heredoc(&arg, node->ctx);
-		}
-	}
-	else
-	{
-		arg = ft_strdup(node->token);
-		if (!arg)
-			error(-1, node->ctx, (t_m){strerror(errno)});
-	}
-	add_stash(arg, node);
+bool	is_writable(char *pathname)
+{
+	return (!access(pathname, W_OK));
+}
+
+bool	is_executable(char *pathname)
+{
+	return (!access(pathname, F_OK | X_OK));
+}
+
+bool	is_pathname(char *cmd)
+{
+	return (ft_strchr(cmd, '/'));
 }

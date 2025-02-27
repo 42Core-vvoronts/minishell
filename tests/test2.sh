@@ -17,5 +17,8 @@
 
 # rm $VALGRIND_TMP
 
-read -r line
-echo $line
+# read -r line
+# echo $line
+
+VAR=$(./a.out)
+echo ${#VAR}

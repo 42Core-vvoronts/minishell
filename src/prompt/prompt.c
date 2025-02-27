@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 09:59:03 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:44:15 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,52 +39,51 @@ static	void	handle_shlvl(t_ctx *ctx)
 	free(result);
 }
 
+static	void	run(char	*statement, t_ctx *ctx)
+{
+	t_node	node;
+	t_node	*ast;
+
+	if (!statement)
+	{
+		ft_memset(&node, 0, sizeof(t_node));
+		node.ctx = ctx;
+		run_exit(&node);
+	}
+	add_history(statement);
+	ast = parse(statement, ctx);
+	if (ast)
+		evaluate(ast);
+	free(statement);
+	if (g_signal == SIGQUIT && ctx->exitcode != EXIT_SUCCESS)
+		write(STDOUT_FILENO, "Quit\n", 5);
+	else if (g_signal == SIGINT)
+		write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+}
+
 void	prompt(int argc, char **argv, char **envp)
 {
-    char	*statement;
-	t_node	*ast;
+	char	*statement;
 	t_ctx	*ctx;
-	t_node	node;
+
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	(void)ast;
-	(void)ctx;
-	(void)statement;
-	(void)node;
-
 	setup_signals(IS_IGNORE, NULL);
 	init_ctx(&ctx, envp);
-
 	handle_shlvl(ctx);
 	g_signal = SIGNO;
-	char prompt[] = "minishell$ ";
-    while (true)
-    {
+	while (true)
+	{
 		setup_signals(IS_PROMPT, ctx);
-        statement = readline(prompt);
+		statement = readline("minishell$ ");
 		if (g_signal != SIGNO)
 		{
 			ctx->exitcode = g_signal + 128;
 			g_signal = SIGNO;
 		}
 		setup_signals(IS_RUNNING, ctx);
-        if (!statement)
-        {
-			ft_memset(&node, 0, sizeof(t_node));
-			node.ctx = ctx;
-			run_exit(&node);
-		}
-		add_history(statement); //not add if NULL?
-        ast = parse(statement, ctx);
-		if (ast)
-			evaluate(ast);
-        free(statement);
-		if (g_signal == SIGQUIT && ctx->exitcode != EXIT_SUCCESS)
-		{
-			write(STDOUT_FILENO, "Quit\n", 5);
-		}
-		// printf("exitcode: %d\n", ctx->exitcode);
-    }
+		run(statement, ctx);
+	}
 }
-

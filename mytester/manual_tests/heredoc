@@ -33,3 +33,6 @@ $
 
 << echo oi
 echo
+
+<< "" cat
+#minishell: warning: here-document delimited by end-of-file, wanted: `'

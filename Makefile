@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/27 18:43:02 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/27 19:07:29 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,8 +69,11 @@ SRC 				=	\
 						prompt.c \
 						\
 						executils.c \
+						executils2.c \
+						expuntils.c \
 						\
 						signals.c \
+						handlers.c \
 						\
 						parser.c \
 						heredoc.c \

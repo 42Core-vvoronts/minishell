@@ -6,47 +6,44 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:33:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 10:41:03 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 10:11:35 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t get_len_without_emptiness(char *str)
-{
-	size_t len;
-
-	len = 0;
-	while (*str)
-	{
-		if (*str++ == 0x1D)
-			continue ;
-		len++;
-	}
-	return (len);
-}
-
 /**
- * @brief Extracts a trimmed version of the input string, removing specific characters.
+ * @brief Extracts a trimmed version of the input string,
+ * removing specific characters.
  *
- * This function takes an input string and a context structure, calculates the length
- * of the string without certain characters (emptiness), and if the length differs from
- * the original string length, it allocates memory for a new trimmed string. The new
- * string is populated by copying characters from the original string, excluding the
+ * This function takes an input string and a context structure,
+ * calculates the length
+ * of the string without certain characters (emptiness), and
+ * if the length differs from
+ * the original string length, it allocates memory for a new trimmed string.
+ * The new
+ * string is populated by copying characters from the original string,
+ * excluding the
  * character 0x1D.
  *
  * @param str The input string to be processed.
  * @param ctx The context structure.
- * @return A newly allocated trimmed string if the lengths differ, otherwise NULL.
+ * @return A newly allocated trimmed string if the lengths differ,
+ * otherwise NULL.
  */
-static char *get_str(char *str, t_ctx *ctx)
+static	char	*get_str(char *str, t_ctx *ctx, size_t	len)
 {
-	size_t i;
-	size_t len;
-	char *trimmed;
+	size_t	i;
+	char	*trimmed;
 
 	i = 0;
-	len = get_len_without_emptiness(str);
+	while (str[i])
+	{
+		if (str[i++] == 0x1D)
+			continue ;
+		len++;
+	}
+	i = 0;
 	if (len != ft_strlen(str))
 	{
 		trimmed = ft_calloc(len + 1, sizeof(char));
@@ -63,15 +60,15 @@ static char *get_str(char *str, t_ctx *ctx)
 	return (NULL);
 }
 
-static void	trim_emptiness(char **field, t_ctx *ctx)
+static	void	trim_emptiness(char **field, t_ctx *ctx)
 {
-	size_t i;
-	char *trimmed;
+	size_t	i;
+	char	*trimmed;
 
 	i = 0;
 	while (field[i])
 	{
-		trimmed = get_str(field[i], ctx);
+		trimmed = get_str(field[i], ctx, 0);
 		if (trimmed)
 		{
 			free(field[i]);

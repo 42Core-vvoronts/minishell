@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 18:45:17 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:09:35 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-#include <sys/stat.h>
+# include <sys/stat.h>
 
 # define REDIR_FAIL 1
 # define STACK_SIZE 256
@@ -70,16 +70,14 @@ typedef enum e_sigset
 # define CD_OLDPWD "OLDPWD not set"
 # define CD_HOME "HOME not set"
 # define IS_DIR "Is a directory"
-# define SYNTAX_ERROR "syntax error near unexpected token" //syntax error near unexpected token `('
+# define SYNTAX_ERROR "syntax error near unexpected token"
 
-#define EXIT "exit"
-#define EXPORT "export"
-#define CD "cd"
+# define EXIT "exit"
+# define EXPORT "export"
+# define CD "cd"
 
-extern volatile sig_atomic_t g_signal;;
-
-typedef char *t_m[5];
-
+extern volatile sig_atomic_t	g_signal;;
+typedef char					*t_m[5];
 typedef struct s_ctx
 {
 	char			**envp;
@@ -101,21 +99,26 @@ typedef struct s_node
 	char			*token;
 	struct s_node	*left;
 	struct s_node	*right;
-} t_node;
+}	t_node;
 
 typedef struct s_tok
 {
 	t_type			type;
 	char			*lexeme;
 	struct s_tok	*next;
-} t_tok;
+}	t_tok;
 
 typedef struct s_pipe
 {
-	int read;
-	int write;
-} t_pipe;
+	int	read;
+	int	write;
+}	t_pipe;
 
+void	handle_signal(int signum);
+void	handle_running_signal(int signum);
+void	handle_heredoc_signal(int signum);
+bool	contain_wildcard(char *str);
+void	bubble_sort(char ***arr, int n);
 bool	is_eqlvar(char *envvar, char *varname);
 void	expand(char **lex, t_ctx *ctx);
 char	*expand_heredoc(char **content, t_ctx *ctx);
@@ -158,9 +161,8 @@ int		allclean(t_node *node, int mode);
 
 void	add_stash(char *arg, t_node *node);
 char	*pop_stash(t_node *node);
-void	prepare_argv(t_node *node);
 
-void 	run_cmd(t_node *node);
+void	run_cmd(t_node *node);
 char	*get_pathname(t_node *node);
 
 int		get_exitcode(pid_t pid);

@@ -6,13 +6,13 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:43:15 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 10:12:44 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:10:21 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void clean_tree(t_node *node)
+void	clean_tree(t_node *node)
 {
 	if (node == NULL)
 		return ;
