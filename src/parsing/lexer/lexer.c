@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 18:34:26 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:57:30 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ t_tok	*lexer(char *statement, t_ctx *ctx)
 		tokenize_words(&statement, &tokens, &current, ctx);
 		tokenize_operators(&statement, &tokens, &current, ctx);
     }
-	if (ctx->lexerr)
-	{
-		clean_tokens(&tokens);
-		return (NULL);
-	}
+	// if (ctx->lexerr)
+	// {
+	// 	clean_tokens(&tokens);
+	// 	return (NULL);
+	// }
     return tokens;
 }
 

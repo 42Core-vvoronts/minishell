@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 04:44:11 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 11:49:00 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*get_delimeter(char **lexeme, t_ctx *ctx)
 	return (delim);
 }
 
-static char *ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
+static char	*ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -138,6 +138,7 @@ static void	attach_token(char	*content, t_ctx *ctx, t_tok **tokens, t_tok **curr
 	new = NULL;
 	new = init_token(content, ft_strlen(content), ctx);
 	ctx->exitcode = 0;
+	free(content);
 	add_token(new, tokens, current);
 }
 

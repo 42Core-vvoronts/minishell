@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 18:16:41 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:19:56 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,36 @@ t_node *parse_group(t_tok **token, t_ctx *ctx)
 		error(2, ctx, (t_m){"syntax error near unexpected token", (*token)->lexeme});
 	return NULL;
 }
+
+// t_node *parse_group(t_tok **token, t_ctx *ctx)
+// {
+// 	t_node	*node;
+
+// 	if (!*token)
+// 		return NULL;
+// 	if (is_group_open(*token))
+// 	{
+// 		step_forward(token);
+// 		if (!*token)
+// 			return ((t_node *)parserror("syntax", "newline", 2, ctx));
+// 		// Removed these lines:
+// 		// else if (is_group_close(*token))
+// 		//    error(2, ctx, (t_m){"syntax error near unexpected token", (*token)->lexeme});
+// 		// else if (is_group_open(*token))
+// 		//    return(parse_group(token, ctx));
+// 		node = parse_list(token, ctx);
+// 		if (*token && is_group_close(*token))
+// 		{
+// 			step_forward(token);
+// 			return init_node(GROUP, "()", node, NULL, ctx);
+// 		}
+// 		else
+// 			error(2, ctx, (t_m){"unexpected EOF while looking for matching", ")"});
+// 	}
+// 	else
+// 		error(2, ctx, (t_m){"syntax error near unexpected token", (*token)->lexeme});
+// 	return NULL;
+// }
 
 bool	is_group_open(t_tok *tok)
 {

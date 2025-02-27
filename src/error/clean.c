@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 14:43:15 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 09:59:11 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:12:44 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,22 @@ int	allclean(t_node *node, int mode)
 	exitcode = ctx->exitcode;
 	if (node->ctx->head)
 		clean_tree(node->ctx->head);
+	if (ctx->headtok)
+		clean_tokens(ctx->headtok);
 	close(ctx->fdin);
 	close(ctx->fdout);
 	free(ctx);
 	return (exitcode);
 }
 
-void	clean_tokens(t_tok **tokens)
+void	clean_tokens(t_tok *tokens)
 {
 	t_tok	*tmp;
 
-	while (*tokens)
+	while (tokens)
 	{
-		tmp = *tokens;
-		*tokens = (*tokens)->next;
+		tmp = tokens;
+		tokens = (tokens)->next;
 		free(tmp->lexeme);
 		free(tmp);
 	}

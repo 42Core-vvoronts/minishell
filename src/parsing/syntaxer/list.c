@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:09 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 18:10:41 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:28:49 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,19 @@ t_node	*parse_list(t_tok **tok, t_ctx *ctx)
 	t_type	type;
 
 	left = parse_pipeline(tok, ctx);
-	while (*tok && is_andor(*tok))
+	while (*tok && is_andor(*tok) && left)
 	{
 		type = (*tok)->type;
 		operator = *tok;
 		step_forward(tok);
 		right = parse_pipeline(tok, ctx);
-		if (!right || !left)
-			return ((t_node *)parserror("syntax", operator->lexeme, 2, ctx));
+		if (!right)
+		{
+			if (*tok && (*tok)->lexeme)
+				return ((t_node *)parserror("syntax", (*tok)->lexeme, 2, ctx));
+			else
+				return ((t_node *)parserror("syntax", "newline", 2, ctx));
+		}
 		left = init_node(type, operator->lexeme, left, right, ctx);
 	}
 	return (left);

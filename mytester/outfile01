@@ -1,10 +1,10 @@
 &
-README.md
 bash.supp
 bash_outfiles
 bonus
 bonus_bonus
 builtins
+crazy
 extras
 local.supp
 loop.out
@@ -17,6 +17,7 @@ outfiles
 parsing
 pipes
 redirects
+result_tree.png
 syntax
 test_files
 tester

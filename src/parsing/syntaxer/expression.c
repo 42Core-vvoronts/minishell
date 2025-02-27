@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 16:04:49 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:41:33 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ t_node *expression_with_group(t_tok **tok, t_ctx *ctx)
 
 	elem = 0;
 	node = parse_group(tok, ctx);
+	if (node && *tok && !is_operator((*tok)->lexeme))
+		return (NULL);
 	stack_redirs(tok, stack, &elem, ctx);
 	result = unfold_redirs(stack, &elem, node);
 	return (result);
@@ -166,11 +168,8 @@ t_node	*parse_expression(t_tok **tok, t_ctx *ctx)
 		return NULL;
 	if (is_group_open(*tok))
 		return (expression_with_group(tok, ctx));
-	else if (is_group_close(*tok))
-	{
-		error(2, ctx, (t_m){"syntax error near unexpected token", (*tok)->lexeme});
-		return (NULL);
-	}
+	else if (!is_redir(*tok) && is_operator((*tok)->lexeme))
+		return ((t_node *)parserror("syntax", (*tok)->lexeme, 2, ctx));
 	else
 		return (expression_no_group(tok, ctx));
 }

@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 09:58:44 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:13:15 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx 
 
 // -- CLEAN --
 char	*parserror(char *type, char *lexeme, int code, t_ctx *ctx);
-void	clean_tokens(t_tok **tokens);
+void	clean_tokens(t_tok *tokens);
 void	clean_tree(t_node *node);
 
 // -- PRINTER --

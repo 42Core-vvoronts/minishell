@@ -1,6 +1,7 @@
 
 |
 (ls | sleep 1) && (echo hi | cat)
+echo A && (echo B || echo C) echo F)
 echo hello world
 (echo hello world) | cat
 env | sort | grep -v SHLVL | grep -v ^_
