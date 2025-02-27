@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 06:56:18 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 08:44:09 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void error(int exitcode, t_ctx *ctx, t_m msg)
 	{
 		if (*msg > (char *)TOK)
 		{
-			puterr("`");
+			puterr(" `");
 			puterr(*msg - TOK);
 			puterr("\'");
 			msg++;
