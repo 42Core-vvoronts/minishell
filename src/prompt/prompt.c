@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 02:39:48 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 03:23:07 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	prompt(int argc, char **argv, char **envp)
 			node.ctx = ctx;
 			run_exit(&node);
 		}
-		add_history(statement); //not add if NULL?
+		add_history(statement);
         ast = parse(statement, ctx);
 		if (ast)
 			evaluate(ast);

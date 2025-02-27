@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntaxer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 15:39:20 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 03:00:03 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 /**
  * @brief Creates AST from token list. Syntaxer entry point.
- * 
+ *
  * Starts from list grammar rule.
- * 
+ *
  * @param tokens The token list
  * @param ctx The context
- * 
+ *
  * @return pointer to the root node of the tree
  */
 t_node	*syntaxer(t_tok *tokens, t_ctx *ctx)
@@ -34,13 +34,12 @@ t_node	*syntaxer(t_tok *tokens, t_ctx *ctx)
 		clean_tree(ast);
 		return (NULL);
 	}
-	ctx->head = ast;
 	return (ast);
 }
 
 /**
  * @brief Recursive descent with precedence climbing
- *  
+ *
  * This function starts by parsing a group or simple expression, then iterates
  * through tokens, recursively handling operators with higher or equal precedence.
  * It builds an AST node for each operator, ensuring correct operator associativity.
@@ -49,7 +48,7 @@ t_node	*syntaxer(t_tok *tokens, t_ctx *ctx)
  * @param precedence Current operator precedence level.
  * @param ctx Parsing context.
  * @return Pointer to the root node of the AST.
- * 
+ *
  */
 t_node	*create_tree(t_tok **tok, int precedence, t_ctx *ctx)
 {
@@ -75,9 +74,9 @@ t_node	*create_tree(t_tok **tok, int precedence, t_ctx *ctx)
 
 /**
  * @brief Used by create_tree() to decide what to parse first.
- * 
+ *
  * It handles either a group or an expression grammar rule.
- * 
+ *
  * @param tok The token list
  * @return pointer to the root node of the tree
  */
@@ -96,7 +95,7 @@ t_node	*group_or_expression(t_tok **tok, t_ctx *ctx)
  *
  * @param type The type of the token
  * @return int precedence
- * 
+ *
  */
 int get_precedence(t_type type)
 {
@@ -104,7 +103,7 @@ int get_precedence(t_type type)
 		return 0;
 	if (type == GROUP)
 		return 1;
-	if (type == PIPE) 
+	if (type == PIPE)
 		return 1;
 	if (type == REDIR_APPEND || type == REDIR_HEREDOC || type == REDIR_IN || type == REDIR_OUT)
 		return 2;

@@ -1,0 +1,31 @@
+==9123== FILE DESCRIPTORS: 3 open (1 std) at exit.
+==9123== Open file descriptor 4: /home/ivan/minishell/mytester/tmp.log
+==9123==    <inherited from parent>
+==9123== 
+==9123== Open file descriptor 3: /home/ivan/minishell/mytester/tmp.log
+==9123==    <inherited from parent>
+==9123== 
+==9123== 
+exec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9120==    by 0x10EB2F: ft_strnjoin (expansion.c:171)
+==9120==    by 0x10EA96: expand_heredoc (expansion.c:157)
+==9120==    by 0x10D94B: process_content (content.c:27)
+==9120==    by 0x10D55C: evaluate (evaluation.c:32)
+==9120==    by 0x10DCAD: process_redir_heredoc (redir_heredoc.c:20)
+==9120==    by 0x10D522: evaluate (evaluation.c:28)
+==9120==    by 0x10E2B3: process_left_child (pipe.c:27)
+==9120==    by 0x10E3B0: process_pipe (pipe.c:56)
+==9120==    by 0x10D4AE: evaluate (evaluation.c:20)
+==9120==    by 0x109D44: prompt (prompt.c:83)
+==9120==    by 0x1095D4: main (main.c:19)
+==9120== 
+==9121== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==9121== Open file descriptor 3: /home/ivan/minishell/mytester/tmp.log
+==9121==    <inherited from parent>
+==9121== 
+==9121== 
+==9104== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==9104== Open file descriptor 3: /home/ivan/minishell/mytester/tmp.log
+==9104==    <inherited from parent>
+==9104== 
+==9104== 

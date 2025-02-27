@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:08:11 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 11:11:49 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 04:29:58 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@ static	bool is_expand_required(char *content)
 
 void	process_content(t_node *node)
 {
-	char *arg;
+	char	*arg;
 
 	if (is_expand_required(node->token))
 	{
-		arg = node->token + 1;
-		arg = expand_heredoc(&arg, node->ctx);
+		if (*(node->token + 1) == '\0')
+			arg = ft_strdup("");
+		else
+		{
+			arg = node->token + 1;
+			arg = expand_heredoc(&arg, node->ctx);
+		}
 	}
 	else
 	{

@@ -16,4 +16,9 @@ echo $?a
 echo $HOME?
 $NON | ls
 $NON | cat
+echo A && (echo B || echo C) echo F)
+echo "$"
+echo '$'
+echo $
+exit 1000000000000000000000
 

@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 07:59:30 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 02:25:35 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 03:19:11 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ static	void handle_signal(int signum)
 static	void handle_running_signal(int signum)
 {
 	g_signal = signum;
+	if (g_signal == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
 }
 
 static	void handle_heredoc_signal(int signum)

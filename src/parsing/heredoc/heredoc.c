@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 04:44:11 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 04:03:12 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ static void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **cu
 	if (quotes == false)
 		content = add_expand_flag(content, ctx);
 	attach_token(content, ctx, tokens, current);
+	free(delim);
 }
 
 void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
@@ -194,6 +195,7 @@ void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx
 	char	*start;
 	char	*end;
 	t_tok	*new;
+	char	*delim;
 
 	start = *lexeme;
 	end = start + 1;
@@ -201,6 +203,7 @@ void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx
 	add_token(new, tokens, current);
 	*lexeme = end + 1;
 	setup_signals(IS_HEREDOC, ctx);
-	tokenize_content(get_delimeter(lexeme, ctx), ctx, tokens, current);
+	delim = get_delimeter(lexeme, ctx);
+	tokenize_content(delim, ctx, tokens, current);
 	setup_signals(IS_RUNNING, ctx);
 }

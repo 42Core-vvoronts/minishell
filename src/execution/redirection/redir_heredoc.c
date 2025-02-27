@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:44:23 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 04:21:05 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 04:33:14 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ void	process_redir_heredoc(t_node *node)
 	evaluate(node->left);
 	content = pop_stash(node);
 	open_pipe(&p, node);
-	ft_putstr_fd(content, p.write);
+	if (*content)
+	{
+		ft_putstr_fd(content, p.write);
+	}
+	free(content);
 	dup2(p.read, STDIN_FILENO);
 	close_pipe(&p);
 	evaluate(node->right);
