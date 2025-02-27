@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:06:36 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/25 14:53:52 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:25:11 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	expand_variable_blanks(char **end, t_ctx *ctx, char **result)
 	char	*value;
 	char	*tmp;
 	char	blank;
+	char	wildcard[2];
 
+	wildcard[0] = 5;
+	wildcard[1] = '\0';
 	blank = 4;
 	get_value(end, ctx, &value);
 	if (value)
@@ -52,6 +55,8 @@ void	expand_variable_blanks(char **end, t_ctx *ctx, char **result)
 		{
 			if (is_blank(tmp))
 				*tmp = blank;
+			if (is_asterisk(tmp))
+				*tmp = wildcard[0];
 			tmp++;
 		}
 		ft_strnjoin(result, value, ft_strlen(value), ctx);
