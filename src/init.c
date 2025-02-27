@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 05:36:34 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 18:34:26 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_ctx(t_ctx **ctx, char **envp)
 	(*ctx)->fdin = dup(STDIN_FILENO);
 	(*ctx)->fdout = dup(STDOUT_FILENO);
 	(*ctx)->exitcode = EXIT_SUCCESS;
-	(*ctx)->panic = false;
+	(*ctx)->lexerr = false;
 	init_envp(*ctx, envp);
 	return (SUCCESS);
 }

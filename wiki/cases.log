@@ -20,3 +20,13 @@ rm -rf new.file
 vicxptrv@VICTORIA:~/github/42Core-vvoronts/minishell$ ls |
 > ls
 valid in bash?
+
+
+init_token()
+
+t_tok token -> ft_calloc
+token->lexeme -> ft_strndup
+
+init_node()
+t_node node -> ft_calloc
+node->token -> token->lexeme

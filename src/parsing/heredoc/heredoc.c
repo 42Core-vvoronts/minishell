@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 04:45:24 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 08:33:45 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*get_delimeter(char **lexeme, t_ctx *ctx)
 	return (delim);
 }
 
-static char *ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
+static char	*ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
 {
 	char	*tmp;
 	char	*tmp2;
