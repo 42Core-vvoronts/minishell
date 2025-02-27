@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/27 10:28:38 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/27 10:33:47 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SRC 				=	\
 						expuntils.c \
 						\
 						signals.c \
+						handlers.c \
 						\
 						parser.c \
 						heredoc.c \
