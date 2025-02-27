@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 07:59:30 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 07:25:30 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 07:40:16 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ static	void handle_running_signal(int signum)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
-	}
-	else if (g_signal == SIGINT)
-	{
-		// if (write(STDOUT_FILENO, "\n", 1) == ERROR)
-		// 	error(-1, NULL, (t_m){strerror(errno)});
 	}
 }
 

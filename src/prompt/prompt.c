@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 07:26:28 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 07:46:58 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	prompt(int argc, char **argv, char **envp)
 			write(STDOUT_FILENO, "Quit\n", 5);
 		else if (g_signal == SIGINT)
 			write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
 		// printf("exitcode: %d\n", ctx->exitcode);
     }
 }

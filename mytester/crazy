@@ -22,6 +22,9 @@ echo '$'
 echo $
 exit 1000000000000000000000
 ls > $AMBIGUOS
+ls > "f1 123"3""
+ls > "f1 123"3\"
 >./outfiles/notexists | <./test_files/infile <./test_files/infile <./test_files/infile <notexists echo SUCCESS
 >./test_files/infile >./test_files/infile >./outfiles/notexists | <./outfiles/notexists echo FAIL_IF_NOT_ERROR
 >./test_files/infile >./test_files/infile >./outfiles/notexists | ( sleep 2 && <./outfiles/notexists echo FAIL_IF_NOT_ERROR )
+

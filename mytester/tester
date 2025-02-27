@@ -87,6 +87,7 @@ export EMPTY=
 export BLANK="      "
 export BLANKSTAR="   *   "
 export STAR="*"
+export AMBIGUOS="f1 f2 f3"
 
 PROMPT=$(echo -e "\nexit\n" | $MINISHELL_PATH | head -n 1 | sed "s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g" )
 # Helper commands:
@@ -138,7 +139,7 @@ for testfile in ${test_lists[*]}; do
 		BASH_OUTPUT=$(echo -e "$teste" | bash 2> /dev/null)
 		BASH_EXIT_CODE=$(echo $?)
 		BASH_OUTFILES=$(cp ./outfiles/* ./bash_outfiles &>/dev/null)
-		BASH_ERROR_MSG=$(trap "" PIPE && echo "$teste" | bash 2>&1 > /dev/null | grep -o '[^:]*$' | head -n1)
+		BASH_ERROR_MSG=$(trap "" PIPE && echo "$teste" | bash 2>&1 > /dev/null | grep -o '[^:]*$')
 
 		OUTFILES_DIFF=$(diff --brief ./mini_outfiles ./bash_outfiles)
 
