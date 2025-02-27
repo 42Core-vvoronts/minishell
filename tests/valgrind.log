@@ -1,3 +1,0 @@
-==41699== Open file descriptor 4:
-==41699==    at 0x497493B: dup (syscall-template.S:120)
-==41699==    by 0x10919E: main (in /home/ivan/minishell/tests/a.out)

@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:58:56 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 06:20:19 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 02:17:33 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	eopen(char *pathname, int flags, int mode, t_node *node)
 	fd = open(pathname, flags, mode, node);
 	if (fd == ERROR)
 		error(1, node->ctx, (t_m){strerror(errno)});
-	free(pathname);
 	return (fd);
 }
 
@@ -44,11 +43,11 @@ void	eexecve(char *pathname, t_node *node)
 	char	**argv;
 	char	**envp;
 
+	setup_signals(IS_BINARY, node->ctx);
 	argv = node->ctx->stash;
 	envp = node->ctx->envp;
 	exitcode = node->ctx->exitcode;
 	allclean(node, 0);
-	setup_signals(IS_BINARY, node->ctx);
 	if (!pathname)
 		;
 	else if (execve(pathname, argv, envp) == ERROR)

@@ -16,6 +16,7 @@ else
 		"wildcards"
 		"bonus"
 		"parsing"
+		"crazy"
 	)
 fi
 
@@ -30,7 +31,8 @@ function	debug() {
 	TEST=$(echo -e "$teste" | $VALGRIND $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS)
 	MINI_EXIT_CODE=$(echo -e "$MINISHELL_PATH\n$teste\necho \$?\nexit\n" | bash 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT | tail -n 1)
 	MINI_ERROR_MSG=$(trap "" PIPE && echo "$teste" | $MINISHELL_PATH 2>&1 > /dev/null | grep -o '[^:]*$' )
-	MINI_LEAKS=$(sed '/.*tmp\.log\|.*<inherited from parent>\|.*FILE DESCRIPTORS.*\|^==[0-9]\+==[[:space:]]*$\|.*\/dev\/ptmx/d' "$VALGRIND_TMP")
+	MINI_LEAKS=$(sed '/^log$\|.*tmp\.log\|.*<inherited from parent>\|.*FILE DESCRIPTORS.*\|^==[0-9]\+==[[:space:]]*$\|.*\/dev\/ptmx/d' "$VALGRIND_TMP")
+	# MINI_LEAKS=$("$VALGRIND_TMP")
 	echo -e "${BLUE}\n————————————Stdout${RESET}"
 	echo "$MINI_OUTPUT"
 
@@ -50,7 +52,7 @@ function	debug() {
 	rm -rf ./outfiles
 	rm -rf ./mini_outfiles
 	rm -rf ./bash_outfiles
-	rm -f $VALGRIND_TMP
+	# rm -f $VALGRIND_TMP
 
 }
 
@@ -81,6 +83,11 @@ mkdir ./outfiles
 mkdir ./mini_outfiles
 mkdir ./bash_outfiles
 
+export EMPTY=
+export BLANK="      "
+export BLANKSTAR="   *   "
+export STAR="*"
+
 PROMPT=$(echo -e "\nexit\n" | $MINISHELL_PATH | head -n 1 | sed "s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g" )
 # Helper commands:
 REMOVE_COLORS="sed s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g"
@@ -89,7 +96,7 @@ VALGRIND_TMP=tmp.log
 if [ -d "$VALGRIND_TMP" ]; then
     rm -f "$VALGRIND_TMP"
 fi
-VALGRIND="valgrind -q --track-fds=yes --trace-children=yes --leak-check=full --error-limit=no --suppressions=valgrind.supp --log-file=$VALGRIND_TMP"
+VALGRIND="valgrind -q --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --error-limit=no --suppressions=valgrind.supp --log-file=$VALGRIND_TMP"
 
 if [[ "$1" == "-d" ]]; then
 	debug

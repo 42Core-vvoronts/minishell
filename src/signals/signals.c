@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 07:59:30 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 04:45:01 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 02:25:35 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 static	void handle_signal(int signum)
 {
-	(void)signum;
 	if (write(STDOUT_FILENO, "\n", 1) == ERROR)
 		error(-1, NULL, (t_m){strerror(errno)});
 	rl_on_new_line();
@@ -26,7 +25,6 @@ static	void handle_signal(int signum)
 
 static	void handle_running_signal(int signum)
 {
-	(void)signum;
 	g_signal = signum;
 }
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   envvar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 05:53:35 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 10:10:59 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 04:57:09 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	bool	is_eqlvar(char *envvar, char *varname)
+bool	is_eqlvar(char *envvar, char *varname)
 {
 	while ((*envvar || *varname) && *envvar != '=')
 	{
