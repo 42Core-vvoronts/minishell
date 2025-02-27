@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elibft.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:04:12 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/15 11:37:54 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 10:48:37 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,5 @@ int			ft_tolower(int c);
 int			ft_toupper(int c);
 bool		is_eqlstr(const char *s1, const char *s2);
 bool		is_eqlchar(const char s1, const char s2);
-
 
 #endif

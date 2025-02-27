@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 04:29:57 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/12 04:31:02 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 10:48:50 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static int	get_num_length(int n)
 {
-	int	len = 0;
+	int	len;
 
+	len = 0;
 	if (n <= 0)
 		len++;
 	while (n != 0)
