@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 10:44:15 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 11:20:18 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ static	void	run(char	*statement, t_ctx *ctx)
 		write(STDOUT_FILENO, "Quit\n", 5);
 	else if (g_signal == SIGINT)
 		write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
 }
 
 void	prompt(int argc, char **argv, char **envp)
@@ -70,13 +68,14 @@ void	prompt(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	setup_signals(IS_IGNORE, NULL);
 	init_ctx(&ctx, envp);
 	handle_shlvl(ctx);
 	g_signal = SIGNO;
 	while (true)
 	{
 		setup_signals(IS_PROMPT, ctx);
+		rl_on_new_line();
+		rl_replace_line("", 0);
 		statement = readline("minishell$ ");
 		if (g_signal != SIGNO)
 		{

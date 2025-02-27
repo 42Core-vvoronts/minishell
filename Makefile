@@ -6,7 +6,7 @@
 #    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/27 10:33:47 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/27 11:02:32 by ipetrov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -160,16 +160,14 @@ DEP					=	$(SRC:%.c=dep/%.d)
 # Make flags
 MFLAGS				=	 --no-print-directory -C
 
-
-
 # Build all targets
-all: $(NAME)
-	@echo "$(NAME) has been built"
+all: lib $(NAME)
 
 # Link mandatory object files
-$(NAME): $(OBJ) lib
+$(NAME): $(OBJ)
 	@echo "Building $(NAME) ..."
 	@$(CC) $(OBJ) $(LIB) -o $@
+	@echo "$(NAME) has been built"
 
 # Build libraries
 lib:
