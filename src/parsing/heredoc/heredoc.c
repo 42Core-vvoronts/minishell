@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 04:03:12 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 04:45:24 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ static void	attach_token(char	*content, t_ctx *ctx, t_tok **tokens, t_tok **curr
 	new = NULL;
 	new = init_token(content, ft_strlen(content), ctx);
 	ctx->exitcode = 0;
+	free(content);
 	add_token(new, tokens, current);
 }
 
