@@ -6,26 +6,11 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/18 12:55:04 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:16:41 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-bool	is_group_open(t_tok *tok)
-{
-	if (tok->type == GROUP && is_eqlstr(tok->lexeme, "("))
-		return (1);
-	return (0);
-}
-
-bool	is_group_close(t_tok *tok)
-{
-	if (tok->type == GROUP && is_eqlstr(tok->lexeme, ")"))
-		return (1);
-	return (0);
-}
 
 /**
  *  * 
@@ -59,7 +44,7 @@ t_node *parse_group(t_tok **token, t_ctx *ctx)
 	{
 		step_forward(token);
 		if (!*token)
-			error(2, ctx, (t_m){"syntax error: unexpected end of file"});			
+			return ((t_node *)parserror("syntax", "newline", 2, ctx));		
 		else if (is_group_close(*token))
 			error(2, ctx, (t_m){"syntax error near unexpected token", (*token)->lexeme});
 		else if (is_group_open(*token))
@@ -82,4 +67,18 @@ t_node *parse_group(t_tok **token, t_ctx *ctx)
 	else
 		error(2, ctx, (t_m){"syntax error near unexpected token", (*token)->lexeme});
 	return NULL;
+}
+
+bool	is_group_open(t_tok *tok)
+{
+	if (tok->type == GROUP && is_eqlstr(tok->lexeme, "("))
+		return (1);
+	return (0);
+}
+
+bool	is_group_close(t_tok *tok)
+{
+	if (tok->type == GROUP && is_eqlstr(tok->lexeme, ")"))
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 18:07:26 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:34:26 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_ctx
 	int				exitcode;
 	struct s_node	*head;
 	struct s_tok	*headtok;
-	bool			panic;
+	bool			lexerr;
 } t_ctx;
 
 typedef struct s_node
