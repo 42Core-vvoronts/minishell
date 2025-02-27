@@ -6,21 +6,11 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 17:09:00 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/26 09:15:42 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 09:52:21 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static	char	**split(char *pathval, t_node *node)
-{
-	char	**dirnames;
-
-	dirnames = ft_split(pathval, ':');
-	if (!dirnames)
-		error(-1, node->ctx, (t_m){strerror(errno)});
-	return (dirnames);
-}
 
 static	char	*add_slash(char	**dirnames, t_node *node, size_t i)
 {
@@ -57,7 +47,9 @@ static char	*retrieve_pathname(char *pathval, t_node *node)
 
 	if (node->ctx->stash[0][0] == '\0')
 		return (NULL);
-	dirnames = split(pathval, node);
+	dirnames = ft_split(pathval, ':');
+	if (!dirnames)
+		error(-1, node->ctx, (t_m){strerror(errno)});
 	i = 0;
 	while (dirnames[i])
 	{
@@ -77,7 +69,7 @@ static char	*retrieve_pathname(char *pathval, t_node *node)
 }
 
 //exit(127); bash: ./test/lds: No such file or directory
-char *search_filesystem(t_node *node)
+static	char	*search_filesystem(t_node *node)
 {
 	char	*pathname;
 
@@ -92,12 +84,11 @@ char *search_filesystem(t_node *node)
 		free(pathname);
 		return (NULL);
 	}
-
 }
 
 //exit(127); inside of error // bash: dfdf: command not found
 //exit(126); bash: ./test/ls: Permission denied
-char *get_pathname(t_node *node)
+char	*get_pathname(t_node *node)
 {
 	char	*pathname;
 	char	*pathval;

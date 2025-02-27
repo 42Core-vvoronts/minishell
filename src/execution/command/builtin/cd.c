@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/26 06:26:05 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 09:54:08 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static	void	handle_dash_arg(t_node *node)
 
 static	void	update_pwds(t_node *node, char *pwd)
 {
-	char *envvar;
+	char	*envvar;
 
 	envvar = ft_strjoin("OLDPWD=", pwd);
 	if (!envvar)
@@ -72,8 +72,8 @@ static	void	update_pwds(t_node *node, char *pwd)
 		error(-1, node->ctx, (t_m){strerror(errno)});
 	add_var(node, envvar);
 	free(envvar);
-
 }
+
 //exit(1); bash: cd: too many arguments
 //exit(1); bash: cd: /GitHub/ls: Not a directory
 //exit(1); bash: cd: /GitHdfdfub/: No such file or directory
@@ -95,7 +95,7 @@ void	run_cd(t_node *node)
 	{
 		error(1, node->ctx, (t_m){CD, TOO_MANY_ARG});
 		free(pwd);
-		return;
+		return ;
 	}
 	if (!node->ctx->stash[1][0])
 		;

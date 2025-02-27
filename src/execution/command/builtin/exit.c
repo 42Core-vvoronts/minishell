@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 08:31:02 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 09:56:00 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static	bool	is_numeric(char *str)
 static	int	evaluate_exitcode(t_node *node)
 {
 	int	sts;
+
 	sts = ft_atoi(node->ctx->stash[1], &node->ctx->exitcode, sizeof(int), 10);
 	if (sts == FAIL)
 		node->ctx->exitcode = 1;
