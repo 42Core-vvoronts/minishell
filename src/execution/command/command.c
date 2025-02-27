@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:07:37 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/24 09:27:19 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 02:29:11 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,12 @@ void	run_cmd(t_node *node)
 		;
 	else
 		run_bin(node);
-	if (g_signal == SIGQUIT)
-		write(STDOUT_FILENO, "Quit: 3", 7);
+	// if (g_signal == SIGQUIT)
+	// {
+	// 	write(STDOUT_FILENO, "Quit", 4);
+	// 	rl_on_new_line();
+	// 	rl_replace_line("", 0);
+	// 	rl_redisplay();
+	// }
 	ft_parrclean(&(node->ctx->stash));
 }

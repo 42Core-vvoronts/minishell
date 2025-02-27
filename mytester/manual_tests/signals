@@ -37,3 +37,11 @@ ls | ./test_files/loop.out
 
 hello + Ctrl+C
 # Check that the new line is empty
+
+
+bash-5.2$ echo $?
+0
+bash-5.2$ ^C
+bash-5.2$ echo $?
+130
+bash-5.2$

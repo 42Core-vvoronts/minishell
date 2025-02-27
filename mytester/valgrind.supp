@@ -5,3 +5,24 @@
    fun:parse
    ...
 }
+{
+   readline
+   Memcheck:Leak
+   ...
+   fun:readline
+   ...
+}
+{
+   add_history
+   Memcheck:Leak
+   ...
+   fun:add_history
+   ...
+}
+{
+   any_not_recognizable
+   Memcheck:Leak
+   ...
+   fun:???
+   ...
+}

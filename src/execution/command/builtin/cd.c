@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 11:44:35 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 06:26:05 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ static	void	update_pwds(t_node *node, char *pwd)
 	char *envvar;
 
 	envvar = ft_strjoin("OLDPWD=", pwd);
-	free(pwd);
 	if (!envvar)
 		error(-1, node->ctx, (t_m){strerror(errno)});
 	add_var(node, envvar);
+	free(envvar);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		error(-1, node->ctx, (t_m){strerror(errno)});
@@ -71,6 +71,7 @@ static	void	update_pwds(t_node *node, char *pwd)
 	if (!envvar)
 		error(-1, node->ctx, (t_m){strerror(errno)});
 	add_var(node, envvar);
+	free(envvar);
 
 }
 //exit(1); bash: cd: too many arguments
@@ -93,6 +94,7 @@ void	run_cd(t_node *node)
 	else if (len > 2)
 	{
 		error(1, node->ctx, (t_m){CD, TOO_MANY_ARG});
+		free(pwd);
 		return;
 	}
 	if (!node->ctx->stash[1][0])
@@ -101,6 +103,7 @@ void	run_cd(t_node *node)
 		error(1, node->ctx, (t_m){CD, node->ctx->stash[1], strerror(errno)});
 	else
 		update_pwds(node, pwd);
+	free(pwd);
 }
 //update PWD and OLDPWD
 // //-----------------delete later

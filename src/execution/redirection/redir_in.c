@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 01:23:16 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/25 07:21:33 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/26 03:56:22 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	process_redir_in(t_node *node)
 	if (is_valid(pathname, node))
 	{
 		fd = eopen(pathname, O_RDONLY, 0777, node);
+		free(pathname);
 		edup2(fd, STDIN_FILENO, node);
 		close(fd);
 		evaluate(node->right);

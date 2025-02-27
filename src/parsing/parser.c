@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:06:02 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 16:29:31 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/26 09:59:25 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ t_node	*parse(char *statement, t_ctx *ctx)
 	t_tok	*tokens;
 	t_node	*ast;
 
+	if (!*statement)
+		return (NULL);
 	tokens = lexer(statement, ctx);
 	ast = syntaxer(tokens, ctx);
 	ctx->head = ast;
