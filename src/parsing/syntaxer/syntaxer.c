@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:37:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 11:59:54 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:17:34 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ t_node	*syntaxer(t_tok *tokens, t_ctx *ctx)
 {
 	t_node	*ast;
 
-	if (tokens)
-		ast = parse_list(&tokens, ctx);
+	ast = NULL;
+	if (!tokens)
+		return (ast);
+	ast = parse_list(&tokens, ctx);
 	if (tokens)
 	{
-		// error(2, ctx, (t_m){"DOUBLE", tokens->lexeme});
+		error(2, ctx, (t_m){"DOUBLE", tokens->lexeme});
 		return (NULL);
 	}
 	ctx->head = ast;

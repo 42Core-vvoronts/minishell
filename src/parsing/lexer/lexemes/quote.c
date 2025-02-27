@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:24 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 18:34:26 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:19:53 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	single_string(char **end, t_ctx *ctx)
 	else
 	{
 		error(2, ctx, (t_m){"Expected", "\'"});
+		ctx->errlex = true;
 	}
 }
 
@@ -47,6 +48,7 @@ void	double_string(char **end, t_ctx *ctx)
 	else
 	{
 		error(2, ctx, (t_m){"Expected", "\""});
+		ctx->errlex = true;
 	}
 }
 
@@ -76,13 +78,13 @@ void	tokenize_quotes(char **end, t_ctx *ctx)
 		if (is_double_quote(*end - 1))
 		{
 			double_string(end, ctx);
-			if (ctx->lexerr)
+			if (ctx->errlex)
 				return ;
 		}
         else
 		{
 			single_string(end, ctx);
-			if (ctx->lexerr)
+			if (ctx->errlex)
 				return ;	
 		}	
     }
