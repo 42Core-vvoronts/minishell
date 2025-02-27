@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 17:51:08 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:10:05 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct s_pipe
 } t_pipe;
 
 bool	is_eqlvar(char *envvar, char *varname);
-void	expand(char **lexeme, t_ctx *ctx);
+void	expand(char **lex, t_ctx *ctx);
 char	*expand_heredoc(char **content, t_ctx *ctx);
 void	ft_strnjoin(char **result, char *str, size_t len, t_ctx *ctx);
 void	double_chunk(char **end, char **result, t_ctx *ctx);
@@ -201,34 +201,34 @@ t_node	*parse(char *statement, t_ctx *ctx);
 // -- LEXER --
 t_tok	*lexer(char *statement, t_ctx *ctx);
 t_tok	*init_token(char *start, int len, t_ctx *ctx);
-t_type	typify_token(char *lexeme);
-void	add_token(t_tok *new, t_tok **head, t_tok **current);
-void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
-void	tokenize_operators(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
-void	tokenize_parenthesis(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
-void	tokenize_vertical_bar(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
-void	tokenize_ampersand(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
-void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
-void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx);
-void	tokenize_quotes(char **lexeme, t_ctx *ctx);
+t_type	typify_token(char *lex);
+void	add_token(t_tok *new, t_tok **head, t_tok **cur);
+void	tokenize_words(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
+void	tokenize_operators(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
+void	tokenize_parenthesis(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
+void	tokenize_vertical_bar(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
+void	tokenize_ampersand(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
+void	tokenize_angles(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
+void	tokenize_heredoc(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
+void	tokenize_quotes(char **lex, t_ctx *ctx);
 void	single_string(char **end, t_ctx *ctx);
 void	double_string(char **end, t_ctx *ctx);
-void	skip_blanks(char **lexeme);
-bool	is_open_parenthesis(char *lexeme);
-bool	is_close_parenthesis(char *lexeme);
-bool	is_vertical_bar(char *lexeme);
-bool	is_less(char *lexeme);
-bool	is_greater(char *lexeme);
-bool	is_ampersand(char *lexeme);
-bool	is_double_ampersand(char *lexeme);
-bool	is_asterisk(char *lexeme);
-bool	is_dollar(char *lexeme);
-bool	is_single_quote(char *lexeme);
-bool	is_double_quote(char *lexeme);
-bool	is_blank(char *lexeme);
-bool	is_character(char *lexeme);
-bool	is_word_lexeme(char *lexeme);
-bool	is_operator(char *lexeme);
+void	skip_blanks(char **lex);
+bool	is_open_parenthesis(char *lex);
+bool	is_close_parenthesis(char *lex);
+bool	is_vertical_bar(char *lex);
+bool	is_less(char *lex);
+bool	is_greater(char *lex);
+bool	is_ampersand(char *lex);
+bool	is_double_ampersand(char *lex);
+bool	is_asterisk(char *lex);
+bool	is_dollar(char *lex);
+bool	is_single_quote(char *lex);
+bool	is_double_quote(char *lex);
+bool	is_blank(char *lex);
+bool	is_character(char *lex);
+bool	is_word_lexeme(char *lex);
+bool	is_operator(char *lex);
 bool	is_queston(char *c);
 // -- SYNTAXER --
 t_node	*syntaxer(t_tok *tok, t_ctx *ctx);
@@ -248,11 +248,12 @@ bool	is_redir(t_tok *tok);
 bool	is_word_token(t_tok *tok);
 void	step_forward(t_tok **tok);
 // -- CLEAN --
-char	*parserror(char *type, char *lexeme, int code, t_ctx *ctx);
-void	clean_tokens(t_tok *tokens);
+char	*parserror(char *type, char *lex, int code, t_ctx *ctx);
+t_node	*rule_error(t_tok **token, t_ctx *ctx);
+void	clean_tokens(t_tok *tok);
 void	clean_tree(t_node *node);
 // -- PRINTER --
-void	print_tokens(t_tok *tokens);
+void	print_tok(t_tok *tok);
 void	print_node(t_node *ast, int depth);
 void	save_tree(t_node *node);
 
