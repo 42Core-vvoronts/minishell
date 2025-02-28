@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:56 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 19:00:31 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:50:47 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ t_node	*unfold_redirs(t_node **stack, int *elem, t_node *node)
 	return (node);
 }
 
+void	clean_redirs(t_node **stack, int *elem)
+{
+	while ((*elem) > 0)
+	{
+		clean_tree(stack[--(*elem)]);
+	}
+}
+
 /**
  * @brief Handle the redirection operators
  * 
@@ -67,7 +75,7 @@ t_node	*parse_redir(t_tok **tok, t_ctx *ctx)
 		return (NULL);
 	step_forward(tok);
 	if (!*tok || !is_word_token(*tok))
-		return (rule_error(tok, ctx));
+		return (rule_error(tok, ctx, NULL));
 	word_tok = *tok;
 	step_forward(tok);
 	if (operator->type == REDIR_HEREDOC)

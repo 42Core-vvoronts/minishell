@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:35 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 18:30:55 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:23:54 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_node	*parse_pipeline(t_tok **tok, t_ctx *ctx)
 		step_forward(tok);
 		right = parse_pipeline(tok, ctx);
 		if (!right)
-			return (rule_error(tok, ctx));
+			return (rule_error(tok, ctx, left));
 		root = init_node(operator, left, right, ctx);
 		return (root);
 	}

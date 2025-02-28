@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 18:57:12 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:06:26 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,13 @@ t_node	*expression_with_group(t_tok **tok, t_ctx *ctx)
 	elem = 0;
 	node = parse_group(tok, ctx);
 	if (node && *tok && !is_operator((*tok)->lexeme))
-		return (NULL);
+		return (rule_error(tok, ctx, node));
 	stack_redirs(tok, stack, &elem, ctx);
+	if (ctx->errsyn == true)
+	{
+		clean_redirs(stack, &elem);
+		return (rule_error(tok, ctx, node));
+	}
 	result = unfold_redirs(stack, &elem, node);
 	return (result);
 }
@@ -102,9 +107,12 @@ t_node	*expression_no_group(t_tok **tok, t_ctx *ctx)
 		collect_args(tok, word, ctx);
 		stack_redirs(tok, stack, &elem, ctx);
 	}
-	if (is_group_open(*tok))
-		return (rule_error(tok, ctx));
 	node = word;
+	if (ctx->errsyn == true || (*tok && is_group_open(*tok)))
+	{
+		clean_redirs(stack, &elem);
+		return (rule_error(tok, ctx, node));
+	}
 	result = unfold_redirs(stack, &elem, node);
 	return (result);
 }
@@ -125,7 +133,7 @@ t_node	*parse_expression(t_tok **tok, t_ctx *ctx)
 	if (is_group_open(*tok))
 		return (expression_with_group(tok, ctx));
 	else if (!is_redir(*tok) && is_operator((*tok)->lexeme))
-		return (rule_error(tok, ctx));
+		return (rule_error(tok, ctx, NULL));
 	else
 		return (expression_no_group(tok, ctx));
 }

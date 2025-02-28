@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:35:04 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 11:04:09 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:56:57 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ static size_t	get_len_bare_delim(char *delim)
 	return (len);
 }
 
+static bool	invalid_delim_error(char **delim, t_ctx *ctx, t_tok **current)
+{
+	tok_error(*delim, ctx);
+	free(*delim);
+	*current = NULL;
+	return (false);
+}
+
 //returns false if delim invalid
 //puts delimed cleaned of quotes into char **delim
 //if there were quotes puts true into bool *quotes
@@ -41,11 +49,7 @@ bool	get_valid_delim(char **delim, t_ctx *ctx, t_tok **current, bool *quotes)
 	size_t	j;
 
 	if (!*delim || is_operator(*delim))
-	{
-		tok_error(*delim, ctx);
-		*current = NULL;
-		return (false);
-	}
+		return (invalid_delim_error(delim, ctx, current));
 	*quotes = get_quotes_ctx(*delim);
 	new_delim = ft_calloc(get_len_bare_delim(*delim) + 1, sizeof(char));
 	if (!new_delim)

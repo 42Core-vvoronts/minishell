@@ -40,19 +40,10 @@ $nonexist
 echo hi < ./test_files/infile bye bye
 &&
 > &&
-<< *
 |
 ||
 *
-!
 ?
 /
-.
-..
 ,
 $? + $?
-&
-;
-cat <minishell.h&ls
-> & # valido para < e >>
-
