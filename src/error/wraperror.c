@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:07:01 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 12:26:18 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 14:17:44 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@ t_node	*rule_error(t_tok **token, t_ctx *ctx, t_node *node)
 
 void	*tok_error(char *lexeme, t_ctx *ctx)
 {
+	char	*tmp;
+
+	tmp = lexeme;
+	clean_tokens(ctx->headtok);
+	ctx->headtok = NULL;
 	if (ctx->errlex == false)
 	{
 		ctx->errlex = true;
-		if (*lexeme)
-			return ((t_node *)parserror("syntax", lexeme, 2, ctx));
+		if (*tmp)
+			return ((t_node *)parserror("syntax", tmp, 2, ctx));
 		return ((t_node *)parserror("syntax", "newline", 2, ctx));
 	}
 	return (NULL);

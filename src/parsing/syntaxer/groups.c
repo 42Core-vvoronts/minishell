@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:07:16 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 12:26:08 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:31:10 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,7 @@ t_node	*parse_group(t_tok **token, t_ctx *ctx)
 	{
 		operator = *token;
 		step_forward(token);
-		if (!*token || is_group_close(*token))
-			return (rule_error(token, ctx, NULL));
-		if (is_group_open(*token))
-			node = parse_group(token, ctx);
-		else
-			node = parse_list(token, ctx);
+		node = parse_list(token, ctx);
 		if (!is_group_close(*token))
 			return (rule_error(token, ctx, node));
 		step_forward(token);

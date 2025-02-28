@@ -1,8 +1,64 @@
-==167355== FILE DESCRIPTORS: 5 open (3 std) at exit.
-==167355== Open file descriptor 5: /dev/ptmx
-==167355==    <inherited from parent>
-==167355== 
-==167355== Open file descriptor 3: /home/vicxptrv/github/42Core-vvoronts/minishell/mytester/manual_tests/tmp.log
-==167355==    <inherited from parent>
-==167355== 
-==167355== 
+==291907== FILE DESCRIPTORS: 5 open (3 std) at exit.
+==291907== Open file descriptor 5: /dev/ptmx
+==291907==    <inherited from parent>
+==291907== 
+==291907== Open file descriptor 3: /home/vicxptrv/github/42Core-vvoronts/minishell/mytester/manual_tests/tmp.log
+==291907==    <inherited from parent>
+==291907== 
+==291907== 
+==291907== 40 bytes in 1 blocks are indirectly lost in loss record 16 of 70
+==291907==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==291907==    by 0x112597: ft_calloc (ft_calloc.c:33)
+==291907==    by 0x10981F: init_node (init.c:79)
+==291907==    by 0x10CBDC: parse_redir (redirections.c:77)
+==291907==    by 0x10CA4C: stack_redirs (redirections.c:31)
+==291907==    by 0x10CE66: expression_no_group (expression.c:100)
+==291907==    by 0x10D075: parse_expression (expression.c:134)
+==291907==    by 0x10C930: parse_pipeline (pipelines.c:46)
+==291907==    by 0x10C6BF: parse_list (list.c:43)
+==291907==    by 0x10C5E6: syntaxer (syntaxer.c:34)
+==291907==    by 0x10AB46: parse (parser.c:50)
+==291907==    by 0x109C49: run (prompt.c:56)
+==291907== 
+==291907== 40 bytes in 1 blocks are indirectly lost in loss record 17 of 70
+==291907==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==291907==    by 0x112597: ft_calloc (ft_calloc.c:33)
+==291907==    by 0x10981F: init_node (init.c:79)
+==291907==    by 0x10CBDC: parse_redir (redirections.c:77)
+==291907==    by 0x10CA4C: stack_redirs (redirections.c:31)
+==291907==    by 0x10CF03: expression_no_group (expression.c:107)
+==291907==    by 0x10D075: parse_expression (expression.c:134)
+==291907==    by 0x10C930: parse_pipeline (pipelines.c:46)
+==291907==    by 0x10C6BF: parse_list (list.c:43)
+==291907==    by 0x10C5E6: syntaxer (syntaxer.c:34)
+==291907==    by 0x10AB46: parse (parser.c:50)
+==291907==    by 0x109C49: run (prompt.c:56)
+==291907== 
+==291907== 80 (40 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 22 of 70
+==291907==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==291907==    by 0x112597: ft_calloc (ft_calloc.c:33)
+==291907==    by 0x10981F: init_node (init.c:79)
+==291907==    by 0x10CBFC: parse_redir (redirections.c:78)
+==291907==    by 0x10CA4C: stack_redirs (redirections.c:31)
+==291907==    by 0x10CE66: expression_no_group (expression.c:100)
+==291907==    by 0x10D075: parse_expression (expression.c:134)
+==291907==    by 0x10C930: parse_pipeline (pipelines.c:46)
+==291907==    by 0x10C6BF: parse_list (list.c:43)
+==291907==    by 0x10C5E6: syntaxer (syntaxer.c:34)
+==291907==    by 0x10AB46: parse (parser.c:50)
+==291907==    by 0x109C49: run (prompt.c:56)
+==291907== 
+==291907== 80 (40 direct, 40 indirect) bytes in 1 blocks are definitely lost in loss record 23 of 70
+==291907==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==291907==    by 0x112597: ft_calloc (ft_calloc.c:33)
+==291907==    by 0x10981F: init_node (init.c:79)
+==291907==    by 0x10CBFC: parse_redir (redirections.c:78)
+==291907==    by 0x10CA4C: stack_redirs (redirections.c:31)
+==291907==    by 0x10CF03: expression_no_group (expression.c:107)
+==291907==    by 0x10D075: parse_expression (expression.c:134)
+==291907==    by 0x10C930: parse_pipeline (pipelines.c:46)
+==291907==    by 0x10C6BF: parse_list (list.c:43)
+==291907==    by 0x10C5E6: syntaxer (syntaxer.c:34)
+==291907==    by 0x10AB46: parse (parser.c:50)
+==291907==    by 0x109C49: run (prompt.c:56)
+==291907== 
