@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 19:08:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 10:37:10 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,22 @@ int	init_ctx(t_ctx **ctx, char **envp)
  * @param left The left node
  * @param right The right node
 
- * @return t_node*
- *
- */
+* @return t_node*
+*
+*/
 t_node	*init_node(t_tok *tok, t_node *left, t_node *right, t_ctx *ctx)
 {
-    t_node *node;
+	t_node	*node;
 
 	node = ft_calloc(1, sizeof(t_node));
 	if (!node)
 		error(-1, NULL, (t_m){strerror(errno), NULL});
-    node->ctx = ctx;
-    node->type = tok->type;
-    node->token = tok->lexeme;
-    node->left = left;
-    node->right = right;
-    return node;
+	node->ctx = ctx;
+	node->type = tok->type;
+	node->token = tok->lexeme;
+	node->left = left;
+	node->right = right;
+	return (node);
 }
 
 /**
@@ -94,9 +94,9 @@ t_node	*init_node(t_tok *tok, t_node *left, t_node *right, t_ctx *ctx)
  * @param len The length of the lexeme
  * @param ctx The context
 
- * @return pointer to the new node
- *
- */
+* @return pointer to the new node
+*
+*/
 t_tok	*init_token(char *start, int len, t_ctx *ctx)
 {
 	t_tok	*token;
@@ -109,5 +109,5 @@ t_tok	*init_token(char *start, int len, t_ctx *ctx)
 		error(-1, ctx, (t_m){strerror(errno), NULL});
 	token->type = typify_token(token->lexeme);
 	token->next = NULL;
-	return token;
+	return (token);
 }

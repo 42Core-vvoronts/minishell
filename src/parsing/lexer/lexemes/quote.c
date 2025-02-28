@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:24 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 16:53:31 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 10:48:47 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
  */
 void	tokenize_quotes(char **end, t_ctx *ctx)
 {
-    if (!*end || (!is_double_quote(*end) && !is_single_quote(*end)))
-        return ;
-    while (*end && (is_double_quote(*end) || is_single_quote(*end)))
+	if (!*end || (!is_double_quote(*end) && !is_single_quote(*end)))
+		return ;
+	while (*end && (is_double_quote(*end) || is_single_quote(*end)))
 	{
 		(*end)++;
 		if (is_double_quote(*end - 1))
@@ -41,13 +41,13 @@ void	tokenize_quotes(char **end, t_ctx *ctx)
 			if (ctx->errlex)
 				return ;
 		}
-        else
+		else
 		{
 			single_string(end, ctx);
 			if (ctx->errlex)
-				return ;	
-		}	
-    }
+				return ;
+		}
+	}
 }
 
 bool	is_single_quote(char *lexeme)

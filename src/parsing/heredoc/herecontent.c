@@ -6,28 +6,31 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:33 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 03:57:29 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/28 05:21:30 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	void process_signal(char *content, t_ctx *ctx, t_tok **current)
+static	void	process_signal(char *content, t_ctx *ctx, t_tok **cur)
 {
-	t_node node;
+	t_node	node;
 
 	node.ctx = ctx;
 	restore_stdfd(STDIN_FILENO, &node);
 	free(content);
-	*current = NULL;
+	*cur = NULL;
 }
 
 static bool	is_eot(char *line, char *delim, t_ctx *ctx)
 {
+	char	*msg;
+
+	msg = "warning: here-document delimited by end-of-file, wanted";
 	if (!line || is_eqlstr(line, delim))
 	{
 		if (!line)
-			error(0, ctx, (t_m){"warning: here-document delimited by end-of-file, wanted", delim + TOK});
+			error(0, ctx, (t_m){msg, delim + TOK});
 		free(line);
 		return (true);
 	}
@@ -35,12 +38,14 @@ static bool	is_eot(char *line, char *delim, t_ctx *ctx)
 }
 
 //add char = 1 as the first character if we need to expand content
-static	char	*add_expand_flag(char *content, t_ctx *ctx)
+static	char	*add_expand_flag(char *content, t_ctx *ctx, bool quotes)
 {
 	char	*q_content;
 	size_t	i;
 	size_t	j;
 
+	if (quotes == true)
+		return (content);
 	i = ft_strlen(content);
 	q_content = ft_calloc(i + 2, sizeof(char));
 	if (!q_content)
@@ -48,7 +53,7 @@ static	char	*add_expand_flag(char *content, t_ctx *ctx)
 	i = 0;
 	j = 0;
 	q_content[i++] = 1;
-	while(content[j])
+	while (content[j])
 		q_content[i++] = content[j++];
 	free(content);
 	return (q_content);
@@ -82,13 +87,13 @@ static char	*ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
 	return (content);
 }
 
-void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **current)
+void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **cur)
 {
 	char	*content;
 	char	*line;
 	bool	quotes;
 
-	if (!get_valid_delim(&delim, ctx, current, &quotes))
+	if (!get_valid_delim(&delim, ctx, cur, &quotes))
 		return ;
 	content = ft_strdup("");
 	if (!content)
@@ -98,15 +103,15 @@ void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **current)
 		line = readline("> ");
 		if (g_signal == SIGINT)
 		{
-			process_signal(content, ctx, current);
+			process_signal(content, ctx, cur);
+			ctx->errlex = true;
 			return ;
 		}
 		if (is_eot(line, delim, ctx))
 			break ;
 		content = ft_strjoin_nl(content, line, ctx);
 	}
-	if (quotes == false)
-		content = add_expand_flag(content, ctx);
-	attach_token(content, ctx, tokens, current);
+	content = add_expand_flag(content, ctx, quotes);
+	attach_token(content, ctx, tokens, cur);
 	free(delim);
 }

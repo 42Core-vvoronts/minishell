@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   qplain.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 10:06:27 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 12:01:24 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/28 10:13:18 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@
 void	plain_chunk(char **end, char **result, t_ctx *ctx)
 {
 	char	*start;
-	char	wildcard[2];
 
-	wildcard[0] = 5;
-	wildcard[1] = '\0';
 	while (**end && !is_single_quote(*end) && !is_double_quote(*end))
 	{
 		if (is_dollar(*end))
 			expand_variable_blanks(end, ctx, result);
 		if (is_asterisk(*end))
 		{
-			ft_strnjoin(result, wildcard, 1, ctx);
+			start = *end;
 			while (is_asterisk(*end))
+			{
+				**end = 5;
 				(*end)++;
+			}
+			ft_strnjoin(result, start, *end - start, ctx);
 		}
 		else if (is_plain(*end))
 		{
