@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:35:04 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 19:58:24 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 11:04:09 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static	bool	get_quotes_ctx(char *delim)
 
 static size_t	get_len_bare_delim(char *delim)
 {
-	size_t len;
+	size_t	len;
 
 	len = 0;
 	while (*delim)
@@ -36,16 +36,13 @@ static size_t	get_len_bare_delim(char *delim)
 //if there were quotes puts true into bool *quotes
 bool	get_valid_delim(char **delim, t_ctx *ctx, t_tok **current, bool *quotes)
 {
-	char *new_delim;
-	size_t i;
-	size_t j;
+	char	*new_delim;
+	size_t	i;
+	size_t	j;
 
 	if (!*delim || is_operator(*delim))
 	{
-		if (*delim)
-			error(2, ctx, (t_m){"syntax error near unexpected token", *delim});
-		else
-			error(2, ctx, (t_m){"syntax error near unexpected token 'newline'"});
+		tok_error(*delim, ctx);
 		*current = NULL;
 		return (false);
 	}
@@ -73,6 +70,8 @@ char	*get_delimeter(char **lexeme, t_ctx *ctx)
 	char	*delim;
 
 	skip_blanks(lexeme);
+	if (!**lexeme)
+		return (tok_error(*lexeme, ctx));
 	start = *lexeme;
 	end = start;
 	while (*end && !is_blank(end))

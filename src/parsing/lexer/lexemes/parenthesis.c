@@ -6,36 +6,36 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:15 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 17:18:55 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 10:55:06 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_open_parenthesis(char *lexeme)
+bool	is_open_parenthesis(char *lex)
 {
-	if (lexeme && is_eqlchar(*lexeme, '('))
+	if (lex && is_eqlchar(*lex, '('))
 		return (true);
 	return (false);
 }
 
-bool	is_close_parenthesis(char *lexeme)
+bool	is_close_parenthesis(char *lex)
 {
-	if (lexeme && is_eqlchar(*lexeme, ')'))
+	if (lex && is_eqlchar(*lex, ')'))
 		return (true);
 	return (false);
 }
 
-void	tokenize_parenthesis(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
+void	tokenize_parenthesis(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx)
 {
 	char	*start;
 	char	*end;
 	t_tok	*new;
 
-	start = *lexeme;
+	start = *lex;
 	end = start;
 	new = NULL;
 	new = init_token(start, end - start + 1, ctx);
-	add_token(new, tokens, current);
-	*lexeme = end + 1;
+	add_token(new, tok, cur);
+	*lex = end + 1;
 }

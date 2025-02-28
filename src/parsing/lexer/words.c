@@ -6,13 +6,13 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:41 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 18:35:03 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 10:57:36 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
+void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **cur, t_ctx *ctx)
 {
 	char	*start;
 	char	*end;
@@ -23,7 +23,8 @@ void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 	start = *lexeme;
 	end = start;
 	new = NULL;
-	if (!is_word_lexeme(*lexeme) && !is_double_quote(*lexeme) && !is_single_quote(*lexeme))
+	if (!is_word_lexeme(*lexeme) && !is_double_quote(*lexeme)
+		&& !is_single_quote(*lexeme))
 		return ;
 	while (*end)
 	{
@@ -35,9 +36,6 @@ void	tokenize_words(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 			end++;
 	}
 	new = init_token(start, end - start, ctx);
-	add_token(new, tokens, current);
-	if (*end)
-		*lexeme = end;
-	else
-		*lexeme = (NULL);
+	add_token(new, tokens, cur);
+	*lexeme = end;
 }

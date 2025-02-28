@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 19:00:01 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/26 17:15:27 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 10:53:20 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	is_greater(char *lexeme)
 	return (false);
 }
 
-void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
+void	tokenize_angles(char **lexeme, t_tok **tok, t_tok **cur, t_ctx *ctx)
 {
 	char	*start;
 	char	*end;
@@ -40,6 +40,6 @@ void	tokenize_angles(char **lexeme, t_tok **tokens, t_tok **current, t_ctx *ctx)
 	else if (is_greater(end + 1))
 		end++;
 	new = init_token(start, end - start + 1, ctx);
-	add_token(new, tokens, current);
+	add_token(new, tok, cur);
 	*lexeme = end + 1;
 }
