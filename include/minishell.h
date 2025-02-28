@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 14:21:08 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:51:14 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,7 @@ t_node	*rule_error(t_tok **token, t_ctx *ctx, t_node *node);
 void	*tok_error(char *lexeme, t_ctx *ctx);
 void	clean_tokens(t_tok *tok);
 void	clean_tree(t_node *node);
+void	clean_redirs(t_node **stack, int *elem);
 // -- PRINTER --
 void	print_tok(t_tok *tok);
 void	print_node(t_node *ast, int depth);

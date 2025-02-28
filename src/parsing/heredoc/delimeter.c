@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:35:04 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 11:04:09 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:01:10 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ bool	get_valid_delim(char **delim, t_ctx *ctx, t_tok **current, bool *quotes)
 	if (!*delim || is_operator(*delim))
 	{
 		tok_error(*delim, ctx);
+		free(*delim);
 		*current = NULL;
 		return (false);
 	}
