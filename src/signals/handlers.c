@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 07:59:30 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/28 03:54:37 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/28 05:23:14 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	handle_running_signal(int signum)
 
 void	handle_heredoc_signal(int signum)
 {
+	if (write(STDOUT_FILENO, "\n", 1) == ERROR)
+		error(-1, NULL, (t_m){strerror(errno)});
 	g_signal = signum;
 	close(STDIN_FILENO);
 }
