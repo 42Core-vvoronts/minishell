@@ -1,5 +1,7 @@
 ls > ./nonexist/f1
 $NONEXIST | $EMPTY && $BLANK || $NONEXIST && ""
+((((((ls))))))
+(ls && (ls) || ((ls) > "./outfiles/"))
 *
 |
 ||

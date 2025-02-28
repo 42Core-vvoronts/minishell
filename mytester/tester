@@ -36,6 +36,8 @@ else
 		"parsing"
 		"crazy"
 		"errors"
+		"syntax"
+		"os_specific"
 	)
 fi
 
