@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 10:22:33 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/28 18:24:17 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:37:43 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static	void	handle_shlvl(t_ctx *ctx)
 	free(result);
 }
 
-static	void	run(char	*statement, t_ctx *ctx)
+static	void	run(char	*statement, t_ctx	*ctx)
 {
 	t_node	node;
 	t_node	*ast;
@@ -61,6 +61,10 @@ static	void	run(char	*statement, t_ctx *ctx)
 		write(STDOUT_FILENO, "Quit\n", 5);
 	else if (g_signal == SIGINT && ast)
 		write(STDOUT_FILENO, "\n", 1);
+	clean_tree(ctx->head);
+	clean_tokens(ctx->headtok);
+	ctx->headtok = NULL;
+	ctx->head = NULL;
 }
 
 void	prompt(int argc, char **argv, char **envp)

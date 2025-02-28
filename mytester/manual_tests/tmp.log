@@ -1,0 +1,5 @@
+==19552== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==19552== Open file descriptor 3: /home/ivan/minishell/mytester/manual_tests/tmp.log
+==19552==    <inherited from parent>
+==19552== 
+==19552== 

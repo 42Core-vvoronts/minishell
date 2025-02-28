@@ -18,28 +18,3 @@
    ...
    obj:/usr/lib/x86_64-linux-gnu/libreadline.so.*
 }
-{
-   grep
-   Memcheck:Leak
-   ...
-   obj:/usr/bin/grep
-}
-{
-   cat
-   Memcheck:Leak
-   ...
-   obj:/usr/bin/cat
-}
-{
-   ls
-   Memcheck:Leak
-   ...
-   obj:/usr/bin/ls
-}
-{
-   unknown
-   Memcheck:Leak
-   ...
-   fun:???
-   ...
-}
