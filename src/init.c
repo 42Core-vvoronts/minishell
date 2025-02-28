@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/28 10:37:10 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:36:13 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ t_tok	*init_token(char *start, int len, t_ctx *ctx)
 		error(-1, ctx, (t_m){strerror(errno), NULL});
 	token->type = typify_token(token->lexeme);
 	token->next = NULL;
+	if (!ctx->headtok)
+		ctx->headtok = token;
 	return (token);
 }

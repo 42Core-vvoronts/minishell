@@ -1,6 +1,7 @@
 &
 a.out
 bash.supp
+bash_outfiles
 bonus
 bonus_bonus
 builtins
@@ -13,8 +14,10 @@ local.supp
 loop.out
 lsvicxptrvLITERAL*plain*vicxptrvaaa:
 manual_tests
+mini_outfiles
 os_specific
 outfile01
+outfiles
 parsing
 pipes
 print

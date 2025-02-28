@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 15:51:14 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:58:24 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_ctx
 	struct s_tok	*headtok;
 	bool			errlex;
 	bool			errsyn;
-} t_ctx;
+}	t_ctx;
 
 typedef struct s_node
 {
@@ -213,9 +213,9 @@ void	tokenize_ampersand(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
 void	tokenize_angles(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
 void	tokenize_quotes(char **lex, t_ctx *ctx);
 void	tokenize_heredoc(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
-void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **current);
-bool	get_valid_delim(char **delim, t_ctx *ctx, t_tok **current, bool *quotes);
-void	attach_token(char *content, t_ctx *ctx, t_tok **tokens, t_tok **current);
+void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **cur);
+bool	get_valid_delim(char **delim, t_ctx *ctx, t_tok **cur, bool *quotes);
+void	attach_token(char *content, t_ctx *ctx, t_tok **tokens, t_tok **cur);
 char	*get_delimeter(char **lexeme, t_ctx *ctx);
 void	single_string(char **end, t_ctx *ctx);
 void	double_string(char **end, t_ctx *ctx);

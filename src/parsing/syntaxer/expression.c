@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 15:51:52 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:06:26 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_node	*expression_no_group(t_tok **tok, t_ctx *ctx)
 		stack_redirs(tok, stack, &elem, ctx);
 	}
 	node = word;
-	if (ctx->errsyn == true)
+	if (ctx->errsyn == true || (*tok && is_group_open(*tok)))
 	{
 		clean_redirs(stack, &elem);
 		return (rule_error(tok, ctx, node));
