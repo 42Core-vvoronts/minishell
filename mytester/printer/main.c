@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printer.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 00:59:51 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/10 11:37:43 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 12:21:52 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,23 @@ void print_tokens(t_tok *token)
 		printf("%s: %s\n", get_name(token->type), token->lexeme);
 		token = token->next;
 	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	char	*statement;
+	t_ctx	*ctx;
+
+	(void)argc;
+	(void)argv;
+	(void)envp;
+	while (1)
+	{
+		statement = readline("minishell$ ");
+		if (!statement)
+			return (1);
+		ctx = ft_calloc(1, sizeof(t_ctx));
+		save_tree(parse(statement, ctx));
+	}
+	return (EXIT_SUCCESS);
 }

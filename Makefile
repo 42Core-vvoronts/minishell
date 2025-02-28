@@ -6,7 +6,7 @@
 #    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/27 19:53:26 by vvoronts         ###   ########.fr        #
+#    Updated: 2025/02/28 09:30:28 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -148,15 +148,6 @@ SRC 				=	\
 						pwd.c \
 						unset.c \
 
-ifeq ($(shell if [ -d tests ]; then echo yes; fi),yes)
-
-VPATH				+=	\
-						./tests/parsing/printer/:
-
-SRC					+= 	\
-						printer.c
-endif
-
 # Object and Dependency files
 OBJ					=	$(SRC:%.c=obj/%.o)
 DEP					=	$(SRC:%.c=dep/%.d)
@@ -164,16 +155,14 @@ DEP					=	$(SRC:%.c=dep/%.d)
 # Make flags
 MFLAGS				=	 --no-print-directory -C
 
-
-
 # Build all targets
-all: $(NAME)
-	@echo "$(NAME) has been built"
+all: lib $(NAME)
 
 # Link mandatory object files
-$(NAME): $(OBJ) lib
+$(NAME): $(OBJ)
 	@echo "Building $(NAME) ..."
 	@$(CC) $(OBJ) $(LIB) -o $@
+	@echo "$(NAME) has been built"
 
 # Build libraries
 lib:

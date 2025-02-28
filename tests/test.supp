@@ -1,7 +1,0 @@
-{
-   parsing
-   Memcheck:Leak
-   ...
-   fun:parse
-   ...
-}
