@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 08:56:55 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 09:56:00 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/28 03:24:02 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static	bool	is_numeric(char *str)
 		i++;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) || i > 19)
 			return (false);
 		i++;
 	}

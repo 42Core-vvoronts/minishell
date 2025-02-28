@@ -1,4 +1,5 @@
 &
+README.md
 a.out
 bash.supp
 bash_outfiles
@@ -14,11 +15,14 @@ loop.out
 lsvicxptrvLITERAL*plain*vicxptrvaaa:
 manual_tests
 mini_outfiles
+minishell
 os_specific
 outfile01
 outfiles
 parsing
 pipes
+print
+printer
 redirects
 result_tree.png
 syntax

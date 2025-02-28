@@ -21,6 +21,7 @@ echo "$"
 echo '$'
 echo $
 exit 1000000000000000000000
+cd test_files && echo inv***********on
 ls > $AMBIGUOS
 ls > "f1 123"3""
 ls > "f1 123"3\"
