@@ -1,25 +1,27 @@
 #!/bin/bash
 
-rm ../minishell
-rm ./print
-
-mv ../src/main.c ../src/main.c.orig
-cp ./printer/main.c ../src/main.c
-make --no-print-directory -C .. || exit
-mv ../minishell ../print
-mv ../print ./print
-rm ../src/main.c
-mv ../src/main.c.orig ../src/main.c
-
-make --no-print-directory -C .. fclean
-make --no-print-directory -C .. || exit
-
+if [[ "$1" == *p* && "$1" == *m* ]]; then
+	rm ./print
+	mv ../src/main.c ../src/main.c.orig
+	cp ./printer/main.c ../src/main.c
+	make --no-print-directory -C .. || exit
+	mv ../minishell ../print
+	mv ../print ./print
+	rm ../src/main.c
+	mv ../src/main.c.orig ../src/main.c
+fi
+if [[ "$1" == *m* ]]; then
+	make --no-print-directory -C .. fclean
+	make --no-print-directory -C .. || exit
+fi
 MINISHELL_PATH="../minishell"
 PRINTER_PATH="./print"
 
 
 # Run a specific test if the file name was specified
-if [[ $1 ]]; then
+if [[ "$1" == -* ]]; then
+	$($VAR)
+elif [[ -n "$1" ]]; then
 	test_lists=(
 		$1
 	)
@@ -41,9 +43,12 @@ function	debug() {
 	rm -rf ./outfiles/*
 	rm -rf ./mini_outfiles/*
 
-	echo "Prompt to debug: "
+	echo -e "${YELLOW}\nPut prompt to debug below:${RESET}"
 	read teste
-	PRINT=$(echo -e "$teste" | $PRINTER_PATH)
+	if [[ "$1" == *p* ]]; then
+		PRINT=$(echo -e "$teste" | $PRINTER_PATH)
+		echo -e "printed tree: ./result_tree.png"
+	fi
 	MINI_OUTPUT=$(echo -e "$teste" | $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS | grep -vF "$PROMPT" | $REMOVE_EXIT )
 	MINI_OUTFILES=$(ls ./outfiles 2>/dev/null)
 	TEST=$(echo -e "$teste" | $VALGRIND $MINISHELL_PATH 2> /dev/null | $REMOVE_COLORS)
@@ -69,8 +74,6 @@ function	debug() {
 	rm -rf ./outfiles
 	rm -rf ./mini_outfiles
 	rm -rf ./bash_outfiles
-	# rm -f $VALGRIND_TMP
-
 }
 
 BOLD="\e[1m"
@@ -116,8 +119,8 @@ if [ -d "$VALGRIND_TMP" ]; then
 fi
 VALGRIND="valgrind -q --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --error-limit=no --suppressions=valgrind.supp --log-file=$VALGRIND_TMP"
 
-if [[ "$1" == "-d" ]]; then
-	debug
+if [[ "$1" == *d* ]]; then
+	debug $1
 	exit
 fi
 
