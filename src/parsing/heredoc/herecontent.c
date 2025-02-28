@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:33 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 05:21:30 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:44:26 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ static char	*ft_strjoin_nl(char *content, char *line, t_ctx *ctx)
 	return (content);
 }
 
-void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **cur)
+void	tokenize_content(char **delim, t_ctx *ctx, t_tok **tokens, t_tok **cur)
 {
 	char	*content;
 	char	*line;
 	bool	quotes;
 
-	if (!get_valid_delim(&delim, ctx, cur, &quotes))
+	if (!get_valid_delim(delim, ctx, cur, &quotes))
 		return ;
 	content = ft_strdup("");
 	if (!content)
@@ -107,11 +107,10 @@ void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **cur)
 			ctx->errlex = true;
 			return ;
 		}
-		if (is_eot(line, delim, ctx))
+		if (is_eot(line, *delim, ctx))
 			break ;
 		content = ft_strjoin_nl(content, line, ctx);
 	}
 	content = add_expand_flag(content, ctx, quotes);
 	attach_token(content, ctx, tokens, cur);
-	free(delim);
 }

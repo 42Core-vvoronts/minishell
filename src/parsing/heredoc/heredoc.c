@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 09:28:07 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/28 17:28:25 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:44:47 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **cur, t_ctx *ctx)
 	*lexeme = end + 1;
 	setup_signals(IS_HEREDOC, ctx);
 	delim = get_delimeter(lexeme, ctx);
-	tokenize_content(delim, ctx, tokens, cur);
+	tokenize_content(&delim, ctx, tokens, cur);
+	free(delim);
 	setup_signals(IS_RUNNING, ctx);
 }

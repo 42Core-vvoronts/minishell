@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 17:58:24 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:45:29 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ void	tokenize_ampersand(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
 void	tokenize_angles(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
 void	tokenize_quotes(char **lex, t_ctx *ctx);
 void	tokenize_heredoc(char **lex, t_tok **tok, t_tok **cur, t_ctx *ctx);
-void	tokenize_content(char *delim, t_ctx *ctx, t_tok **tokens, t_tok **cur);
+void	tokenize_content(char **delim, t_ctx *ctx, t_tok **tokens, t_tok **cur);
 bool	get_valid_delim(char **delim, t_ctx *ctx, t_tok **cur, bool *quotes);
 void	attach_token(char *content, t_ctx *ctx, t_tok **tokens, t_tok **cur);
 char	*get_delimeter(char **lexeme, t_ctx *ctx);

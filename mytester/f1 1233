@@ -27,6 +27,8 @@ printer
 redirects
 result_tree.png
 syntax
+test.log
+test.supp
 test_files
 tester
 valgrind.supp
