@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 13:14:59 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 10:31:01 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:24:44 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ bool	is_word_token(t_tok *tok);
 void	step_forward(t_tok **tok);
 // -- CLEAN --
 char	*parserror(char *type, char *lex, int code, t_ctx *ctx);
-t_node	*rule_error(t_tok **token, t_ctx *ctx);
+t_node	*rule_error(t_tok **token, t_ctx *ctx, t_node *node);
 void	*tok_error(char *lexeme, t_ctx *ctx);
 void	clean_tokens(t_tok *tok);
 void	clean_tree(t_node *node);

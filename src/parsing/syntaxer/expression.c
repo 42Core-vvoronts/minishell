@@ -6,7 +6,7 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 18:57:12 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:28:49 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ t_node	*expression_no_group(t_tok **tok, t_ctx *ctx)
 		stack_redirs(tok, stack, &elem, ctx);
 	}
 	if (is_group_open(*tok))
-		return (rule_error(tok, ctx));
+		return (rule_error(tok, ctx, word));
 	node = word;
 	result = unfold_redirs(stack, &elem, node);
 	return (result);
@@ -125,7 +125,7 @@ t_node	*parse_expression(t_tok **tok, t_ctx *ctx)
 	if (is_group_open(*tok))
 		return (expression_with_group(tok, ctx));
 	else if (!is_redir(*tok) && is_operator((*tok)->lexeme))
-		return (rule_error(tok, ctx));
+		return (rule_error(tok, ctx, NULL));
 	else
 		return (expression_no_group(tok, ctx));
 }

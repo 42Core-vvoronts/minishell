@@ -1,0 +1,8 @@
+==167355== FILE DESCRIPTORS: 5 open (3 std) at exit.
+==167355== Open file descriptor 5: /dev/ptmx
+==167355==    <inherited from parent>
+==167355== 
+==167355== Open file descriptor 3: /home/vicxptrv/github/42Core-vvoronts/minishell/mytester/manual_tests/tmp.log
+==167355==    <inherited from parent>
+==167355== 
+==167355== 

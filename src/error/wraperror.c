@@ -6,14 +6,16 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 13:07:01 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/28 10:37:35 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/28 12:26:18 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_node	*rule_error(t_tok **token, t_ctx *ctx)
+t_node	*rule_error(t_tok **token, t_ctx *ctx, t_node *node)
 {
+	if (node)
+		clean_tree(node);
 	if (ctx->errsyn == false)
 	{
 		ctx->errsyn = true;
