@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:29:03 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 10:38:06 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/02/27 19:08:34 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_ctx(t_ctx **ctx, char **envp)
 	(*ctx)->fdin = dup(STDIN_FILENO);
 	(*ctx)->fdout = dup(STDOUT_FILENO);
 	(*ctx)->exitcode = EXIT_SUCCESS;
-	(*ctx)->lexerr = false;
+	(*ctx)->errlex = false;
 	init_envp(*ctx, envp);
 	return (SUCCESS);
 }
@@ -72,7 +72,7 @@ int	init_ctx(t_ctx **ctx, char **envp)
  * @return t_node*
  *
  */
-t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx *ctx)
+t_node	*init_node(t_tok *tok, t_node *left, t_node *right, t_ctx *ctx)
 {
     t_node *node;
 
@@ -80,8 +80,8 @@ t_node	*init_node(t_type type, char *lexeme, t_node *left, t_node *right, t_ctx 
 	if (!node)
 		error(-1, NULL, (t_m){strerror(errno), NULL});
     node->ctx = ctx;
-    node->type = type;
-    node->token = lexeme;
+    node->type = tok->type;
+    node->token = tok->lexeme;
     node->left = left;
     node->right = right;
     return node;

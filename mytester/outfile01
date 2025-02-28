@@ -1,5 +1,4 @@
 &
-README.md
 a.out
 bash.supp
 bash_outfiles
@@ -7,9 +6,12 @@ bonus
 bonus_bonus
 builtins
 crazy
+errors
 extras
+f1 1233
 local.supp
 loop.out
+lsvicxptrvLITERAL*plain*vicxptrvaaa:
 manual_tests
 mini_outfiles
 os_specific
@@ -18,6 +20,7 @@ outfiles
 parsing
 pipes
 redirects
+result_tree.png
 syntax
 test_files
 tester

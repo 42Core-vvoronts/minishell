@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+         #
+#    By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/05 17:48:31 by vvoronts          #+#    #+#              #
-#    Updated: 2025/02/27 11:46:58 by ipetrov          ###   ########.fr        #
+#    Updated: 2025/02/28 09:30:28 by vvoronts         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,9 +44,9 @@ VPATH				=	\
 						./src/execution/command/builtin:\
 						./src/parsing/:\
 						./src/parsing/heredoc/:\
-						./src/parsing/syntaxer/:\
 						./src/parsing/lexer/:\
 						./src/parsing/lexer/lexemes:\
+						./src/parsing/syntaxer/:\
 						./src/prompt/:\
 						./src/signals/:\
 						./src/test/:\
@@ -76,7 +76,10 @@ SRC 				=	\
 						handlers.c \
 						\
 						parser.c \
+						\
 						heredoc.c \
+						delimeter.c \
+						herecontent.c \
 						\
 						lexer.c \
 						words.c \
@@ -99,6 +102,7 @@ SRC 				=	\
 						pipelines.c \
 						redirections.c \
 						expression.c \
+						arguments.c \
 						\
 						evaluation.c \
 						argument.c \

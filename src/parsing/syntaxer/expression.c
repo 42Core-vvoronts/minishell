@@ -6,63 +6,19 @@
 /*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:08:06 by vvoronts          #+#    #+#             */
-/*   Updated: 2025/02/27 14:14:34 by vvoronts         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:57:12 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief Check if the token is a word
- *
- * @param tok Current token
- * @return true if the token is a word
- */
 bool	is_word_token(t_tok *tok)
 {
 	if (!tok)
 		return (0);
-    return (tok->type == ARGUMENT ||
-            tok->type == CONTENT ||
-			tok->type == FILENAME);
-}
-
-void collect_args(t_tok **tok, t_node *word, t_ctx *ctx)
-{
-	t_node	*head;
-	t_node	*tail;
-    t_node	*arg;
-	t_node	*tmp;
-
-	tail = NULL;
-	head = NULL;
-	if (!word || !*tok)
-		return ;
-	tmp = word;
-	if (tmp && tmp->left)
-		head = tmp->left;
-	tail = head;
-	while (tmp && tmp->left)
-	{
-		tail = tmp->left;
-		tmp = tmp->left;
-	}
-    while (*tok && is_word_token(*tok))
-    {
-        arg = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL, ctx);
-		step_forward(tok);
-        if (!head)
-        {
-            head = arg;
-            tail = arg;
-        }
-        else
-        {
-            tail->left = arg;
-            tail = arg;
-        }
-    }
-    word->left = head;
+	return (tok->type == ARGUMENT
+		|| tok->type == CONTENT
+		|| tok->type == FILENAME);
 }
 
 t_node	*create_word_node(t_tok **tok, t_ctx *ctx)
@@ -72,14 +28,12 @@ t_node	*create_word_node(t_tok **tok, t_ctx *ctx)
 	word = NULL;
 	if ((*tok) && is_word_token(*tok))
 	{
-		word = init_node((*tok)->type, (*tok)->lexeme, NULL, NULL, ctx);
+		word = init_node((*tok), NULL, NULL, ctx);
 		step_forward(tok);
-		return word;
+		return (word);
 	}
 	else
-	{
-		return NULL;
-	}
+		return (NULL);
 }
 
 /**
@@ -99,7 +53,7 @@ t_node	*create_word_node(t_tok **tok, t_ctx *ctx)
  * 		 / \
  * 	   ls  cat
  */
-t_node *expression_with_group(t_tok **tok, t_ctx *ctx)
+t_node	*expression_with_group(t_tok **tok, t_ctx *ctx)
 {
 	t_node	*stack[STACK_SIZE];
 	t_node	*node;
@@ -132,14 +86,14 @@ t_node *expression_with_group(t_tok **tok, t_ctx *ctx)
  *					|
  *				  "arg"
  */
-t_node *expression_no_group(t_tok **tok, t_ctx *ctx)
+t_node	*expression_no_group(t_tok **tok, t_ctx *ctx)
 {
 	t_node	*stack[STACK_SIZE];
 	t_node	*node;
 	t_node	*result;
 	t_node	*word;
 	int		elem;
-	
+
 	elem = 0;
 	stack_redirs(tok, stack, &elem, ctx);
 	word = create_word_node(tok, ctx);
@@ -148,11 +102,11 @@ t_node *expression_no_group(t_tok **tok, t_ctx *ctx)
 		collect_args(tok, word, ctx);
 		stack_redirs(tok, stack, &elem, ctx);
 	}
-	if (is_group_open(*tok)) // || is_group_close(*tok))
-		return ((t_node *)parserror("syntax", (*tok)->lexeme, 2, ctx));
-    node = word;
+	if (is_group_open(*tok))
+		return (rule_error(tok, ctx));
+	node = word;
 	result = unfold_redirs(stack, &elem, node);
-    return result;
+	return (result);
 }
 
 /**
@@ -167,11 +121,11 @@ t_node *expression_no_group(t_tok **tok, t_ctx *ctx)
 t_node	*parse_expression(t_tok **tok, t_ctx *ctx)
 {
 	if (!*tok)
-		return NULL;
+		return (NULL);
 	if (is_group_open(*tok))
 		return (expression_with_group(tok, ctx));
 	else if (!is_redir(*tok) && is_operator((*tok)->lexeme))
-		return ((t_node *)parserror("syntax", (*tok)->lexeme, 2, ctx));
+		return (rule_error(tok, ctx));
 	else
 		return (expression_no_group(tok, ctx));
 }
