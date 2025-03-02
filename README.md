@@ -91,7 +91,11 @@ Run tester:
 ### Flags 
 - Debug a specific prompt `-d`
 - Run make before testing `-m`
-- Enable output printing `p`
+- Enable output printing `-p`
+
+```sh
+./tester -dmp 
+```
 
 Sample of test:
 ![Tester](wiki/tester_example.png)
