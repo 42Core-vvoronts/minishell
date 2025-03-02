@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 07:59:30 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/28 05:23:14 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/03/02 01:54:58 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ void	handle_signal(int signum)
 void	handle_running_signal(int signum)
 {
 	g_signal = signum;
+}
+
+void	handle_running_sigpipe(int signum)
+{
+	(void)signum;
+	close(STDIN_FILENO);
 }
 
 void	handle_heredoc_signal(int signum)

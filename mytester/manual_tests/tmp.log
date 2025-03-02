@@ -1,0 +1,11 @@
+==56033== FILE DESCRIPTORS: 5 open (3 std) at exit.
+==56033== Open file descriptor 5:
+==56033==    at 0x49C993B: dup (syscall-template.S:120)
+==56033==    by 0x10975D: init_ctx (init.c:47)
+==56033==    by 0x109CBF: prompt (prompt.c:77)
+==56033==    by 0x1094F4: main (main.c:17)
+==56033== 
+==56033== Open file descriptor 3: /home/ivan/minishell/mytester/manual_tests/tmp.log
+==56033==    <inherited from parent>
+==56033== 
+==56033== 

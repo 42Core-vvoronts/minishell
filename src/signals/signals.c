@@ -6,7 +6,7 @@
 /*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 07:59:30 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 10:33:28 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/03/02 01:55:52 by ipetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ static	void	setup_running_signals(struct sigaction sa, void *ctx)
 		error(-1, ctx, (t_m){strerror(errno)});
 	sa.sa_handler = SIG_IGN;
 	if (sigaction(SIGTERM, &sa, NULL) == ERROR)
+		error(-1, ctx, (t_m){strerror(errno)});
+	sa.sa_handler = handle_running_sigpipe;
+	if (sigaction(SIGPIPE, &sa, NULL) == ERROR)
 		error(-1, ctx, (t_m){strerror(errno)});
 }
 
