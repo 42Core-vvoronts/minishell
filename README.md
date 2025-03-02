@@ -1,9 +1,10 @@
 # minishell
 
 Minishell is a minimalistic shell implementation inspired by bash.
-We divide this project into two parts:
-- Parsing @VICXPTRV
-- Execution @IVNXPTRV
+
+## Contributors  
+- **Parsing:** [VICXPTRV](https://github.com/VICXPTRV)  
+- **Execution:** [IVNXPTRV](https://github.com/IVNXPTRV)  
 
 ## Features
 
