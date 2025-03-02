@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipetrov <ipetrov@student.42bangkok.com>    +#+  +:+       +#+        */
+/*   By: vvoronts <vvoronts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 05:07:24 by ipetrov           #+#    #+#             */
-/*   Updated: 2025/02/27 10:18:09 by ipetrov          ###   ########.fr       */
+/*   Updated: 2025/03/02 09:36:08 by vvoronts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ static	bool	match_pattern(char *str, char *pattern)
 		str++;
 		pattern++;
 	}
-	return (true);
+	if (!*str && !*pattern)
+		return (true);
+	return (false);
 }
 
 //replace wildcard int 5 with asterisk *
