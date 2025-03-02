@@ -78,7 +78,7 @@ During runtime, the resulting tree is generated using Graphviz and looks like th
 
 ## Tester
 
-A lightweight tester for minishell to automate debugging, compilation, leak testing, and syntax tree visualization.
+A lightweight tester for minishell to automate debugging, compilation, leak testing, and syntax tree visualization with Graphviz.
 
 ### Usage  
 
@@ -93,9 +93,9 @@ You can also test specific cases, e.g.:
 ```
 
 ### Flags 
--`-d` → Debug a specific prompt
--`-m` → Run make before testing
--`-p` → Enable output printing
+- Debug a specific prompt `-d`
+- Run make before testing `-m`
+- Enable output printing `p`
 
 Sample of test:
 ![Tester](wiki/tester_example.png)
