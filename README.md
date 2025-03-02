@@ -73,3 +73,29 @@ For the statement:
 
 During runtime, the resulting tree is generated using Graphviz and looks like this:
 ![Result Tree](wiki/result_tree_v1.png)
+
+
+## Tester
+
+A lightweight tester for minishell to automate debugging, compilation, leak testing, and syntax tree visualization.
+
+## Usage  
+
+Run tester:
+
+```sh
+./tester 
+```
+You can also test specific cases, e.g.:
+```sh
+./tester pipes
+```
+
+## Flags
+-`-d` → Debug a specific prompt
+-`-m` → Run make before testing
+-`-p` → Enable output printing
+- Flags can be combined as needed
+
+Sample of test:
+![Tester](wiki/tester_example.png)
