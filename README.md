@@ -92,7 +92,7 @@ cd tester
 ### Flags 
 - Debug a specific prompt `-d`
 - Run make before testing `-m`
-- Enable output printing `-p`
+- Enable output printing `-p` (works only in this specific project, you can try adjust for your own: look to ./tester/printer/main.c)
 
 ```sh
 ./tester -dmp 
