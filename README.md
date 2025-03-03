@@ -86,6 +86,7 @@ Adds compilation, leak testing, and syntax tree visualization with Graphviz.
 Run tester:
 
 ```sh
+cd tester
 ./tester 
 ```
 ### Flags 
