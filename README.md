@@ -104,5 +104,5 @@ sudo apt install graphviz
 ```
 For now printer works only in this specific project, you can try adjust printer for your own: look to ./tester/printer/main.c
 
-Sample of test:
+### Sample of test:
 ![Tester](wiki/tester_example.png)
