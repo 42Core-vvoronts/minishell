@@ -92,11 +92,17 @@ cd tester
 ### Flags 
 - Debug a specific prompt `-d`
 - Run make before testing `-m`
-- Enable output printing `-p` (works only in this specific project, you can try adjust for your own: look to ./tester/printer/main.c)
+- Enable printing tree png `-p`
 
 ```sh
 ./tester -dmp 
 ```
+
+Dont forget to install [Graphviz](https://graphviz.org/download/) if you want to get png of your structure:
+```sh
+sudo apt install graphviz
+```
+For now printer works only in this specific project, you can try adjust printer for your own: look to ./tester/printer/main.c
 
 Sample of test:
 ![Tester](wiki/tester_example.png)
