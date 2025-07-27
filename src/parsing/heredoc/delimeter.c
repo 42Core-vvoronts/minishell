@@ -33,9 +33,14 @@ static size_t	get_len_bare_delim(char *delim)
 
 static bool	invalid_delim_error(char **delim, t_ctx *ctx, t_tok **current)
 {
-	tok_error(*delim, ctx);
-	free(*delim);
+	if (*delim)
+	{
+		error(2, ctx, (t_m){SYNTAX_ERROR, *delim + TOK});
+		free(*delim);
+	}
+	*delim = NULL;
 	*current = NULL;
+	ctx->errlex = true;
 	return (false);
 }
 
@@ -75,7 +80,10 @@ char	*get_delimeter(char **lexeme, t_ctx *ctx)
 
 	skip_blanks(lexeme);
 	if (!**lexeme)
-		return (tok_error(*lexeme, ctx));
+	{
+		ctx->errlex = true;
+		return (NULL);
+	}
 	start = *lexeme;
 	end = start;
 	while (*end && !is_blank(end))

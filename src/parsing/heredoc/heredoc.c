@@ -37,6 +37,11 @@ void	tokenize_heredoc(char **lexeme, t_tok **tokens, t_tok **cur, t_ctx *ctx)
 	*lexeme = end + 1;
 	setup_signals(IS_HEREDOC, ctx);
 	delim = get_delimeter(lexeme, ctx);
+	if (!delim || ctx->errlex)
+	{
+		setup_signals(IS_RUNNING, ctx);
+		return ;
+	}
 	tokenize_content(&delim, ctx, tokens, cur);
 	free(delim);
 	setup_signals(IS_RUNNING, ctx);

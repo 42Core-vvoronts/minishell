@@ -35,10 +35,12 @@ void	tokenize_angles(char **lexeme, t_tok **tok, t_tok **cur, t_ctx *ctx)
 	start = *lexeme;
 	end = start;
 	new = NULL;
-	if (is_less(end))
-		;
-	else if (is_greater(end + 1))
-		end++;
+	if (is_less(end) || is_greater(end))
+	{
+		if (*(end + 1) && ((is_less(end) && is_less(end + 1)) || 
+			(is_greater(end) && is_greater(end + 1))))
+			end++;
+	}
 	new = init_token(start, end - start + 1, ctx);
 	add_token(new, tok, cur);
 	*lexeme = end + 1;

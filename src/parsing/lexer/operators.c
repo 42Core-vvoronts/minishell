@@ -40,7 +40,15 @@ void	tokenize_operators(char **lexeme, t_tok **tok, t_tok **cur, t_ctx *ctx)
 	else if (is_less(*lexeme))
 	{
 		if (*(*lexeme + 1) && is_less(*lexeme + 1))
+		{
+			// Check for invalid '<<<' pattern
+			if (*(*lexeme + 2) && is_less(*lexeme + 2))
+			{
+				tok_error(*lexeme + 2, ctx);
+				return ;
+			}
 			tokenize_heredoc(lexeme, tok, cur, ctx);
+		}
 		else
 			tokenize_angles(lexeme, tok, cur, ctx);
 	}
